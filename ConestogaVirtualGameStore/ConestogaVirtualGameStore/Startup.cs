@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ConestogaVirtualGameStore.Data;
@@ -25,29 +20,40 @@ namespace ConestogaVirtualGameStore
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Adds services to the container
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Adds the database context using the connection string in appsettings.json
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+
+            // Adds the default identity services
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // Adds MVC to the application and forces ASP.NET Core version 2.2
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configures the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">Provides mechanisms to configure the pipeline.</param>
+        /// <param name="env">Provides environment information</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Changes the way exceptions are handled depending if the build is production/development
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -56,16 +62,18 @@ namespace ConestogaVirtualGameStore
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
+            // Standard configuration
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            // Force the application to use authentication
             app.UseAuthentication();
 
+            // Add MVC and prepare the url routes
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
