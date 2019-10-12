@@ -25,11 +25,14 @@ When you need to work on the project you will add a new branch for that specific
 
 4. To do so type: `git checkout -b <feature-name> develop` e.g. `git checkout -b add-games develop`
 
-5. Every time you add a decent amount of code and you want to save that type:
+5. Every time you add a decent amount of code type (DO THIS A LOT!!!!):
 ```
 git add .			<-- Adds all changed files
 git commit -m "Commit message"		<--	e.g. git commit -m "Added wishlist page"
 ``` 
+
+The next step should be done almost as often as you commit. 
+This way your feature is always up-to-date with github.
 
 6. To push/upload all of your commits to the remote feature branch type: `git push origin <feature-name>`
 
@@ -43,5 +46,7 @@ git push
 
 This will (hopefully) switch to develop, merge your feature branch into develop, delete your feature branch and then push all changes to develop.
 
-
+Tips: 
+`git status` will  return information on new changes.
+Mess up when creating a branch and want to remake or rename it? `git checkout develop` then `git branch -D <feature-name>`
 
