@@ -26,35 +26,35 @@ namespace ConestogaVirtualGameStore
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            // In-memory backing store for sessions
-            services.AddDistributedMemoryCache();
-
-            // Configure cookies
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            // Configure session
-            services.AddSession(options =>
-            {
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+            // In-memory backing store for sessions
+            services.AddDistributedMemoryCache();
 
             // Adds the database context using the connection string in appsettings.json
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            // Adds the default identity services
+            // Adds the identity services
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Adds MVC to the application and forces ASP.NET Core version 2.2
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Configure session
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".CVGS.Session";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         /// <summary>
@@ -79,9 +79,9 @@ namespace ConestogaVirtualGameStore
             // Standard configuration
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            // Enable cookies and session
             app.UseCookiePolicy();
+
+            // Enable sessions
             app.UseSession();
 
             // Force the application to use authentication
