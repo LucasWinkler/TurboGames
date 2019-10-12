@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConestogaVirtualGameStore.Data
@@ -11,6 +12,25 @@ namespace ConestogaVirtualGameStore.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        /// <summary>
+        /// Customizes the ASP.NET Indentity model.
+        /// </summary>
+        /// <param name="builder"></param>
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Rename the default Identity tables to simple names
+            builder.Entity<ApplicationUser>().ToTable("User");
+            builder.Entity<IdentityRole>().ToTable("Role");
+            builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
+            builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims");
+            builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
+            builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
+            builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
+            
         }
 
         // TODO: Add DbSet's for each Model.
