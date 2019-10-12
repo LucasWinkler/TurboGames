@@ -15,15 +15,15 @@ A team project for the Microsoft Enterprise (PROG3050) course at Conestoga Colle
 
 You should now have the project in your current folder.
 
-2. You can switch to different branches by typing `git checkout <branch-name>` e.g. `git checkout development`
+2. You can switch to different branches by typing `git checkout <branch-name>` e.g. `git checkout develop`
 
-You will most likely want to start in the development branch.
+You will most likely want to start in the develop branch.
 
 3. Pull the latest changes using `git pull` just incase you don't have them
 
 When you need to work on the project you will add a new branch for that specific feature
 
-4. To do so type: `git checkout -b <feature-name> development` e.g. `git checkout -b add-games development`
+4. To do so type: `git checkout -b <feature-name> develop` e.g. `git checkout -b add-games develop`
 
 5. Every time you add a decent amount of code and you want to save that type:
 ```
@@ -35,13 +35,13 @@ git commit -m "Commit message"		<--	e.g. git commit -m "Added wishlist page"
 
 7. Once you have finished creating your feature type: 
 ```
-git checkout development
+git checkout develop
 git merge --no-f <feature-name>
 git branch -d <feature-name>
 git push
 ```
 
-This will (hopefully) switch to development, merge your feature branch into development, delete your feature branch and then push all changes to development.
+This will (hopefully) switch to develop, merge your feature branch into develop, delete your feature branch and then push all changes to develop.
 
 
 
