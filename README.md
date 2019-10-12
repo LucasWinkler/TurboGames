@@ -54,13 +54,13 @@ Tips:
 `git status` will  return information on new changes.
 Mess up when creating a branch and want to remake or rename it? `git checkout develop` then `git branch -D <feature-name>`
 
-### How to work on the project
+## How to work on the project
 
-After reading the *How to get started with git* section you should know how to create your own feature branch and start commiting changes.
+After reading the *"How to get started with git"** section you should know how to create your own feature branch and start commiting changes.
 
 This section is going to be teaching you about how to actually work on the project.
 
-**Example for creating a games page*
+**Example for creating a game table with a controller and crud views**
 
 1. Create a class under Models named Game and provide it with properties that a table would have.
 
@@ -70,7 +70,7 @@ Example:
     {
         public int ID { get; set; }
         public string Title { get; set; }
-        public string developer { get; set; }
+        public string Developer { get; set; }
     }
 ```
 
