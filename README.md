@@ -23,7 +23,11 @@ You will most likely want to start in the develop branch.
 
 When you need to work on the project you will add a new branch for that specific feature
 
-4. To do so type: `git checkout -b <feature-name> develop` e.g. `git checkout -b add-games develop`
+4. To do so type: 
+```
+git checkout -b <feature-name> develop`   <-- e.g. git checkout -b add-games develop (creates new branch based on the develop branch)
+git push --set-upstream origin <feature-name>   <-- Pushes the new branch to the remote repository (github)
+```
 
 5. Every time you add a decent amount of code type (DO THIS A LOT!!!!):
 ```
