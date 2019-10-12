@@ -14,15 +14,18 @@ namespace ConestogaVirtualGameStore.Data
         {
         }
 
+        // TODO: Add DbSet's for each Model.
+
         /// <summary>
-        /// Customizes the ASP.NET Indentity model.
+        /// Configures a given entity type in the model.
+        /// Such as renaming the default table names for each model.
         /// </summary>
         /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            // Rename the default Identity tables to simple names
+            // Rename the default ASP.NET Core Identity tables to simple names
             builder.Entity<ApplicationUser>().ToTable("User");
             builder.Entity<IdentityRole>().ToTable("Role");
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
@@ -30,9 +33,6 @@ namespace ConestogaVirtualGameStore.Data
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
-            
         }
-
-        // TODO: Add DbSet's for each Model.
     }
 }

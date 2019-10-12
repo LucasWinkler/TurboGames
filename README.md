@@ -7,7 +7,7 @@ A team project for the Microsoft Enterprise (PROG3050) course at Conestoga Colle
 
 **Using:** ASP.NET Core 2.2 MVC
 
-## How to get started (for team members)
+## How to get started with git
 
 *If you already have the project cloned then skip #1*
 
@@ -54,3 +54,66 @@ Tips:
 `git status` will  return information on new changes.
 Mess up when creating a branch and want to remake or rename it? `git checkout develop` then `git branch -D <feature-name>`
 
+### How to work on the project
+
+After reading the *How to get started with git* section you should know how to create your own feature branch and start commiting changes.
+
+This section is going to be teaching you about how to actually work on the project.
+
+**Example for creating a games page*
+
+1. Create a class under Models named Game and provide it with properties that a table would have.
+
+Example:
+```
+    public class Game
+    {
+        public int ID { get; set; }
+        public string Title { get; set; }
+        public string developer { get; set; }
+    }
+```
+
+2. Create a DbSet for this model in Data/ApplicationDbContext and override the table name so it's not plural (preference)
+
+Example:
+```
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        // Database Sets
+        public DbSet<Game> Games { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Rename new tables
+            builder.Entity<Game>().ToTable("Game");
+        }
+    }
+```
+
+3. Add a migration for the new data. (Migrations create code from your models that will create the database when update-database is called)
+
+In nuget console: `Add-Migration <migration-name>` e.g. `Add-Migration AddedGameModel` It almost acts as a commit message for data.
+
+4. Update the database
+
+In nuget console: `Update-Database`
+
+You have now just created a data model and created a migration so that it can be added it to the database.
+You're now able to start creating the controllers and views for this model.
+
+5. Right click on Controllers -> Add Controllers -> MVC Controller with views, using Entity Framework
+
+Model class: Select the model in this case it's Game
+Data conetxt class: Select the database context which is ApplicationDbContext
+
+Keep the rest default so that it auto-generates CRUD views that can be changd later and click Add
+
+You just created a new table, a controller and crud views. You can now start working on the controller and views.
