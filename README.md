@@ -38,7 +38,7 @@ git commit -m "Commit message"		<--	e.g. git commit -m "Added wishlist page"
 The next step should be done almost as often as you commit. 
 This way your feature is always up-to-date with github.
 
-6. To push/upload all of your commits to the remote feature branch type: `git push origin <feature-name>`
+6. To push/upload all of your commits to the remote feature branch type: `git push <feature-name>`
 
 7. Once you have finished creating your feature type: 
 ```
@@ -48,7 +48,7 @@ git branch -d <feature-name>
 git push
 ```
 
-This will (hopefully) switch to develop, merge your feature branch into develop, delete your feature branch and then push all changes to develop.
+This will (hopefully) switch to develop, merge your feature branch into develop, delete your feature branch and then push all changes to github.
 
 Tips: 
 `git status` will  return information on new changes.
