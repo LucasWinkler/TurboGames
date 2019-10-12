@@ -26,10 +26,21 @@ namespace ConestogaVirtualGameStore
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            // In-memory backing store for sessions
+            services.AddDistributedMemoryCache();
+
+            // Configure cookies
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            // Configure session
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
             // Adds the database context using the connection string in appsettings.json
@@ -68,12 +79,15 @@ namespace ConestogaVirtualGameStore
             // Standard configuration
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // Enable cookies and session
             app.UseCookiePolicy();
+            app.UseSession();
 
             // Force the application to use authentication
             app.UseAuthentication();
 
-            // Add MVC and prepare the url routes
+            // Add MVC and prepare the routing
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
