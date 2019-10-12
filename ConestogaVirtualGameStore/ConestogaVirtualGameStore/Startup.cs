@@ -35,10 +35,10 @@ namespace ConestogaVirtualGameStore
             // In-memory backing store for sessions
             services.AddDistributedMemoryCache();
 
-            // Adds the database context using the connection string in appsettings.json
+            // Adds the database context using a connection string from appsettings.json
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("LocalDbConnection")));
 
             // Adds the identity services
             services.AddDefaultIdentity<ApplicationUser>()
@@ -46,7 +46,8 @@ namespace ConestogaVirtualGameStore
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Adds MVC to the application and forces ASP.NET Core version 2.2
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Configure session
             services.AddSession(options =>
