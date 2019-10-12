@@ -112,7 +112,8 @@ You're now able to start creating the controllers and views for this model.
 5. Right click on Controllers -> Add Controllers -> MVC Controller with views, using Entity Framework
 
 Model class: Select the model in this case it's Game
-Data conetxt class: Select the database context which is ApplicationDbContext
+
+Data context class: Select the database context which is ApplicationDbContext
 
 Keep the rest default so that it auto-generates CRUD views that can be changd later and click Add
 
