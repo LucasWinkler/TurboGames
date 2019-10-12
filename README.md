@@ -1,5 +1,5 @@
 # About
-This is the virtual game store project for Microsoft Enterprise (PROG3050) at Conestoga College. 
+A team project for the Microsoft Enterprise (PROG3050) course at Conestoga College. This is a virtual game store created in ASP.NET Core 2.2 using Model-View-Controller (MVC) and a code-first design. Created by Team TurboGames.
 
 **Team:** TurboGames
 
