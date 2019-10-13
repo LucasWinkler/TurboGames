@@ -25,7 +25,7 @@ namespace ConestogaVirtualGameStore.Data
         {
             base.OnModelCreating(builder);
 
-            // Rename the default ASP.NET Core Identity tables to simple names
+            // Rename the default ASP.NET Core Identity tables
             builder.Entity<ApplicationUser>().ToTable("User");
             builder.Entity<IdentityRole>().ToTable("Role");
             builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles");
