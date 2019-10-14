@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ConestogaVirtualGameStore.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ConestogaVirtualGameStore.Controllers
 {
