@@ -45,21 +45,9 @@ namespace ConestogaVirtualGameStore
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            /* Adds the MVC service to the application,
-             * removes Identity from account pages (/Identity/Account/Manage -> /Account/Manage),
-             * sets MVC to version 2.2
-             */
+            // Adds the MVC service and sets to version 2.2
             services.AddMvc()
-                .AddRazorPagesOptions(o => o.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Account/", model =>
-                {
-                    foreach (var selector in model.Selectors)
-                    {
-                        var attributeRouteModel = selector.AttributeRouteModel;
-                        attributeRouteModel.Order = -1;
-                        attributeRouteModel.Template = attributeRouteModel.Template.Remove(0, "Identity".Length);
-                    }
-                })
-                ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Configure session
             services.AddSession(options =>
@@ -100,7 +88,7 @@ namespace ConestogaVirtualGameStore
             // Force the application to use authentication
             app.UseAuthentication();
 
-            // Add MVC and prepare the routing
+            // Add MVC and prepare the routes
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -6,7 +6,7 @@ namespace ConestogaVirtualGameStore.Data
     /// <summary>
     /// The genders that a user may choose from.
     /// </summary>
-    public enum Gender { Other = 0, Male = 1, Female = 2 }
+    public enum Gender { Female = 0, Male = 1, Other = 2 }
 
     /// <summary>
     /// A registered/authorized user in the application.
@@ -18,7 +18,7 @@ namespace ConestogaVirtualGameStore.Data
 
         [PersonalData]
         public string LastName { get; set; }
-        
+
         [PersonalData]
         public Gender Gender { get; set; }
 

@@ -3,7 +3,7 @@ A team project for the Microsoft Enterprise (PROG3050) course at Conestoga Colle
 
 **Team:** TurboGames
 
-**Members:** Lucas W, Cam L, Xander D, and Fernando G
+**Members:** Lucas Winkler, Cameron Low, Xander Drinnan, and Fernando Guardado
 
 **Using:** ASP.NET Core 2.2 MVC
 
