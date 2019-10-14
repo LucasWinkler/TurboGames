@@ -65,7 +65,7 @@ namespace ConestogaVirtualGameStore
         /// <param name="env">Provides environment information</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // Changes the way exceptions are handled depending if the build is production/development
+            // Changes the way exceptions are handled if the build is production/development
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -94,7 +94,6 @@ namespace ConestogaVirtualGameStore
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
             });
         }
     }
