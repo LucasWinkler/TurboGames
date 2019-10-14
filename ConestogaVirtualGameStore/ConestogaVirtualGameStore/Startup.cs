@@ -67,6 +67,8 @@ namespace ConestogaVirtualGameStore
         /// <param name="env">Provides environment information</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStatusCodePagesWithReExecute("/Home/Error/", "?StatusCode={0}");
+
             // Changes the way exceptions are handled if the build is production/development
             if (env.IsDevelopment())
             {
@@ -75,36 +77,10 @@ namespace ConestogaVirtualGameStore
             }
             else
             {
-                app.UseExceptionHandler(errorApp =>
-                {
-                    errorApp.Run(async context =>
-                    {
-                        context.Response.StatusCode = 500;
-                        context.Response.ContentType = "text/html";
-
-                        await context.Response.WriteAsync("<html lang=\"en\"><body>\r\n");
-                        await context.Response.WriteAsync("ERROR!<br><br>\r\n");
-
-                        var exceptionHandlerPathFeature =
-                            context.Features.Get<IExceptionHandlerPathFeature>();
-
-                        // Use exceptionHandlerPathFeature to process the exception (for example, 
-                        // logging), but do NOT expose sensitive error information directly to 
-                        // the client.
-
-                        if (exceptionHandlerPathFeature?.Error is FileNotFoundException)
-                        {
-                            await context.Response.WriteAsync("File error thrown!<br><br>\r\n");
-                        }
-
-                        await context.Response.WriteAsync("<a href=\"/\">Home</a><br>\r\n");
-                        await context.Response.WriteAsync("</body></html>\r\n");
-                        await context.Response.WriteAsync(new string(' ', 512)); // IE padding
-                    });
-                });
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-            app.UseStatusCodePagesWithRedirects("/StatusCode?code={0}");
+       
             // Standard configuration
             app.UseHttpsRedirection();
             app.UseStaticFiles();
