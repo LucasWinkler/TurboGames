@@ -45,9 +45,21 @@ namespace ConestogaVirtualGameStore
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            // Adds MVC to the application and forces ASP.NET Core version 2.2
+            /* Adds the MVC service to the application,
+             * removes Identity from account pages (/Identity/Account/Manage -> /Account/Manage),
+             * sets MVC to version 2.2
+             */
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .AddRazorPagesOptions(o => o.Conventions.AddAreaFolderRouteModelConvention("Identity", "/Account/", model =>
+                {
+                    foreach (var selector in model.Selectors)
+                    {
+                        var attributeRouteModel = selector.AttributeRouteModel;
+                        attributeRouteModel.Order = -1;
+                        attributeRouteModel.Template = attributeRouteModel.Template.Remove(0, "Identity".Length);
+                    }
+                })
+                ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Configure session
             services.AddSession(options =>
@@ -94,6 +106,7 @@ namespace ConestogaVirtualGameStore
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
             });
         }
     }
