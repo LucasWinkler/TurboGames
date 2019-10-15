@@ -1,6 +1,7 @@
 ﻿using ConestogaVirtualGameStore.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ConestogaVirtualGameStore.Data
 {
@@ -29,6 +30,7 @@ namespace ConestogaVirtualGameStore.Data
         public DateTime DOB { get; set; }
 
         [ProtectedPersonalData]
+        [ForeignKey("AddressForeignKey")]
         public Address Address { get; set; }
     }
 }

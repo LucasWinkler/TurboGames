@@ -4,14 +4,16 @@ using ConestogaVirtualGameStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConestogaVirtualGameStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191015092645_AddedBasicBillingPage")]
+    partial class AddedBasicBillingPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<Guid?>("AddressForeignKey");
+                    b.Property<Guid?>("AddressID");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -69,7 +71,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressForeignKey");
+                    b.HasIndex("AddressID");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -84,7 +86,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.Address", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Country")
@@ -102,7 +104,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
                     b.Property<string>("SecondaryAddress");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.ToTable("Address");
                 });
@@ -225,7 +227,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                 {
                     b.HasOne("ConestogaVirtualGameStore.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressForeignKey");
+                        .HasForeignKey("AddressID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

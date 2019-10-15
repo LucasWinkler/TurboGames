@@ -1,4 +1,46 @@
-﻿@page
-@model ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage.BillingModel
+﻿@page "/Settings/Billing"
+@model BillingModel
 @{
+    ViewData["Title"] = "Billing";
+    ViewData["ActivePage"] = ManageNavPages.Billing;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="billing-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="InputAddress.PrimaryAddress"></label>
+                <input asp-for="InputAddress.PrimaryAddress" class="form-control" />
+                <span asp-validation-for="InputAddress.PrimaryAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputAddress.SecondaryAddress"></label>
+                <input asp-for="InputAddress.SecondaryAddress" class="form-control" />
+                <span asp-validation-for="InputAddress.SecondaryAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputAddress.Country"></label>
+                <input asp-for="InputAddress.Country" class="form-control" />
+                <span asp-validation-for="InputAddress.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputAddress.Province"></label>
+                <input asp-for="InputAddress.Province" class="form-control" />
+                <span asp-validation-for="InputAddress.Province" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputAddress.PostalCode"></label>
+                <input asp-for="InputAddress.PostalCode" class="form-control" />
+                <span asp-validation-for="InputAddress.PostalCode" class="text-danger"></span>
+            </div>
+            <button id="update-billing-button" type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

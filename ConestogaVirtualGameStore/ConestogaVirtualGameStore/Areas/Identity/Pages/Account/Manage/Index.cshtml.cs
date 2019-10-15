@@ -26,8 +26,6 @@ namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
             _emailSender = emailSender;
         }
 
-        public string Username { get; set; }
-
         public bool IsEmailConfirmed { get; set; }
 
         [TempData]
@@ -55,11 +53,8 @@ namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
 
             Input = new InputModel
             {

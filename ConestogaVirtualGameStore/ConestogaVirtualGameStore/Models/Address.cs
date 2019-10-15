@@ -6,24 +6,28 @@ namespace ConestogaVirtualGameStore.Models
 {
     public class Address
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [ProtectedPersonalData]
+        [DataType(DataType.Text)]
         [Display(Name = "Address")]
         public string PrimaryAddress { get; set; }
 
         [ProtectedPersonalData]
+        [DataType(DataType.Text)]
         [Display(Name = "Address 2 (optional)")]
         public string SecondaryAddress { get; set; }
 
         [Required]
         [ProtectedPersonalData]
+        [DataType(DataType.Text)]
         [Display(Name = "Country")]
         public string Country { get; set; }
 
         [Required]
         [ProtectedPersonalData]
+        [DataType(DataType.Text)]
         [Display(Name = "Province")]
         public string Province { get; set; }
 
@@ -31,6 +35,7 @@ namespace ConestogaVirtualGameStore.Models
         [ProtectedPersonalData]
         [StringLength(12, ErrorMessage = "{0} code must be between {2} and {1}.", MinimumLength = 5)]
         [RegularExpression("(^\\d{5}(-\\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\\d{1}[A-Z]{1} *\\d{1}[A-Z]{1}\\d{1}$)", ErrorMessage = "Postal/zip code is invalid.")]
+        [DataType(DataType.Text)]
         [Display(Name = "Postal/zip code")]
         public string PostalCode { get; set; }
     }

@@ -14,21 +14,14 @@ namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
 
         public ProfileModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender)
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
         }
-
-        public string Username { get; set; }
-
-        public bool IsEmailConfirmed { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -71,10 +64,6 @@ namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            var userName = await _userManager.GetUserNameAsync(user);
-
-            Username = userName;
-
             Input = new InputModel
             {
                 FirstName = user.FirstName,
@@ -83,8 +72,6 @@ namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
                 DOB = user.DOB,
                 Gender = user.Gender
             };
-
-            IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
 
             return Page();
         }

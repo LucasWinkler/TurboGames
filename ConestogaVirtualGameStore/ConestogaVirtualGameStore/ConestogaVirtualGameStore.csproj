@@ -8,6 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20191015084413_AddedBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015084413_AddedBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015084533_AddedBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015084533_AddedBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015085442_AddedBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015085442_AddedBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015090059_AddedAddressModel.cs" />
+    <Compile Remove="Data\Migrations\20191015090059_AddedAddressModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015113228_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015113228_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015113846_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015113846_AddBillingPage.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
