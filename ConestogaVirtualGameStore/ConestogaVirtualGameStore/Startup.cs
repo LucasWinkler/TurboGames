@@ -8,8 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using ConestogaVirtualGameStore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Diagnostics;
-using System.IO;
 
 namespace ConestogaVirtualGameStore
 {

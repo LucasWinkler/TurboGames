@@ -10,6 +10,8 @@ namespace ConestogaVirtualGameStore.Data
 
     /// <summary>
     /// A registered/authorized user in the application.
+    /// Inherits from IdentityUser so this class is mostly
+    /// for additional user properties.
     /// </summary>
     public class ApplicationUser : IdentityUser
     {
