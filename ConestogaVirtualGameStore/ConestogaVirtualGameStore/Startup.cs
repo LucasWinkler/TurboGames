@@ -65,9 +65,10 @@ namespace ConestogaVirtualGameStore
         /// <param name="env">Provides environment information</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Redirects to the error page and displays the status code when there is an exception
             app.UseStatusCodePagesWithReExecute("/Home/Error/", "?StatusCode={0}");
 
-            // Changes the way exceptions are handled if the build is production/development
+            // Changes the way exceptions are handled in production and development
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -78,7 +79,7 @@ namespace ConestogaVirtualGameStore
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-       
+
             // Standard configuration
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -90,7 +91,7 @@ namespace ConestogaVirtualGameStore
             // Force the application to use authentication
             app.UseAuthentication();
 
-            // Add MVC and prepare the routes
+            // Add MVC and prepare the default routing
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

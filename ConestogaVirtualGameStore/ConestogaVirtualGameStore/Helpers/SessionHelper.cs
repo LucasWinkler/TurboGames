@@ -2,13 +2,13 @@
 using Newtonsoft.Json;
 using System;
 
-namespace ConestogaVirtualGameStore.Utils
+namespace ConestogaVirtualGameStore.Helpers
 {
     /// <summary>
-    /// Session extension that allows storing of complex objects using JsonConvert
-    /// to convert/serialize the specified object to a JSON string and BitConverter.
+    /// Session helper that allows storing of complex objects using JsonConvert
+    /// and BitConverter to convert/serialize the specified object.
     /// </summary>
-    public static class SessionExtensions
+    public static class SessionHelper
     {
         /// <summary>
         /// Sets a complex session object
