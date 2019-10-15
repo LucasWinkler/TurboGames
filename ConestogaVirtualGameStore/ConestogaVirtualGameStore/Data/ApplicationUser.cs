@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ConestogaVirtualGameStore.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 
 namespace ConestogaVirtualGameStore.Data
@@ -26,5 +27,8 @@ namespace ConestogaVirtualGameStore.Data
 
         [PersonalData]
         public DateTime DOB { get; set; }
+
+        [ProtectedPersonalData]
+        public Address Address { get; set; }
     }
 }

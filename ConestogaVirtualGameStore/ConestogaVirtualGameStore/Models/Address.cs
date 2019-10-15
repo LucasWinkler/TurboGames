@@ -10,11 +10,11 @@ namespace ConestogaVirtualGameStore.Models
 
         [Required]
         [ProtectedPersonalData]
-        [Display(Name = "Primary address")]
+        [Display(Name = "Address")]
         public string PrimaryAddress { get; set; }
 
         [ProtectedPersonalData]
-        [Display(Name = "Secondary address")]
+        [Display(Name = "Address 2 (optional)")]
         public string SecondaryAddress { get; set; }
 
         [Required]
@@ -29,7 +29,7 @@ namespace ConestogaVirtualGameStore.Models
 
         [Required]
         [ProtectedPersonalData]
-        [StringLength(10, ErrorMessage = "{0} code must be between {2} and {1}.", MinimumLength = 5)]
+        [StringLength(12, ErrorMessage = "{0} code must be between {2} and {1}.", MinimumLength = 5)]
         [RegularExpression("(^\\d{5}(-\\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\\d{1}[A-Z]{1} *\\d{1}[A-Z]{1}\\d{1}$)", ErrorMessage = "Postal/zip code is invalid.")]
         [Display(Name = "Postal/zip code")]
         public string PostalCode { get; set; }
