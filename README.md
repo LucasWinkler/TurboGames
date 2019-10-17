@@ -5,11 +5,9 @@ A team project for the Microsoft Enterprise (PROG3050) course at Conestoga Colle
 
 **Members:** Lucas Winkler, Cameron Low, Xander Drinnan, and Fernando Guardado
 
-**Using:** ASP.NET Core 2.2 MVC
+**Using:** ASP.NET Core 2.2
 
 ## How to get started with git
-
-*If you already have the project cloned then skip #1*
 
 1. Open git bash in your current folder and paste: `git clone git@github.com:LucasWinkler/TurboGames-ConestogaVirtualGameStore.git`
 
