@@ -38,7 +38,7 @@ namespace ConestogaVirtualGameStore
             // Adds the database context using a connection string from appsettings.json
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("LocalDbConnection")));
+                    Configuration.GetConnectionString("SchoolDbConnection")));
 
             // Adds the identity services
             services.AddDefaultIdentity<ApplicationUser>()
