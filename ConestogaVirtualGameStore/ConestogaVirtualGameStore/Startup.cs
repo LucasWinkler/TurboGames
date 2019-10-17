@@ -43,7 +43,8 @@ namespace ConestogaVirtualGameStore
             // Adds the identity services
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             // Adds the MVC service and sets to version 2.2
             services.AddMvc()

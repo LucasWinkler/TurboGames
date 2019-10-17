@@ -5,12 +5,13 @@
     ViewData["ActivePage"] = ManageNavPages.Billing;
 }
 
-<h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">
         <form id="billing-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
+            <h3>Address</h3>
+            <hr class="my-4" />
             <div class="form-group">
                 <label asp-for="InputAddress.PrimaryAddress"></label>
                 <input asp-for="InputAddress.PrimaryAddress" class="form-control" />
@@ -35,6 +36,27 @@
                 <label asp-for="InputAddress.PostalCode"></label>
                 <input asp-for="InputAddress.PostalCode" class="form-control" />
                 <span asp-validation-for="InputAddress.PostalCode" class="text-danger"></span>
+            </div>
+
+            <br />
+
+            <h3>Payment Info</h3>
+            <hr class="my-4" />
+
+            <div class="form-group">
+                <label asp-for="InputPayment.CardName"></label>
+                <input asp-for="InputPayment.CardName" class="form-control" />
+                <span asp-validation-for="InputPayment.CardName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputPayment.CardNumber"></label>
+                <input asp-for="InputPayment.CardNumber" class="form-control" />
+                <span asp-validation-for="InputPayment.CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputPayment.CardExpirationDate"></label>
+                <input asp-for="InputPayment.CardExpirationDate" class="form-control" />
+                <span asp-validation-for="InputPayment.CardExpirationDate" class="text-danger"></span>
             </div>
             <button id="update-billing-button" type="submit" class="btn btn-primary">Save</button>
         </form>

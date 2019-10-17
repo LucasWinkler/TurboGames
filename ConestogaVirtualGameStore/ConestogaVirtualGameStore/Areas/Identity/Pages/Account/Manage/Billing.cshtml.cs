@@ -1,11 +1,14 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using ConestogaVirtualGameStore.Data;
+using ConestogaVirtualGameStore.Helpers;
 using ConestogaVirtualGameStore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
 {
@@ -28,8 +31,8 @@ namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public Address InputAddress { get; set; }
 
-        //[BindProperty]
-        //public Payment PaymentInput { get; set; }
+        [BindProperty]
+        public Payment InputPayment { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -42,23 +45,33 @@ namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-
-
-            Debug.WriteLine("---> "+user.Address.Id);
-            if (user.Address == null)
+            if (user.AddressId != null)
             {
-                return Page();
+                var address = await _context.Addresses.SingleOrDefaultAsync(x => x.Id == user.AddressId);
+
+                InputAddress = new Address
+                {
+                    PrimaryAddress = address.PrimaryAddress,
+                    SecondaryAddress = address.SecondaryAddress,
+                    Country = address.Country,
+                    Province = address.Province,
+                    PostalCode = address.PostalCode
+                };
             }
-
-            InputAddress = new Address
+            
+            if (user.PaymentId != null)
             {
-                PrimaryAddress = user.Address.PrimaryAddress,
-                SecondaryAddress = user.Address.SecondaryAddress,
-                Country = user.Address.Country,
-                Province = user.Address.Province,
-                PostalCode = user.Address.PostalCode
-            };
+                var payment = await _context.Payments.SingleOrDefaultAsync(x => x.Id == user.PaymentId);
 
+                InputPayment = new Payment
+                {
+                    CardName = payment.CardName,
+                    CardNumber = payment.CardNumber,
+                    CardType = payment.CardType,
+                    CardExpirationDate = payment.CardExpirationDate
+                };
+            }
+            
             return Page();
         }
 
@@ -77,8 +90,27 @@ namespace ConestogaVirtualGameStore.Areas.Identity.Pages.Account.Manage
 
             try
             {
-                user.Address = InputAddress;
-                _context.Address.Add(InputAddress);
+                var address = new Address
+                {
+                    PrimaryAddress = InputAddress.PrimaryAddress,
+                    SecondaryAddress = InputAddress.SecondaryAddress,
+                    Country = InputAddress.Country,
+                    Province = InputAddress.Province,
+                    PostalCode = InputAddress.PostalCode
+                };
+                _context.Addresses.Add(address);
+
+                var payment = new Payment
+                {
+                    CardName = InputPayment.CardName,
+                    CardType = PaymentHelper.GetType(InputPayment.CardNumber).ToString(),
+                    CardNumber = InputPayment.CardNumber,
+                    CardExpirationDate = InputPayment.CardExpirationDate
+                };
+                _context.Payments.Add(payment);
+
+                user.AddressId = address.Id;
+                user.PaymentId = payment.Id;
 
                 await _context.SaveChangesAsync();
                 await _userManager.UpdateAsync(user);

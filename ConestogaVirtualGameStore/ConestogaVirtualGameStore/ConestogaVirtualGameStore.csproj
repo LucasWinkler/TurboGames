@@ -20,6 +20,32 @@
     <Compile Remove="Data\Migrations\20191015113228_AddBillingPage.Designer.cs" />
     <Compile Remove="Data\Migrations\20191015113846_AddBillingPage.cs" />
     <Compile Remove="Data\Migrations\20191015113846_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017165237_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017165237_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017171152_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017171152_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017173745_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017173745_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017174349_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017174349_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017175015_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017175015_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017180208_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017180208_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017180437_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017180437_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017184206_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017184206_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017184426_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017184426_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017185149_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017185149_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017185626_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017185626_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017185925_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017185925_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017193407_AddPaymentModel.cs" />
+    <Compile Remove="Data\Migrations\20191017193407_AddPaymentModel.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

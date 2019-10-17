@@ -15,8 +15,9 @@ namespace ConestogaVirtualGameStore.Data
         {
         }
 
-        // TODO: Add DbSet's for each Model.
-        public DbSet<Address> Address { get; set; }
+        // DbSets for each model
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         /// <summary>
         /// Configures a given entity type in the model.
@@ -37,7 +38,8 @@ namespace ConestogaVirtualGameStore.Data
             builder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
 
             // Rename the new tables
-            builder.Entity<Address>().ToTable("Address").HasKey(p => p.Id);
+            builder.Entity<Address>().ToTable("Address");
+            builder.Entity<Payment>().ToTable("Payment");
         }
     }
 }

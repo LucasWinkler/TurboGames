@@ -26,7 +26,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<Guid?>("AddressForeignKey");
+                    b.Property<Guid?>("AddressId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -56,6 +56,8 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
                     b.Property<string>("PasswordHash");
 
+                    b.Property<Guid?>("PaymentId");
+
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
@@ -69,7 +71,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressForeignKey");
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -78,6 +80,8 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("PaymentId");
 
                     b.ToTable("User");
                 });
@@ -105,6 +109,26 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("ConestogaVirtualGameStore.Models.Payment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CardExpirationDate");
+
+                    b.Property<string>("CardName")
+                        .IsRequired();
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired();
+
+                    b.Property<string>("CardType");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -225,7 +249,11 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                 {
                     b.HasOne("ConestogaVirtualGameStore.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressForeignKey");
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("ConestogaVirtualGameStore.Models.Payment", "Payment")
+                        .WithMany()
+                        .HasForeignKey("PaymentId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

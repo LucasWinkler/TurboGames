@@ -29,8 +29,14 @@ namespace ConestogaVirtualGameStore.Data
         [PersonalData]
         public DateTime DOB { get; set; }
 
-        [ProtectedPersonalData]
-        [ForeignKey("AddressForeignKey")]
+        public Guid? AddressId { get; set; }
+
+        [ForeignKey("AddressId")]
         public Address Address { get; set; }
+
+        public Guid? PaymentId { get; set; }
+
+        [ForeignKey("PaymentId")]
+        public Payment Payment { get; set; }
     }
 }

@@ -6,6 +6,8 @@ namespace ConestogaVirtualGameStore.Models
 {
     public class Address
     {
+        [Key]
+        [Required]
         public Guid Id { get; set; }
 
         [Required]
