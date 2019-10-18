@@ -44,6 +44,7 @@ namespace ConestogaVirtualGameStore
             services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             // Adds the MVC service and sets to version 2.2

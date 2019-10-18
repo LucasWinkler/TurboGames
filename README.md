@@ -52,12 +52,12 @@ It uses Razor Pages, MS SQL Server and a code-first design.
     <tr>
       <td>Production</td>
       <td>master</td>
-      <td>Accepts merges from the development branch. We will merge to production at the end of each iteration.</td>
+      <td>Accepts merges from the development branch. We will merge to this branch at the end of each iteration.</td>
     </tr>
     <tr>
       <td>Development</td>
       <td>develop</td>
-      <td>Accepts merges from feature branches.</td>
+      <td>Accepts merges from feature branches. This is the branch with the latest features.</td>
     </tr>
     <tr>
       <td>Features</td>
