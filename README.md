@@ -31,7 +31,7 @@ It uses Razor Pages, MS SQL Server and a code-first design.
       <td>https://github.com/xanderdrinnan</td>
     </tr>
 	 <tr>
-      <td>Frontend Develope</td>
+      <td>Frontend Developer</td>
       <td>Fernando Guardado</td>
       <td>https://github.com/FernandoGuardado1998</td>
     </tr>
