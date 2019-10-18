@@ -36,7 +36,7 @@ namespace ConestogaVirtualGameStore.Data
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogin");
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaim");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserToken");
-
+            
             // Rename the new tables
             builder.Entity<Address>().ToTable("Address");
             builder.Entity<Payment>().ToTable("Payment");

@@ -41,10 +41,10 @@ namespace ConestogaVirtualGameStore
                     Configuration.GetConnectionString("LocalDbConnection")));
 
             // Adds the identity services
-            services.AddDefaultIdentity<ApplicationUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             // Adds the MVC service and sets to version 2.2
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
