@@ -1,81 +1,215 @@
-# About
-A team project for the Microsoft Enterprise (PROG3050) course at Conestoga College. This is a virtual game store created in ASP.NET Core 2.2 using Model-View-Controller (MVC) and a code-first design. Created by Team TurboGames.
+# About Conestoga Virtual Game Store
 
-**Team:** TurboGames
+A team project for the PROG3050 Microsoft Enterprise course at Conestoga College. 
+This project is a virtual game store created in ASP.NET Core 2.2.
+It uses Razor Pages, MS SQL Server and a code-first design.
 
-**Members:** Lucas Winkler, Cameron Low, Xander Drinnan, and Fernando Guardado
+## Team TurboGames
 
-**Using:** ASP.NET Core 2.2
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Name</th>
+      <th>GitHub</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Project Manager</td>
+      <td>Cameron Low</td>
+      <td>https://github.com/Clow8128</td>
+    </tr>
+    <tr>
+      <td>Backend Developer</td>
+      <td>Lucas Winkler</td>
+      <td>https://github.com/LucasWinkler</td>
+    </tr>
+    <tr>
+      <td>Database Developer</td>
+      <td>Xander Drinnan</td>
+      <td>https://github.com/xanderdrinnan</td>
+    </tr>
+	 <tr>
+      <td>Frontend Develope</td>
+      <td>Fernando Guardado</td>
+      <td>https://github.com/FernandoGuardado1998</td>
+    </tr>
+  </tbody>
+</table>
 
-## How to get started with git
+## Branch Legend
 
-1. Open git bash in your current folder and paste: `git clone git@github.com:LucasWinkler/TurboGames-ConestogaVirtualGameStore.git`
+<table>
+  <thead>
+    <tr>
+      <th>Instance</th>
+      <th>Branch</th>
+      <th>Descriptions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Production</td>
+      <td>master</td>
+      <td>Accepts merges from the development branch. We will merge to production at the end of each iteration.</td>
+    </tr>
+    <tr>
+      <td>Development</td>
+      <td>develop</td>
+      <td>Accepts merges from feature branches.</td>
+    </tr>
+    <tr>
+      <td>Features</td>
+      <td>feature-*</td>
+      <td>Work on your assigned task in a feature branch. Always branched off from develop.</td>
+    </tr>
+  </tbody>
+</table>
 
-You should now have the project in your current folder.
+## Main Branches
 
-2. You can switch to different branches by typing `git checkout <branch-name>` e.g. `git checkout develop`
+Our repository has two main branches:
 
-You will most likely want to start in the develop branch.
+* `develop`
+* `master`
 
-3. Pull the latest changes using `git pull` just incase you don't have them
+The main branch that you will be working off of is `develop`. You don't work directly with it. You branch off of it with a feature branch.
 
-When you need to work on the project you will add a new branch for that specific feature
+The `master` branch is for production. This branch is never to be touched. It will be merged with `develop` at the end of iterations and that is what we will present. 
 
-4. To do so type: 
+### Feature Branches
+
+Feature branches are used when developing a new feature. It will always be merged back into the `develop` branch.
+
+An example of `<feature-name>` could be `friends-page` so `feature-fiends-page` or it could be the use case id.
+
+* Must branch from: `develop`
+* Must merge back into: `develop`
+* Branch naming convention: `feature-<feature-name>`
+
+#### Working with a feature branch
+
+If the feature branch does not exist yet, create the branch locally and then push to GitHub. 
+
 ```
-git checkout -b <feature-name> develop    <-- e.g. git checkout -b add-games develop (creates new branch based on the develop branch)
-git push --set-upstream origin <feature-name>   <-- Pushes the new branch to the remote repository (github)
+$ git checkout -b feature-<feature-name> develop                // creates a local branch for the new feature
+$ git push origin feature-<feature-name>                        // makes the new feature remotely available                   
 ```
 
-5. Every time you add a decent amount of code type (DO THIS A LOT!!!!):
+Constantly commit your changes to your branch. This way you can always keep track of your feature and you can always look back at previous commits.
+
 ```
-git add .			<-- Adds all changed files
-git commit -m "Commit message"		<--	e.g. git commit -m "Added wishlist page"
-``` 
-
-The next step should be done almost as often as you commit. 
-This way your feature is always up-to-date with github.
-
-6. To push/upload all of your commits to the remote feature branch type: `git push <feature-name>`
-
-7. Once you have finished creating your feature type: 
-```
-git checkout develop
-git merge --no-f <feature-name>
-git branch -d <feature-name>
-git push
+$ git add .														// Add all new/changed files
+$ git commit -m "Enter commit message here"						// e.g. Added friends page, fixed this, added that etc...
 ```
 
-This will (hopefully) switch to develop, merge your feature branch into develop, delete your feature branch and then push all changes to github.
+You should always push these commits to the remote repository (GitHub) so that anyone can see your latest changes.
 
-Tips: 
-`git status` will  return information on new changes.
-Mess up when creating a branch and want to remake or rename it? `git checkout develop` then `git branch -D <feature-name>`
-
-## How to work on the project
-
-After reading the *"How to get started with git"** section you should know how to create your own feature branch and start commiting changes.
-
-This section is going to be teaching you about how to actually work on the project.
-
-**Example for creating a game table with a controller and crud views**
-
-1. Create a class under Models named Game and provide it with properties that a table would have.
-
-Example:
 ```
-    public class Game
+$ git push
+```
+
+If any changes have been made to `develop` (you should be told when this happens) after you have created your branch then you must must merge `develop` back into your feature branch.
+This will get the latest changes and merge them wih your feature so that everyone is up-to-date. It also helps merge conflicts later on.
+
+```
+$ git merge develop                                 // merges changes from develop into your feature branch
+```
+
+When a feature is complete let Lucas know and he will merge your feature into `develop` and then delete the feature branch.
+
+```
+$ git checkout develop                              // change to the develop branch  
+$ git merge --no-ff feature-<feature-name>          // the --no-ff makes sure to create a commit during merge
+$ git push origin develop                           // push merge changes
+$ git push origin :feature-<feature-name>           // deletes the remote branch
+```
+
+## Razor Pages
+
+Razor Pages is similar to MVC it just looks a little different but in the end it can be more organized
+
+MVC contains a folder for the Models, Views and Controllers.
+Razor Pages contains a folder for the Models, and a folder for the area of the website such as Account and within that folder will be it's Index.cshtml and any other pages related to Account.
+
+A Razor Page is made up by a .cshtml which is the page/view and a .cshtml.cs with is the page model/controller.
+
+Ask Lucas for help on how to get started with Razor Pages.
+
+## Models and DbContext
+
+In order to create a new table in the database you must create a Model which "models" that table and a DbSet for that model in DbContext.
+
+### Creating a Model
+
+Create a new class in the Models folder and give it a name. This will be the name of the table.
+
+Inside the class you define each of the fields including any primary keys or foreign keys.
+
+Here is an example from our Address table:
+
+```cs
+ public class Address
     {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string Developer { get; set; }
+        [Key]
+        [Required]
+        public Guid Id { get; set; }
+
+        [Required]
+        [ProtectedPersonalData]
+        [DataType(DataType.Text)]
+        [Display(Name = "Address")]
+        public string PrimaryAddress { get; set; }
+
+        [ProtectedPersonalData]
+        [DataType(DataType.Text)]
+        [Display(Name = "Address 2 (optional)")]
+        public string SecondaryAddress { get; set; }
+
+        [Required]
+        [ProtectedPersonalData]
+        [DataType(DataType.Text)]
+        [Display(Name = "Country")]
+        public string Country { get; set; }
+
+        [Required]
+        [ProtectedPersonalData]
+        [DataType(DataType.Text)]
+        [Display(Name = "Province")]
+        public string Province { get; set; }
+
+        [Required]
+        [ProtectedPersonalData]
+        [StringLength(12, ErrorMessage = "{0} code must be between {2} and {1}.", MinimumLength = 5)]
+        [RegularExpression("(^\\d{5}(-\\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\\d{1}[A-Z]{1} *\\d{1}[A-Z]{1}\\d{1}$)", ErrorMessage = "Postal/zip code is invalid.")]
+        [DataType(DataType.Text)]
+        [Display(Name = "Postal/zip code")]
+        public string PostalCode { get; set; }
     }
 ```
 
-2. Create a DbSet for this model in Data/ApplicationDbContext and override the table name so it's not plural (preference)
+To let each User have an address you would need to go into the Data/ApplicationUser class and add a AddressId as well as the Address model.
 
-Example:
+Example with an optional address (because of the `?` next to `Guid`):
+
+```cs
+    public class ApplicationUser : IdentityUser
+    {
+        public Guid? AddressId { get; set; }
+
+        [ForeignKey("AddressId")]
+        public Address Address { get; set; }
+    }
 ```
+
+### Adding the Model to the DbContext
+
+In order to get a list of all addresses you must include them in the DbContext. Ours is called ApplicationDbContext and it is in the Data folder.
+
+To include the list of addresses you will create a DbSet of the Model. You can also rename the table to singular names as shown in this example:
+
+```cs
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -83,36 +217,57 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         {
         }
 
-        // Database Sets
-        public DbSet<Game> Games { get; set; }
+        // DbSets for each model
+        public DbSet<Address> Addresses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            // Rename new tables
-            builder.Entity<Game>().ToTable("Game");
+            // Rename the new address table
+            builder.Entity<Address>().ToTable("Address");
         }
-    }
 ```
 
-3. Add a migration for the new data. (Migrations create code from your models that will create the database when update-database is called)
+## Mirations
 
-In nuget console: `Add-Migration <migration-name>` e.g. `Add-Migration AddedGameModel` It almost acts as a commit message for data.
+Migrations are what converts your Models and DbSets into code that has the ability to create the database.
+When you create a migration it will look for any Models and DbSets inlcuding any changes to them.
+This allows us to easily add to the database.
 
-4. Update the database
+### Adding migrations
 
-In nuget console: `Update-Database`
+In order to add a migration you must type this command in the nuget console
 
-You have now just created a data model and created a migration so that it can be added it to the database.
-You're now able to start creating the controllers and views for this model.
+`<migration-name>` could be AddedGameModel
 
-5. Right click on Controllers -> Add Controllers -> MVC Controller with views, using Entity Framework
+```
+add-migration <migration-name>
+```
 
-Model class: Select the model in this case it's Game
+### Creating/updating the database from the migrations
 
-Data context class: Select the database context which is ApplicationDbContext
+To create or update the database you must use
 
-Keep the rest default so that it auto-generates CRUD views that can be changd later and click Add
+```
+update-database
+```
 
-You just created a new table, a controller and crud views. You can now start working on the controller and views.
+This command will call the `.Up();` method from all of the migrations. 
+The migrations will then create the database and the tables. It will also update if the database as already been made and if there's no conflicts.
+
+### Removing migrations.
+
+If you want to remove the migrations to rename it or just revert any changes you must delete the database from the SQL object window and then type:
+
+```
+remove-migration
+```
+
+If you're unable to remove it with that command you can manually delete the migration.
+
+## Extra Help
+
+There will definitely be questions as this doesn't explain nearly enough. It will explain Git well but not the project itself. 
+
+Please ask for help when needed.
