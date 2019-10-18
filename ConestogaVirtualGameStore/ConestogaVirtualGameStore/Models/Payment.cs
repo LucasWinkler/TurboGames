@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConestogaVirtualGameStore.Models
 {
@@ -19,6 +16,7 @@ namespace ConestogaVirtualGameStore.Models
         [Display(Name = "Card name")]
         public string CardName { get; set; }
 
+        [ProtectedPersonalData]
         [DataType(DataType.Text)]
         [Display(Name = "Card type")]
         public string CardType { get; set; }
