@@ -38,7 +38,7 @@ namespace ConestogaVirtualGameStore
             // Adds the database context using a connection string from appsettings.json
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("SchoolDbConnection")));
+                    Configuration.GetConnectionString("LocalDbConnection")));
 
             // Adds the identity services
             services.AddDefaultIdentity<ApplicationUser>()
@@ -47,8 +47,7 @@ namespace ConestogaVirtualGameStore
                 .AddDefaultTokenProviders();
 
             // Adds the MVC service and sets to version 2.2
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Configure session
             services.AddSession(options =>
@@ -67,7 +66,7 @@ namespace ConestogaVirtualGameStore
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             // Redirects to the error page and displays the status code when there is an exception
-            app.UseStatusCodePagesWithReExecute("/Home/Error/", "?StatusCode={0}");
+            app.UseStatusCodePagesWithReExecute("/StatusCode", "?code={0}");
 
             // Changes the way exceptions are handled in production and development
             if (env.IsDevelopment())
@@ -77,7 +76,7 @@ namespace ConestogaVirtualGameStore
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
 
@@ -92,13 +91,8 @@ namespace ConestogaVirtualGameStore
             // Force the application to use authentication
             app.UseAuthentication();
 
-            // Add MVC and prepare the default routing
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            // Add MVC
+            app.UseMvc();
         }
     }
 }

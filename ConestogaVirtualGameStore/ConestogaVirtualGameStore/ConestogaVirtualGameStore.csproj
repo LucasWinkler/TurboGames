@@ -55,4 +55,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Games\Library\" />
+    <Folder Include="Pages\Games\Store\" />
+    <Folder Include="Pages\Administration\" />
+    <Folder Include="Pages\Friends_Family\" />
+    <Folder Include="Pages\Events\" />
+    <Folder Include="Pages\Profile\" />
+    <Folder Include="Pages\Wishlist\" />
+  </ItemGroup>
+
 </Project>
