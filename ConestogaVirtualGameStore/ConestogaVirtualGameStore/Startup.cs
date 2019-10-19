@@ -56,7 +56,10 @@ namespace ConestogaVirtualGameStore
                 .AddDefaultTokenProviders();
 
             // Adds the MVC service and sets to version 2.2
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute("/Home/Index", "");
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // Configure session
             services.AddSession(options =>
