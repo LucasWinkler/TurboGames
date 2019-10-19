@@ -1,4 +1,4 @@
-# About Conestoga Virtual Game Store
+# About
 
 A team project for the PROG3050 Microsoft Enterprise course at Conestoga College. 
 This project is a virtual game store created in ASP.NET Core 2.2.
@@ -100,8 +100,8 @@ $ git push origin feature-<feature-name>         	// makes the new feature remot
 Constantly commit your changes to your branch. This way you can always keep track of your feature and you can always look back at previous commits.
 
 ```
-$ git add .											// Add all new/changed files
-$ git commit -m "Enter commit message here"			// e.g. Added friends page, fixed this, added that etc...
+$ git add .                                         // Add all new/changed files
+$ git commit -m "Enter commit message here"         // e.g. Added friends page, fixed this, added that etc...
 ```
 
 You should always push these commits to the remote repository (GitHub) so that anyone can see your latest changes.
@@ -110,8 +110,8 @@ You should always push these commits to the remote repository (GitHub) so that a
 $ git push
 ```
 
-If any changes have been made to `develop` (you should be told when this happens) after you have created your branch then you must must merge `develop` back into your feature branch.
-This will get the latest changes and merge them wih your feature so that everyone is up-to-date. It also helps merge conflicts later on.
+If any changes have been made to `develop` (you should be told when this happens) after you have created your branch then you must merge `develop` back into your feature branch.
+This will get the latest changes and merge them wih your feature so that everyone is up-to-date. It also helps with merge conflicts later on.
 
 ```
 $ git merge develop									// merges changes from develop into your feature branch
@@ -135,7 +135,7 @@ Razor Pages contains a folder for the Models, and a folder for the area of the w
 
 A Razor Page is made up by a .cshtml which is the page/view and a .cshtml.cs with is the page model/controller.
 
-Ask Lucas for help on how to get started with Razor Pages.
+You will need to see it because it's hard to explain without showing you.
 
 ## Models and DbContext
 
@@ -258,7 +258,7 @@ The migrations will then create the database and the tables. It will also update
 
 ### Removing migrations.
 
-If you want to remove the migrations to rename it or just revert any changes you must delete the database from the SQL object window and then type:
+If you want to remove the migrations to rename them or just revert any changes you must delete the database from the SQL object window and then type:
 
 ```
 remove-migration
