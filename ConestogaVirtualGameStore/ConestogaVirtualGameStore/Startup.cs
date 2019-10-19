@@ -77,8 +77,7 @@ namespace ConestogaVirtualGameStore
         /// <param name="env">Provides environment information</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // Redirects to the error page and displays the status code when there is an exception
-            app.UseStatusCodePagesWithReExecute("/StatusCode", "?code={0}");
+            app.UseStatusCodePagesWithReExecute("/Error/StatusCode", "?code={0}");
 
             // Changes the way exceptions are handled in production and development
             if (env.IsDevelopment())
@@ -88,7 +87,7 @@ namespace ConestogaVirtualGameStore
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Error/Error");
                 app.UseHsts();
             }
 

@@ -61,7 +61,6 @@
     <Folder Include="Pages\Administration\" />
     <Folder Include="Pages\FriendsFamily\" />
     <Folder Include="Pages\Events\" />
-    <Folder Include="Pages\Profile\" />
     <Folder Include="Pages\Wishlist\" />
   </ItemGroup>
 

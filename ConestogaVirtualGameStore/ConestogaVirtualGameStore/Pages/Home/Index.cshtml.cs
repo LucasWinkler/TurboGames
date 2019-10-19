@@ -11,7 +11,7 @@ namespace ConestogaVirtualGameStore.Pages.Home
     {
         public void OnGet()
         {
-            RedirectToPage();
+            
         }
     }
 }

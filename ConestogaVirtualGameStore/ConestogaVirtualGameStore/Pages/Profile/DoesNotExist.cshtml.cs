@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ConestogaVirtualGameStore.Pages.Home
+namespace ConestogaVirtualGameStore.Pages.Profile
 {
-    public class PrivacyModel : PageModel
+    public class DoesNotExistModel : PageModel
     {
         public void OnGet()
         {
-           
+
         }
     }
 }

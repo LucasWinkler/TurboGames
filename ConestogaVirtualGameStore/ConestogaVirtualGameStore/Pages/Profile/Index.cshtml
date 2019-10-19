@@ -1,0 +1,40 @@
+﻿@page "/Profile/{username?}"
+@model ConestogaVirtualGameStore.Pages.Profile.IndexModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <div class="well profile">
+                <div class="col-sm-12">
+                    <div class="col-lg-12 col-md-12">
+                        <h2>@Model.Info.FirstName @Model.Info.LastName | @Model.Info.Username</h2>
+                        <p><strong>About: </strong> Web Designer / UI. </p>
+                        <p><strong>Hobbies: </strong> Read, out with friends, listen to music, draw and learn new things. </p>
+                        <p>
+                            <strong>Skills: </strong>
+                            <span class="tags">html5</span>
+                            <span class="tags">css3</span>
+                            <span class="tags">jquery</span>
+                            <span class="tags">bootstrap3</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-12 divider text-center">
+                    <div class="col-xs-12 col-sm-4 emphasis">
+                        <h2><strong> 20,7K </strong></h2>
+                        <p><small>Followers</small></p>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 emphasis">
+                        <h2><strong>245</strong></h2>
+                        <p><small>Following</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4" />
+    <h1>This page is under construction and may be using placeholder values.</h1>
+</div>

@@ -1,5 +1,5 @@
 ﻿@page
-@model ConestogaVirtualGameStore.Pages.ErrorModel
+@model ConestogaVirtualGameStore.Pages.Error.ErrorModel
 @{
     ViewData["Title"] = "Error";
 }
@@ -22,7 +22,7 @@
     </p>
 }
 
-@if (@Model.ShowExceptionMessage)
+@if (Model.ShowExceptionMessage)
 {
     <h3>Exception Message</h3>
     <p>
