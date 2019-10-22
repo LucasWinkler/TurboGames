@@ -27,6 +27,10 @@ namespace ConestogaVirtualGameStore.Pages.Profile
             public string FirstName { get; set; }
 
             public string LastName { get; set; }
+
+            public string FullName { get { return $"{FirstName} {LastName}"; } }
+
+            public Gender Gender { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync(string username)
@@ -44,7 +48,8 @@ namespace ConestogaVirtualGameStore.Pages.Profile
             {
                 Username = user.UserName,
                 FirstName = user.FirstName,
-                LastName = user.LastName
+                LastName = user.LastName,
+                Gender = user.Gender
             };
 
             return Page();
