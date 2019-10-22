@@ -53,6 +53,7 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
                 {
                     PrimaryAddress = address.PrimaryAddress,
                     SecondaryAddress = address.SecondaryAddress,
+                    City = address.City,
                     Country = address.Country,
                     Province = address.Province,
                     PostalCode = address.PostalCode
@@ -79,6 +80,7 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
         {
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError("", "Unable to save.");
                 return Page();
             }
 
@@ -94,6 +96,7 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
                 {
                     PrimaryAddress = InputAddress.PrimaryAddress,
                     SecondaryAddress = InputAddress.SecondaryAddress,
+                    City = InputAddress.City,
                     Country = InputAddress.Country,
                     Province = InputAddress.Province,
                     PostalCode = InputAddress.PostalCode

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConestogaVirtualGameStore.Data.Migrations
 {
-    public partial class AddBillingPage : Migration
+    public partial class AddedBillingPage : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,6 +24,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     PrimaryAddress = table.Column<string>(nullable: false),
                     SecondaryAddress = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: false),
                     Country = table.Column<string>(nullable: false),
                     Province = table.Column<string>(nullable: false),
                     PostalCode = table.Column<string>(maxLength: 12, nullable: false)

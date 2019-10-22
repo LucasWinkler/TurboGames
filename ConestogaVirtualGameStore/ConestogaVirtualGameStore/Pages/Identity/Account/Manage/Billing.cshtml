@@ -23,6 +23,16 @@
                 <span asp-validation-for="InputAddress.SecondaryAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="InputAddress.PostalCode"></label>
+                <input asp-for="InputAddress.PostalCode" class="form-control" />
+                <span asp-validation-for="InputAddress.PostalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputAddress.City"></label>
+                <input asp-for="InputAddress.City" class="form-control" />
+                <span asp-validation-for="InputAddress.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="InputAddress.Country"></label>
                 <input asp-for="InputAddress.Country" class="form-control" />
                 <span asp-validation-for="InputAddress.Country" class="text-danger"></span>
@@ -31,11 +41,6 @@
                 <label asp-for="InputAddress.Province"></label>
                 <input asp-for="InputAddress.Province" class="form-control" />
                 <span asp-validation-for="InputAddress.Province" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InputAddress.PostalCode"></label>
-                <input asp-for="InputAddress.PostalCode" class="form-control" />
-                <span asp-validation-for="InputAddress.PostalCode" class="text-danger"></span>
             </div>
 
             <br />
@@ -47,6 +52,10 @@
                 <label asp-for="InputPayment.CardName"></label>
                 <input asp-for="InputPayment.CardName" class="form-control" />
                 <span asp-validation-for="InputPayment.CardName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InputPayment.CardType"></label>
+                <input asp-for="InputPayment.CardType" class="form-control" disabled/>
             </div>
             <div class="form-group">
                 <label asp-for="InputPayment.CardNumber"></label>

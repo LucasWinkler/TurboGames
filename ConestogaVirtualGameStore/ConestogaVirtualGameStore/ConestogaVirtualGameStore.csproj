@@ -46,6 +46,8 @@
     <Compile Remove="Data\Migrations\20191017185925_AddBillingPage.Designer.cs" />
     <Compile Remove="Data\Migrations\20191017193407_AddPaymentModel.cs" />
     <Compile Remove="Data\Migrations\20191017193407_AddPaymentModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017194511_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017194511_AddBillingPage.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

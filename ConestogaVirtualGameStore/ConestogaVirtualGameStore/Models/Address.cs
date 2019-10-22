@@ -24,6 +24,12 @@ namespace ConestogaVirtualGameStore.Models
         [Required]
         [ProtectedPersonalData]
         [DataType(DataType.Text)]
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Required]
+        [ProtectedPersonalData]
+        [DataType(DataType.Text)]
         [Display(Name = "Country")]
         public string Country { get; set; }
 

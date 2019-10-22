@@ -91,6 +91,9 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("City")
+                        .IsRequired();
+
                     b.Property<string>("Country")
                         .IsRequired();
 
