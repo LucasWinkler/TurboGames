@@ -35,11 +35,12 @@ namespace ConestogaVirtualGameStore
             services.AddDistributedMemoryCache();
 
             // Adds the database context using a connection string from appsettings.json
+            // Use SchoolDbConnection for our school and LocalDbConnection for your own computer
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("LocalDbConnection")));
 
-            // Adds the identity services
+            // Adds and configures the identity services
             services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.User.RequireUniqueEmail = true;
@@ -77,9 +78,7 @@ namespace ConestogaVirtualGameStore
         /// <param name="env">Provides environment information</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseStatusCodePagesWithReExecute("/Error/StatusCode", "?code={0}");
-
-            // Changes the way exceptions are handled in production and development
+            // Changes the way exceptions are handled depending on the environment
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -87,7 +86,8 @@ namespace ConestogaVirtualGameStore
             }
             else
             {
-                app.UseExceptionHandler("/Error/Error");
+                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 app.UseHsts();
             }
 
