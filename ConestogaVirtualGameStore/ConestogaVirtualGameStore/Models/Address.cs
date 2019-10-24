@@ -36,7 +36,7 @@ namespace ConestogaVirtualGameStore.Models
         [Required]
         [StringLength(12, ErrorMessage = "{0} code must be between {2} and {1}.", MinimumLength = 5)]
         [RegularExpression(@"^(\d{5}((|-)-\d{4})?)|([A-Za-z]\d[A-Za-z][\s\.\-]?(|-)\d[A-Za-z]\d)|[A-Za-z]{1,2}\d{1,2}[A-Za-z]? \d[A-Za-z]{2}$", ErrorMessage = "Postal/zip code is invalid.")]
-        [DataType(DataType.Text)]
+        [DataType(DataType.PostalCode)]
         [Display(Name = "Postal/zip code")]
         public string PostalCode { get; set; }
     }
