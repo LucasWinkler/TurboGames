@@ -29,7 +29,8 @@ namespace ConestogaVirtualGameStore.Models
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "CVC")]
-        [MaxLength(3)]
+        [StringLength(4, ErrorMessage = "CVC can not be more than 4 digits.")]
+        [RegularExpression(@"^([0-9]{3,4})$", ErrorMessage = "CVC must be 3 or 4 digits.")]
         public string CardCVC { get; set; }
     }
 }

@@ -51,10 +51,8 @@
             <div class="form-row mb-3">
                 <div class="col">
                     <label asp-for="Payment.CardNumber">Card Number</label>
-                    <div class="input-group">
                         <input type="text" class="form-control" asp-for="Payment.CardNumber" placeholder="Card Number">
                         <span asp-validation-for="Payment.CardNumber" class="text-danger"></span>
-                    </div>
                 </div>
             </div>
 
@@ -74,7 +72,7 @@
             <div class="form-row mb-4">
                 <div class="col">
                     <label asp-for="Payment.CardName"></label>
-                    <input asp-for="Payment.CardName" class="form-control" placeholder="Fullname"/>
+                    <input asp-for="Payment.CardName" class="form-control" placeholder="Full name"/>
                     <span asp-validation-for="Payment.CardName" class="text-danger"></span>
                 </div>
             </div>
