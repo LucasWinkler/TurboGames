@@ -119,15 +119,18 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CardExpirationDate");
+                    b.Property<string>("CardCVC")
+                        .IsRequired()
+                        .HasMaxLength(3);
+
+                    b.Property<string>("CardExpirationDate")
+                        .IsRequired();
 
                     b.Property<string>("CardName")
                         .IsRequired();
 
                     b.Property<string>("CardNumber")
                         .IsRequired();
-
-                    b.Property<string>("CardType");
 
                     b.HasKey("Id");
 

@@ -48,6 +48,18 @@
     <Compile Remove="Data\Migrations\20191017193407_AddPaymentModel.Designer.cs" />
     <Compile Remove="Data\Migrations\20191017194511_AddBillingPage.cs" />
     <Compile Remove="Data\Migrations\20191017194511_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191022073415_AddedBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191022073415_AddedBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191023055105_AddBillingModel.cs" />
+    <Compile Remove="Data\Migrations\20191023055105_AddBillingModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191024025427_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191024025427_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191024030406_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191024030406_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191024045202_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191024045202_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191024051639_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191024051639_AddBillingPage.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

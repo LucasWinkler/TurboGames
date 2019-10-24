@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConestogaVirtualGameStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191022073415_AddedBillingPage")]
-    partial class AddedBillingPage
+    [Migration("20191024051702_AddBillingModels")]
+    partial class AddBillingModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,15 +121,18 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CardExpirationDate");
+                    b.Property<string>("CardCVC")
+                        .IsRequired()
+                        .HasMaxLength(3);
+
+                    b.Property<string>("CardExpirationDate")
+                        .IsRequired();
 
                     b.Property<string>("CardName")
                         .IsRequired();
 
                     b.Property<string>("CardNumber")
                         .IsRequired();
-
-                    b.Property<string>("CardType");
 
                     b.HasKey("Id");
 

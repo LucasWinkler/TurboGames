@@ -13,34 +13,34 @@
             <h3>Address</h3>
             <hr class="my-4" />
             <div class="form-group">
-                <label asp-for="InputAddress.PrimaryAddress"></label>
-                <input asp-for="InputAddress.PrimaryAddress" class="form-control" />
-                <span asp-validation-for="InputAddress.PrimaryAddress" class="text-danger"></span>
+                <label asp-for="Address.PrimaryAddress"></label>
+                <input asp-for="Address.PrimaryAddress" class="form-control" />
+                <span asp-validation-for="Address.PrimaryAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InputAddress.SecondaryAddress"></label>
-                <input asp-for="InputAddress.SecondaryAddress" class="form-control" />
-                <span asp-validation-for="InputAddress.SecondaryAddress" class="text-danger"></span>
+                <label asp-for="Address.SecondaryAddress"></label>
+                <input asp-for="Address.SecondaryAddress" class="form-control" />
+                <span asp-validation-for="Address.SecondaryAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InputAddress.PostalCode"></label>
-                <input asp-for="InputAddress.PostalCode" class="form-control" />
-                <span asp-validation-for="InputAddress.PostalCode" class="text-danger"></span>
+                <label asp-for="Address.PostalCode"></label>
+                <input asp-for="Address.PostalCode" class="form-control" />
+                <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InputAddress.City"></label>
-                <input asp-for="InputAddress.City" class="form-control" />
-                <span asp-validation-for="InputAddress.City" class="text-danger"></span>
+                <label asp-for="Address.City"></label>
+                <input asp-for="Address.City" class="form-control" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InputAddress.Country"></label>
-                <input asp-for="InputAddress.Country" class="form-control" />
-                <span asp-validation-for="InputAddress.Country" class="text-danger"></span>
+                <label asp-for="Address.Country"></label>
+                <input asp-for="Address.Country" class="form-control" />
+                <span asp-validation-for="Address.Country" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="InputAddress.Province"></label>
-                <input asp-for="InputAddress.Province" class="form-control" />
-                <span asp-validation-for="InputAddress.Province" class="text-danger"></span>
+                <label asp-for="Address.Province"></label>
+                <input asp-for="Address.Province" class="form-control" />
+                <span asp-validation-for="Address.Province" class="text-danger"></span>
             </div>
 
             <br />
@@ -48,26 +48,40 @@
             <h3>Payment Info</h3>
             <hr class="my-4" />
 
-            <div class="form-group">
-                <label asp-for="InputPayment.CardName"></label>
-                <input asp-for="InputPayment.CardName" class="form-control" />
-                <span asp-validation-for="InputPayment.CardName" class="text-danger"></span>
+            <div class="form-row mb-3">
+                <div class="col">
+                    <label asp-for="Payment.CardNumber">Card Number</label>
+                        <input type="text" class="form-control" asp-for="Payment.CardNumber" placeholder="Card Number">
+                        <span asp-validation-for="Payment.CardNumber" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="InputPayment.CardType"></label>
-                <input asp-for="InputPayment.CardType" class="form-control" disabled/>
+
+            <div class="form-row mb-3">
+                <div class="col-7">
+                    <label asp-for="Payment.CardExpirationDate"></label>
+                    <input asp-for="Payment.CardExpirationDate" class="form-control" placeholder="MM/YY"/>
+                    <span asp-validation-for="Payment.CardExpirationDate" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="Payment.CardCVC"></label>
+                    <input asp-for="Payment.CardCVC" class="form-control"  placeholder="Security Code"/>
+                    <span asp-validation-for="Payment.CardCVC" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="InputPayment.CardNumber"></label>
-                <input asp-for="InputPayment.CardNumber" class="form-control" />
-                <span asp-validation-for="InputPayment.CardNumber" class="text-danger"></span>
+
+            <div class="form-row mb-4">
+                <div class="col">
+                    <label asp-for="Payment.CardName"></label>
+                    <input asp-for="Payment.CardName" class="form-control" placeholder="Full name"/>
+                    <span asp-validation-for="Payment.CardName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="InputPayment.CardExpirationDate"></label>
-                <input asp-for="InputPayment.CardExpirationDate" class="form-control" />
-                <span asp-validation-for="InputPayment.CardExpirationDate" class="text-danger"></span>
+
+            <div class="form-row">
+                <div class="col">
+                    <button id="update-billing-button" type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
             </div>
-            <button id="update-billing-button" type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
 </div>

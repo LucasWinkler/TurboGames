@@ -1,6 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using ConestogaVirtualGameStore.Data;
 using ConestogaVirtualGameStore.Helpers;
@@ -29,10 +28,10 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
         }
 
         [BindProperty]
-        public Address InputAddress { get; set; }
+        public Address Address { get; set; }
 
         [BindProperty]
-        public Payment InputPayment { get; set; }
+        public Payment Payment { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -49,7 +48,7 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
             {
                 var address = await _context.Addresses.SingleOrDefaultAsync(x => x.Id == user.AddressId);
 
-                InputAddress = new Address
+                Address = new Address
                 {
                     PrimaryAddress = address.PrimaryAddress,
                     SecondaryAddress = address.SecondaryAddress,
@@ -64,12 +63,12 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
             {
                 var payment = await _context.Payments.SingleOrDefaultAsync(x => x.Id == user.PaymentId);
 
-                InputPayment = new Payment
+                Payment = new Payment
                 {
                     CardName = payment.CardName,
                     CardNumber = payment.CardNumber,
-                    CardType = payment.CardType,
-                    CardExpirationDate = payment.CardExpirationDate
+                    CardExpirationDate = payment.CardExpirationDate,
+                    CardCVC = payment.CardCVC
                 };
             }
             
@@ -94,21 +93,21 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
             {
                 var address = new Address
                 {
-                    PrimaryAddress = InputAddress.PrimaryAddress,
-                    SecondaryAddress = InputAddress.SecondaryAddress,
-                    City = InputAddress.City,
-                    Country = InputAddress.Country,
-                    Province = InputAddress.Province,
-                    PostalCode = InputAddress.PostalCode
+                    PrimaryAddress = Address.PrimaryAddress,
+                    SecondaryAddress = Address.SecondaryAddress,
+                    City = Address.City,
+                    Country = Address.Country,
+                    Province = Address.Province,
+                    PostalCode = Address.PostalCode
                 };
                 _context.Addresses.Add(address);
 
                 var payment = new Payment
                 {
-                    CardName = InputPayment.CardName,
-                    CardType = PaymentHelper.GetType(InputPayment.CardNumber).ToString(),
-                    CardNumber = InputPayment.CardNumber,
-                    CardExpirationDate = InputPayment.CardExpirationDate
+                    CardName = Payment.CardName,
+                    CardNumber = Payment.CardNumber,
+                    CardExpirationDate = Payment.CardExpirationDate,
+                    CardCVC = Payment.CardCVC
                 };
                 _context.Payments.Add(payment);
 

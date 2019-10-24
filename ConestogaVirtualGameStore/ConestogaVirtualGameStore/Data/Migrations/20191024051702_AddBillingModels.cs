@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConestogaVirtualGameStore.Data.Migrations
 {
-    public partial class AddedBillingPage : Migration
+    public partial class AddBillingModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,9 +40,9 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CardName = table.Column<string>(nullable: false),
-                    CardType = table.Column<string>(nullable: true),
                     CardNumber = table.Column<string>(nullable: false),
-                    CardExpirationDate = table.Column<DateTime>(nullable: false)
+                    CardExpirationDate = table.Column<string>(nullable: false),
+                    CardCVC = table.Column<string>(maxLength: 3, nullable: false)
                 },
                 constraints: table =>
                 {
