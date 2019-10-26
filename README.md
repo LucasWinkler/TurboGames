@@ -4,8 +4,6 @@ A team project for the PROG3050 Microsoft Enterprise course at Conestoga College
 This project is a virtual game store created in ASP.NET Core 2.2.
 It uses Razor Pages, MS SQL Server and a code-first design.
 
-## Team TurboGames
-
 <table>
   <thead>
     <tr>
