@@ -60,6 +60,16 @@
     <Compile Remove="Data\Migrations\20191024045202_AddBillingPage.Designer.cs" />
     <Compile Remove="Data\Migrations\20191024051639_AddBillingPage.cs" />
     <Compile Remove="Data\Migrations\20191024051639_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102102148_testingmodels.cs" />
+    <Compile Remove="Data\Migrations\20191102102148_testingmodels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102102610_testingmodels.cs" />
+    <Compile Remove="Data\Migrations\20191102102610_testingmodels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102102940_testingmodels.cs" />
+    <Compile Remove="Data\Migrations\20191102102940_testingmodels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102104413_testingmodels.cs" />
+    <Compile Remove="Data\Migrations\20191102104413_testingmodels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102111108_AddMoreModels.cs" />
+    <Compile Remove="Data\Migrations\20191102111108_AddMoreModels.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
