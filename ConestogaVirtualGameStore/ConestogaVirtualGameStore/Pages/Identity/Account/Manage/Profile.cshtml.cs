@@ -46,7 +46,8 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
 
             [Required]
             [DataType(DataType.Date)]
-            [Display(Name = "Birth Date")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            [Display(Name = "Date of birth")]
             public DateTime DOB { get; set; }
 
             [Required]

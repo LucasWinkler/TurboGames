@@ -35,7 +35,6 @@ namespace ConestogaVirtualGameStore
             services.AddDistributedMemoryCache();
 
             // Adds the database context using a connection string from appsettings.json
-            // Use SchoolDbConnection for our school and LocalDbConnection for your own computer
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("LocalDbConnection")));
@@ -50,7 +49,7 @@ namespace ConestogaVirtualGameStore
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 8;
+                options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()

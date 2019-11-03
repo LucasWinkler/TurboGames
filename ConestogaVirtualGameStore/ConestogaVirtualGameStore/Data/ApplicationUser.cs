@@ -1,7 +1,8 @@
 ﻿using ConestogaVirtualGameStore.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConestogaVirtualGameStore.Data
 {
@@ -12,35 +13,33 @@ namespace ConestogaVirtualGameStore.Data
 
     /// <summary>
     /// A registered/authorized user in the application.
-    /// Inherits from IdentityUser so this class is mostly
-    /// for additional user properties.
+    /// Inherits from IdentityUser so this class is for
+    /// adding additional user properties that don't
+    /// exist within IdentityUser.
     /// </summary>
     public class ApplicationUser : IdentityUser
     {
-        [PersonalData]
+        [Required]
         public string FirstName { get; set; }
 
-        [PersonalData]
+        [Required]
         public string LastName { get; set; }
 
-        [PersonalData]
+        [Required]
         public Gender Gender { get; set; }
 
-        [PersonalData]
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Date of Birth")]
         public DateTime DOB { get; set; }
 
-        [ProtectedPersonalData]
         public Guid? AddressId { get; set; }
 
-        [ProtectedPersonalData]
-        [ForeignKey("AddressId")]
         public Address Address { get; set; }
 
-        [ProtectedPersonalData]
         public Guid? PaymentId { get; set; }
 
-        [ProtectedPersonalData]
-        [ForeignKey("PaymentId")]
         public Payment Payment { get; set; }
     }
 }
