@@ -120,6 +120,9 @@ If any changes have been made to `develop` (you should be told when this happens
 This will get the latest changes and merge them wih your feature so that everyone is up-to-date. It also helps with merge conflicts later on.
 
 ```
+$ git checkout develop 
+$ git pull 
+$ git checkout feature-<feature-name>
 $ git merge develop									// merges changes from develop into your feature branch
 ```
 
