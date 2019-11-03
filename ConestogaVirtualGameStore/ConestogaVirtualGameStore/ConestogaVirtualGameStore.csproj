@@ -90,13 +90,14 @@
     <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.3.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Administration\" />
     <Folder Include="Pages\Games\Library\" />
     <Folder Include="Pages\Games\Store\" />
-    <Folder Include="Pages\Administration\" />
     <Folder Include="Pages\FriendsFamily\" />
     <Folder Include="Pages\Events\" />
     <Folder Include="Pages\Wishlist\" />
