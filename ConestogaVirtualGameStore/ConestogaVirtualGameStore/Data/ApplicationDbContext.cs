@@ -1,4 +1,5 @@
-﻿using ConestogaVirtualGameStore.Models;
+﻿using ConestogaVirtualGameStore.Extensions;
+using ConestogaVirtualGameStore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -99,6 +100,8 @@ namespace ConestogaVirtualGameStore.Data
                    .ToTable("Game");
 
             #endregion
+
+            builder.Seed();
         }
     }
 }
