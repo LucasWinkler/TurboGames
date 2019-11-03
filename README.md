@@ -79,7 +79,9 @@ The `master` branch is for production. This branch is never to be touched. It wi
 To start please clone the repo by using:
 
 Standard: `git clone https://github.com/LucasWinkler/TurboGames-ConestogaVirtualGameStore.git`
+
 *or*
+
 SSH: `git clone git@github.com:LucasWinkler/TurboGames-ConestogaVirtualGameStore.git`
 
 ### Feature Branches
