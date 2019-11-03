@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ConestogaVirtualGameStore.Models
 {
@@ -15,12 +17,6 @@ namespace ConestogaVirtualGameStore.Models
         [Required]
         public string Developer { get; set; }
 
-        [Required]
-        public Guid GameReviewId { get; set; }
-
-        [Required]
-        public GameReview GameReview { get; set; }
-
         public int TotalRating { get; set; }
 
         [Required]
@@ -28,5 +24,7 @@ namespace ConestogaVirtualGameStore.Models
 
         [Required]
         public Category Category { get; set; }
+
+        public List<Review> Reviews { get; set; }
     }
 }

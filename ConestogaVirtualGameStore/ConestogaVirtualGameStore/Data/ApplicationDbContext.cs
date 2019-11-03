@@ -23,7 +23,6 @@ namespace ConestogaVirtualGameStore.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Game> Games { get; set; }
-        public DbSet<GameReview> GameReviews { get; set; }
 
         /// <summary>
         /// Configures a given entity type in the model.
@@ -34,53 +33,72 @@ namespace ConestogaVirtualGameStore.Data
         {
             base.OnModelCreating(builder);
 
+            #region Identity
+
             builder.Entity<ApplicationUser>()
-                .ToTable("User")
-                .HasKey(x => x.Id);
+                   .ToTable("User")
+                   .HasKey(x => x.Id);
 
             builder.Entity<IdentityRole>()
-                .ToTable("Role");
+                   .ToTable("Role");
 
             builder.Entity<IdentityUserRole<string>>()
-                .ToTable("UserRole");
+                   .ToTable("UserRole");
 
             builder.Entity<IdentityUserClaim<string>>()
-                .ToTable("UserClaim");
+                   .ToTable("UserClaim");
 
             builder.Entity<IdentityUserLogin<string>>()
-                .ToTable("UserLogin");
+                   .ToTable("UserLogin");
 
             builder.Entity<IdentityRoleClaim<string>>()
-                .ToTable("RoleClaim");
+                   .ToTable("RoleClaim");
 
             builder.Entity<IdentityUserToken<string>>()
-                .ToTable("UserToken");
+                   .ToTable("UserToken");
+
+            #endregion
+
+            #region Other
 
             builder.Entity<Address>()
-                .ToTable("Address");
+                   .ToTable("Address");
 
             builder.Entity<Payment>()
-                .ToTable("Payment");
+                   .ToTable("Payment");
 
             builder.Entity<Review>()
-                .ToTable("Review");
+                   .ToTable("Review");
 
             builder.Entity<Platform>()
-                .ToTable("Platform");
+                   .ToTable("Platform");
 
             builder.Entity<Category>()
-                .ToTable("Category");
+                   .ToTable("Category");
 
+            // Setup the composite key
             builder.Entity<Friendship>()
-                .ToTable("Friendship")
-                .HasKey(x => new { x.SenderId, x.ReceiverId });  
+                   .ToTable("Friendship")
+                   .HasKey(x => new { x.SenderId, x.ReceiverId });
+
+            // Manually map the sender foreign key to modify the OnDelete option
+            builder.Entity<Friendship>()
+                   .HasOne(x => x.Sender)
+                   .WithMany()
+                   .HasForeignKey(x => x.SenderId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            // Manually map the receiver foreign key to modify the OnDelete option
+            builder.Entity<Friendship>()
+                   .HasOne(x => x.Receiver)
+                   .WithMany()
+                   .HasForeignKey(x => x.ReceiverId)
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Game>()
-                .ToTable("Game");
+                   .ToTable("Game");
 
-            builder.Entity<GameReview>()
-                .ToTable("GameReview")
-                .HasKey(x => new { x.GameId, x.ReviewId });
+            #endregion
         }
     }
 }

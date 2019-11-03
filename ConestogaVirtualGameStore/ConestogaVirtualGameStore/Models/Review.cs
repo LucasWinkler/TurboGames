@@ -1,6 +1,7 @@
 ﻿using ConestogaVirtualGameStore.Data;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ConestogaVirtualGameStore.Models
 {
@@ -17,6 +18,12 @@ namespace ConestogaVirtualGameStore.Models
         public ApplicationUser Reviewer { get; set; }
 
         [Required]
+        public string GameId { get; set; }
+
+        [Required]
+        public Game Game { get; set; }
+
+        [Required]
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
 
@@ -25,7 +32,7 @@ namespace ConestogaVirtualGameStore.Models
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime Created { get; set; }
+        public DateTime Created { get; set; } = DateTime.UtcNow;
 
         // TODO: Pending Review FK
     }

@@ -1,6 +1,8 @@
 ﻿using ConestogaVirtualGameStore.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConestogaVirtualGameStore.Data
 {
@@ -17,12 +19,19 @@ namespace ConestogaVirtualGameStore.Data
     /// </summary>
     public class ApplicationUser : IdentityUser
     {
+        [Required]
         public string FirstName { get; set; }
 
+        [Required]
         public string LastName { get; set; }
 
+        [Required]
         public Gender Gender { get; set; }
 
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Date of Birth")]
         public DateTime DOB { get; set; }
 
         public Guid? AddressId { get; set; }

@@ -70,6 +70,20 @@
     <Compile Remove="Data\Migrations\20191102104413_testingmodels.Designer.cs" />
     <Compile Remove="Data\Migrations\20191102111108_AddMoreModels.cs" />
     <Compile Remove="Data\Migrations\20191102111108_AddMoreModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103060631_testmigration.cs" />
+    <Compile Remove="Data\Migrations\20191103060631_testmigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103061123_testmigration.cs" />
+    <Compile Remove="Data\Migrations\20191103061123_testmigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103072830_test.cs" />
+    <Compile Remove="Data\Migrations\20191103072830_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103074712_AddExtraModels.cs" />
+    <Compile Remove="Data\Migrations\20191103074712_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103074921_AddExtraModels.cs" />
+    <Compile Remove="Data\Migrations\20191103074921_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103075756_AddExtraModels.cs" />
+    <Compile Remove="Data\Migrations\20191103075756_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.cs" />
+    <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
