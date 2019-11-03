@@ -76,6 +76,12 @@ The main branch that you will be working off of is `develop`. You don't work dir
 
 The `master` branch is for production. This branch is never to be touched. It will be merged with `develop` at the end of iterations and that is what we will present. 
 
+To start please clone the repo by using:
+
+Standard: `git clone https://github.com/LucasWinkler/TurboGames-ConestogaVirtualGameStore.git`
+*or*
+SSH: `git clone git@github.com:LucasWinkler/TurboGames-ConestogaVirtualGameStore.git`
+
 ### Feature Branches
 
 Feature branches are used when developing a new feature. It will always be merged back into the `develop` branch.
@@ -122,6 +128,7 @@ $ git checkout develop                          	// change to the develop branch
 $ git merge --no-ff feature-<feature-name>      	// the --no-ff makes sure to create a commit during merge
 $ git push origin develop                       	// push merge changes
 $ git push origin :feature-<feature-name>       	// deletes the remote branch
+$ git branch -d feature-<feature-name>              // (optional) deletes the branch locally	
 ```
 
 ## Razor Pages
