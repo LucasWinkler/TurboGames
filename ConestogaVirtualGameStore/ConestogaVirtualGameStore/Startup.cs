@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ConestogaVirtualGameStore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace ConestogaVirtualGameStore
 {
@@ -29,6 +30,7 @@ namespace ConestogaVirtualGameStore
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.ConsentCookie.MaxAge = TimeSpan.FromMinutes(10);
             });
 
             // In-memory backing store for sessions

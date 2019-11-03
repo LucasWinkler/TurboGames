@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
 {
-    public partial class ProfileModel : PageModel
+    public partial class PublicModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public ProfileModel(
+        public PublicModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager)
         {
@@ -40,11 +40,6 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
             public string LastName { get; set; }
 
             [Required]
-            [DataType(DataType.Text)]
-            [Display(Name = "Username")]
-            public string UserName { get; set; }
-
-            [Required]
             [DataType(DataType.Date)]
             [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
             [Display(Name = "Date of birth")]
@@ -67,7 +62,6 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                UserName = user.UserName,
                 DOB = user.DOB,
                 Gender = user.Gender
             };
@@ -96,11 +90,6 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
             if (Input.LastName != user.LastName)
             {
                 user.LastName = Input.LastName;
-            }
-
-            if (Input.UserName != user.UserName)
-            {
-                user.UserName = Input.UserName;
             }
 
             if (Input.DOB != user.DOB)

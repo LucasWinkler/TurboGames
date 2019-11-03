@@ -1,8 +1,9 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using ConestogaVirtualGameStore.Data;
-using ConestogaVirtualGameStore.Helpers;
 using ConestogaVirtualGameStore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +12,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
 {
-    public class BillingModel : PageModel
+    public class AddressModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
-        public BillingModel(
+        public AddressModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ApplicationDbContext context)
@@ -29,9 +30,6 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
 
         [BindProperty]
         public Address Address { get; set; }
-
-        [BindProperty]
-        public Payment Payment { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -58,20 +56,7 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
                     PostalCode = address.PostalCode
                 };
             }
-            
-            if (user.PaymentId != null)
-            {
-                var payment = await _context.Payments.SingleOrDefaultAsync(x => x.Id == user.PaymentId);
 
-                Payment = new Payment
-                {
-                    CardName = payment.CardName,
-                    CardNumber = payment.CardNumber,
-                    CardExpirationDate = payment.CardExpirationDate,
-                    CardCVC = payment.CardCVC
-                };
-            }
-            
             return Page();
         }
 
@@ -100,25 +85,16 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
                     Province = Address.Province,
                     PostalCode = Address.PostalCode
                 };
+
                 _context.Addresses.Add(address);
 
-                var payment = new Payment
-                {
-                    CardName = Payment.CardName,
-                    CardNumber = Payment.CardNumber,
-                    CardExpirationDate = Payment.CardExpirationDate,
-                    CardCVC = Payment.CardCVC
-                };
-                _context.Payments.Add(payment);
-
                 user.AddressId = address.Id;
-                user.PaymentId = payment.Id;
 
                 await _context.SaveChangesAsync();
                 await _userManager.UpdateAsync(user);
                 await _signInManager.RefreshSignInAsync(user);
 
-                StatusMessage = "Your account has been updated";
+                StatusMessage = "Your billing address has been updated";
                 return RedirectToPage();
             }
             catch (Exception e)

@@ -20,11 +20,6 @@ namespace ConestogaVirtualGameStore.Models
 
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "City")]
-        public string City { get; set; }
-
-        [Required]
-        [DataType(DataType.Text)]
         [Display(Name = "Country")]
         public string Country { get; set; }
 
@@ -32,6 +27,11 @@ namespace ConestogaVirtualGameStore.Models
         [DataType(DataType.Text)]
         [Display(Name = "Province")]
         public string Province { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "City")]
+        public string City { get; set; }
 
         [Required]
         [StringLength(12, ErrorMessage = "{0} code must be between {2} and {1}.", MinimumLength = 5)]

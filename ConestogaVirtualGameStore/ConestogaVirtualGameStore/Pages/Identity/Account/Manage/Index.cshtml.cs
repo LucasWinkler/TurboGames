@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using ConestogaVirtualGameStore.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -12,19 +11,14 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender)
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
         }
-
-        public bool IsEmailConfirmed { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -38,9 +32,10 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
             [RegularExpression(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$", ErrorMessage = "You must enter a valid email address.")]
             public string Email { get; set; }
 
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Username")]
+            public string UserName { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -52,15 +47,13 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
             }
 
             var email = await _userManager.GetEmailAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var username = await _userManager.GetUserNameAsync(user);
 
             Input = new InputModel
             {
                 Email = email,
-                PhoneNumber = phoneNumber
+                UserName = username
             };
-
-            IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
 
             return Page();
         }
@@ -92,13 +85,13 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
                 }
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            var username = await _userManager.GetUserNameAsync(user);
+            if (Input.UserName != username)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                var setUsernameResult = await _userManager.SetUserNameAsync(user, Input.UserName);
+                if (!setUsernameResult.Succeeded)
                 {
-                    foreach (var error in setPhoneResult.Errors)
+                    foreach (var error in setUsernameResult.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
@@ -110,37 +103,6 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your account has been updated";
-            return RedirectToPage();
-        }
-
-        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-
-
-            var userId = await _userManager.GetUserIdAsync(user);
-            var email = await _userManager.GetEmailAsync(user);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { userId = userId, code = code },
-                protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{callbackUrl}'>clicking here</a>.");
-            // {HtmlEncoder.Default.Encode(callbackUrl)}
-            StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
         }
     }
