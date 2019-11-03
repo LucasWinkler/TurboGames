@@ -25,6 +25,8 @@ namespace ConestogaVirtualGameStore.Data
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Game> Games { get; set; }
 
+        public DbSet<Event> Events { get; set; }
+
         /// <summary>
         /// Configures a given entity type in the model.
         /// Such as renaming the default table names for each model.
@@ -98,6 +100,9 @@ namespace ConestogaVirtualGameStore.Data
 
             builder.Entity<Game>()
                    .ToTable("Game");
+
+            builder.Entity<Event>()
+                    .ToTable("Event");
 
             #endregion
 
