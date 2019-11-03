@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using ConestogaVirtualGameStore.Data;
 using ConestogaVirtualGameStore.Models;
@@ -44,7 +42,7 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
 
             if (user.AddressId != null)
             {
-                var address = await _context.Addresses.SingleOrDefaultAsync(x => x.Id == user.AddressId);
+                var address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == user.AddressId);
 
                 Address = new Address
                 {
@@ -76,21 +74,12 @@ namespace ConestogaVirtualGameStore.Pages.Identity.Account.Manage
 
             try
             {
-                var address = new Address
-                {
-                    PrimaryAddress = Address.PrimaryAddress,
-                    SecondaryAddress = Address.SecondaryAddress,
-                    City = Address.City,
-                    Country = Address.Country,
-                    Province = Address.Province,
-                    PostalCode = Address.PostalCode
-                };
+                _context.Addresses.Add(Address);
 
-                _context.Addresses.Add(address);
-
-                user.AddressId = address.Id;
+                user.AddressId = Address.Id;
 
                 await _context.SaveChangesAsync();
+
                 await _userManager.UpdateAsync(user);
                 await _signInManager.RefreshSignInAsync(user);
 
