@@ -1,0 +1,28 @@
+﻿@page
+@model GamePageModel
+@{
+    ViewData["Title"] = "GamePage";
+}
+
+<h1></h1>
+
+<table class="table" border="0">
+    <thead>
+        <tr>
+            <th><a asp-page="./Index"><Button>Back</Button></a></th>
+            @*Change to price of game after*@
+            <th></th>
+            <th rowspan="2" align="right"><a asp-page="./Index"><Button>Add To Cart @Model.Game.Title</Button></a></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <h3>@Model.Game.Title</h3>
+                <p>Developer: @Model.Game.Developer</p>
+                <p>Category: @Model.Game.Category.Name</p>
+                <p>Rating: @Model.Game.TotalRating</p>
+            </td>
+        </tr>
+    </tbody>
+</table>
