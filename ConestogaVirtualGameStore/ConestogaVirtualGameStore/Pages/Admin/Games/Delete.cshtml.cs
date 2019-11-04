@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ConestogaVirtualGameStore.Data;
 using ConestogaVirtualGameStore.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConestogaVirtualGameStore.Pages.Admin.Games
 {
@@ -14,16 +15,32 @@ namespace ConestogaVirtualGameStore.Pages.Admin.Games
     {
         private readonly ConestogaVirtualGameStore.Data.ApplicationDbContext _context;
 
-        public DeleteModel(ConestogaVirtualGameStore.Data.ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public DeleteModel(ConestogaVirtualGameStore.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [BindProperty]
         public Game Game { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync(Guid? id, string username)
         {
+            var user = string.IsNullOrEmpty(username)
+                ? await _userManager.GetUserAsync(User)
+                : await _userManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                return RedirectToPage("/Identity/Account/Login");
+            }
+            if (user.IsAdmin == false)
+            {
+                return RedirectToPage("/Home/Index");
+            }
+
             if (id == null)
             {
                 return NotFound();

@@ -33,7 +33,11 @@ namespace ConestogaVirtualGameStore.Pages.Admin.Games
 
             if (user == null)
             {
-                return RedirectToPage("/Profile/DoesNotExist");
+                return RedirectToPage("/Identity/Account/Login");
+            }
+            if (user.IsAdmin == false)
+            {
+                return RedirectToPage("/Home/Index");
             }
 
             Game = await _context.Games
