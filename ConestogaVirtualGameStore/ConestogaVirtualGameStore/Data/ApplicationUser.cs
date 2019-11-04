@@ -40,5 +40,8 @@ namespace ConestogaVirtualGameStore.Data
         public Guid? PaymentId { get; set; }
 
         public Payment Payment { get; set; }
+
+        [Required]
+        public bool IsAdmin { get; set; } = false;
     }
 }

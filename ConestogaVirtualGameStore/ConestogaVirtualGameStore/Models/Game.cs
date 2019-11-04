@@ -16,13 +16,18 @@ namespace ConestogaVirtualGameStore.Models
         [Required]
         public string Developer { get; set; }
 
-        public int TotalRating { get; set; }
+        [Required]
+        public Category Category { get; set; }
 
         [Required]
         public Guid CategoryId { get; set; }
 
+        public int TotalRating { get; set; }
+
+        public double? Price { get; set; }
+
         [Required]
-        public Category Category { get; set; }
+        public string Description { get; set; }
 
         public List<Review> Reviews { get; set; }
     }

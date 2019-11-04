@@ -24,6 +24,7 @@ namespace ConestogaVirtualGameStore.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<UserGame> UserGames { get; set; }
 
         /// <summary>
         /// Configures a given entity type in the model.
@@ -99,6 +100,21 @@ namespace ConestogaVirtualGameStore.Data
             builder.Entity<Game>()
                    .ToTable("Game");
 
+            builder.Entity<UserGame>()
+                   .ToTable("UserGame")
+                   .HasKey(x => new { x.UserId, x.GameId });
+
+            builder.Entity<UserGame>()
+                  .HasOne(x => x.User)
+                  .WithMany()
+                  .HasForeignKey(x => x.UserId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserGame>()
+                   .HasOne(x => x.Game)
+                   .WithMany()
+                   .HasForeignKey(x => x.GameId)
+                   .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             builder.Seed();
