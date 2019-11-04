@@ -32,21 +32,24 @@ namespace ConestogaVirtualGameStore.Extensions
                     Id = Guid.Parse("1c9e6679-7425-40de-944b-e07fc1f90ae7"),
                     Title = "Game Name 1",
                     Developer = "Game Developer 1",
-                    CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e")
+                    CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Description = "The description"
                 },
                 new Game
                 {
                     Id = Guid.Parse("2c9e6679-7425-40de-944b-e07fc1f90ae7"),
                     Title = "Game Name 2",
                     Developer = "Game Developer 2",
-                    CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e")
+                    CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Description = "The description"
                 },
                 new Game
                 {
                     Id = Guid.Parse("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
                     Title = "Game Name 3",
                     Developer = "Game Developer 3",
-                    CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e")
+                    CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Description = "The description"
                 }
             );
 
