@@ -88,7 +88,7 @@ SSH: `git clone git@github.com:LucasWinkler/TurboGames-ConestogaVirtualGameStore
 
 Feature branches are used when developing a new feature. It will always be merged back into the `develop` branch.
 
-An example of `<feature-name>` could be `friends-page` so `feature-fiends-page` or it could be the use case id.
+An example of `<feature-name>` could be `FriendsPage` so `feature-FriendsPage` or it could be the use case id.
 
 * Must branch from: `develop`
 * Must merge back into: `develop`
@@ -99,7 +99,7 @@ An example of `<feature-name>` could be `friends-page` so `feature-fiends-page` 
 If the feature branch does not exist yet, create the branch locally and then push to GitHub. 
 
 ```
-git checkout -b feature-<feature-name> develop 	// creates a local branch for the new feature
+git checkout -b feature-<feature-name> develop         // creates a local branch for the new feature
 git push --set-upstream origin feature-<feature-name>                
 ```
 
@@ -123,17 +123,17 @@ This will get the latest changes and merge them wih your feature so that everyon
 git checkout develop 
 git pull 
 git checkout feature-<feature-name>
-git merge develop									// merges changes from develop into your feature branch
+git merge develop                      // merges changes from develop into your feature branch
 ```
 
 When a feature is complete let Lucas know and he will merge your feature into `develop` and then delete the feature branch.
 
 ```
-git checkout develop                          	// change to the develop branch  
-git merge --no-ff feature-<feature-name>      	// the --no-ff makes sure to create a commit during merge
-git push origin develop                       	// push merge changes
-git push origin :feature-<feature-name>       	// deletes the remote branch
-git branch -d feature-<feature-name>              // (optional) deletes the branch locally	
+git checkout develop                        // change to the develop branch  
+git merge --no-ff feature-<feature-name>    // the --no-ff makes sure to create a commit during merge
+git push origin develop                     // push merge changes
+git push origin :feature-<feature-name>     // deletes the remote branch
+git branch -d feature-<feature-name>        // (optional) deletes the branch locally	
 ```
 
 ## Razor Pages
@@ -187,7 +187,6 @@ Example with the users address being optional (because of the `?` next to `Guid`
     {
         public Guid? AddressId { get; set; }
 
-        [ForeignKey("AddressId")]
         public Address Address { get; set; }
     }
 ```
