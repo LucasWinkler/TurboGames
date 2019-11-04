@@ -136,6 +136,13 @@ git push origin :feature-<feature-name>     // deletes the remote branch
 git branch -d feature-<feature-name>        // (optional) deletes the branch locally	
 ```
 
+If you want to discard all changes and go to the last commit:
+
+```
+git fetch --all
+git reset --hard origin/branch-name
+```
+
 ## Razor Pages
 
 Razor Pages is similar to MVC it just looks a little different but in the end it can be more organized
