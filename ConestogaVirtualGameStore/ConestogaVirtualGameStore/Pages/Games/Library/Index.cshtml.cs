@@ -19,24 +19,13 @@ namespace ConestogaVirtualGameStore.Pages.Games.Library
             _context = context;
         }
 
-        public string Filter { get; set; }
+        public IList<UserGame> UserGame { get;set; }
 
-        public IList<Game> Game { get;set; }
-
-        // Get the list of games or filters it based on the string input
-        public async Task OnGetAsync(string _filter)
+        public async Task OnGetAsync()
         {
-            Filter = _filter;
-
-            IQueryable<Game> games = from g in _context.Games
-                                             select g;
-            if (!string.IsNullOrEmpty(_filter))
-            {
-                games = games.Where(g => g.Title.Contains(_filter));
-            }
-
-            Game = await games.
-                AsNoTracking().ToListAsync();
+            UserGame = await _context.UserGames
+                .Include(u => u.Game)
+                .Include(u => u.User).ToListAsync();
         }
     }
 }

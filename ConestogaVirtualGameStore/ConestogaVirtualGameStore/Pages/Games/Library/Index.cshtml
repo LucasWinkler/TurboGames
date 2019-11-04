@@ -2,61 +2,45 @@
 @model ConestogaVirtualGameStore.Pages.Games.Library.IndexModel
 
 @{
-    ViewData["Title"] = "Library";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Your Library</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
 </p>
-<form asp-page="./Index" method="GET">
-    <div class="form-actions no-color">
-        <p>Filter Games:
-            <br />
-            <input type="text" name="_Filter" value="@Model.Filter" />
-            <input type="submit" value="Search" class="btn btn-primary" />
-            <a asp-page="./Index">Back to list</a>
-        </p>
-    </div>
-</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].Title)
+                @Html.DisplayNameFor(model => model.UserGame[0].User)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].Developer)
+                @Html.DisplayNameFor(model => model.UserGame[0].Game)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].TotalRating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Game[0].Category)
+                @Html.DisplayNameFor(model => model.UserGame[0].PurchaseDate)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Game) {
+@foreach (var item in Model.UserGame) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.User.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Developer)
+                @Html.DisplayFor(modelItem => item.Game.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalRating)
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Download" asp-route-id="@item.Id">Download</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }

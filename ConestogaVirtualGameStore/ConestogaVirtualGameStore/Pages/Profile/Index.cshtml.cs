@@ -60,7 +60,7 @@ namespace ConestogaVirtualGameStore.Pages.Profile
                 Gender = user.Gender
             };
 
-            CountGames = _context.Games.Count();
+            CountGames = _context.UserGames.Count();
 
             return Page();
         }

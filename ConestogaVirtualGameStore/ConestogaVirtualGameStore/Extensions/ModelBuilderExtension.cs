@@ -1,4 +1,5 @@
-﻿using ConestogaVirtualGameStore.Models;
+﻿using ConestogaVirtualGameStore.Data;
+using ConestogaVirtualGameStore.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -52,6 +53,31 @@ namespace ConestogaVirtualGameStore.Extensions
                     Description = "The description"
                 }
             );
+
+            builder.Entity<ApplicationUser>().HasData(
+                new ApplicationUser
+                {
+                    Id = "4c9e6679-7425-40de-944b-e07fc1f90ae7",
+                    FirstName = "Admin First",
+                    LastName = "Admin Last ",
+                    Gender = Gender.Male,
+                    DOB = new DateTime(1998,10,12),
+                    IsAdmin = true
+                }
+                );
+
+            builder.Entity<UserGame>().HasData(
+                new UserGame
+                {
+                   UserId = "4c9e6679-7425-40de-944b-e07fc1f90ae7",
+                   GameId = Guid.Parse("1c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                },
+                new UserGame
+                {
+                    UserId = "4c9e6679-7425-40de-944b-e07fc1f90ae7",
+                    GameId = Guid.Parse("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                }
+                );
 
         }
     }
