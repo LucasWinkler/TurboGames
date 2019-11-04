@@ -10,27 +10,33 @@ using ConestogaVirtualGameStore.Models;
 
 namespace ConestogaVirtualGameStore.Pages.Games.Library
 {
-    public class IndexModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly ConestogaVirtualGameStore.Data.ApplicationDbContext _context;
 
-        public IndexModel(ConestogaVirtualGameStore.Data.ApplicationDbContext context)
+        public DetailsModel(ConestogaVirtualGameStore.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<UserGame> UserGame { get;set; }
+        public UserGame UserGame { get; set; }
 
-        public int CountUserGames { get; set; }
-
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string id)
         {
-
-            CountUserGames = _context.UserGames.Count();
+            if (id == null)
+            {
+                return NotFound();
+            }
 
             UserGame = await _context.UserGames
                 .Include(u => u.Game)
-                .Include(u => u.User).ToListAsync();
+                .Include(u => u.User).FirstOrDefaultAsync(m => m.UserId == id);
+
+            if (UserGame == null)
+            {
+                return NotFound();
+            }
+            return Page();
         }
     }
 }

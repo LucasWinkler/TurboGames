@@ -60,6 +60,7 @@ namespace ConestogaVirtualGameStore.Extensions
                     Id = "4c9e6679-7425-40de-944b-e07fc1f90ae7",
                     FirstName = "Admin First",
                     LastName = "Admin Last ",
+                    UserName = "Admin",
                     Gender = Gender.Male,
                     DOB = new DateTime(1998,10,12),
                     IsAdmin = true

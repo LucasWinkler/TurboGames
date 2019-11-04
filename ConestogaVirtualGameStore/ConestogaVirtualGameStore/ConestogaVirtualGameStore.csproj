@@ -84,6 +84,10 @@
     <Compile Remove="Data\Migrations\20191103075756_AddExtraModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.cs" />
     <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191104211529_AddedUserGameData.cs" />
+    <Compile Remove="Data\Migrations\20191104211529_AddedUserGameData.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191104220031_AddSeedData.cs" />
+    <Compile Remove="Data\Migrations\20191104220031_AddSeedData.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
