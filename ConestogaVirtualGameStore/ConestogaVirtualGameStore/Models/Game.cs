@@ -19,6 +19,9 @@ namespace ConestogaVirtualGameStore.Models
         public int TotalRating { get; set; }
 
         [Required]
+        public double Price { get; set; }
+
+        [Required]
         public Guid CategoryId { get; set; }
 
         [Required]
