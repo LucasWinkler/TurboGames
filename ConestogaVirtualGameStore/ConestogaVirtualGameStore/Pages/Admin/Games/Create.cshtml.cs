@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ConestogaVirtualGameStore.Data;
 using ConestogaVirtualGameStore.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ConestogaVirtualGameStore.Pages.Admin.Games
 {
@@ -14,14 +15,27 @@ namespace ConestogaVirtualGameStore.Pages.Admin.Games
     {
         private readonly ConestogaVirtualGameStore.Data.ApplicationDbContext _context;
 
-        public CreateModel(ConestogaVirtualGameStore.Data.ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public CreateModel(ConestogaVirtualGameStore.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync(string username)
         {
         ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+
+            var user = string.IsNullOrEmpty(username)
+                ? await _userManager.GetUserAsync(User)
+    :            await _userManager.FindByNameAsync(username);
+
+            if (user == null)
+            {
+                return RedirectToPage("/Profile/DoesNotExist");
+            }
+
             return Page();
         }
 
