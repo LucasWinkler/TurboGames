@@ -99,41 +99,41 @@ An example of `<feature-name>` could be `friends-page` so `feature-fiends-page` 
 If the feature branch does not exist yet, create the branch locally and then push to GitHub. 
 
 ```
-$ git checkout -b feature-<feature-name> develop 	// creates a local branch for the new feature
-$ git push origin feature-<feature-name>         	// makes the new feature remotely available                   
+git checkout -b feature-<feature-name> develop 	// creates a local branch for the new feature
+git push --set-upstream origin feature-<feature-name>                
 ```
 
 Constantly commit your changes to your branch. This way you can always keep track of your feature and you can always look back at previous commits.
 
 ```
-$ git add .                                         // Add all new/changed files
-$ git commit -m "Enter commit message here"         // e.g. Added friends page, fixed this, added that etc...
+git add .                                         // Add all new/changed files
+git commit -m "Enter commit message here"         // e.g. Added friends page, fixed this, added that etc...
 ```
 
 You should always push these commits to the remote repository (GitHub) so that anyone can see your latest changes.
 
 ```
-$ git push
+git push
 ```
 
 If any changes have been made to `develop` (you should be told when this happens) after you have created your branch then you must merge `develop` back into your feature branch.
 This will get the latest changes and merge them wih your feature so that everyone is up-to-date. It also helps with merge conflicts later on.
 
 ```
-$ git checkout develop 
-$ git pull 
-$ git checkout feature-<feature-name>
-$ git merge develop									// merges changes from develop into your feature branch
+git checkout develop 
+git pull 
+git checkout feature-<feature-name>
+git merge develop									// merges changes from develop into your feature branch
 ```
 
 When a feature is complete let Lucas know and he will merge your feature into `develop` and then delete the feature branch.
 
 ```
-$ git checkout develop                          	// change to the develop branch  
-$ git merge --no-ff feature-<feature-name>      	// the --no-ff makes sure to create a commit during merge
-$ git push origin develop                       	// push merge changes
-$ git push origin :feature-<feature-name>       	// deletes the remote branch
-$ git branch -d feature-<feature-name>              // (optional) deletes the branch locally	
+git checkout develop                          	// change to the develop branch  
+git merge --no-ff feature-<feature-name>      	// the --no-ff makes sure to create a commit during merge
+git push origin develop                       	// push merge changes
+git push origin :feature-<feature-name>       	// deletes the remote branch
+git branch -d feature-<feature-name>              // (optional) deletes the branch locally	
 ```
 
 ## Razor Pages
