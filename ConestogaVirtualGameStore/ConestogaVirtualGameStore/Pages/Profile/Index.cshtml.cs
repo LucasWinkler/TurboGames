@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConestogaVirtualGameStore.Pages.Profile
@@ -11,11 +12,17 @@ namespace ConestogaVirtualGameStore.Pages.Profile
     public class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ConestogaVirtualGameStore.Data.ApplicationDbContext _context;
 
-        public IndexModel(UserManager<ApplicationUser> userManager)
+        public IndexModel(UserManager<ApplicationUser> userManager, 
+            ConestogaVirtualGameStore.Data.ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
+
+
+        public int CountGames { get; set; }
 
         [BindProperty]
         public InfoModel Info { get; set; }
@@ -32,6 +39,7 @@ namespace ConestogaVirtualGameStore.Pages.Profile
 
             public Gender Gender { get; set; }
         }
+
 
         public async Task<IActionResult> OnGetAsync(string username)
         {
@@ -51,6 +59,8 @@ namespace ConestogaVirtualGameStore.Pages.Profile
                 LastName = user.LastName,
                 Gender = user.Gender
             };
+
+            CountGames = _context.Games.Count();
 
             return Page();
         }

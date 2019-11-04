@@ -1,0 +1,64 @@
+﻿@page
+@model ConestogaVirtualGameStore.Pages.Games.Library.IndexModel
+
+@{
+    ViewData["Title"] = "Library";
+}
+
+<h1>Your Library</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<form asp-page="./Index" method="GET">
+    <div class="form-actions no-color">
+        <p>Filter Games:
+            <br />
+            <input type="text" name="_Filter" value="@Model.Filter" />
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-page="./Index">Back to list</a>
+        </p>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Developer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].TotalRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Game) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Developer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Download" asp-route-id="@item.Id">Download</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
