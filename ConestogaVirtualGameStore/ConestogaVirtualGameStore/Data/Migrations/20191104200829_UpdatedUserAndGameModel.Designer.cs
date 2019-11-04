@@ -4,14 +4,16 @@ using ConestogaVirtualGameStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConestogaVirtualGameStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191104200829_UpdatedUserAndGameModel")]
+    partial class UpdatedUserAndGameModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,21 +281,6 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.ToTable("Review");
                 });
 
-            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserGame", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<Guid>("GameId");
-
-                    b.Property<DateTime>("PurchaseDate");
-
-                    b.HasKey("UserId", "GameId");
-
-                    b.HasIndex("GameId");
-
-                    b.ToTable("UserGame");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -451,19 +438,6 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewerId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserGame", b =>
-                {
-                    b.HasOne("ConestogaVirtualGameStore.Models.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("ConestogaVirtualGameStore.Data.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
