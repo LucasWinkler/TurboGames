@@ -27,6 +27,8 @@ namespace ConestogaVirtualGameStore.Data
 
         public DbSet<Event> Events { get; set; }
 
+        public DbSet<UserEvent> UserEvents { get; set; }
+ 
         /// <summary>
         /// Configures a given entity type in the model.
         /// Such as renaming the default table names for each model.
@@ -103,6 +105,24 @@ namespace ConestogaVirtualGameStore.Data
 
             builder.Entity<Event>()
                     .ToTable("Event");
+
+
+            builder.Entity<UserEvent>()
+                   .ToTable("UserEvent")
+                   .HasKey(x => new { x.UserId, x.EventId });
+
+            builder.Entity<UserEvent>()
+                   .HasOne(x => x.User)
+                   .WithMany()
+                   .HasForeignKey(x => x.UserId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserEvent>()
+                   .HasOne(x => x.Event)
+                   .WithMany()
+                   .HasForeignKey(x => x.EventId)
+                   .OnDelete(DeleteBehavior.Restrict);
+
 
             #endregion
 

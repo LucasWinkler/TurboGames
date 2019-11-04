@@ -1,0 +1,51 @@
+﻿@page 
+@model ConestogaVirtualGameStore.Pages.Events.IndexModel
+
+@{
+    ViewData["Title"] = "Events";
+}
+
+<h1>Turbo Games Events</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Event[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event[0].Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Event[0].Classification)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Event) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Classification)
+            </td>
+            <td>
+               <form method="post">
+                   <input type="submit" value="Register" asp-page-handler="RegisterEvent" asp-route-id="@item.Id" class="btn btn-primary"/>
+               </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

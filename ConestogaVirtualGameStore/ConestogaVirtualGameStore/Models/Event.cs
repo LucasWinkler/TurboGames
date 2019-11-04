@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ConestogaVirtualGameStore.Models
 {
+    public enum Classification { Web = 0, InGame = 1, Reality = 2 }
     public class Event
     {
         [Key]
@@ -26,8 +27,7 @@ namespace ConestogaVirtualGameStore.Models
         public string Details { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
         [Display(Name = "Classification")]
-        public string Classification { get; set; }
+        public Classification Classification { get; set; }
     }
 }

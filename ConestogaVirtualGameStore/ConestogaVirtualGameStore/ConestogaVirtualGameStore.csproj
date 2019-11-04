@@ -95,7 +95,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Events\" />
     <Folder Include="Pages\Games\Library\" />
     <Folder Include="Pages\Games\Store\" />
     <Folder Include="Pages\FriendsFamily\" />
