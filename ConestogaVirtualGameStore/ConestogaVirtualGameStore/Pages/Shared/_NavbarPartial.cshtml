@@ -28,7 +28,10 @@
             </ul>
             @if (SignInManager.IsSignedIn(User))
             {
-                <a class="btn btn-outline-success mr-1" asp-page="/Cart/Index">Cart</a>
+                <a class="btn btn-outline-success mr-1" asp-page="/Cart/Index">
+                    <i class="fas fa-shopping-cart"></i>
+
+                </a>
                 @if (userAccount.IsAdmin)
                 {
                     <div class="dropdown mr-1">
