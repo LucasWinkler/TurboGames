@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-GameStore-FFCE9325-BF63-4E62-BCF4-4421AD970231</UserSecretsId>
+	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.3.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20191015084413_AddedBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015084413_AddedBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015084533_AddedBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015084533_AddedBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015085442_AddedBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015085442_AddedBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015090059_AddedAddressModel.cs" />
+    <Compile Remove="Data\Migrations\20191015090059_AddedAddressModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015113228_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015113228_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191015113846_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191015113846_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017165237_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017165237_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017171152_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017171152_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017173745_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017173745_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017174349_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017174349_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017175015_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017175015_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017180208_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017180208_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017180437_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017180437_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017184206_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017184206_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017184426_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017184426_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017185149_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017185149_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017185626_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017185626_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017185925_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017185925_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017193407_AddPaymentModel.cs" />
+    <Compile Remove="Data\Migrations\20191017193407_AddPaymentModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191017194511_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191017194511_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191022073415_AddedBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191022073415_AddedBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191023055105_AddBillingModel.cs" />
+    <Compile Remove="Data\Migrations\20191023055105_AddBillingModel.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191024025427_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191024025427_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191024030406_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191024030406_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191024045202_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191024045202_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191024051639_AddBillingPage.cs" />
+    <Compile Remove="Data\Migrations\20191024051639_AddBillingPage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102102148_testingmodels.cs" />
+    <Compile Remove="Data\Migrations\20191102102148_testingmodels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102102610_testingmodels.cs" />
+    <Compile Remove="Data\Migrations\20191102102610_testingmodels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102102940_testingmodels.cs" />
+    <Compile Remove="Data\Migrations\20191102102940_testingmodels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102104413_testingmodels.cs" />
+    <Compile Remove="Data\Migrations\20191102104413_testingmodels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191102111108_AddMoreModels.cs" />
+    <Compile Remove="Data\Migrations\20191102111108_AddMoreModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103060631_testmigration.cs" />
+    <Compile Remove="Data\Migrations\20191103060631_testmigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103061123_testmigration.cs" />
+    <Compile Remove="Data\Migrations\20191103061123_testmigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103072830_test.cs" />
+    <Compile Remove="Data\Migrations\20191103072830_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103074712_AddExtraModels.cs" />
+    <Compile Remove="Data\Migrations\20191103074712_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103074921_AddExtraModels.cs" />
+    <Compile Remove="Data\Migrations\20191103074921_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103075756_AddExtraModels.cs" />
+    <Compile Remove="Data\Migrations\20191103075756_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.cs" />
+    <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191105044851_DataSeededAdminAccount.cs" />
+    <Compile Remove="Data\Migrations\20191105044851_DataSeededAdminAccount.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Administration\" />
+    <Folder Include="Pages\Games\Library\" />
+    <Folder Include="Pages\Games\Store\" />
+    <Folder Include="Pages\FriendsFamily\" />
+    <Folder Include="Pages\Events\" />
+    <Folder Include="Pages\Wishlist\" />
+  </ItemGroup>
+
+</Project>
