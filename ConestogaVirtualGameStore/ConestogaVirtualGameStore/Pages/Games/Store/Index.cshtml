@@ -18,9 +18,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Game[0].Category)
             </th>
-            <th>
-                <a asp-page="./Index"><Button>Cart</Button></a>
-            </th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +25,9 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    <a asp-page="./GamePage" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Developer)
@@ -38,9 +37,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    <a asp-page="./GamePage" asp-route-id="@item.Id"><Button>Game Page</Button></a>
                 </td>
             </tr>
         }

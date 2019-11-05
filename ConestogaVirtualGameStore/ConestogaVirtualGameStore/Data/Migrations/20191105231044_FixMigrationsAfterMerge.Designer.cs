@@ -4,14 +4,16 @@ using ConestogaVirtualGameStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConestogaVirtualGameStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191105231044_FixMigrationsAfterMerge")]
+    partial class FixMigrationsAfterMerge
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,6 +44,8 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         .IsRequired();
 
                     b.Property<int>("Gender");
+
+                    b.Property<bool>("IsAdmin");
 
                     b.Property<string>("LastName")
                         .IsRequired();
@@ -86,6 +90,50 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.HasIndex("PaymentId");
 
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1a1a111-111-11aa-111a-a11aa1a11aa1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "94cd35fe-6d8e-4ec9-8d83-d8ff58855993",
+                            DOB = new DateTime(2019, 11, 5, 23, 10, 43, 723, DateTimeKind.Utc).AddTicks(4470),
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Turbo",
+                            Gender = 2,
+                            IsAdmin = true,
+                            LastName = "Admin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMo86Q8Ju3GIsckjCtA51JDfK8ACtlPX3zEe7TPd8NZVV/EGvFLTm6vy2+lMerXn5Q==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "69b81062-9f95-4d54-bcbe-50bcadcde928",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "2a2a222-222-22aa-222a-a22aa2a22aa2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b5a2e853-ff8c-4e75-81a9-6ee1c13e6cae",
+                            DOB = new DateTime(2019, 11, 5, 23, 10, 43, 724, DateTimeKind.Utc).AddTicks(9138),
+                            Email = "standard.user@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Turbo",
+                            Gender = 2,
+                            IsAdmin = false,
+                            LastName = "User",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "STANDARD.USER@GMAIL.COM",
+                            NormalizedUserName = "USER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF8xI6zr0C7mrSzMz5LeT5M9xJtJ0zChAt84OSRGecKMS4TOlzxlOAwEEuPk+BIUbw==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "8672ca4a-a818-4032-81c4-0b94662cd7b4",
+                            TwoFactorEnabled = false,
+                            UserName = "User"
+                        });
                 });
 
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.Address", b =>
@@ -139,6 +187,26 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ConestogaVirtualGameStore.Models.Event", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Classification");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Details")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Event");
+                });
+
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.Friendship", b =>
                 {
                     b.Property<string>("SenderId");
@@ -163,8 +231,13 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
                     b.Property<Guid>("CategoryId");
 
+                    b.Property<string>("Description")
+                        .IsRequired();
+
                     b.Property<string>("Developer")
                         .IsRequired();
+
+                    b.Property<double?>("Price");
 
                     b.Property<string>("Title")
                         .IsRequired();
@@ -182,6 +255,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         {
                             Id = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"),
                             CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                            Description = "The description",
                             Developer = "Game Developer 1",
                             Title = "Game Name 1",
                             TotalRating = 0
@@ -190,6 +264,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         {
                             Id = new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"),
                             CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                            Description = "The description",
                             Developer = "Game Developer 2",
                             Title = "Game Name 2",
                             TotalRating = 0
@@ -198,6 +273,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         {
                             Id = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
                             CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                            Description = "The description",
                             Developer = "Game Developer 3",
                             Title = "Game Name 3",
                             TotalRating = 0
@@ -267,6 +343,54 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.HasIndex("ReviewerId");
 
                     b.ToTable("Review");
+                });
+
+            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserEvent", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<Guid>("EventId");
+
+                    b.HasKey("UserId", "EventId");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("UserEvent");
+                });
+
+            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserGame", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<Guid>("GameId");
+
+                    b.Property<DateTime>("PurchaseDate");
+
+                    b.HasKey("UserId", "GameId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("UserGame");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1",
+                            GameId = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                            PurchaseDate = new DateTime(2019, 11, 5, 23, 10, 43, 725, DateTimeKind.Utc).AddTicks(268)
+                        },
+                        new
+                        {
+                            UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1",
+                            GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                            PurchaseDate = new DateTime(2019, 11, 5, 23, 10, 43, 725, DateTimeKind.Utc).AddTicks(1204)
+                        },
+                        new
+                        {
+                            UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2",
+                            GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                            PurchaseDate = new DateTime(2019, 11, 5, 23, 10, 43, 725, DateTimeKind.Utc).AddTicks(1221)
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -426,6 +550,32 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewerId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserEvent", b =>
+                {
+                    b.HasOne("ConestogaVirtualGameStore.Models.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ConestogaVirtualGameStore.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserGame", b =>
+                {
+                    b.HasOne("ConestogaVirtualGameStore.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ConestogaVirtualGameStore.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

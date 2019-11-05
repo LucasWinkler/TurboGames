@@ -90,6 +90,16 @@
     <Compile Remove="Data\Migrations\20191104211529_AddedUserGameData.Designer.cs" />
     <Compile Remove="Data\Migrations\20191104220031_AddSeedData.cs" />
     <Compile Remove="Data\Migrations\20191104220031_AddSeedData.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191105225527_FixDbSnapshot.cs" />
+    <Compile Remove="Data\Migrations\20191105225527_FixDbSnapshot.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191105230027_Test.cs" />
+    <Compile Remove="Data\Migrations\20191105230027_Test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191105230124_FixMigrationMergeIssues.cs" />
+    <Compile Remove="Data\Migrations\20191105230124_FixMigrationMergeIssues.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191105230243_UpdateDataSeeding.cs" />
+    <Compile Remove="Data\Migrations\20191105230243_UpdateDataSeeding.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191105231018_FixMigrationsAfterMege.cs" />
+    <Compile Remove="Data\Migrations\20191105231018_FixMigrationsAfterMege.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

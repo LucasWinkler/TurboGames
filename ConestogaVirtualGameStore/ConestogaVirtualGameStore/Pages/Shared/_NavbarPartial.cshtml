@@ -17,7 +17,10 @@
                     <a class="nav-link text-dark" asp-page="/Home/Index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-page="/Games/Store/Index">Games</a>
+                    <a class="nav-link text-dark" asp-page="/Games/Store/Index">Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-page="/Games/Library/Index">Games</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-page="/Events/Index">Events</a>
@@ -25,14 +28,16 @@
             </ul>
             @if (SignInManager.IsSignedIn(User))
             {
-                @if (userAccount.IsAdmin) {
-                    <div class="dropdown">
+                <a class="btn btn-outline-success mr-1" asp-page="/Cart/Index">Cart</a>
+                @if (userAccount.IsAdmin)
+                {
+                    <div class="dropdown mr-1">
                         <button class="btn btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Admin Panel
-                        </button
+                        </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" asp-page="/Admin/Games/Index">
-                                <i class="fas fa-gamepad mr-2"></i>
+                                <i class="fas fa-gamepad"></i>
                                 Manage Games
                             </a>
                             <a class="dropdown-item" asp-page="/Admin/Events/Index">
@@ -42,7 +47,7 @@
                         </div>
                     </div>
                 }
-            }   
+            }
             <partial name="_LoginPartial" />
         </div>
     </div>
