@@ -1,0 +1,44 @@
+﻿@page
+@model ConestogaVirtualGameStore.Pages.Games.Library.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.User.Identity.Name's Library</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserGame[0].Game.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserGame[0].Game.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserGame[0].PurchaseDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.UserGame) {
+
+        <tr onclick="location.href = '@Url.Action("Details", "Details", new { }))'" class="row-hover">
+            <td>
+                @Html.DisplayFor(modelItem => item.Game.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Game.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.ActionLink("Download", "Download", new { /* id=item.PrimaryKey */ }) |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

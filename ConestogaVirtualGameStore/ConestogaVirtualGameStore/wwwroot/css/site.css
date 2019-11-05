@@ -69,3 +69,10 @@ span.tags {
     font-weight: bold;
     padding: 2px 4px;
 }
+
+.row-hover {
+    cursor: pointer;
+}
+.row-hover:hover{
+    background-color: aquamarine;
+}

@@ -4,14 +4,16 @@ using ConestogaVirtualGameStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConestogaVirtualGameStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191104220115_AddSeedData")]
+    partial class AddSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,45 +94,19 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1a1a111-111-11aa-111a-a11aa1a11aa1",
+                            Id = "4c9e6679-7425-40de-944b-e07fc1f90ae7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dd2a9d4b-9313-4486-a7a0-a55f6eaf396e",
-                            DOB = new DateTime(2019, 11, 5, 5, 51, 29, 693, DateTimeKind.Utc).AddTicks(5874),
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Turbo",
-                            Gender = 2,
+                            ConcurrencyStamp = "3536ebe6-7ca5-4ac6-aeac-2992f83229d6",
+                            DOB = new DateTime(1998, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailConfirmed = false,
+                            FirstName = "Admin First",
+                            Gender = 1,
                             IsAdmin = true,
-                            LastName = "Admin",
+                            LastName = "Admin Last ",
                             LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBd0aisB8frkpkvvlnysqV9MhnAFvrxWXWksM0WyZe6zm3jhFUiFvjPFxBxOf1bUhA==",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "9a13e13d-3d0d-4425-a6fc-d0b6a90e95f6",
+                            PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "Admin"
-                        },
-                        new
-                        {
-                            Id = "2a2a222-222-22aa-222a-a22aa2a22aa2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "1243e38c-144a-40ab-b650-3fc217fe4a59",
-                            DOB = new DateTime(2019, 11, 5, 5, 51, 29, 695, DateTimeKind.Utc).AddTicks(448),
-                            Email = "standard.user@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Turbo",
-                            Gender = 2,
-                            IsAdmin = false,
-                            LastName = "User",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "STANDARD.USER@GMAIL.COM",
-                            NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIxXdtJEXNV3tWPOo7FSEI+Lrwi72DGMdtzVZBBXAgtCRd+lbIekGGXQ6jLiF4oxyQ==",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "a6b955a1-89ba-4642-9e41-a7186a645398",
-                            TwoFactorEnabled = false,
-                            UserName = "User"
                         });
                 });
 
@@ -183,26 +159,6 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                             Description = "Category Description",
                             Name = "Category Name"
                         });
-                });
-
-            modelBuilder.Entity("ConestogaVirtualGameStore.Models.Event", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Classification");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("Details")
-                        .IsRequired();
-
-                    b.Property<string>("Title")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.Friendship", b =>
@@ -342,7 +298,7 @@ namespace ConestogaVirtualGameStore.Data.Migrations
 
                     b.ToTable("Review");
                 });
-                
+
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserGame", b =>
                 {
                     b.Property<string>("UserId");
@@ -356,17 +312,6 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("UserGame");
-            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserEvent", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<Guid>("EventId");
-
-                    b.HasKey("UserId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("UserEvent");
 
                     b.HasData(
                         new
@@ -542,19 +487,11 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserGame", b =>
                 {
                     b.HasOne("ConestogaVirtualGameStore.Models.Game", "Game")
                         .WithMany()
                         .HasForeignKey("GameId")
-
-            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserEvent", b =>
-                {
-                    b.HasOne("ConestogaVirtualGameStore.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
-
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ConestogaVirtualGameStore.Data.ApplicationUser", "User")
