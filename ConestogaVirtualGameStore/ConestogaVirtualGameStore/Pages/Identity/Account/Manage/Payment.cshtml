@@ -1,18 +1,16 @@
 ﻿@page "/Settings/Payment"
 @model PaymentModel
 @{
-    ViewData["Title"] = "Payment";
+    ViewData["Title"] = "Payment Info";
     ViewData["ActivePage"] = ManageNavPages.Payment;
 }
 
+<h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">
         <form id="billing-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <h3>Payment Info</h3>
-            <hr class="my-4" />
-
             <div class="form-row mb-3">
                 <div class="col">
                     <label asp-for="Payment.CardNumber">Card Number</label>

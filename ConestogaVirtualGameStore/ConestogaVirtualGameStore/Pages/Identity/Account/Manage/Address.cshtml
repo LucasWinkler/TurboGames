@@ -5,13 +5,12 @@
     ViewData["ActivePage"] = ManageNavPages.Address;
 }
 
+<h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">
         <form id="address-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <h3>Address</h3>
-            <hr class="my-4" />
             <div class="form-group">
                 <label asp-for="Address.PrimaryAddress"></label>
                 <input asp-for="Address.PrimaryAddress" class="form-control" />
