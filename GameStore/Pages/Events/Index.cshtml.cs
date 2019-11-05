@@ -23,55 +23,97 @@ namespace GameStore.Pages.Events
             _userManager = userManager;
         }
 
-        public IList<Event> Event { get; set; }
+        public IList<Event> Events { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
 
-        public async Task OnGetAsync()
-        {
-            Event = await _context.Events.ToListAsync();
-        }
+        [TempData]
+        public bool IsRegistered { get; set; } = false;
 
-        public async Task<IActionResult> OnPostRegisterEventAsync(Guid id)
+        public async Task<IActionResult> OnGetAsync()
         {
-
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Identity/Account/Login");
             }
 
-            var userEventExists = _context.UserEvents.FirstAsync(x => x.EventId == id);
-            if (userEventExists == null )
+            Events = await _context.Events.ToListAsync();
+
+            IsRegistered = await _context.UserEvents.AnyAsync(x => x.UserId == user.Id);
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostRegisterAsync(Guid eventId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                StatusMessage = $"You have already registered for this event";
-                return Page();
+                return RedirectToPage("/Identity/Account/Login");
+            }
+
+            var userEvent = await _context.UserEvents.FirstOrDefaultAsync(x => x.EventId == eventId);
+            if (userEvent != null)
+            {
+                StatusMessage = $"Error: You have already registered for the '{_context.Events.FirstOrDefault(x => x.Id == userEvent.EventId).Title}' event.";
+                return RedirectToPage();
             }
 
             try
             {
-                var userEvent = new UserEvent
-                {
-                    EventId = id,
-                    UserId = user.Id
-                };
+                _context.UserEvents.Add(
+                    new UserEvent
+                    {
+                        EventId = eventId,
+                        UserId = user.Id
+                    }
+                );
 
-                _context.UserEvents.Add(userEvent);
                 await _context.SaveChangesAsync();
 
-                await _userManager.UpdateAsync(user);
-                //await _signInManager.RefreshSignInAsync(user);
-
-                StatusMessage = $"You have registered for {Event.FirstOrDefault(x => x.Id == id).Title}";
-                return RedirectToPage();
+                StatusMessage = $"You have registered for the '{_context.Events.FirstOrDefault(x => x.Id == eventId).Title}' event.";
+                return RedirectToPage("Index");
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.InnerException);
             }
 
-            return Page();
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostUnregisterAsync(Guid eventId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Identity/Account/Login");
+            }
+
+            var userEvent = await _context.UserEvents.FirstOrDefaultAsync(x => x.EventId == eventId);
+            if (userEvent == null)
+            {
+                StatusMessage = $"Error: You are not registered for the '{_context.Events.FirstOrDefault(x => x.Id == userEvent.EventId).Title}' event.";
+                return RedirectToPage();
+            }
+
+            try
+            {
+                _context.UserEvents.Remove(userEvent);
+
+                await _context.SaveChangesAsync();
+
+                StatusMessage = $"You have unregistered for the '{_context.Events.FirstOrDefault(x => x.Id == eventId).Title}' event.";
+                return RedirectToPage("Index");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
+            }
+
+            return RedirectToPage();
         }
     }
 }

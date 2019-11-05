@@ -61,12 +61,6 @@ namespace GameStore
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Adds the MVC service and sets to version 2.2
-            services.AddMvc().AddRazorPagesOptions(options =>
-            {
-                options.Conventions.AddPageRoute("/Home/Index", "");
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
             // Configure session
             services.AddSession(options =>
             {
@@ -74,6 +68,12 @@ namespace GameStore
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+
+            // Adds the MVC service and sets to version 2.2
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute("/Home/Index", "");
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         /// <summary>
