@@ -4,8 +4,6 @@ A team project for the PROG3050 Microsoft Enterprise course at Conestoga College
 This project is a virtual game store created in ASP.NET Core 2.2.
 It uses Razor Pages, MS SQL Server and a code-first design.
 
-## Team TurboGames
-
 <table>
   <thead>
     <tr>
@@ -78,11 +76,19 @@ The main branch that you will be working off of is `develop`. You don't work dir
 
 The `master` branch is for production. This branch is never to be touched. It will be merged with `develop` at the end of iterations and that is what we will present. 
 
+To start please clone the repo by using:
+
+Standard: `git clone https://github.com/LucasWinkler/TurboGames-ConestogaVirtualGameStore.git`
+
+*or*
+
+SSH: `git clone git@github.com:LucasWinkler/TurboGames-ConestogaVirtualGameStore.git`
+
 ### Feature Branches
 
 Feature branches are used when developing a new feature. It will always be merged back into the `develop` branch.
 
-An example of `<feature-name>` could be `friends-page` so `feature-fiends-page` or it could be the use case id.
+An example of `<feature-name>` could be `FriendsPage` so `feature-FriendsPage` or it could be the use case id.
 
 * Must branch from: `develop`
 * Must merge back into: `develop`
@@ -93,37 +99,48 @@ An example of `<feature-name>` could be `friends-page` so `feature-fiends-page` 
 If the feature branch does not exist yet, create the branch locally and then push to GitHub. 
 
 ```
-$ git checkout -b feature-<feature-name> develop 	// creates a local branch for the new feature
-$ git push origin feature-<feature-name>         	// makes the new feature remotely available                   
+git checkout -b feature-<feature-name> develop         // creates a local branch for the new feature
+git push --set-upstream origin feature-<feature-name>                
 ```
 
 Constantly commit your changes to your branch. This way you can always keep track of your feature and you can always look back at previous commits.
 
 ```
-$ git add .                                         // Add all new/changed files
-$ git commit -m "Enter commit message here"         // e.g. Added friends page, fixed this, added that etc...
+git add .                                         // Add all new/changed files
+git commit -m "Enter commit message here"         // e.g. Added friends page, fixed this, added that etc...
 ```
 
 You should always push these commits to the remote repository (GitHub) so that anyone can see your latest changes.
 
 ```
-$ git push
+git push
 ```
 
 If any changes have been made to `develop` (you should be told when this happens) after you have created your branch then you must merge `develop` back into your feature branch.
 This will get the latest changes and merge them wih your feature so that everyone is up-to-date. It also helps with merge conflicts later on.
 
 ```
-$ git merge develop									// merges changes from develop into your feature branch
+git checkout develop 
+git pull 
+git checkout feature-<feature-name>
+git merge develop                      // merges changes from develop into your feature branch
 ```
 
 When a feature is complete let Lucas know and he will merge your feature into `develop` and then delete the feature branch.
 
 ```
-$ git checkout develop                          	// change to the develop branch  
-$ git merge --no-ff feature-<feature-name>      	// the --no-ff makes sure to create a commit during merge
-$ git push origin develop                       	// push merge changes
-$ git push origin :feature-<feature-name>       	// deletes the remote branch
+git checkout develop                        // change to the develop branch  
+git merge --no-ff feature-<feature-name>    // the --no-ff makes sure to create a commit during merge
+git push origin develop                     // push merge changes
+git push origin :feature-<feature-name>     // deletes the remote branch
+git branch -d feature-<feature-name>        // (optional) deletes the branch locally	
+```
+
+If you want to discard all changes and go to the last commit:
+
+```
+git fetch --all
+git reset --hard origin/branch-name
 ```
 
 ## Razor Pages
@@ -147,7 +164,7 @@ Create a new class in the Models folder and give it a name. This will be the nam
 
 Inside the class you define each of the fields including any primary keys or foreign keys.
 
-Here is an example from our Address table:
+Here is an example (unfinished):
 
 ```cs
  public class Address
@@ -157,48 +174,26 @@ Here is an example from our Address table:
         public Guid Id { get; set; }
 
         [Required]
-        [ProtectedPersonalData]
         [DataType(DataType.Text)]
         [Display(Name = "Address")]
         public string PrimaryAddress { get; set; }
 
-        [ProtectedPersonalData]
-        [DataType(DataType.Text)]
-        [Display(Name = "Address 2 (optional)")]
-        public string SecondaryAddress { get; set; }
-
         [Required]
-        [ProtectedPersonalData]
         [DataType(DataType.Text)]
         [Display(Name = "Country")]
         public string Country { get; set; }
-
-        [Required]
-        [ProtectedPersonalData]
-        [DataType(DataType.Text)]
-        [Display(Name = "Province")]
-        public string Province { get; set; }
-
-        [Required]
-        [ProtectedPersonalData]
-        [StringLength(12, ErrorMessage = "{0} code must be between {2} and {1}.", MinimumLength = 5)]
-        [RegularExpression("(^\\d{5}(-\\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\\d{1}[A-Z]{1} *\\d{1}[A-Z]{1}\\d{1}$)", ErrorMessage = "Postal/zip code is invalid.")]
-        [DataType(DataType.Text)]
-        [Display(Name = "Postal/zip code")]
-        public string PostalCode { get; set; }
     }
 ```
 
-To let each User have an address you would need to go into the Data/ApplicationUser class and add a AddressId as well as the Address model.
+To let each User have an address you would need to go into the Data/ApplicationUser class and add an AddressId as well as the Address model.
 
-Example with an optional address (because of the `?` next to `Guid`):
+Example with the users address being optional (because of the `?` next to `Guid`):
 
 ```cs
     public class ApplicationUser : IdentityUser
     {
         public Guid? AddressId { get; set; }
 
-        [ForeignKey("AddressId")]
         public Address Address { get; set; }
     }
 ```
@@ -211,22 +206,23 @@ To include the list of addresses you will create a DbSet of the Model. You can a
 
 ```cs
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+	}
+	
+    // DbSets for each model
+    public DbSet<Address> Addresses { get; set; }
 
-        // DbSets for each model
-        public DbSet<Address> Addresses { get; set; }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            // Rename the new address table
-            builder.Entity<Address>().ToTable("Address");
-        }
+        // Rename the new address table to make it singular (personal preference)
+        builder.Entity<Address>().ToTable("Address");
+    }
+}
 ```
 
 ## Mirations
