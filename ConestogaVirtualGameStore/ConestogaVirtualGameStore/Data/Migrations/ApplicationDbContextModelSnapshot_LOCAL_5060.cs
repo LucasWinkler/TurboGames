@@ -185,26 +185,6 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ConestogaVirtualGameStore.Models.Event", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Classification");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("Details")
-                        .IsRequired();
-
-                    b.Property<string>("Title")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Event");
-                });
-
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.Friendship", b =>
                 {
                     b.Property<string>("SenderId");
@@ -343,7 +323,6 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.ToTable("Review");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserGame", b =>
                 {
                     b.Property<string>("UserId");
@@ -357,19 +336,6 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("UserGame");
-=======
-            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserEvent", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<Guid>("EventId");
-
-                    b.HasKey("UserId", "EventId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("UserEvent");
->>>>>>> feature-events
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -531,19 +497,11 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserGame", b =>
                 {
                     b.HasOne("ConestogaVirtualGameStore.Models.Game", "Game")
                         .WithMany()
                         .HasForeignKey("GameId")
-=======
-            modelBuilder.Entity("ConestogaVirtualGameStore.Models.UserEvent", b =>
-                {
-                    b.HasOne("ConestogaVirtualGameStore.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId")
->>>>>>> feature-events
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ConestogaVirtualGameStore.Data.ApplicationUser", "User")
