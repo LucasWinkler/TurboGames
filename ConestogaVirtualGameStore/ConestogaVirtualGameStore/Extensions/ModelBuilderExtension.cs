@@ -57,6 +57,7 @@ namespace ConestogaVirtualGameStore.Extensions
                 }
             );
 
+            // Create an admin account and a standard account
             builder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser
                 {
@@ -71,10 +72,28 @@ namespace ConestogaVirtualGameStore.Extensions
                     PasswordHash = hasher.HashPassword(null, "Admin123!"),
                     SecurityStamp = Guid.NewGuid().ToString(),
                     FirstName = "Turbo",
-                    LastName = "Games",
+                    LastName = "Admin",
                     Gender = Gender.Other,
                     DOB = DateTime.UtcNow,
                     IsAdmin = true
+                },
+                new ApplicationUser
+                {
+                    Id = "2a2a222-222-22aa-222a-a22aa2a22aa2",
+                    UserName = "User",
+                    Email = "standard.user@gmail.com",
+                    EmailConfirmed = true,
+                    NormalizedEmail = "standard.user@gmail.com".ToUpper(),
+                    NormalizedUserName = "User".ToUpper(),
+                    PhoneNumber = null,
+                    PhoneNumberConfirmed = true,
+                    PasswordHash = hasher.HashPassword(null, "User123!"),
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    FirstName = "Turbo",
+                    LastName = "User",
+                    Gender = Gender.Other,
+                    DOB = DateTime.UtcNow,
+                    IsAdmin = false
                 }
             );
         }

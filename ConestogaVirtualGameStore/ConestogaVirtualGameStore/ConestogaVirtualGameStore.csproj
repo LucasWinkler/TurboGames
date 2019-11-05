@@ -84,6 +84,8 @@
     <Compile Remove="Data\Migrations\20191103075756_AddExtraModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.cs" />
     <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191105044851_DataSeededAdminAccount.cs" />
+    <Compile Remove="Data\Migrations\20191105044851_DataSeededAdminAccount.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

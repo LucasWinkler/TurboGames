@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConestogaVirtualGameStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191105044851_DataSeededAdminAccount")]
-    partial class DataSeededAdminAccount
+    [Migration("20191105055129_AddedAdminAndStandardUserDataSeeding")]
+    partial class AddedAdminAndStandardUserDataSeeding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -96,22 +96,43 @@ namespace ConestogaVirtualGameStore.Data.Migrations
                         {
                             Id = "1a1a111-111-11aa-111a-a11aa1a11aa1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fe55d129-4f8d-4b89-8a04-09da93e48f5d",
-                            DOB = new DateTime(2019, 11, 5, 4, 48, 51, 325, DateTimeKind.Utc).AddTicks(8397),
+                            ConcurrencyStamp = "dd2a9d4b-9313-4486-a7a0-a55f6eaf396e",
+                            DOB = new DateTime(2019, 11, 5, 5, 51, 29, 693, DateTimeKind.Utc).AddTicks(5874),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Turbo",
                             Gender = 2,
                             IsAdmin = true,
-                            LastName = "Games",
+                            LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDCyvSGcoq6eqtWdkDz9Cf/cwtgjVVajRHB4MK7GQdqD2Tpu7R7dEtY5D+MXWFwxfw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBd0aisB8frkpkvvlnysqV9MhnAFvrxWXWksM0WyZe6zm3jhFUiFvjPFxBxOf1bUhA==",
                             PhoneNumberConfirmed = true,
-                            SecurityStamp = "5e3efb35-8356-4e0e-8ee0-d1ef533d4125",
+                            SecurityStamp = "9a13e13d-3d0d-4425-a6fc-d0b6a90e95f6",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "2a2a222-222-22aa-222a-a22aa2a22aa2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1243e38c-144a-40ab-b650-3fc217fe4a59",
+                            DOB = new DateTime(2019, 11, 5, 5, 51, 29, 695, DateTimeKind.Utc).AddTicks(448),
+                            Email = "standard.user@gmail.com",
+                            EmailConfirmed = true,
+                            FirstName = "Turbo",
+                            Gender = 2,
+                            IsAdmin = false,
+                            LastName = "User",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "STANDARD.USER@GMAIL.COM",
+                            NormalizedUserName = "USER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIxXdtJEXNV3tWPOo7FSEI+Lrwi72DGMdtzVZBBXAgtCRd+lbIekGGXQ6jLiF4oxyQ==",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "a6b955a1-89ba-4642-9e41-a7186a645398",
+                            TwoFactorEnabled = false,
+                            UserName = "User"
                         });
                 });
 
