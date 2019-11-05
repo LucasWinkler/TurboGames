@@ -139,7 +139,6 @@ namespace ConestogaVirtualGameStore.Data
              .HasForeignKey(x => x.EventId)
              .OnDelete(DeleteBehavior.Restrict);
 
-
       #endregion
 
       builder.Seed();
