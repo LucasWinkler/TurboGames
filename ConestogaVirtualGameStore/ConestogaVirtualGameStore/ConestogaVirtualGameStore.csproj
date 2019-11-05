@@ -98,7 +98,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Games\Library\" />
-    <Folder Include="Pages\Games\Store\" />
     <Folder Include="Pages\FriendsFamily\" />
     <Folder Include="Pages\Wishlist\" />
   </ItemGroup>
