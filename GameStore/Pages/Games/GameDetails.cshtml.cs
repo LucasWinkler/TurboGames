@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameStore.Pages.Games.Store
+namespace GameStore.Pages.Games
 {
-    public class GameModel : PageModel
+    public class GameDetailsModel : PageModel
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public GameModel(
+        public GameDetailsModel(
             UserManager<ApplicationUser> userManager,
             ApplicationDbContext context)
         {
@@ -27,7 +27,7 @@ namespace GameStore.Pages.Games.Store
         [BindProperty]
         public Game Game { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string Id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -35,17 +35,9 @@ namespace GameStore.Pages.Games.Store
                 return RedirectToPage("/Account/Login");
             }
 
-            var game = await _context.Game.FirstOrDefaultAsync(x => x.Id.ToString() == Id);
-            var category = await _context.Category.FirstOrDefaultAsync(x => x.Id == game.CategoryId);
+            var game = await _context.Game.Include(x=> x.Category).FirstOrDefaultAsync(x => x.Id == id);
 
-            Game = new Game
-            {
-                Title = game.Title,
-                Developer = game.Developer,
-                TotalRating = game.TotalRating,
-                Category = category,
-                Reviews = game.Reviews
-            };
+            Game = game;
 
             return Page();
         }
