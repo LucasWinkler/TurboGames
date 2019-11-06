@@ -77,6 +77,10 @@ namespace GameStore.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "Receive promotional emails")]
+            public bool ShouldReceiveEmails { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -89,7 +93,7 @@ namespace GameStore.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.UserName, Email = Input.Email, Gender = Input.Gender, DOB = Input.DOB };
+                var user = new ApplicationUser { FirstName = Input.FirstName, LastName = Input.LastName, UserName = Input.UserName, Email = Input.Email, Gender = Input.Gender, DOB = Input.DOB, ShouldReceiveEmails = Input.ShouldReceiveEmails };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

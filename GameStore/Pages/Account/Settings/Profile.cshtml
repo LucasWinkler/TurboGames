@@ -30,7 +30,11 @@
                 <label asp-for="Input.DOB"></label>
                 <input asp-for="Input.DOB" class="form-control" />
             </div>
-
+            <div class="custom-control custom-checkbox mb-3">
+                <input asp-for="Input.ShouldReceiveEmails" type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                <label asp-for="Input.ShouldReceiveEmails" class="custom-control-label" for="defaultUnchecked"></label>
+                <span asp-validation-for="Input.ShouldReceiveEmails" class="text-danger"></span>
+            </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>

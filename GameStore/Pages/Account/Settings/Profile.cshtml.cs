@@ -48,6 +48,10 @@ namespace GameStore.Pages.Account.Settings
             [Required]
             [Display(Name = "Gender")]
             public Gender Gender { get; set; }
+
+            [Required]
+            [Display(Name = "Receive promotional emails")]
+            public bool ShouldReceiveEmails { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -63,7 +67,8 @@ namespace GameStore.Pages.Account.Settings
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 DOB = user.DOB,
-                Gender = user.Gender
+                Gender = user.Gender,
+                ShouldReceiveEmails = user.ShouldReceiveEmails
             };
 
             return Page();
@@ -100,6 +105,11 @@ namespace GameStore.Pages.Account.Settings
             if (Input.Gender != user.Gender)
             {
                 user.Gender = Input.Gender;
+            }
+
+            if (Input.ShouldReceiveEmails != user.ShouldReceiveEmails)
+            {
+                user.ShouldReceiveEmails = Input.ShouldReceiveEmails;
             }
 
             var result = await _userManager.UpdateAsync(user);

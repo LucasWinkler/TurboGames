@@ -30,7 +30,7 @@
             <div class="form-group">
                 <label asp-for="Input.Gender"></label>
                 <select asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control">
-                    <option selected="selected" value="">Please select</option>    
+                    <option selected="selected" value="">Please select</option>
                 </select>
                 <span asp-validation-for="Input.Gender" class="text-danger"></span>
             </div>
@@ -53,6 +53,11 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+                <input asp-for="Input.ShouldReceiveEmails" type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                <label asp-for="Input.ShouldReceiveEmails" class="custom-control-label" for="defaultUnchecked"></label>
+                <span asp-validation-for="Input.ShouldReceiveEmails" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
