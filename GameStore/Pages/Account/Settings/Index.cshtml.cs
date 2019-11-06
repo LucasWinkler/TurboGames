@@ -36,6 +36,10 @@ namespace GameStore.Pages.Account.Settings
             [DataType(DataType.Text)]
             [Display(Name = "Username")]
             public string UserName { get; set; }
+
+            [Required]
+            [Display(Name = "Receive promotional emails")]
+            public bool ShouldReceiveEmails { get; set; }
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -52,7 +56,8 @@ namespace GameStore.Pages.Account.Settings
             Input = new InputModel
             {
                 Email = email,
-                UserName = username
+                UserName = username,
+                ShouldReceiveEmails = user.ShouldReceiveEmails
             };
 
             return Page();
@@ -97,6 +102,11 @@ namespace GameStore.Pages.Account.Settings
                     }
                     return Page();
                 }
+            }
+
+            if (Input.ShouldReceiveEmails != user.ShouldReceiveEmails)
+            {
+                user.ShouldReceiveEmails = Input.ShouldReceiveEmails;
             }
 
             await _userManager.UpdateAsync(user);

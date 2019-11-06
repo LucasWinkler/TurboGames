@@ -73,6 +73,14 @@ namespace GameStore
 
             #endregion
 
+            services.ConfigureApplicationCookie(options => 
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/Access-Denied";
+                options.LogoutPath = "/Account/Logout";
+ 
+            });
+
             // Configure session
             services.AddSession(options =>
             {

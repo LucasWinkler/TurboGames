@@ -13,8 +13,8 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-row mb-3">
                 <div class="col">
-                    <label asp-for="Payment.CardNumber">Card Number</label>
-                    <input type="text" class="form-control" asp-for="Payment.CardNumber" placeholder="Card Number">
+                    <label asp-for="Payment.CardNumber"></label>
+                    <input type="text" class="form-control" asp-for="Payment.CardNumber" placeholder="Card number">
                     <span asp-validation-for="Payment.CardNumber" class="text-danger"></span>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col">
                     <label asp-for="Payment.CardCVC"></label>
-                    <input asp-for="Payment.CardCVC" class="form-control" placeholder="Security Code" />
+                    <input asp-for="Payment.CardCVC" class="form-control" placeholder="Security code" />
                     <span asp-validation-for="Payment.CardCVC" class="text-danger"></span>
                 </div>
             </div>
