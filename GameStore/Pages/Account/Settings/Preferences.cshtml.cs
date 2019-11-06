@@ -37,7 +37,7 @@ namespace GameStore.Pages.Account.Settings
             [Display(Name = "Favourite platform")]
             public Guid? PlatformId { get; set; }
 
-            [Display(Name = "Favourite cateogry")]
+            [Display(Name = "Favourite category")]
             public Guid? CategoryId { get; set; }
 
         }

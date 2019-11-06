@@ -1,8 +1,11 @@
 ﻿using GameStore.Data;
+using GameStore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,6 +41,13 @@ namespace GameStore.Pages.Profile
             public string FullName { get { return $"{FirstName} {LastName}"; } }
 
             public Gender Gender { get; set; }
+
+            [DataType(DataType.Date)]
+            public DateTime DOB { get; set; }
+
+            public Platform FavouritePlatform { get; set; }
+
+            public Category FavouriteCategory { get; set; }
         }
 
 
@@ -57,7 +67,10 @@ namespace GameStore.Pages.Profile
                 Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Gender = user.Gender
+                Gender = user.Gender,
+                DOB = user.DOB,
+                FavouritePlatform = _context.Platform.FirstOrDefault(x => x.Id == user.FavouritePlatformId),
+                FavouriteCategory = _context.Category.FirstOrDefault(x => x.Id == user.FavouriteCategoryId)
             };
 
             CountGames = _context.UserGame.Count();
