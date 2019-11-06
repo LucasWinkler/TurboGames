@@ -2,8 +2,9 @@
 <div class="list-group">
     <p class="list-group-item list-group-item-secondary">Personal settings</p>
     <a class="list-group-item list-group-item-action @ManageNavPages.IndexNavClass(ViewContext)" id="index" asp-page="./Index">Account</a>
-    <a class="list-group-item list-group-item-action @ManageNavPages.PublicNavClass(ViewContext)" id="public" asp-page="./Public">Public</a>
+    <a class="list-group-item list-group-item-action @ManageNavPages.ProfileNavClass(ViewContext)" id="profile" asp-page="./Profile">Edit Profile</a>
     <a class="list-group-item list-group-item-action @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a>
     <a class="list-group-item list-group-item-action @ManageNavPages.AddressNavClass(ViewContext)" id="address" asp-page="./Address">Address</a>
     <a class="list-group-item list-group-item-action @ManageNavPages.PaymentNavClass(ViewContext)" id="payment" asp-page="./Payment">Payment</a>
+    <a class="list-group-item list-group-item-action @ManageNavPages.PreferencesNavClass(ViewContext)" id="preferences" asp-page="./Preferences">Preferences</a>
 </div>

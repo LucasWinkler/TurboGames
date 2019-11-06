@@ -25,6 +25,12 @@ namespace GameStore.Models
         [Required]
         public Category Category { get; set; }
 
+        [Required]
+        public Guid PlatformId { get; set; }
+
+        [Required]
+        public Platform Platform { get; set; }
+
         public int TotalRating { get; set; }
 
         [Required]
