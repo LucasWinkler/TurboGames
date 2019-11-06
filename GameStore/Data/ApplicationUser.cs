@@ -51,5 +51,8 @@ namespace GameStore.Data
         public Guid? FavouriteCategoryId { get; set; }
 
         public Category FavouriteCategory { get; set; }
+
+        [Required]
+        public bool ShouldReceiveEmails { get; set; } = false;
     }
 }
