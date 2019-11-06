@@ -11,19 +11,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Pages.Games.Store
 {
-    public class GamePageModel : PageModel
+    public class GameModel : PageModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public GamePageModel(
+        public GameModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             ApplicationDbContext context)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
         }
 
@@ -32,8 +29,14 @@ namespace GameStore.Pages.Games.Store
 
         public async Task<IActionResult> OnGetAsync(string Id)
         {
-            var game = await _context.Games.FirstOrDefaultAsync(x => x.Id.ToString() == Id);
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == game.CategoryId);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            var game = await _context.Game.FirstOrDefaultAsync(x => x.Id.ToString() == Id);
+            var category = await _context.Category.FirstOrDefaultAsync(x => x.Id == game.CategoryId);
 
             Game = new Game
             {

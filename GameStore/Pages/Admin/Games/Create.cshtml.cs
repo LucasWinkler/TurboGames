@@ -13,32 +13,29 @@ namespace GameStore.Pages.Admin.Games
 {
     public class CreateModel : PageModel
     {
-        private readonly GameStore.Data.ApplicationDbContext _context;
-
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public CreateModel(GameStore.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public CreateModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> OnGetAsync(string username)
+        public async Task<IActionResult> OnGetAsync()
         {
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
-
-            var user = string.IsNullOrEmpty(username)
-                ? await _userManager.GetUserAsync(User)
-    :            await _userManager.FindByNameAsync(username);
-
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToPage("/Identity/Account/Login");
+                return RedirectToPage("/Account/Login");
             }
-            if (user.IsAdmin == false)
+
+            if (!user.IsAdmin)
             {
                 return RedirectToPage("/Home/Index");
             }
+
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
 
             return Page();
         }
@@ -48,12 +45,18 @@ namespace GameStore.Pages.Admin.Games
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Games.Add(Game);
+            _context.Game.Add(Game);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

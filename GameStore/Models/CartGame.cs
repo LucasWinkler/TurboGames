@@ -1,16 +1,18 @@
-﻿using GameStore.Data;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GameStore.Models
 {
-    public class UserGame
+    public class CartGame
     {
         [Required]
-        public string UserId { get; set; }
+        public Guid CartId { get; set; }
 
         [Required]
-        public ApplicationUser User { get; set; }
+        public Cart Cart { get; set; }
 
         [Required]
         public Guid GameId { get; set; }
@@ -19,6 +21,6 @@ namespace GameStore.Models
         public Game Game { get; set; }
 
         [Required]
-        public DateTime PurchaseDate { get; set; } = DateTime.UtcNow;
+        public double Price { get; set; }
     }
 }

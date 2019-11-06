@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191105231044_FixMigrationsAfterMerge")]
-    partial class FixMigrationsAfterMerge
+    [Migration("20191106045013_AddModelsAndSeedData")]
+    partial class AddModelsAndSeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.1.11-servicing-32099")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -92,48 +92,9 @@ namespace GameStore.Data.Migrations
                     b.ToTable("User");
 
                     b.HasData(
-                        new
-                        {
-                            Id = "1a1a111-111-11aa-111a-a11aa1a11aa1",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "94cd35fe-6d8e-4ec9-8d83-d8ff58855993",
-                            DOB = new DateTime(2019, 11, 5, 23, 10, 43, 723, DateTimeKind.Utc).AddTicks(4470),
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Turbo",
-                            Gender = 2,
-                            IsAdmin = true,
-                            LastName = "Admin",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMo86Q8Ju3GIsckjCtA51JDfK8ACtlPX3zEe7TPd8NZVV/EGvFLTm6vy2+lMerXn5Q==",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "69b81062-9f95-4d54-bcbe-50bcadcde928",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        },
-                        new
-                        {
-                            Id = "2a2a222-222-22aa-222a-a22aa2a22aa2",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b5a2e853-ff8c-4e75-81a9-6ee1c13e6cae",
-                            DOB = new DateTime(2019, 11, 5, 23, 10, 43, 724, DateTimeKind.Utc).AddTicks(9138),
-                            Email = "standard.user@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Turbo",
-                            Gender = 2,
-                            IsAdmin = false,
-                            LastName = "User",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "STANDARD.USER@GMAIL.COM",
-                            NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF8xI6zr0C7mrSzMz5LeT5M9xJtJ0zChAt84OSRGecKMS4TOlzxlOAwEEuPk+BIUbw==",
-                            PhoneNumberConfirmed = true,
-                            SecurityStamp = "8672ca4a-a818-4032-81c4-0b94662cd7b4",
-                            TwoFactorEnabled = false,
-                            UserName = "User"
-                        });
+                        new { Id = "1a1a111-111-11aa-111a-a11aa1a11aa1", AccessFailedCount = 0, ConcurrencyStamp = "249602f7-04c0-4be2-aec0-402ddadecc54", DOB = new DateTime(2019, 11, 6, 4, 50, 13, 596, DateTimeKind.Utc), Email = "admin@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = true, LastName = "Admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@GMAIL.COM", NormalizedUserName = "ADMIN", PasswordHash = "AQAAAAEAACcQAAAAEJ6yKfFX6c0F5tcz3/cCYWSI5i6Uz8yOtGHLFfT6ZZ0FBqcEiAYJI6W8ZIPBqIMnSQ==", PhoneNumberConfirmed = true, SecurityStamp = "ab5ca0ce-f0db-499a-8489-41a17c293a58", TwoFactorEnabled = false, UserName = "Admin" },
+                        new { Id = "2a2a222-222-22aa-222a-a22aa2a22aa2", AccessFailedCount = 0, ConcurrencyStamp = "b319c93e-722f-42dc-bb8d-91d057638cc0", DOB = new DateTime(2019, 11, 6, 4, 50, 13, 597, DateTimeKind.Utc), Email = "standard.user@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = false, LastName = "User", LockoutEnabled = false, NormalizedEmail = "STANDARD.USER@GMAIL.COM", NormalizedUserName = "USER", PasswordHash = "AQAAAAEAACcQAAAAEJI7ke+RwPooxGee3wooL2rel5dIK7+cWgxxJ6HfDsNIhXRPDDvyPRKMrrzYhoOUXw==", PhoneNumberConfirmed = true, SecurityStamp = "da820853-cad8-43e7-8a9a-7edca1194a45", TwoFactorEnabled = false, UserName = "User" }
+                    );
                 });
 
             modelBuilder.Entity("GameStore.Models.Address", b =>
@@ -164,6 +125,40 @@ namespace GameStore.Data.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("GameStore.Models.Cart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsCheckedOut");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("GameStore.Models.CartGame", b =>
+                {
+                    b.Property<Guid>("CartId");
+
+                    b.Property<Guid>("GameId");
+
+                    b.Property<double>("Price");
+
+                    b.HasKey("CartId", "GameId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("CartGame");
+                });
+
             modelBuilder.Entity("GameStore.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -179,12 +174,8 @@ namespace GameStore.Data.Migrations
                     b.ToTable("Category");
 
                     b.HasData(
-                        new
-                        {
-                            Id = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"),
-                            Description = "Category Description",
-                            Name = "Category Name"
-                        });
+                        new { Id = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "Category Description", Name = "Category Name" }
+                    );
                 });
 
             modelBuilder.Entity("GameStore.Models.Event", b =>
@@ -237,7 +228,7 @@ namespace GameStore.Data.Migrations
                     b.Property<string>("Developer")
                         .IsRequired();
 
-                    b.Property<double?>("Price");
+                    b.Property<double>("Price");
 
                     b.Property<string>("Title")
                         .IsRequired();
@@ -251,33 +242,10 @@ namespace GameStore.Data.Migrations
                     b.ToTable("Game");
 
                     b.HasData(
-                        new
-                        {
-                            Id = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                            CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"),
-                            Description = "The description",
-                            Developer = "Game Developer 1",
-                            Title = "Game Name 1",
-                            TotalRating = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                            CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"),
-                            Description = "The description",
-                            Developer = "Game Developer 2",
-                            Title = "Game Name 2",
-                            TotalRating = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                            CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"),
-                            Description = "The description",
-                            Developer = "Game Developer 3",
-                            Title = "Game Name 3",
-                            TotalRating = 0
-                        });
+                        new { Id = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "The description", Developer = "Game Developer 1", Price = 0.0, Title = "Game Name 1", TotalRating = 0 },
+                        new { Id = new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "The description", Developer = "Game Developer 2", Price = 54.99, Title = "Game Name 2", TotalRating = 0 },
+                        new { Id = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "The description", Developer = "Game Developer 3", Price = 19.99, Title = "Game Name 3", TotalRating = 0 }
+                    );
                 });
 
             modelBuilder.Entity("GameStore.Models.Payment", b =>
@@ -324,7 +292,7 @@ namespace GameStore.Data.Migrations
                     b.Property<string>("Content")
                         .IsRequired();
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("GameId")
                         .IsRequired();
@@ -373,24 +341,10 @@ namespace GameStore.Data.Migrations
                     b.ToTable("UserGame");
 
                     b.HasData(
-                        new
-                        {
-                            UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1",
-                            GameId = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                            PurchaseDate = new DateTime(2019, 11, 5, 23, 10, 43, 725, DateTimeKind.Utc).AddTicks(268)
-                        },
-                        new
-                        {
-                            UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1",
-                            GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                            PurchaseDate = new DateTime(2019, 11, 5, 23, 10, 43, 725, DateTimeKind.Utc).AddTicks(1204)
-                        },
-                        new
-                        {
-                            UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2",
-                            GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                            PurchaseDate = new DateTime(2019, 11, 5, 23, 10, 43, 725, DateTimeKind.Utc).AddTicks(1221)
-                        });
+                        new { UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1", GameId = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 6, 4, 50, 13, 597, DateTimeKind.Utc) },
+                        new { UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1", GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 6, 4, 50, 13, 597, DateTimeKind.Utc) },
+                        new { UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2", GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 6, 4, 50, 13, 597, DateTimeKind.Utc) }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -459,11 +413,9 @@ namespace GameStore.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -494,11 +446,9 @@ namespace GameStore.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -516,6 +466,27 @@ namespace GameStore.Data.Migrations
                     b.HasOne("GameStore.Models.Payment", "Payment")
                         .WithMany()
                         .HasForeignKey("PaymentId");
+                });
+
+            modelBuilder.Entity("GameStore.Models.Cart", b =>
+                {
+                    b.HasOne("GameStore.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GameStore.Models.CartGame", b =>
+                {
+                    b.HasOne("GameStore.Models.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("GameStore.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("GameStore.Models.Friendship", b =>

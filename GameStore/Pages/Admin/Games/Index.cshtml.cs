@@ -13,35 +13,33 @@ namespace GameStore.Pages.Admin.Games
 {
     public class IndexModel : PageModel
     {
-        private readonly GameStore.Data.ApplicationDbContext _context;
-
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public IndexModel(GameStore.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public IndexModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        public IList<Game> Game { get;set; }
+        public IList<Game> Game { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string username)
+        public async Task<IActionResult> OnGetAsync()
         {
-            var user = string.IsNullOrEmpty(username)
-            ? await _userManager.GetUserAsync(User)
-            : await _userManager.FindByNameAsync(username);
-
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToPage("/Identity/Account/Login");
+                return RedirectToPage("/Account/Login");
             }
-            if (user.IsAdmin == false)
+
+            if (!user.IsAdmin)
             {
                 return RedirectToPage("/Home/Index");
             }
 
-            Game = await _context.Games
-                .Include(g => g.Category).ToListAsync();
+            Game = await _context.Game
+                .Include(g => g.Category)
+                .ToListAsync();
 
             return Page();
         }

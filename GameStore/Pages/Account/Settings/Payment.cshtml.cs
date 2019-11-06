@@ -44,7 +44,7 @@ namespace GameStore.Pages.Account.Settings
             
             if (user.PaymentId != null)
             {
-                var payment = await _context.Payments.SingleOrDefaultAsync(x => x.Id == user.PaymentId);
+                var payment = await _context.Payment.SingleOrDefaultAsync(x => x.Id == user.PaymentId);
 
                 Payment = new Payment
                 {
@@ -82,7 +82,7 @@ namespace GameStore.Pages.Account.Settings
                     CardCVC = Payment.CardCVC
                 };
 
-                _context.Payments.Add(payment);
+                _context.Payment.Add(payment);
 
                 user.PaymentId = payment.Id;
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,24 +12,28 @@ namespace GameStore.Models
         public Guid Id { get; set; }
 
         [Required]
+        [PersonalData]
         public string Title { get; set; }
 
         [Required]
+        [PersonalData]
         public string Developer { get; set; }
-
-        [Required]
-        public Category Category { get; set; }
 
         [Required]
         public Guid CategoryId { get; set; }
 
+        [Required]
+        public Category Category { get; set; }
+
         public int TotalRating { get; set; }
 
-        public double? Price { get; set; }
+        [Required]
+        public double Price { get; set; }
 
         [Required]
         public string Description { get; set; }
 
+        [PersonalData]
         public List<Review> Reviews { get; set; }
     }
 }

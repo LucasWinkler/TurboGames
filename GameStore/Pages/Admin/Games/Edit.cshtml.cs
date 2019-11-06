@@ -14,11 +14,10 @@ namespace GameStore.Pages.Admin.Games
 {
     public class EditModel : PageModel
     {
-        private readonly GameStore.Data.ApplicationDbContext _context;
-
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(GameStore.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public EditModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -27,17 +26,15 @@ namespace GameStore.Pages.Admin.Games
         [BindProperty]
         public Game Game { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id, string username)
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            var user = string.IsNullOrEmpty(username)
-                ? await _userManager.GetUserAsync(User)
-                : await _userManager.FindByNameAsync(username);
-
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToPage("/Identity/Account/Login");
+                return RedirectToPage("/Account/Login");
             }
-            if (user.IsAdmin == false)
+
+            if (!user.IsAdmin)
             {
                 return RedirectToPage("/Home/Index");
             }
@@ -47,19 +44,28 @@ namespace GameStore.Pages.Admin.Games
                 return NotFound();
             }
 
-            Game = await _context.Games
-                .Include(g => g.Category).FirstOrDefaultAsync(m => m.Id == id);
+            Game = await _context.Game
+                .Include(g => g.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Game == null)
             {
                 return NotFound();
             }
-           ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -88,7 +94,7 @@ namespace GameStore.Pages.Admin.Games
 
         private bool GameExists(Guid id)
         {
-            return _context.Games.Any(e => e.Id == id);
+            return _context.Game.Any(e => e.Id == id);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using GameStore.Data;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameStore.Models
 {
@@ -32,7 +31,7 @@ namespace GameStore.Models
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime Created { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
         // TODO: Pending Review FK
     }

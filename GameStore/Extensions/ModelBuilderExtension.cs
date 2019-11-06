@@ -37,6 +37,7 @@ namespace GameStore.Extensions
                     Title = "Game Name 1",
                     Developer = "Game Developer 1",
                     CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Price = 0.00,
                     Description = "The description"
                 },
                 new Game
@@ -45,6 +46,7 @@ namespace GameStore.Extensions
                     Title = "Game Name 2",
                     Developer = "Game Developer 2",
                     CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Price = 54.99,
                     Description = "The description"
                 },
                 new Game
@@ -53,6 +55,7 @@ namespace GameStore.Extensions
                     Title = "Game Name 3",
                     Developer = "Game Developer 3",
                     CategoryId = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Price = 19.99,
                     Description = "The description"
                 }
             );

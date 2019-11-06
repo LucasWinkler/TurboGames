@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GameStore.Pages.Cart
+namespace GameStore.Pages.Friends
 {
     public class IndexModel : PageModel
     {

@@ -42,7 +42,7 @@ namespace GameStore.Pages.Account.Settings
 
             if (user.AddressId != null)
             {
-                var address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == user.AddressId);
+                var address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.AddressId);
 
                 Address = new Address
                 {
@@ -74,7 +74,7 @@ namespace GameStore.Pages.Account.Settings
 
             try
             {
-                _context.Addresses.Add(Address);
+                _context.Address.Add(Address);
 
                 user.AddressId = Address.Id;
 

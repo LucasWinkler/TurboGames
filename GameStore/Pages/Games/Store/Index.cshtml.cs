@@ -14,25 +14,30 @@ namespace GameStore.Pages.Games.Store
     public class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ApplicationDbContext _context;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
             ApplicationDbContext context)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
         }
 
         [BindProperty]
         public IList<Game> Game { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Game = await _context.Games.AsNoTracking().ToListAsync();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            Game = await _context.Game.AsNoTracking().ToListAsync();
+
+            return Page();
         }
     }
 }

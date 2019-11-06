@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\FriendsFamily\**" />
+    <Content Remove="Pages\FriendsFamily\**" />
+    <EmbeddedResource Remove="Pages\FriendsFamily\**" />
+    <None Remove="Pages\FriendsFamily\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.435" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
@@ -17,7 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -101,14 +108,17 @@
     <Compile Remove="Data\Migrations\20191105044851_DataSeededAdminAccount.Designer.cs" />
     <Compile Remove="Data\Migrations\20191106004848_Test.cs" />
     <Compile Remove="Data\Migrations\20191106004848_Test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191106044000_AddCartModels.cs" />
+    <Compile Remove="Data\Migrations\20191106044000_AddCartModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191106044212_AddCartModels.cs" />
+    <Compile Remove="Data\Migrations\20191106044212_AddCartModels.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191106044617_AddCartModels.cs" />
+    <Compile Remove="Data\Migrations\20191106044617_AddCartModels.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Pages\Games\Library\" />
-    <Folder Include="Pages\Games\Store\" />
-    <Folder Include="Pages\FriendsFamily\" />
     <Folder Include="Pages\Events\" />
-    <Folder Include="Pages\Wishlist\" />
   </ItemGroup>
 
 </Project>

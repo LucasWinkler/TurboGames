@@ -12,10 +12,10 @@ namespace GameStore.Pages.Profile
     public class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly GameStore.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(UserManager<ApplicationUser> userManager, 
-            GameStore.Data.ApplicationDbContext context)
+        public IndexModel(UserManager<ApplicationUser> userManager,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _context = context;
@@ -60,7 +60,7 @@ namespace GameStore.Pages.Profile
                 Gender = user.Gender
             };
 
-            CountGames = _context.UserGames.Count();
+            CountGames = _context.UserGame.Count();
 
             return Page();
         }

@@ -2,10 +2,10 @@
 @model GameStore.Pages.Games.Library.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Game Library";
 }
 
-<h1>@Model.User.Identity.Name's Library</h1>
+    <h1>@Model.User.Identity.Name's @ViewData["Title"]</h1>
 
 <table class="table">
     <thead>
@@ -23,22 +23,23 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.UserGame) {
+        @foreach (var item in Model.UserGame)
+        {
 
-        <tr onclick="location.href = '@Url.Action("Details", "Details", new { }))'" class="row-hover">
-            <td>
-                @Html.DisplayFor(modelItem => item.Game.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Game.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PurchaseDate)
-            </td>
-            <td>
-                @Html.ActionLink("Download", "Download", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+            <tr onclick="location.href = '@Url.Action("Details", "Details", new { }))'" class="row-hover">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseDate)
+                </td>
+                <td>    
+                    <a asp-page-handler="Download" asp-route-id="@item.GameId" class="btn btn-primary">Download</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
