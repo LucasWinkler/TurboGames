@@ -1,4 +1,4 @@
-﻿@page "/Settings/DownloadPersonalData"
+﻿@page "/Account/Settings/DownloadPersonalData"
 @model DownloadPersonalDataModel
 @{
     ViewData["Title"] = "Download Your Data";
@@ -6,6 +6,10 @@
 }
 
 <h4>@ViewData["Title"]</h4>
+
+<form method="post">
+    <input type="submit" name="downoad" value="Download" />
+</form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
