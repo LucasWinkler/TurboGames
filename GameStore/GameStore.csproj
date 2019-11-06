@@ -99,10 +99,11 @@
     <Compile Remove="Data\Migrations\20191103080134_AddExtraModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20191105044851_DataSeededAdminAccount.cs" />
     <Compile Remove="Data\Migrations\20191105044851_DataSeededAdminAccount.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191106004848_Test.cs" />
+    <Compile Remove="Data\Migrations\20191106004848_Test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Administration\" />
     <Folder Include="Pages\Games\Library\" />
     <Folder Include="Pages\Games\Store\" />
     <Folder Include="Pages\FriendsFamily\" />
