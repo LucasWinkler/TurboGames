@@ -1,7 +1,7 @@
 ﻿@page "/Profile/{username?}"
 @model GameStore.Pages.Profile.IndexModel
 @{
-    ViewData["Title"] = "CVGS | Profile";
+    ViewData["Title"] = "Profile";
 }
 
 <div class="container">
@@ -14,7 +14,7 @@
                         <hr class="my-4" />
                         <p><strong>Name: </strong>@Model.Info.FullName</p>
                         <p><strong>Gender: </strong>@Model.Info.Gender</p>
-                        <p><strong>Date of birth: </strong>@Model.Info.DOB</p>
+                        <p><strong>Date of birth: </strong>@Model.Info.DOB.ToLongDateString()</p>
                         <p>
                             <strong>Favourite Platform: </strong>
                             @if (Model.Info.FavouritePlatform != null)
@@ -40,16 +40,16 @@
                     </div>
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <a asp-page="/Games/Library/Index">Games</a>
-                            <span class="badge badge-primary badge-pill">@Model.CountGames</span>
+                            Games
+                            <span class="badge badge-primary badge-pill">@Model.Info.GameCount</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Friends
-                            <span class="badge badge-primary badge-pill">0</span>
+                            <span class="badge badge-primary badge-pill">@Model.Info.FriendCount</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Family
-                            <span class="badge badge-primary badge-pill">0</span>
+                            <span class="badge badge-primary badge-pill">@Model.Info.FamilyCount</span>
                         </li>
                     </ul>
                 </div>

@@ -24,9 +24,6 @@ namespace GameStore.Pages.Profile
             _context = context;
         }
 
-
-        public int CountGames { get; set; }
-
         [BindProperty]
         public InfoModel Info { get; set; }
 
@@ -48,6 +45,12 @@ namespace GameStore.Pages.Profile
             public Platform FavouritePlatform { get; set; }
 
             public Category FavouriteCategory { get; set; }
+
+            public int GameCount { get; set; }
+
+            public int FriendCount { get; set; }
+
+            public int FamilyCount { get; set; }
         }
 
 
@@ -70,10 +73,11 @@ namespace GameStore.Pages.Profile
                 Gender = user.Gender,
                 DOB = user.DOB,
                 FavouritePlatform = _context.Platform.FirstOrDefault(x => x.Id == user.FavouritePlatformId),
-                FavouriteCategory = _context.Category.FirstOrDefault(x => x.Id == user.FavouriteCategoryId)
+                FavouriteCategory = _context.Category.FirstOrDefault(x => x.Id == user.FavouriteCategoryId),
+                GameCount = _context.UserGame.Count(),
+                FriendCount = _context.Friendship.Count(),
+                FamilyCount = _context.Friendship.Where(x => x.IsFamily).Count()
             };
-
-            CountGames = _context.UserGame.Count();
 
             return Page();
         }
