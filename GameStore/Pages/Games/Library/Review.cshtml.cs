@@ -84,21 +84,13 @@ namespace GameStore.Pages.Games.Library
                 return Page();
             }
 
-            var review = new Review
+            var review = await _context.Review.FirstOrDefaultAsync(x => x.GameId == Input.GameId && x.ReviewerId == user.Id);
+            if (review != null)
             {
-                GameId = Input.GameId,
-                ReviewerId = user.Id,
-                Content = Input.Content,
-                Rating = Input.Rating
-            };
+                review.Content = Input.Content;
+                review.Rating = Input.Rating;
 
-            var isReviewed = await _context.Review.FirstOrDefaultAsync(x => x.GameId == review.GameId && x.ReviewerId == user.Id);
-            if (isReviewed != null)
-            {
-                isReviewed.Content = Input.Content;
-                isReviewed.Rating = Input.Rating;
-
-                _context.Attach(isReviewed).State = EntityState.Modified;
+                _context.Update(review);
 
                 try
                 {
@@ -111,6 +103,14 @@ namespace GameStore.Pages.Games.Library
                     Debug.WriteLine(e.InnerException);
                 }
             }
+
+            review = new Review
+            {
+                GameId = Input.GameId,
+                ReviewerId = user.Id,
+                Content = Input.Content,
+                Rating = Input.Rating
+            };
 
             try
             {
@@ -127,11 +127,6 @@ namespace GameStore.Pages.Games.Library
             ViewData["GameTitle"] = review.Game.Title;
            
             return Page();
-        }
-
-        private bool ReviewExists(Guid id)
-        {
-            return _context.Review.Any(e => e.Id == id);
         }
     }
 }
