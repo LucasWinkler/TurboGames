@@ -1,8 +1,50 @@
 ﻿@page
 @model GameStore.Pages.Friends.IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Friends and family";
 }
 
-<h2>Placeholder for a the users friends where IsFamily == false (List of Friendship queried with IsFamily == false)</h2>
+<h3>@ViewData["Title"]</h3>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Friend
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Family
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Friendships)
+        {
+            <tr>
+                <td>
+                    @if (item.Sender.UserName == HttpContext.User.Identity.Name)
+                    {
+                        @Html.DisplayFor(modelItem => item.Receiver.UserName)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(modelItem => item.Sender.UserName)
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsFamily)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

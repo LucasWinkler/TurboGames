@@ -133,6 +133,16 @@ namespace GameStore.Extensions
                     IsAdmin = false
                 }
             );
+
+            builder.Entity<Friendship>().HasData(
+                new Friendship
+                {
+                    SenderId = "1a1a111-111-11aa-111a-a11aa1a11aa1",
+                    ReceiverId = "2a2a222-222-22aa-222a-a22aa2a22aa2",
+                    IsFamily = false,
+                    RequestStatus = FriendStatusCode.Accepted
+                }
+            );
         }
     }
 }
