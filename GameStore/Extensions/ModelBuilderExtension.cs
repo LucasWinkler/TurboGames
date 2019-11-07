@@ -133,24 +133,6 @@ namespace GameStore.Extensions
                     IsAdmin = false
                 }
             );
-
-            builder.Entity<UserGame>().HasData(
-                new UserGame
-                {
-                    UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1",
-                    GameId = Guid.Parse("1c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                },
-                new UserGame
-                {
-                    UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1",
-                    GameId = Guid.Parse("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                },
-                new UserGame
-                {
-                    UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2",
-                    GameId = Guid.Parse("3c9e6679-7425-40de-944b-e07fc1f90ae7"),
-                }
-            );
         }
     }
 }
