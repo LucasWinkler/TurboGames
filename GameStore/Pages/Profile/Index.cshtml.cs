@@ -74,9 +74,9 @@ namespace GameStore.Pages.Profile
                 DOB = user.DOB,
                 FavouritePlatform = _context.Platform.FirstOrDefault(x => x.Id == user.FavouritePlatformId),
                 FavouriteCategory = _context.Category.FirstOrDefault(x => x.Id == user.FavouriteCategoryId),
-                GameCount = _context.UserGame.Count(),
-                FriendCount = _context.Friendship.Count(),
-                FamilyCount = _context.Friendship.Where(x => x.IsFamily).Count()
+                GameCount = _context.UserGame.Where(x => x.UserId == user.Id).Count(),
+                FriendCount = _context.Friendship.Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id).Count(),
+                FamilyCount = _context.Friendship.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && x.IsFamily).Count()
             };
 
             return Page();
