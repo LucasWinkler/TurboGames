@@ -67,7 +67,7 @@ namespace GameStore.Pages.Admin.Events
                 var userEvents = _context.UserEvent.Where(x => x.EventId == id);
                 if (userEvents != null)
                 {
-                    _context.UserEvent.Remove(userEvents);
+                    _context.UserEvent.RemoveRange(userEvents);
                 }
 
                 _context.Event.Remove(Event);
