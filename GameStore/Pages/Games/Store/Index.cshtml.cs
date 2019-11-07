@@ -17,6 +17,9 @@ namespace GameStore.Pages.Games.Store
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             ApplicationDbContext context)
@@ -72,6 +75,12 @@ namespace GameStore.Pages.Games.Store
             }
 
             var gameToAdd = await _context.Game.FirstOrDefaultAsync(x => x.Id == id);
+            var isGameAdded = await _context.CartGame.AnyAsync(x => x.CartId == cart.Id && x.GameId == gameToAdd.Id);
+            if (isGameAdded)
+            {
+                StatusMessage = $"Error: This game is already in your cart.";
+                return RedirectToPage();
+            }
 
             var cartGameToAdd = new CartGame
             {
@@ -83,9 +92,10 @@ namespace GameStore.Pages.Games.Store
             try
             {
                 await _context.AddAsync(cartGameToAdd);
-
                 await _context.SaveChangesAsync();
 
+
+                StatusMessage = $"'{gameToAdd.Title}' added to cart.";
                 return RedirectToPage();
             }
             catch(Exception e)
@@ -93,6 +103,7 @@ namespace GameStore.Pages.Games.Store
                 Debug.WriteLine(e.InnerException);
             }
 
+            StatusMessage = $"Error: An unknown error has occurred.";
             return Page();
         }
     }

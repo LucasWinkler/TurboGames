@@ -28,7 +28,7 @@ namespace GameStore.Shared.Components.CartCount
                 return View(0);
             }
 
-            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
             if (cart != null)
             {
                 var count = _context.CartGame.Count(x => x.CartId == cart.Id);

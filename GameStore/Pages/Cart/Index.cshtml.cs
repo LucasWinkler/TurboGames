@@ -38,18 +38,18 @@ namespace GameStore.Pages.Cart
                 return RedirectToPage("/Account/Login");
             }
 
-            var cart = await _context.Cart.Include(x => x.User).FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
+            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
             if (cart == null)
             {
                 StatusMessage = $"Error: You must have items in your cart.";
-                return RedirectToPage();
+                return RedirectToPage("/Games/Store/Index");
             }
 
             var cartGames = _context.CartGame.Include(x => x.Game).Where(x => x.CartId == cart.Id);
             if (cartGames == null)
             {
                 StatusMessage = $"Error: You must have items in your cart.";
-                return RedirectToPage();
+                return RedirectToPage("/Games/Store/Index");
             }
 
             Games = new List<Game>();
@@ -81,7 +81,7 @@ namespace GameStore.Pages.Cart
                 return RedirectToPage();
             }
 
-            var cartGames = _context.CartGame.Where(x => x.CartId == cart.Id);
+            var cartGames = _context.CartGame.Include(x => x.Game).Where(x => x.CartId == cart.Id);
             if (cartGames == null)
             {
                 StatusMessage = $"Error: You must have items in your cart.";
@@ -104,8 +104,19 @@ namespace GameStore.Pages.Cart
 
                 await _context.SaveChangesAsync();
 
+                foreach(var item in cartGames)
+                {
+                    await _context.AddAsync(new UserGame 
+                    { 
+                        GameId = item.Game.Id,
+                        UserId = user.Id
+                    });
+                }
+
+                await _context.SaveChangesAsync();
+
                 StatusMessage = $"Success: You have purchased {cartGames.Count()} game(s)!";
-                return RedirectToPage();
+                return RedirectToPage("/Games/Library/Index");
             }
             catch (Exception e)
             {
