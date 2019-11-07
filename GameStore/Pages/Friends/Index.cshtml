@@ -36,10 +36,10 @@
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RequestStatus)
+                    @Html.DisplayFor(modelItem => item.IsFamily)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsFamily)
+                    @Html.DisplayFor(modelItem => item.RequestStatus)
                 </td>
                 <td>
                     <form method="post">
@@ -59,7 +59,12 @@
                         {
                             @if (item.Sender.UserName == HttpContext.User.Identity.Name)
                             {
-                                <input type="submit" value="Reject" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.ReceiverId" />
+                                <input type="submit" value="Cancel" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.ReceiverId" />
+                            }
+                            else if (item.Sender.UserName != HttpContext.User.Identity.Name)
+                            {
+                                <input type="submit" value="Accept" class="btn btn-success" asp-page-handler="Accept" asp-route-id="@item.SenderId" />
+                                <input type="submit" value="Reject" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.SenderId" />
                             }
                             else
                             {
