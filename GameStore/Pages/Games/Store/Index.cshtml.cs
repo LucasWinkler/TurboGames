@@ -52,10 +52,46 @@ namespace GameStore.Pages.Games.Store
                 return RedirectToPage("/Account/Login");
             }
 
-            Game = await _context.Game
-                .AsNoTracking()
-                .Where(x => x.Id == id)
-                .ToListAsync();
+            var gameToAdd = await _context.Game.FirstOrDefaultAsync(x => x.Id == id);
+
+            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            if (cart == null)
+            {
+                try
+                {
+                    cart = new Models.Cart
+                    {
+                        UserId = user.Id
+                    };
+
+                    await _context.AddAsync(cart);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.InnerException);
+                }
+            }
+
+            var cartGameToAdd = new CartGame
+            {
+                CartId = cart.Id,
+                GameId = gameToAdd.Id,
+                Price = gameToAdd.Price
+            };
+
+            try
+            {
+                await _context.AddAsync(cartGameToAdd);
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage();
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
+            }
 
             return Page();
         }

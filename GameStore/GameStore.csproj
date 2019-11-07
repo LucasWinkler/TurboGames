@@ -116,8 +116,6 @@
     <Compile Remove="Data\Migrations\20191106044617_AddCartModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20191107053428_UpdateReviewModel.cs" />
     <Compile Remove="Data\Migrations\20191107053428_UpdateReviewModel.Designer.cs" />
-    <Compile Remove="Migrations\20191107044346_InitialMigration.cs" />
-    <Compile Remove="Migrations\20191107044346_InitialMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

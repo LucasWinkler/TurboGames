@@ -27,8 +27,8 @@ namespace GameStore.Data
         public DbSet<UserGame> UserGame { get; set; }
         public DbSet<Event> Event { get; set; }
         public DbSet<UserEvent> UserEvent { get; set; }
-        public DbSet<UserEvent> Cart { get; set; }
-        public DbSet<UserEvent> CartGame { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<CartGame> CartGame { get; set; }
 
         /// <summary>
         /// Configures a given entity type in the model.

@@ -100,8 +100,8 @@ namespace GameStore.Data.Migrations
                     b.ToTable("User");
 
                     b.HasData(
-                        new { Id = "1a1a111-111-11aa-111a-a11aa1a11aa1", AccessFailedCount = 0, ConcurrencyStamp = "e18735b0-c264-4e5c-aed3-413eae5f1af9", DOB = new DateTime(2019, 11, 7, 6, 3, 25, 762, DateTimeKind.Utc), Email = "admin@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = true, LastName = "Admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@GMAIL.COM", NormalizedUserName = "ADMIN", PasswordHash = "AQAAAAEAACcQAAAAEPb25BnEgaPWG4xKt0Xi9Cxxlr9M3pn9LYfD84OtExFp0mBjeUR3GZ1FoTatQxv5Ug==", PhoneNumberConfirmed = true, SecurityStamp = "54682a10-2fb9-416f-b77f-73806e212d05", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "Admin" },
-                        new { Id = "2a2a222-222-22aa-222a-a22aa2a22aa2", AccessFailedCount = 0, ConcurrencyStamp = "cae636fc-fedc-4739-9a16-ae4fc987135e", DOB = new DateTime(2019, 11, 7, 6, 3, 25, 763, DateTimeKind.Utc), Email = "standard.user@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = false, LastName = "User", LockoutEnabled = false, NormalizedEmail = "STANDARD.USER@GMAIL.COM", NormalizedUserName = "USER", PasswordHash = "AQAAAAEAACcQAAAAEKwRo1Xis+M2hJCRg9U9QIk474FHZ/LkbZS3Jq2uO5XdKF/5qQWo/JhnhXenXlknyw==", PhoneNumberConfirmed = true, SecurityStamp = "8288f354-8938-4069-937c-952a0a65c047", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "User" }
+                        new { Id = "1a1a111-111-11aa-111a-a11aa1a11aa1", AccessFailedCount = 0, ConcurrencyStamp = "f5f3dfe2-68cf-44be-960c-83c9dddb987a", DOB = new DateTime(2019, 11, 7, 10, 47, 58, 560, DateTimeKind.Utc), Email = "admin@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = true, LastName = "Admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@GMAIL.COM", NormalizedUserName = "ADMIN", PasswordHash = "AQAAAAEAACcQAAAAEOfkoZ+jTA2BDzHhK7uXTrd4XUuK21g/PXryZv9VbEv5+lNb8sBURxV95iZ9DiVsJA==", PhoneNumberConfirmed = true, SecurityStamp = "2961fb9e-8a2a-4603-9dcc-e490477f5ef1", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "Admin" },
+                        new { Id = "2a2a222-222-22aa-222a-a22aa2a22aa2", AccessFailedCount = 0, ConcurrencyStamp = "f860af26-eac4-498f-9b3e-104c9cd74465", DOB = new DateTime(2019, 11, 7, 10, 47, 58, 562, DateTimeKind.Utc), Email = "standard.user@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = false, LastName = "User", LockoutEnabled = false, NormalizedEmail = "STANDARD.USER@GMAIL.COM", NormalizedUserName = "USER", PasswordHash = "AQAAAAEAACcQAAAAEGcf3k3RHA4kTOrKzExG+sMCc2EOiO92MvQGVfXAnIuAXMlXVfXRpKdxN5pG9a7SOw==", PhoneNumberConfirmed = true, SecurityStamp = "6d48aff4-3b2d-4d97-9693-d721ae239de4", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "User" }
                     );
                 });
 
@@ -359,9 +359,9 @@ namespace GameStore.Data.Migrations
                     b.ToTable("UserGame");
 
                     b.HasData(
-                        new { UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1", GameId = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 7, 6, 3, 25, 763, DateTimeKind.Utc) },
-                        new { UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1", GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 7, 6, 3, 25, 764, DateTimeKind.Utc) },
-                        new { UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2", GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 7, 6, 3, 25, 764, DateTimeKind.Utc) }
+                        new { UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1", GameId = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 7, 10, 47, 58, 562, DateTimeKind.Utc) },
+                        new { UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1", GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 7, 10, 47, 58, 562, DateTimeKind.Utc) },
+                        new { UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2", GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 7, 10, 47, 58, 562, DateTimeKind.Utc) }
                     );
                 });
 

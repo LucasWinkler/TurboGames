@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GameStore.Data.Migrations
 {
-    public partial class IntialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -463,8 +463,8 @@ namespace GameStore.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FavouriteCategoryId", "FavouritePlatformId", "FirstName", "Gender", "IsAdmin", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PaymentId", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "ShouldReceiveEmails", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1a1a111-111-11aa-111a-a11aa1a11aa1", 0, null, "e18735b0-c264-4e5c-aed3-413eae5f1af9", new DateTime(2019, 11, 7, 6, 3, 25, 762, DateTimeKind.Utc), "admin@gmail.com", true, null, null, "Turbo", 2, true, "Admin", false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEPb25BnEgaPWG4xKt0Xi9Cxxlr9M3pn9LYfD84OtExFp0mBjeUR3GZ1FoTatQxv5Ug==", null, null, true, "54682a10-2fb9-416f-b77f-73806e212d05", false, false, "Admin" },
-                    { "2a2a222-222-22aa-222a-a22aa2a22aa2", 0, null, "cae636fc-fedc-4739-9a16-ae4fc987135e", new DateTime(2019, 11, 7, 6, 3, 25, 763, DateTimeKind.Utc), "standard.user@gmail.com", true, null, null, "Turbo", 2, false, "User", false, null, "STANDARD.USER@GMAIL.COM", "USER", "AQAAAAEAACcQAAAAEKwRo1Xis+M2hJCRg9U9QIk474FHZ/LkbZS3Jq2uO5XdKF/5qQWo/JhnhXenXlknyw==", null, null, true, "8288f354-8938-4069-937c-952a0a65c047", false, false, "User" }
+                    { "1a1a111-111-11aa-111a-a11aa1a11aa1", 0, null, "f5f3dfe2-68cf-44be-960c-83c9dddb987a", new DateTime(2019, 11, 7, 10, 47, 58, 560, DateTimeKind.Utc), "admin@gmail.com", true, null, null, "Turbo", 2, true, "Admin", false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEOfkoZ+jTA2BDzHhK7uXTrd4XUuK21g/PXryZv9VbEv5+lNb8sBURxV95iZ9DiVsJA==", null, null, true, "2961fb9e-8a2a-4603-9dcc-e490477f5ef1", false, false, "Admin" },
+                    { "2a2a222-222-22aa-222a-a22aa2a22aa2", 0, null, "f860af26-eac4-498f-9b3e-104c9cd74465", new DateTime(2019, 11, 7, 10, 47, 58, 562, DateTimeKind.Utc), "standard.user@gmail.com", true, null, null, "Turbo", 2, false, "User", false, null, "STANDARD.USER@GMAIL.COM", "USER", "AQAAAAEAACcQAAAAEGcf3k3RHA4kTOrKzExG+sMCc2EOiO92MvQGVfXAnIuAXMlXVfXRpKdxN5pG9a7SOw==", null, null, true, "6d48aff4-3b2d-4d97-9693-d721ae239de4", false, false, "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -485,17 +485,17 @@ namespace GameStore.Data.Migrations
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 6, 3, 25, 763, DateTimeKind.Utc) });
+                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 10, 47, 58, 562, DateTimeKind.Utc) });
 
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 6, 3, 25, 764, DateTimeKind.Utc) });
+                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 10, 47, 58, 562, DateTimeKind.Utc) });
 
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "2a2a222-222-22aa-222a-a22aa2a22aa2", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 6, 3, 25, 764, DateTimeKind.Utc) });
+                values: new object[] { "2a2a222-222-22aa-222a-a22aa2a22aa2", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 10, 47, 58, 562, DateTimeKind.Utc) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cart_UserId",

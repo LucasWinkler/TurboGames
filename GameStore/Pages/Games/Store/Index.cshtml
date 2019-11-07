@@ -47,7 +47,9 @@
                     @Html.DisplayFor(modelItem => item.Platform.Name)
                 </td>
                 <td>
-                    <a asp-page-handler="AddItemToCart" asp-route-id="@item.Id" class="btn btn-success">Add to cart</a>
+                    <form method="post">
+                        <input type="submit" asp-page-handler="AddItemToCart" asp-route-id="@item.Id" value="Add to cart" class="btn btn-success" />
+                    </form>
                 </td>
             </tr>
         }

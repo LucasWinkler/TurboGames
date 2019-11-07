@@ -2,6 +2,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var userAccount = await UserManager.GetUserAsync(User);
+    var cartItemCount = ViewData["CartItemCount"];
 }
 
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3 bg-primary">
@@ -25,10 +26,10 @@
             </ul>
             @if (SignInManager.IsSignedIn(User))
             {
-                <a class="btn btn-outline-success mr-1" asp-page="/Cart/Index">
-                    <i class="fas fa-shopping-cart"></i>
-                    0
-                </a>
+                <div>
+                    @await Component.InvokeAsync("CartCount")
+                </div>
+                
                 @if (userAccount.IsAdmin)
                 {
                     <div class="dropdown mr-1">
