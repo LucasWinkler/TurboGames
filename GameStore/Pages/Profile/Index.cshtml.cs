@@ -85,8 +85,8 @@ namespace GameStore.Pages.Profile
                 FavouritePlatform = _context.Platform.FirstOrDefault(x => x.Id == user.FavouritePlatformId),
                 FavouriteCategory = _context.Category.FirstOrDefault(x => x.Id == user.FavouriteCategoryId),
                 GameCount = _context.UserGame.Where(x => x.UserId == user.Id).Count(),
-                FriendCount = _context.Friendship.Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id).Count(),
-                FamilyCount = _context.Friendship.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && x.IsFamily).Count()
+                FriendCount = _context.Friendship.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && !x.IsFamily && x.RequestStatus == FriendStatusCode.Accepted).Count(),
+                FamilyCount = _context.Friendship.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && x.IsFamily && x.RequestStatus == FriendStatusCode.Accepted).Count()
             };
 
             var currentUser = await _userManager.GetUserAsync(User);
@@ -101,7 +101,7 @@ namespace GameStore.Pages.Profile
                 .Include(x => x.Sender)
                 .Where(x => x.ReceiverId == currentUser.Id || x.SenderId == currentUser.Id);
 
-            IsFriend = await friendships.AnyAsync(x => x.Sender.UserName == username || x.Receiver.UserName == username);
+            IsFriend = await friendships.AnyAsync(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && (x.RequestStatus != FriendStatusCode.None || x.RequestStatus != FriendStatusCode.Rejected));
 
             return Page();
         }
@@ -125,7 +125,7 @@ namespace GameStore.Pages.Profile
 
                 return RedirectToPage("./Index");
             }
-            else if (friendships.Any(x => x.Sender.UserName == username || x.Receiver.UserName == username && x.RequestStatus != FriendStatusCode.None))
+            else if (friendships.Any(x => x.Sender.UserName == username || x.Receiver.UserName == username && x.RequestStatus == FriendStatusCode.Accepted))
             {
                 StatusMessage = $"Error: You already have this user added as a friend.";
 
@@ -133,6 +133,25 @@ namespace GameStore.Pages.Profile
             }
 
             var receiver = await _userManager.FindByNameAsync(username);
+
+            if (friendships.Any(x => x.Sender.UserName == username || x.Receiver.UserName == username && x.RequestStatus == FriendStatusCode.Rejected))
+            {
+                var friendship = await friendships.FirstOrDefaultAsync(x => x.Sender.UserName == username || x.Receiver.UserName == username && x.RequestStatus == FriendStatusCode.Rejected);
+                friendship.RequestStatus = FriendStatusCode.None;
+
+                try
+                {
+                    _context.Update(friendship);
+                    await _context.SaveChangesAsync();
+
+                    StatusMessage = $"You have sent them a friend request. You must wait for them to accept it.";
+                    return RedirectToPage("./Index");
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.InnerException);
+                }
+            }
 
             var newFriendship = new Friendship
             {
