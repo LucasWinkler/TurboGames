@@ -1,10 +1,6 @@
 ﻿using GameStore.Data;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GameStore.Models
 {
@@ -17,7 +13,6 @@ namespace GameStore.Models
         public ApplicationUser User { get; set; }
 
         [Required]
-        [ForeignKey("GameId")]
         public Guid GameId { get; set; }
 
         [Required]

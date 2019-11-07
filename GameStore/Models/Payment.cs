@@ -21,7 +21,7 @@ namespace GameStore.Models
         public string CardNumber { get; set; }
 
         [Required]
-        [Display(Name = "Expiration date (MM/YY)")]
+        [Display(Name = "Expiration date")]
         [DataType(DataType.Text)]
         [RegularExpression(@"^((0[1-9])|(1[0-2]))\/(\d{2})$", ErrorMessage = "Expiration date must match MM/YY (example: 06/22).")]
         public string CardExpirationDate { get; set; }

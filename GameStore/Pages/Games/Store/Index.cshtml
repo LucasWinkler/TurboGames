@@ -1,11 +1,17 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Games";
+    ViewData["Title"] = "Game Store";
 }
+
+<h1>@ViewData["Title"]</h1>
+<partial name="_StatusMessage" for="StatusMessage" />
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Price)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Game[0].Title)
             </th>
@@ -13,30 +19,37 @@
                 @Html.DisplayNameFor(model => model.Game[0].Developer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].TotalRating)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Game[0].Category)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Platform)
+            </th>
+            <th> </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Game)
         {
-            <tr>
+            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.Id })'" class="row-hover">
                 <td>
-                    <a asp-page="./GamePage" asp-route-id="@item.Id">
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </a>
+                    $@Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Developer)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalRating)
+                    @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category)
+                    @Html.DisplayFor(modelItem => item.Platform.Name)
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="submit" asp-page-handler="AddItemToCart" asp-route-id="@item.Id" value="Add to cart" class="btn btn-success" />
+                    </form>
                 </td>
             </tr>
         }

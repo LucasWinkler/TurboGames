@@ -13,11 +13,10 @@ namespace GameStore.Pages.Admin.Games
 {
     public class DeleteModel : PageModel
     {
-        private readonly GameStore.Data.ApplicationDbContext _context;
-
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public DeleteModel(GameStore.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public DeleteModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -26,17 +25,15 @@ namespace GameStore.Pages.Admin.Games
         [BindProperty]
         public Game Game { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id, string username)
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
-            var user = string.IsNullOrEmpty(username)
-                ? await _userManager.GetUserAsync(User)
-                : await _userManager.FindByNameAsync(username);
-
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToPage("/Identity/Account/Login");
+                return RedirectToPage("/Account/Login");
             }
-            if (user.IsAdmin == false)
+
+            if (!user.IsAdmin)
             {
                 return RedirectToPage("/Home/Index");
             }
@@ -46,28 +43,42 @@ namespace GameStore.Pages.Admin.Games
                 return NotFound();
             }
 
-            Game = await _context.Games
-                .Include(g => g.Category).FirstOrDefaultAsync(m => m.Id == id);
+            Game = await _context.Game
+                .Include(g => g.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (Game == null)
             {
                 return NotFound();
             }
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(Guid? id)
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            Game = await _context.Games.FindAsync(id);
+            Game = await _context.Game.FindAsync(id);
 
             if (Game != null)
             {
-                _context.Games.Remove(Game);
+                var userGames = _context.UserGame.Where(x => x.GameId == id);
+                if (userGames != null)
+                {
+                    _context.UserGame.RemoveRange(userGames);
+                }
+
+                _context.Game.Remove(Game);
                 await _context.SaveChangesAsync();
             }
 

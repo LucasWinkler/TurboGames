@@ -7,37 +7,52 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GameStore.Data;
 using GameStore.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace GameStore.Pages.Admin.Events
 {
-  public class CreateModel : PageModel
-  {
-    private readonly GameStore.Data.ApplicationDbContext _context;
-
-    public CreateModel(GameStore.Data.ApplicationDbContext context)
+    public class CreateModel : PageModel
     {
-      _context = context;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public CreateModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            return Page();
+        }
+
+        [BindProperty]
+        public Event Event { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.Event.Add(Event);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index");
+        }
     }
-
-    public IActionResult OnGet()
-    {
-      return Page();
-    }
-
-    [BindProperty]
-    public Event Event { get; set; }
-
-    public async Task<IActionResult> OnPostAsync()
-    {
-      if (!ModelState.IsValid)
-      {
-        return Page();
-      }
-
-      _context.Events.Add(Event);
-      await _context.SaveChangesAsync();
-
-      return RedirectToPage("./Index");
-    }
-  }
 }

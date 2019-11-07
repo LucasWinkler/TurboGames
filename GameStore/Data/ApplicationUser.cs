@@ -43,5 +43,16 @@ namespace GameStore.Data
 
         [Required]
         public bool IsAdmin { get; set; } = false;
+
+        public Guid? FavouritePlatformId { get; set; }
+
+        public Platform FavouritePlatform { get; set; }
+
+        public Guid? FavouriteCategoryId { get; set; }
+
+        public Category FavouriteCategory { get; set; }
+
+        [Required]
+        public bool ShouldReceiveEmails { get; set; } = false;
     }
 }

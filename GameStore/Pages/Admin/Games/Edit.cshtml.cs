@@ -9,35 +9,60 @@ using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using GameStore.Models;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameStore.Pages.Admin.Games
 {
     public class EditModel : PageModel
     {
-        private readonly GameStore.Data.ApplicationDbContext _context;
-
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public EditModel(GameStore.Data.ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public EditModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
+        public SelectList Categories { get; set; }
+        public SelectList Platforms { get; set; }
+
         [BindProperty]
-        public Game Game { get; set; }
+        public InputModel Input { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(Guid? id, string username)
+        public class InputModel
         {
-            var user = string.IsNullOrEmpty(username)
-                ? await _userManager.GetUserAsync(User)
-                : await _userManager.FindByNameAsync(username);
+            [Required]
+            public Guid Id { get; set; }
 
+            [Required]
+            public string Title { get; set; }
+
+            [Required]
+            public string Developer { get; set; }
+
+            [Required]
+            public Guid CategoryId { get; set; }
+
+            [Required]
+            public Guid PlatformId { get; set; }
+
+            [Required]
+            public double Price { get; set; }
+
+            [Required]
+            public string Description { get; set; }
+        }
+
+        public async Task<IActionResult> OnGetAsync(Guid? id)
+        {
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToPage("/Identity/Account/Login");
+                return RedirectToPage("/Account/Login");
             }
-            if (user.IsAdmin == false)
+
+            if (!user.IsAdmin)
             {
                 return RedirectToPage("/Home/Index");
             }
@@ -47,25 +72,58 @@ namespace GameStore.Pages.Admin.Games
                 return NotFound();
             }
 
-            Game = await _context.Games
-                .Include(g => g.Category).FirstOrDefaultAsync(m => m.Id == id);
+            var game = await _context.Game
+                .Include(g => g.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Game == null)
+            if (game == null)
             {
                 return NotFound();
             }
-           ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+
+            Input = new InputModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Developer = game.Developer,
+                Description = game.Description,
+                Price = game.Price,
+                CategoryId = game.CategoryId,
+                PlatformId = game.PlatformId
+            };
+
+            SetDropdownLists();
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
             if (!ModelState.IsValid)
             {
+                SetDropdownLists();
+
                 return Page();
             }
 
-            _context.Attach(Game).State = EntityState.Modified;
+            var game = new Game
+            {
+                Id = Input.Id,
+                Title = Input.Title,
+                Developer = Input.Developer,
+                Description = Input.Description,
+                PlatformId = Input.PlatformId,
+                CategoryId = Input.CategoryId,
+                Price = Input.Price
+            };
+
+            _context.Attach(game).State = EntityState.Modified;
 
             try
             {
@@ -73,7 +131,7 @@ namespace GameStore.Pages.Admin.Games
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!GameExists(Game.Id))
+                if (!GameExists(game.Id))
                 {
                     return NotFound();
                 }
@@ -88,7 +146,13 @@ namespace GameStore.Pages.Admin.Games
 
         private bool GameExists(Guid id)
         {
-            return _context.Games.Any(e => e.Id == id);
+            return _context.Game.Any(e => e.Id == id);
+        }
+
+        private void SetDropdownLists()
+        {
+            Categories = new SelectList(_context.Category, "Id", "Name");
+            Platforms = new SelectList(_context.Platform, "Id", "Name");
         }
     }
 }

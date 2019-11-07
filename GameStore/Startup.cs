@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using GameStore.Services;
 
 namespace GameStore
 {
@@ -34,7 +36,6 @@ namespace GameStore
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-                options.ConsentCookie.MaxAge = TimeSpan.FromMinutes(10);
             });
 
             // In-memory backing store for sessions
@@ -45,21 +46,40 @@ namespace GameStore
                 options.UseSqlServer(
                     Configuration.GetConnectionString("LocalDbConnection")));
 
-            // Adds and configures the identity services
-            services.AddDefaultIdentity<ApplicationUser>(options =>
+            #region Configure Identity
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_";
-
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
-            })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            services.AddTransient<IEmailSender, EmailSender>(i =>
+                new EmailSender(
+                    Configuration["EmailSender:Host"],
+                    Configuration.GetValue<int>("EmailSender:Port"),
+                    Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                    Configuration["EmailSender:UserName"],
+                    Configuration["EmailSender:Password"])
+               );
+
+            #endregion
+
+            services.ConfigureApplicationCookie(options => 
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/Access-Denied";
+                options.LogoutPath = "/Account/Logout";
+ 
+            });
 
             // Configure session
             services.AddSession(options =>
@@ -69,7 +89,7 @@ namespace GameStore
                 options.Cookie.IsEssential = true;
             });
 
-            // Adds the MVC service and sets to version 2.2
+            // Adds the MVC service, configures the page routes and sets the mvc version
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AddPageRoute("/Home/Index", "");

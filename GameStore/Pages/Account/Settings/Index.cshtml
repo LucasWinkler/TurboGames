@@ -1,0 +1,35 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Account";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="account-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.UserName"></label>
+                <input asp-for="Input.UserName" class="form-control" placeholder="Username" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" placeholder="youremail@email.com" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+                <input asp-for="Input.ShouldReceiveEmails" type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                <label asp-for="Input.ShouldReceiveEmails" class="custom-control-label" for="defaultUnchecked"></label>
+                <span asp-validation-for="Input.ShouldReceiveEmails" class="text-danger"></span>
+            </div>
+            <button id="update-account-button" type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

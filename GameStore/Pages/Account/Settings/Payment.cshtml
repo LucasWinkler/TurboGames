@@ -1,0 +1,54 @@
+﻿@page
+@model PaymentModel
+@{
+    ViewData["Title"] = "Payment Info";
+    ViewData["ActivePage"] = ManageNavPages.Payment;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="billing-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-row mb-3">
+                <div class="col">
+                    <label asp-for="Payment.CardNumber"></label>
+                    <input type="text" class="form-control" asp-for="Payment.CardNumber" placeholder="Card number">
+                    <span asp-validation-for="Payment.CardNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row mb-3">
+                <div class="col-7">
+                    <label asp-for="Payment.CardExpirationDate"></label>
+                    <input asp-for="Payment.CardExpirationDate" class="form-control" placeholder="MM/YY" />
+                    <span asp-validation-for="Payment.CardExpirationDate" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="Payment.CardCVC"></label>
+                    <input asp-for="Payment.CardCVC" class="form-control" placeholder="Security code" />
+                    <span asp-validation-for="Payment.CardCVC" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row mb-4">
+                <div class="col">
+                    <label asp-for="Payment.CardName"></label>
+                    <input asp-for="Payment.CardName" class="form-control" placeholder="Full name" />
+                    <span asp-validation-for="Payment.CardName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <button id="update-payment-button" type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

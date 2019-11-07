@@ -1,7 +1,6 @@
 ﻿using GameStore.Data;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GameStore.Models
 {
@@ -18,7 +17,7 @@ namespace GameStore.Models
         public ApplicationUser Reviewer { get; set; }
 
         [Required]
-        public string GameId { get; set; }
+        public Guid GameId { get; set; }
 
         [Required]
         public Game Game { get; set; }
@@ -28,12 +27,14 @@ namespace GameStore.Models
         public string Content { get; set; }
 
         [Required]
+        [Range(0, 5)]
         public int Rating { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-        public DateTime Created { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-        // TODO: Pending Review FK
+        [Required]
+        public bool IsAccepted { get; set; } = false;
     }
 }

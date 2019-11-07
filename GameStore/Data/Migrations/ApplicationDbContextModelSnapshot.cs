@@ -38,6 +38,10 @@ namespace GameStore.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<Guid?>("FavouriteCategoryId");
+
+                    b.Property<Guid?>("FavouritePlatformId");
+
                     b.Property<string>("FirstName")
                         .IsRequired();
 
@@ -68,6 +72,8 @@ namespace GameStore.Data.Migrations
 
                     b.Property<string>("SecurityStamp");
 
+                    b.Property<bool>("ShouldReceiveEmails");
+
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
@@ -76,6 +82,10 @@ namespace GameStore.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("FavouriteCategoryId");
+
+                    b.HasIndex("FavouritePlatformId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -90,8 +100,8 @@ namespace GameStore.Data.Migrations
                     b.ToTable("User");
 
                     b.HasData(
-                        new { Id = "1a1a111-111-11aa-111a-a11aa1a11aa1", AccessFailedCount = 0, ConcurrencyStamp = "acb61671-a7c7-4a60-a953-e6db0c68e17a", DOB = new DateTime(2019, 11, 6, 0, 49, 43, 218, DateTimeKind.Utc), Email = "admin@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = true, LastName = "Admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@GMAIL.COM", NormalizedUserName = "ADMIN", PasswordHash = "AQAAAAEAACcQAAAAEP/sauskns2IdhwTq8lqJR9S4GOuA9/U0aqsk1GEKVxOEm4Taa8WzWCtsXYLMbRq6Q==", PhoneNumberConfirmed = true, SecurityStamp = "8ffd08fc-df73-41b9-8dac-2e2222f500e5", TwoFactorEnabled = false, UserName = "Admin" },
-                        new { Id = "2a2a222-222-22aa-222a-a22aa2a22aa2", AccessFailedCount = 0, ConcurrencyStamp = "dcf8ac15-79d7-4c53-97a7-5ba513e96bc2", DOB = new DateTime(2019, 11, 6, 0, 49, 43, 220, DateTimeKind.Utc), Email = "standard.user@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = false, LastName = "User", LockoutEnabled = false, NormalizedEmail = "STANDARD.USER@GMAIL.COM", NormalizedUserName = "USER", PasswordHash = "AQAAAAEAACcQAAAAEOdYcvUQSJ9+3a58+e1epGIP5g93TzdJKtDpZ79ItAFuEKfh6YSzkd3f4PCvHeYxVA==", PhoneNumberConfirmed = true, SecurityStamp = "9c31c47f-f4fe-4645-82b0-5c5c7ff37420", TwoFactorEnabled = false, UserName = "User" }
+                        new { Id = "1a1a111-111-11aa-111a-a11aa1a11aa1", AccessFailedCount = 0, ConcurrencyStamp = "0672d3c4-2952-492d-b3b0-2e4c24e6083b", DOB = new DateTime(2019, 11, 7, 14, 0, 36, 195, DateTimeKind.Utc), Email = "admin@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = true, LastName = "Admin", LockoutEnabled = false, NormalizedEmail = "ADMIN@GMAIL.COM", NormalizedUserName = "ADMIN", PasswordHash = "AQAAAAEAACcQAAAAEHTJkov5pBlqJDYY2fSxFEyJTNiKT1qMq3Qgjf/cYrqASYjkxc6hmZLazDJ1T7DMUQ==", PhoneNumberConfirmed = true, SecurityStamp = "6e0a1376-7f24-42c3-befe-7196cbbaf539", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "Admin" },
+                        new { Id = "2a2a222-222-22aa-222a-a22aa2a22aa2", AccessFailedCount = 0, ConcurrencyStamp = "c3809110-1e29-4fe7-847d-699d9a9bb817", DOB = new DateTime(2019, 11, 7, 14, 0, 36, 196, DateTimeKind.Utc), Email = "standard.user@gmail.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, IsAdmin = false, LastName = "User", LockoutEnabled = false, NormalizedEmail = "STANDARD.USER@GMAIL.COM", NormalizedUserName = "USER", PasswordHash = "AQAAAAEAACcQAAAAENWUlTqqVBJ1dsdqkLs2h9cMcdDEPD+FOU/ff/FMMExJyHxZ43knghNUk8FlwclVLg==", PhoneNumberConfirmed = true, SecurityStamp = "e23ccfe6-824f-4155-9d7a-204b11232ea3", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "User" }
                     );
                 });
 
@@ -123,12 +133,44 @@ namespace GameStore.Data.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("GameStore.Models.Category", b =>
+            modelBuilder.Entity("GameStore.Models.Cart", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<bool>("IsCheckedOut");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("GameStore.Models.CartGame", b =>
+                {
+                    b.Property<Guid>("CartId");
+
+                    b.Property<Guid>("GameId");
+
+                    b.Property<double>("Price");
+
+                    b.HasKey("CartId", "GameId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("CartGame");
+                });
+
+            modelBuilder.Entity("GameStore.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -138,7 +180,10 @@ namespace GameStore.Data.Migrations
                     b.ToTable("Category");
 
                     b.HasData(
-                        new { Id = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "Category Description", Name = "Category Name" }
+                        new { Id = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Name = "Action" },
+                        new { Id = new Guid("1f8fad5b-d9cb-469f-a165-70867728950e"), Name = "Adventure" },
+                        new { Id = new Guid("2f8fad5b-d9cb-469f-a165-70867728950e"), Name = "Strategy" },
+                        new { Id = new Guid("3f8fad5b-d9cb-469f-a165-70867728950e"), Name = "Sports" }
                     );
                 });
 
@@ -177,6 +222,10 @@ namespace GameStore.Data.Migrations
                     b.HasIndex("ReceiverId");
 
                     b.ToTable("Friendship");
+
+                    b.HasData(
+                        new { SenderId = "1a1a111-111-11aa-111a-a11aa1a11aa1", ReceiverId = "2a2a222-222-22aa-222a-a22aa2a22aa2", IsFamily = false, RequestStatus = 1 }
+                    );
                 });
 
             modelBuilder.Entity("GameStore.Models.Game", b =>
@@ -192,7 +241,9 @@ namespace GameStore.Data.Migrations
                     b.Property<string>("Developer")
                         .IsRequired();
 
-                    b.Property<double?>("Price");
+                    b.Property<Guid>("PlatformId");
+
+                    b.Property<double>("Price");
 
                     b.Property<string>("Title")
                         .IsRequired();
@@ -203,12 +254,14 @@ namespace GameStore.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("PlatformId");
+
                     b.ToTable("Game");
 
                     b.HasData(
-                        new { Id = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "The description", Developer = "Game Developer 1", Title = "Game Name 1", TotalRating = 0 },
-                        new { Id = new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "The description", Developer = "Game Developer 2", Title = "Game Name 2", TotalRating = 0 },
-                        new { Id = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "The description", Developer = "Game Developer 3", Title = "Game Name 3", TotalRating = 0 }
+                        new { Id = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "Counter-Strike: Global Offensive (CS:GO) is a multiplayer first-person shooter video game developed by Hidden Path Entertainment and Valve Corporation. It is the fourth game in the Counter-Strike series and was released for Microsoft Windows, OS X, Xbox 360, and PlayStation 3 on August 21, 2012, while the Linux version was released in 2014.", Developer = "Valve", PlatformId = new Guid("132a91dd-d200-4c19-a767-f936cfbd8314"), Price = 0.0, Title = "Counter-Strike: Global Offensive", TotalRating = 0 },
+                        new { Id = new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), Description = "Apex Legends is a free-to-play Battle Royale game where legendary competitors battle for glory, fame, and fortune on the fringes of the Frontier.", Developer = "Respawn", PlatformId = new Guid("232a91dd-d200-4c19-a767-f936cfbd8314"), Price = 0.0, Title = "Apex Legends", TotalRating = 0 },
+                        new { Id = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), CategoryId = new Guid("2f8fad5b-d9cb-469f-a165-70867728950e"), Description = "Age of Empires II: The Age of Kings is a real-time strategy video game developed by Ensemble Studios and published by Microsoft. Released in 1999 for Microsoft Windows and Macintosh, it is the second game in the Age of Empires series.", Developer = "Forgotten Empires, Tantalus Media, Wicked Witch", PlatformId = new Guid("132a91dd-d200-4c19-a767-f936cfbd8314"), Price = 21.99, Title = "Age of Empires II: Definitive Edition", TotalRating = 0 }
                     );
                 });
 
@@ -246,6 +299,12 @@ namespace GameStore.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Platform");
+
+                    b.HasData(
+                        new { Id = new Guid("132a91dd-d200-4c19-a767-f936cfbd8314"), Name = "Steam" },
+                        new { Id = new Guid("232a91dd-d200-4c19-a767-f936cfbd8314"), Name = "Origin" },
+                        new { Id = new Guid("332a91dd-d200-4c19-a767-f936cfbd8314"), Name = "Blizzard" }
+                    );
                 });
 
             modelBuilder.Entity("GameStore.Models.Review", b =>
@@ -256,12 +315,11 @@ namespace GameStore.Data.Migrations
                     b.Property<string>("Content")
                         .IsRequired();
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("GameId")
-                        .IsRequired();
+                    b.Property<Guid>("GameId");
 
-                    b.Property<Guid>("GameId1");
+                    b.Property<bool>("IsAccepted");
 
                     b.Property<int>("Rating");
 
@@ -270,7 +328,7 @@ namespace GameStore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameId1");
+                    b.HasIndex("GameId");
 
                     b.HasIndex("ReviewerId");
 
@@ -303,12 +361,6 @@ namespace GameStore.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("UserGame");
-
-                    b.HasData(
-                        new { UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1", GameId = new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 6, 0, 49, 43, 220, DateTimeKind.Utc) },
-                        new { UserId = "1a1a111-111-11aa-111a-a11aa1a11aa1", GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 6, 0, 49, 43, 220, DateTimeKind.Utc) },
-                        new { UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2", GameId = new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 6, 0, 49, 43, 220, DateTimeKind.Utc) }
-                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -377,11 +429,9 @@ namespace GameStore.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -412,11 +462,9 @@ namespace GameStore.Data.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -431,9 +479,38 @@ namespace GameStore.Data.Migrations
                         .WithMany()
                         .HasForeignKey("AddressId");
 
+                    b.HasOne("GameStore.Models.Category", "FavouriteCategory")
+                        .WithMany()
+                        .HasForeignKey("FavouriteCategoryId");
+
+                    b.HasOne("GameStore.Models.Platform", "FavouritePlatform")
+                        .WithMany()
+                        .HasForeignKey("FavouritePlatformId");
+
                     b.HasOne("GameStore.Models.Payment", "Payment")
                         .WithMany()
                         .HasForeignKey("PaymentId");
+                });
+
+            modelBuilder.Entity("GameStore.Models.Cart", b =>
+                {
+                    b.HasOne("GameStore.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GameStore.Models.CartGame", b =>
+                {
+                    b.HasOne("GameStore.Models.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("GameStore.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("GameStore.Models.Friendship", b =>
@@ -455,13 +532,18 @@ namespace GameStore.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("GameStore.Models.Platform", "Platform")
+                        .WithMany()
+                        .HasForeignKey("PlatformId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GameStore.Models.Review", b =>
                 {
                     b.HasOne("GameStore.Models.Game", "Game")
                         .WithMany("Reviews")
-                        .HasForeignKey("GameId1")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GameStore.Data.ApplicationUser", "Reviewer")
