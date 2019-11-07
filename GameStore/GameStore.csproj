@@ -117,8 +117,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Games\Library\" />
     <Folder Include="Pages\Events\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameStore.Tests\GameStore.Tests.csproj" />
   </ItemGroup>
 
 </Project>

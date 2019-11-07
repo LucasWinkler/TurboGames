@@ -39,6 +39,9 @@
                 <td>    
                     <a asp-page-handler="Download" asp-route-id="@item.GameId" class="btn btn-primary">Download</a>
                 </td>
+                <td>
+                    <a asp-page-handler="Rate" asp-page="./Review" asp-route-id="@item.GameId" asp-route-title="@item.Game.Title" class="btn btn-primary">Review</a>
+                </td>
             </tr>
         }
     </tbody>
