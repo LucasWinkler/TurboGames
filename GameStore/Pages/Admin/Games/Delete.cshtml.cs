@@ -72,6 +72,12 @@ namespace GameStore.Pages.Admin.Games
 
             if (Game != null)
             {
+                var userGames = _context.UserGame.Where(x => x.GameId == id);
+                if (userGames != null)
+                {
+                    _context.UserGame.RemoveRange(userGames);
+                }
+
                 _context.Game.Remove(Game);
                 await _context.SaveChangesAsync();
             }

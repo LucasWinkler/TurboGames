@@ -13,26 +13,31 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Game.Id" />
+            <input type="hidden" asp-for="Input.Id" />
             <div class="form-group">
-                <label asp-for="Game.Title" class="control-label"></label>
-                <input asp-for="Game.Title" class="form-control" />
-                <span asp-validation-for="Game.Title" class="text-danger"></span>
+                <label asp-for="Input.Title" class="control-label"></label>
+                <input asp-for="Input.Title" class="form-control" />
+                <span asp-validation-for="Input.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Game.Developer" class="control-label"></label>
-                <input asp-for="Game.Developer" class="form-control" />
-                <span asp-validation-for="Game.Developer" class="text-danger"></span>
+                <label asp-for="Input.Developer" class="control-label"></label>
+                <input asp-for="Input.Developer" class="form-control" />
+                <span asp-validation-for="Input.Developer" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Game.TotalRating" class="control-label"></label>
-                <input asp-for="Game.TotalRating" class="form-control" />
-                <span asp-validation-for="Game.TotalRating" class="text-danger"></span>
+                <label asp-for="Input.Description" class="control-label"></label>
+                <input asp-for="Input.Description" class="form-control" />
+                <span asp-validation-for="Input.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Game.CategoryId" class="control-label"></label>
-                <select asp-for="Game.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
-                <span asp-validation-for="Game.CategoryId" class="text-danger"></span>
+                <label asp-for="Input.CategoryId" class="control-label">Category</label>
+                <select asp-for="Input.CategoryId" class="form-control" asp-items="Model.Categories"></select>
+                <span asp-validation-for="Input.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.PlatformId" class="control-label">Platform</label>
+                <select asp-for="Input.PlatformId" class="form-control" asp-items="Model.Platforms"></select>
+                <span asp-validation-for="Input.PlatformId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

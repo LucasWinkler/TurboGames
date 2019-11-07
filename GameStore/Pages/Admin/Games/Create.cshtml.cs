@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using GameStore.Data;
 using GameStore.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameStore.Pages.Admin.Games
 {
@@ -15,6 +18,33 @@ namespace GameStore.Pages.Admin.Games
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
+        public SelectList Categories { get; set; }
+        public SelectList Platforms { get; set; }
+
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        public class InputModel
+        {
+            [Required]
+            public string Title { get; set; }
+
+            [Required]
+            public string Developer { get; set; }
+
+            [Required]
+            public Guid CategoryId { get; set; }
+
+            [Required]
+            public Guid PlatformId { get; set; }
+
+            [Required]
+            public double Price { get; set; }
+
+            [Required]
+            public string Description { get; set; }
+        }
 
         public CreateModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -35,13 +65,10 @@ namespace GameStore.Pages.Admin.Games
                 return RedirectToPage("/Home/Index");
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
+            SetDropdownLists();
 
             return Page();
         }
-
-        [BindProperty]
-        public Game Game { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -53,13 +80,39 @@ namespace GameStore.Pages.Admin.Games
 
             if (!ModelState.IsValid)
             {
+                SetDropdownLists();
                 return Page();
             }
 
-            _context.Game.Add(Game);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.Game.AddAsync(new Game
+                {
+                    Title = Input.Title,
+                    Developer = Input.Developer,
+                    Description = Input.Description,
+                    PlatformId = Input.PlatformId,
+                    CategoryId = Input.CategoryId,
+                    Price = Input.Price
+                });
+                await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+                return RedirectToPage("./Index");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Error: " + e.InnerException);
+            }
+
+            SetDropdownLists();
+
+            return Page();
+        }
+
+        private void SetDropdownLists()
+        {
+            Categories = new SelectList(_context.Category, "Id", "Name");
+            Platforms = new SelectList(_context.Platform, "Id", "Name");
         }
     }
 }

@@ -1,17 +1,10 @@
 ﻿@page
-@model GameModel
+@model GameDetailsModel
 @{
-    ViewData["Title"] = "Game";
+    ViewData["Title"] = "GameDetails";
 }
 
 <table class="table" border="0">
-    <thead>
-        <tr>
-            <th><a asp-page="./Index">Back</a></th>
-            <th></th>
-            <th rowspan="2" align="right"><a asp-page="./Index">Add To Cart</a></th>
-        </tr>
-    </thead>
     <tbody>
         <tr>
             <td>
@@ -19,6 +12,7 @@
                 <p>Developer: @Model.Game.Developer</p>
                 <p>Category: @Model.Game.Category.Name</p>
                 <p>Rating: @Model.Game.TotalRating</p>
+                <p>Price: @Model.Game.Price</p>
             </td>
         </tr>
     </tbody>

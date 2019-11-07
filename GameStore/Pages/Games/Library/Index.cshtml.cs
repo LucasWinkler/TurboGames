@@ -27,8 +27,6 @@ namespace GameStore.Pages.Games.Library
         public Game Game { get; set; }
         public IList<UserGame> UserGame { get;set; }
 
-        public int CountUserGames { get; set; }
-
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -37,11 +35,11 @@ namespace GameStore.Pages.Games.Library
                 return RedirectToPage("/Account/Login");
             }
 
-            CountUserGames = _context.UserGame.Count();
-
             UserGame = await _context.UserGame
                 .Include(u => u.Game)
-                .Include(u => u.User).ToListAsync();
+                .Include(u => u.User)
+                .Where(u => u.UserId == user.Id)
+                .ToListAsync();
 
             return Page();
         }

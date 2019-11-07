@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using GameStore.Data;
 using GameStore.Models;
@@ -36,6 +37,22 @@ namespace GameStore.Pages.Games.Store
             }
 
             Game = await _context.Game.AsNoTracking().ToListAsync();
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAddItemToCartAsync(Guid id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            Game = await _context.Game
+                .AsNoTracking()
+                .Where(x => x.Id == id)
+                .ToListAsync();
 
             return Page();
         }

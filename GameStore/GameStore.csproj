@@ -114,9 +114,12 @@
     <Compile Remove="Data\Migrations\20191106044212_AddCartModels.Designer.cs" />
     <Compile Remove="Data\Migrations\20191106044617_AddCartModels.cs" />
     <Compile Remove="Data\Migrations\20191106044617_AddCartModels.Designer.cs" />
+    <Compile Remove="Migrations\20191107044346_InitialMigration.cs" />
+    <Compile Remove="Migrations\20191107044346_InitialMigration.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Games\Library\" />
     <Folder Include="Pages\Events\" />
   </ItemGroup>
 

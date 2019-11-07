@@ -5,7 +5,7 @@
     ViewData["Title"] = "Game Library";
 }
 
-    <h1>@Model.User.Identity.Name's @ViewData["Title"]</h1>
+<h1>@Model.User.Identity.Name's @ViewData["Title"]</h1>
 
 <table class="table">
     <thead>
@@ -25,8 +25,7 @@
     <tbody>
         @foreach (var item in Model.UserGame)
         {
-
-            <tr onclick="location.href = '@Url.Action("Details", "Details", new { }))'" class="row-hover">
+            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.GameId }))'" class="row-hover">
                 <td>
                     @Html.DisplayFor(modelItem => item.Game.Title)
                 </td>
@@ -36,7 +35,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PurchaseDate)
                 </td>
-                <td>    
+                <td>
                     <a asp-page-handler="Download" asp-route-id="@item.GameId" class="btn btn-primary">Download</a>
                 </td>
                 <td>

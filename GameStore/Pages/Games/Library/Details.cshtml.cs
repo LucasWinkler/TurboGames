@@ -39,7 +39,8 @@ namespace GameStore.Pages.Games.Library
 
             UserGame = await _context.UserGame
                 .Include(u => u.Game)
-                .Include(u => u.User).FirstOrDefaultAsync(m => m.UserId == id);
+                .Include(u => u.User)
+                .FirstOrDefaultAsync(m => m.UserId == id);
 
             if (UserGame == null)
             {

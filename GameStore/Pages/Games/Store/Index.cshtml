@@ -21,16 +21,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.Game[0].Category)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Game[0].Price)
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Game)
         {
-            <tr>
+            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.Id }))'" class="row-hover">
                 <td>
-                    <a asp-page="./GamePage" asp-route-id="@item.Id">
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </a>
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Developer)
@@ -40,6 +41,12 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-page-handler="AddItemToCart" asp-route-id="@item.Id" class="btn btn-success">Add to cart</a>
                 </td>
             </tr>
         }
