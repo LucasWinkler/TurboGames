@@ -43,6 +43,11 @@ namespace GameStore.Pages.Games
                 .Include(x => x.Platform)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
+            Reviews = _context.Review
+                .Include(x => x.Game)
+                .Include(x => x.Reviewer)
+                .Where(x => x.IsAccepted && x.GameId == id).ToList();
+
             return Page();
         }
     }

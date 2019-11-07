@@ -95,6 +95,29 @@ namespace GameStore.Extensions
                 }
             );
 
+            builder.Entity<Address>().HasData(
+                new Address
+                {
+                    Id = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
+                    PrimaryAddress = "57 Kingsboro Road",
+                    Country = "Canada",
+                    Province ="Ontario",
+                    City = "Cambridge",
+                    PostalCode = "N1P1H1"
+                }    
+            );
+
+            builder.Entity<Payment>().HasData(
+                new Payment
+                {
+                    Id = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7"),
+                    CardNumber = "4123450131003312",
+                    CardCVC = "313",
+                    CardExpirationDate = "11/21",
+                    CardName = "Lucas Winkler"
+                }
+            );
+
             builder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser
                 {
@@ -112,7 +135,9 @@ namespace GameStore.Extensions
                     LastName = "Admin",
                     Gender = Gender.Other,
                     DOB = DateTime.UtcNow,
-                    IsAdmin = true
+                    IsAdmin = true,
+                    AddressId = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
+                    PaymentId = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7")
                 },
                 new ApplicationUser
                 {
@@ -130,7 +155,9 @@ namespace GameStore.Extensions
                     LastName = "User",
                     Gender = Gender.Other,
                     DOB = DateTime.UtcNow,
-                    IsAdmin = false
+                    IsAdmin = false,
+                    AddressId = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
+                    PaymentId = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7")
                 }
             );
         }
