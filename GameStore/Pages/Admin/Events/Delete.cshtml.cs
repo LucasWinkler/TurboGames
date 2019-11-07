@@ -64,6 +64,12 @@ namespace GameStore.Pages.Admin.Events
 
             if (Event != null)
             {
+                var userEvents = _context.UserEvent.Where(x => x.EventId == id);
+                if (userEvents != null)
+                {
+                    _context.UserEvent.Remove(userEvents);
+                }
+
                 _context.Event.Remove(Event);
                 await _context.SaveChangesAsync();
             }

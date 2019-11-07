@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GameStore.Data.Migrations
 {
-    public partial class AddModelsAndSeedData : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,8 +30,7 @@ namespace GameStore.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,6 +101,7 @@ namespace GameStore.Data.Migrations
                     Title = table.Column<string>(nullable: false),
                     Developer = table.Column<string>(nullable: false),
                     CategoryId = table.Column<Guid>(nullable: false),
+                    PlatformId = table.Column<Guid>(nullable: false),
                     TotalRating = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
                     Description = table.Column<string>(nullable: false)
@@ -113,6 +113,12 @@ namespace GameStore.Data.Migrations
                         name: "FK_Game_Category_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Game_Platform_PlatformId",
+                        column: x => x.PlatformId,
+                        principalTable: "Platform",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -142,7 +148,10 @@ namespace GameStore.Data.Migrations
                     DOB = table.Column<DateTime>(nullable: false),
                     AddressId = table.Column<Guid>(nullable: true),
                     PaymentId = table.Column<Guid>(nullable: true),
-                    IsAdmin = table.Column<bool>(nullable: false)
+                    IsAdmin = table.Column<bool>(nullable: false),
+                    FavouritePlatformId = table.Column<Guid>(nullable: true),
+                    FavouriteCategoryId = table.Column<Guid>(nullable: true),
+                    ShouldReceiveEmails = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -151,6 +160,18 @@ namespace GameStore.Data.Migrations
                         name: "FK_User_Address_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Address",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_User_Category_FavouriteCategoryId",
+                        column: x => x.FavouriteCategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_User_Platform_FavouritePlatformId",
+                        column: x => x.FavouritePlatformId,
+                        principalTable: "Platform",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -418,48 +439,63 @@ namespace GameStore.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Category",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[] { new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), "Category Description", "Category Name" });
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), "Action" },
+                    { new Guid("1f8fad5b-d9cb-469f-a165-70867728950e"), "Adventure" },
+                    { new Guid("2f8fad5b-d9cb-469f-a165-70867728950e"), "Strategy" },
+                    { new Guid("3f8fad5b-d9cb-469f-a165-70867728950e"), "Sports" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Platform",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("132a91dd-d200-4c19-a767-f936cfbd8314"), "Steam" },
+                    { new Guid("232a91dd-d200-4c19-a767-f936cfbd8314"), "Origin" },
+                    { new Guid("332a91dd-d200-4c19-a767-f936cfbd8314"), "Blizzard" }
+                });
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "Id", "AccessFailedCount", "AddressId", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FirstName", "Gender", "IsAdmin", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PaymentId", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "2a2a222-222-22aa-222a-a22aa2a22aa2", 0, null, "b319c93e-722f-42dc-bb8d-91d057638cc0", new DateTime(2019, 11, 6, 4, 50, 13, 597, DateTimeKind.Utc), "standard.user@gmail.com", true, "Turbo", 2, false, "User", false, null, "STANDARD.USER@GMAIL.COM", "USER", "AQAAAAEAACcQAAAAEJI7ke+RwPooxGee3wooL2rel5dIK7+cWgxxJ6HfDsNIhXRPDDvyPRKMrrzYhoOUXw==", null, null, true, "da820853-cad8-43e7-8a9a-7edca1194a45", false, "User" });
-
-            migrationBuilder.InsertData(
-                table: "User",
-                columns: new[] { "Id", "AccessFailedCount", "AddressId", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FirstName", "Gender", "IsAdmin", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PaymentId", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", 0, null, "249602f7-04c0-4be2-aec0-402ddadecc54", new DateTime(2019, 11, 6, 4, 50, 13, 596, DateTimeKind.Utc), "admin@gmail.com", true, "Turbo", 2, true, "Admin", false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEJ6yKfFX6c0F5tcz3/cCYWSI5i6Uz8yOtGHLFfT6ZZ0FBqcEiAYJI6W8ZIPBqIMnSQ==", null, null, true, "ab5ca0ce-f0db-499a-8489-41a17c293a58", false, "Admin" });
-
-            migrationBuilder.InsertData(
-                table: "Game",
-                columns: new[] { "Id", "CategoryId", "Description", "Developer", "Price", "Title", "TotalRating" },
-                values: new object[] { new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), "The description", "Game Developer 1", 0.0, "Game Name 1", 0 });
+                columns: new[] { "Id", "AccessFailedCount", "AddressId", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FavouriteCategoryId", "FavouritePlatformId", "FirstName", "Gender", "IsAdmin", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PaymentId", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "ShouldReceiveEmails", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "1a1a111-111-11aa-111a-a11aa1a11aa1", 0, null, "259a8274-c538-4eea-a18f-5c83fcc58e86", new DateTime(2019, 11, 7, 4, 44, 57, 836, DateTimeKind.Utc), "admin@gmail.com", true, null, null, "Turbo", 2, true, "Admin", false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAECErj6qUk7rjlHlbsp0yixIMfgCBSLNWR3ZrZAIDnbXDEAQSPc/gdcJ3ic5sh9pDOw==", null, null, true, "98e65d70-2d71-4c71-95cd-31c4f11e9436", false, false, "Admin" },
+                    { "2a2a222-222-22aa-222a-a22aa2a22aa2", 0, null, "24578d13-ecd2-430e-af64-9caa124e941f", new DateTime(2019, 11, 7, 4, 44, 57, 837, DateTimeKind.Utc), "standard.user@gmail.com", true, null, null, "Turbo", 2, false, "User", false, null, "STANDARD.USER@GMAIL.COM", "USER", "AQAAAAEAACcQAAAAEKvIR5g/MndbP2832nbM7RLtaAk+DnQWfB8hh3Eu2E8MZfHhRza5V5bvTEYrC50rYA==", null, null, true, "de31d6f8-b11d-429d-83e0-0b77e81d791d", false, false, "User" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Game",
-                columns: new[] { "Id", "CategoryId", "Description", "Developer", "Price", "Title", "TotalRating" },
-                values: new object[] { new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"), new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), "The description", "Game Developer 2", 54.99, "Game Name 2", 0 });
+                columns: new[] { "Id", "CategoryId", "Description", "Developer", "PlatformId", "Price", "Title", "TotalRating" },
+                values: new object[] { new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), "Counter-Strike: Global Offensive (CS:GO) is a multiplayer first-person shooter video game developed by Hidden Path Entertainment and Valve Corporation. It is the fourth game in the Counter-Strike series and was released for Microsoft Windows, OS X, Xbox 360, and PlayStation 3 on August 21, 2012, while the Linux version was released in 2014.", "Valve", new Guid("132a91dd-d200-4c19-a767-f936cfbd8314"), 0.0, "Counter-Strike: Global Offensive", 0 });
 
             migrationBuilder.InsertData(
                 table: "Game",
-                columns: new[] { "Id", "CategoryId", "Description", "Developer", "Price", "Title", "TotalRating" },
-                values: new object[] { new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), "The description", "Game Developer 3", 19.99, "Game Name 3", 0 });
+                columns: new[] { "Id", "CategoryId", "Description", "Developer", "PlatformId", "Price", "Title", "TotalRating" },
+                values: new object[] { new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new Guid("2f8fad5b-d9cb-469f-a165-70867728950e"), "Age of Empires II: The Age of Kings is a real-time strategy video game developed by Ensemble Studios and published by Microsoft. Released in 1999 for Microsoft Windows and Macintosh, it is the second game in the Age of Empires series.", "Forgotten Empires, Tantalus Media, Wicked Witch", new Guid("132a91dd-d200-4c19-a767-f936cfbd8314"), 21.99, "Age of Empires II: Definitive Edition", 0 });
+
+            migrationBuilder.InsertData(
+                table: "Game",
+                columns: new[] { "Id", "CategoryId", "Description", "Developer", "PlatformId", "Price", "Title", "TotalRating" },
+                values: new object[] { new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"), new Guid("0f8fad5b-d9cb-469f-a165-70867728950e"), "Apex Legends is a free-to-play Battle Royale game where legendary competitors battle for glory, fame, and fortune on the fringes of the Frontier.", "Respawn", new Guid("232a91dd-d200-4c19-a767-f936cfbd8314"), 0.0, "Apex Legends", 0 });
 
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 6, 4, 50, 13, 597, DateTimeKind.Utc) });
+                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 4, 44, 57, 837, DateTimeKind.Utc) });
 
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 6, 4, 50, 13, 597, DateTimeKind.Utc) });
+                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 4, 44, 57, 837, DateTimeKind.Utc) });
 
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "2a2a222-222-22aa-222a-a22aa2a22aa2", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 6, 4, 50, 13, 597, DateTimeKind.Utc) });
+                values: new object[] { "2a2a222-222-22aa-222a-a22aa2a22aa2", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 4, 44, 57, 837, DateTimeKind.Utc) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cart_UserId",
@@ -480,6 +516,11 @@ namespace GameStore.Data.Migrations
                 name: "IX_Game_CategoryId",
                 table: "Game",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Game_PlatformId",
+                table: "Game",
+                column: "PlatformId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_GameId1",
@@ -507,6 +548,16 @@ namespace GameStore.Data.Migrations
                 name: "IX_User_AddressId",
                 table: "User",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_FavouriteCategoryId",
+                table: "User",
+                column: "FavouriteCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_FavouritePlatformId",
+                table: "User",
+                column: "FavouritePlatformId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -560,9 +611,6 @@ namespace GameStore.Data.Migrations
                 name: "Friendship");
 
             migrationBuilder.DropTable(
-                name: "Platform");
-
-            migrationBuilder.DropTable(
                 name: "Review");
 
             migrationBuilder.DropTable(
@@ -602,10 +650,13 @@ namespace GameStore.Data.Migrations
                 name: "User");
 
             migrationBuilder.DropTable(
+                name: "Address");
+
+            migrationBuilder.DropTable(
                 name: "Category");
 
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Platform");
 
             migrationBuilder.DropTable(
                 name: "Payment");

@@ -39,7 +39,6 @@ namespace GameStore.Models
         [Required]
         public string Description { get; set; }
 
-        [PersonalData]
         public List<Review> Reviews { get; set; }
     }
 }
