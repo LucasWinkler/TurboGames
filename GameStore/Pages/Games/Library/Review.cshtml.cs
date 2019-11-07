@@ -23,7 +23,7 @@ namespace GameStore.Pages.Games.Library
         public InputModel Input { get; set; }
 
         [TempData]
-        public string StatusMessage { get; set; }
+        public bool IsReviewed { get; set; } = false;
 
         public class InputModel
         {
@@ -53,16 +53,23 @@ namespace GameStore.Pages.Games.Library
                 return RedirectToPage("/Account/Login");
             }
 
-            Input = new InputModel
-            {
-                GameId = id
-            };
+            var review = await _context.Review.FirstOrDefaultAsync(x => x.GameId == id && x.ReviewerId == user.Id);
+            Input = review != null
+                ? new InputModel
+                {
+                    GameId = id,
+                    Content = review.Content,
+                    Rating = review.Rating
+                }
+                : new InputModel
+                {
+                    GameId = id
+                };
 
             ViewData["GameTitle"] = _context.Game.FirstOrDefault(x => x.Id == id).Title;
 
             return Page();
         }
-
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -74,7 +81,6 @@ namespace GameStore.Pages.Games.Library
 
             if (!ModelState.IsValid)
             {
-                StatusMessage = $"Error: Unable to review the '{_context.Game.FirstOrDefault(x => x.Id == Input.GameId).Title}' game.";
                 return Page();
             }
 
@@ -86,13 +92,32 @@ namespace GameStore.Pages.Games.Library
                 Rating = Input.Rating
             };
 
+            var isReviewed = await _context.Review.FirstOrDefaultAsync(x => x.GameId == review.GameId && x.ReviewerId == user.Id);
+            if (isReviewed != null)
+            {
+                isReviewed.Content = Input.Content;
+                isReviewed.Rating = Input.Rating;
+
+                _context.Attach(isReviewed).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToPage("./Index", new { statusMessage = $"You have edited your review for '{_context.Game.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.InnerException);
+                }
+            }
+
             try
             {
                 await _context.Review.AddAsync(review);
                 await _context.SaveChangesAsync();
 
-                StatusMessage = $"You have reviewed the '{_context.Game.FirstOrDefault(x => x.Id == review.GameId).Title}' game.";
-                return RedirectToPage("./Index", new { statusMessage = StatusMessage });
+                return RedirectToPage("./Index", new { statusMessage = $"You have reviewed '{_context.Game.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
             }
             catch (Exception e)
             {
@@ -100,8 +125,13 @@ namespace GameStore.Pages.Games.Library
             }
 
             ViewData["GameTitle"] = review.Game.Title;
-            StatusMessage = $"Error: An unknown error has occured.";
+           
             return Page();
+        }
+
+        private bool ReviewExists(Guid id)
+        {
+            return _context.Review.Any(e => e.Id == id);
         }
     }
 }

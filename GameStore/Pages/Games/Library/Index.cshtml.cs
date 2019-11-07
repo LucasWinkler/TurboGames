@@ -24,6 +24,9 @@ namespace GameStore.Pages.Games.Library
         [TempData]
         public string StatusMessage { get; set; }
 
+        [TempData]
+        public bool IsReviewed { get; set; }
+
         public IndexModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
