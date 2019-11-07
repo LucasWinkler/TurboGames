@@ -53,10 +53,10 @@ namespace GameStore.Pages.Cart
             }
 
             Games = new List<Game>();
-            foreach(var item in cartGames)
+            foreach (var item in cartGames)
             {
                 var game = item.Game;
-                if (Games.Contains(game)) 
+                if (Games.Contains(game))
                     continue;
 
                 Total += game.Price;
@@ -96,18 +96,29 @@ namespace GameStore.Pages.Cart
                 return RedirectToPage();
             }
 
-            cart.IsCheckedOut = true;
+            foreach (var item in cartGames)
+            {
+                var game = item.Game;
+                var userGames = await _context.UserGame.Where(x => x.GameId == game.Id && x.UserId == user.Id).ToListAsync();
+
+                if (userGames.Count != 0)
+                {
+                    StatusMessage = $"Error: You already own at least one of these games.";
+                    return RedirectToPage();
+                }
+            }
 
             try
             {
+                cart.IsCheckedOut = true;
                 _context.Update(cart);
 
                 await _context.SaveChangesAsync();
 
-                foreach(var item in cartGames)
+                foreach (var item in cartGames)
                 {
-                    await _context.AddAsync(new UserGame 
-                    { 
+                    await _context.AddAsync(new UserGame
+                    {
                         GameId = item.Game.Id,
                         UserId = user.Id
                     });

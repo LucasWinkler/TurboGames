@@ -82,6 +82,13 @@ namespace GameStore.Pages.Games.Store
                 return RedirectToPage();
             }
 
+            var isGameOwned = await _context.UserGame.AnyAsync(x => x.GameId == gameToAdd.Id && x.UserId == user.Id);
+            if (isGameOwned)
+            {
+                StatusMessage = $"Error: You already own this game.";
+                return RedirectToPage();
+            }
+
             var cartGameToAdd = new CartGame
             {
                 CartId = cart.Id,
