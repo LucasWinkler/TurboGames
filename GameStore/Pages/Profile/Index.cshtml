@@ -4,7 +4,7 @@
 @model GameStore.Pages.Profile.IndexModel
 @{
     ViewData["Title"] = "Profile";
-    var user = UserManager.GetUserAsync(User);
+    var user = UserManager.GetUserAsync(HttpContext.User);
 }
 
 <div class="container">
@@ -14,6 +14,7 @@
     }
     else
     {
+        <partial name="_StatusMessage" for="StatusMessage" />
         <div class="row">
             <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
                 <div class="well profile">
@@ -21,14 +22,20 @@
                         <div class="col-lg-12 col-md-12">
                             <h1>
                                 @Model.Info.Username
-                                @if (SignInManager.IsSignedIn(User))
+                            </h1>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                if (Model.Info.Username != Model.User.Identity.Name)
                                 {
-                                    if (Model.Info.Username != @Model.User.Identity.Name)
+                                    @if (!Model.IsFriend)
                                     {
-                                        <a href="#" class="btn btn-success">Add friend</a>
+                                        <form method="post">
+                                            <input type="submit" value="Add friend" class="btn btn-primary" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username" />
+                                            <input type="submit" value="Add family" class="btn btn-success" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username" asp-route-isFamily="true" />
+                                        </form>
                                     }
                                 }
-                            </h1>
+                            }
                             <hr class="my-4" />
                             <p><strong>Name: </strong>@Model.Info.FullName</p>
                             <p><strong>Gender: </strong>@Model.Info.Gender</p>

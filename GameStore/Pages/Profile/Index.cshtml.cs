@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +17,9 @@ namespace GameStore.Pages.Profile
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public bool DoesExist { get; set; }
 
@@ -27,6 +32,8 @@ namespace GameStore.Pages.Profile
 
         [BindProperty]
         public InfoModel Info { get; set; }
+
+        public bool IsFriend { get; set; }
 
         public class InfoModel
         {
@@ -54,13 +61,12 @@ namespace GameStore.Pages.Profile
             public int FamilyCount { get; set; }
         }
 
-
         public async Task<IActionResult> OnGetAsync(string username)
         {
             var user = string.IsNullOrEmpty(username)
                 ? await _userManager.GetUserAsync(User)
                 : await _userManager.FindByNameAsync(username);
-            
+
             if (user == null)
             {
                 DoesExist = false;
@@ -82,6 +88,71 @@ namespace GameStore.Pages.Profile
                 FriendCount = _context.Friendship.Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id).Count(),
                 FamilyCount = _context.Friendship.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && x.IsFamily).Count()
             };
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                IsFriend = false;
+                return Page();
+            }
+
+            var friendships = _context.Friendship
+                .Include(x => x.Receiver)
+                .Include(x => x.Sender)
+                .Where(x => x.ReceiverId == currentUser.Id || x.SenderId == currentUser.Id);
+
+            IsFriend = await friendships.AnyAsync(x => x.Sender.UserName == username || x.Receiver.UserName == username);
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAddFriendAsync(string username, bool isFamily = false)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            var friendships = _context.Friendship
+                .Include(x => x.Receiver)
+                .Include(x => x.Sender)
+                .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id);
+
+            if (friendships.Any(x => x.Sender.UserName == username || x.Receiver.UserName == username && x.RequestStatus == FriendStatusCode.None))
+            {
+                StatusMessage = $"Error: There is already a pending friend request for that user.";
+
+                return RedirectToPage("./Index");
+            }
+            else if (friendships.Any(x => x.Sender.UserName == username || x.Receiver.UserName == username && x.RequestStatus != FriendStatusCode.None))
+            {
+                StatusMessage = $"Error: You already have this user added as a friend.";
+
+                return RedirectToPage("./Index");
+            }
+
+            var receiver = await _userManager.FindByNameAsync(username);
+
+            var newFriendship = new Friendship
+            {
+                SenderId = user.Id,
+                ReceiverId = receiver.Id,
+                IsFamily = isFamily
+            };
+
+            try
+            {
+                await _context.AddAsync(newFriendship);
+                await _context.SaveChangesAsync();
+
+                StatusMessage = $"You have sent them a friend request. You must wait for them to accept it.";
+                return RedirectToPage("./Index");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
+            }
 
             return Page();
         }
