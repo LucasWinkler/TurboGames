@@ -52,9 +52,7 @@ namespace GameStore.Pages.Games.Store
                 return RedirectToPage("/Account/Login");
             }
 
-            var gameToAdd = await _context.Game.FirstOrDefaultAsync(x => x.Id == id);
-
-            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
             if (cart == null)
             {
                 try
@@ -72,6 +70,8 @@ namespace GameStore.Pages.Games.Store
                     Debug.WriteLine(e.InnerException);
                 }
             }
+
+            var gameToAdd = await _context.Game.FirstOrDefaultAsync(x => x.Id == id);
 
             var cartGameToAdd = new CartGame
             {
