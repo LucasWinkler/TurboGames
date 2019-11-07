@@ -10,26 +10,30 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Game[0].Price)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Game[0].Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Game[0].Developer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].TotalRating)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Game[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].Price)
+                @Html.DisplayNameFor(model => model.Game[0].Platform)
             </th>
+            <th> </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Game)
         {
-            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.Id }))'" class="row-hover">
+            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.Id })'" class="row-hover">
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Price)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
@@ -37,13 +41,10 @@
                     @Html.DisplayFor(modelItem => item.Developer)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalRating)
+                    @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => item.Platform.Name)
                 </td>
                 <td>
                     <a asp-page-handler="AddItemToCart" asp-route-id="@item.Id" class="btn btn-success">Add to cart</a>

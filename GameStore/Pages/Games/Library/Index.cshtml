@@ -26,7 +26,7 @@
     <tbody>
         @foreach (var item in Model.UserGame)
         {
-            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.GameId }))'" class="row-hover">
+            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.GameId })'" class="row-hover">
                 <td>
                     @Html.DisplayFor(modelItem => item.Game.Title)
                 </td>

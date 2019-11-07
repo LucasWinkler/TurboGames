@@ -27,6 +27,8 @@ namespace GameStore.Pages.Games
         [BindProperty]
         public Game Game { get; set; }
 
+        public IList<Review> Reviews { get; set; }
+
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -35,9 +37,11 @@ namespace GameStore.Pages.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            var game = await _context.Game.Include(x=> x.Category).FirstOrDefaultAsync(x => x.Id == id);
-
-            Game = game;
+            Game = await _context.Game
+                .Include(x => x.Category)
+                .Include(x => x.Reviews)
+                .Include(x => x.Platform)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return Page();
         }

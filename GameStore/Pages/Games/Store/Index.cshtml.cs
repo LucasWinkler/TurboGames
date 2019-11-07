@@ -36,7 +36,10 @@ namespace GameStore.Pages.Games.Store
                 return RedirectToPage("/Account/Login");
             }
 
-            Game = await _context.Game.AsNoTracking().ToListAsync();
+            Game = await _context.Game
+                .Include(x => x.Platform)
+                .Include(x => x.Category)
+                .AsNoTracking().ToListAsync();
 
             return Page();
         }

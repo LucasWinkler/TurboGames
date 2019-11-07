@@ -4,16 +4,64 @@
     ViewData["Title"] = "GameDetails";
 }
 
+<h3>@Model.Game.Title</h3>
+<br />
 <table class="table" border="0">
     <tbody>
         <tr>
             <td>
-                <h3>@Model.Game.Title</h3>
-                <p>Developer: @Model.Game.Developer</p>
-                <p>Category: @Model.Game.Category.Name</p>
-                <p>Rating: @Model.Game.TotalRating</p>
-                <p>Price: @Model.Game.Price</p>
+                <p><strong>Developer:</strong> @Model.Game.Developer</p>
+                <p><strong>Category:</strong> @Model.Game.Category.Name</p>
+                <p><strong>Platform:</strong> @Model.Game.Platform.Name</p>
+                <p><strong>Description:</strong></p>
+                <p>@Model.Game.Description</p>
+                <p><strong>Rating:</strong> @Model.Game.TotalRating</p>
+                <p><strong>Price:</strong> $@Model.Game.Price</p>
             </td>
         </tr>
     </tbody>
 </table>
+@if (Model.Game.Reviews.Count != 0)
+{
+    <hr class="my-2"/>
+    <h2>Reviews</h2>
+    <br />
+    <table class="table" border="0">
+        <thead>
+            <tr>
+                <th>
+                    User
+                </th>
+                <th>
+                    Review
+                </th>
+                <th>
+                    Rating
+                </th>
+                <th>
+                    Date
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Game.Reviews.Where(r => r.IsAccepted))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reviewer.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rating)
+                    </td>
+                    <td>
+                        @item.CreatedDate.ToShortDateString()
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
