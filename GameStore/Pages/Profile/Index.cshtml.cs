@@ -60,7 +60,7 @@ namespace GameStore.Pages.Profile
             var user = string.IsNullOrEmpty(username)
                 ? await _userManager.GetUserAsync(User)
                 : await _userManager.FindByNameAsync(username);
-
+            
             if (user == null)
             {
                 DoesExist = false;

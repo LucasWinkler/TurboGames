@@ -1,8 +1,10 @@
 ﻿@page "/Profile/{username?}"
 @inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @model GameStore.Pages.Profile.IndexModel
 @{
     ViewData["Title"] = "Profile";
+    var user = UserManager.GetUserAsync(User);
 }
 
 <div class="container">
@@ -21,7 +23,10 @@
                                 @Model.Info.Username
                                 @if (SignInManager.IsSignedIn(User))
                                 {
-                                    <a href="#" class="btn btn-success">Add friend</a>
+                                    if (Model.Info.Username != @Model.User.Identity.Name)
+                                    {
+                                        <a href="#" class="btn btn-success">Add friend</a>
+                                    }
                                 }
                             </h1>
                             <hr class="my-4" />
