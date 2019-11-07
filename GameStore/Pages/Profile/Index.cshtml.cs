@@ -11,11 +11,12 @@ using System.Threading.Tasks;
 
 namespace GameStore.Pages.Profile
 {
-    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
+
+        public bool DoesExist { get; set; }
 
         public IndexModel(UserManager<ApplicationUser> userManager,
             ApplicationDbContext context)
@@ -62,8 +63,11 @@ namespace GameStore.Pages.Profile
 
             if (user == null)
             {
-                return RedirectToPage("/Profile/DoesNotExist");
+                DoesExist = false;
+                return Page();
             }
+
+            DoesExist = true;
 
             Info = new InfoModel
             {
