@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GameStore.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class IntialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -255,18 +255,18 @@ namespace GameStore.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     ReviewerId = table.Column<string>(nullable: false),
-                    GameId = table.Column<string>(nullable: false),
-                    GameId1 = table.Column<Guid>(nullable: false),
+                    GameId = table.Column<Guid>(nullable: false),
                     Content = table.Column<string>(nullable: false),
                     Rating = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false)
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    IsAccepted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Review", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Review_Game_GameId1",
-                        column: x => x.GameId1,
+                        name: "FK_Review_Game_GameId",
+                        column: x => x.GameId,
                         principalTable: "Game",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -463,8 +463,8 @@ namespace GameStore.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FavouriteCategoryId", "FavouritePlatformId", "FirstName", "Gender", "IsAdmin", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PaymentId", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "ShouldReceiveEmails", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1a1a111-111-11aa-111a-a11aa1a11aa1", 0, null, "259a8274-c538-4eea-a18f-5c83fcc58e86", new DateTime(2019, 11, 7, 4, 44, 57, 836, DateTimeKind.Utc), "admin@gmail.com", true, null, null, "Turbo", 2, true, "Admin", false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAECErj6qUk7rjlHlbsp0yixIMfgCBSLNWR3ZrZAIDnbXDEAQSPc/gdcJ3ic5sh9pDOw==", null, null, true, "98e65d70-2d71-4c71-95cd-31c4f11e9436", false, false, "Admin" },
-                    { "2a2a222-222-22aa-222a-a22aa2a22aa2", 0, null, "24578d13-ecd2-430e-af64-9caa124e941f", new DateTime(2019, 11, 7, 4, 44, 57, 837, DateTimeKind.Utc), "standard.user@gmail.com", true, null, null, "Turbo", 2, false, "User", false, null, "STANDARD.USER@GMAIL.COM", "USER", "AQAAAAEAACcQAAAAEKvIR5g/MndbP2832nbM7RLtaAk+DnQWfB8hh3Eu2E8MZfHhRza5V5bvTEYrC50rYA==", null, null, true, "de31d6f8-b11d-429d-83e0-0b77e81d791d", false, false, "User" }
+                    { "1a1a111-111-11aa-111a-a11aa1a11aa1", 0, null, "e18735b0-c264-4e5c-aed3-413eae5f1af9", new DateTime(2019, 11, 7, 6, 3, 25, 762, DateTimeKind.Utc), "admin@gmail.com", true, null, null, "Turbo", 2, true, "Admin", false, null, "ADMIN@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEPb25BnEgaPWG4xKt0Xi9Cxxlr9M3pn9LYfD84OtExFp0mBjeUR3GZ1FoTatQxv5Ug==", null, null, true, "54682a10-2fb9-416f-b77f-73806e212d05", false, false, "Admin" },
+                    { "2a2a222-222-22aa-222a-a22aa2a22aa2", 0, null, "cae636fc-fedc-4739-9a16-ae4fc987135e", new DateTime(2019, 11, 7, 6, 3, 25, 763, DateTimeKind.Utc), "standard.user@gmail.com", true, null, null, "Turbo", 2, false, "User", false, null, "STANDARD.USER@GMAIL.COM", "USER", "AQAAAAEAACcQAAAAEKwRo1Xis+M2hJCRg9U9QIk474FHZ/LkbZS3Jq2uO5XdKF/5qQWo/JhnhXenXlknyw==", null, null, true, "8288f354-8938-4069-937c-952a0a65c047", false, false, "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -485,17 +485,17 @@ namespace GameStore.Data.Migrations
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 4, 44, 57, 837, DateTimeKind.Utc) });
+                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("1c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 6, 3, 25, 763, DateTimeKind.Utc) });
 
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 4, 44, 57, 837, DateTimeKind.Utc) });
+                values: new object[] { "1a1a111-111-11aa-111a-a11aa1a11aa1", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 6, 3, 25, 764, DateTimeKind.Utc) });
 
             migrationBuilder.InsertData(
                 table: "UserGame",
                 columns: new[] { "UserId", "GameId", "PurchaseDate" },
-                values: new object[] { "2a2a222-222-22aa-222a-a22aa2a22aa2", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 4, 44, 57, 837, DateTimeKind.Utc) });
+                values: new object[] { "2a2a222-222-22aa-222a-a22aa2a22aa2", new Guid("3c9e6679-7425-40de-944b-e07fc1f90ae7"), new DateTime(2019, 11, 7, 6, 3, 25, 764, DateTimeKind.Utc) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cart_UserId",
@@ -523,9 +523,9 @@ namespace GameStore.Data.Migrations
                 column: "PlatformId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Review_GameId1",
+                name: "IX_Review_GameId",
                 table: "Review",
-                column: "GameId1");
+                column: "GameId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Review_ReviewerId",

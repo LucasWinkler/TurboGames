@@ -18,16 +18,19 @@ namespace GameStore.Pages.Games.Library
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
+        public Game Game { get; set; }
+        public IList<UserGame> UserGame { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public IndexModel(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        public Game Game { get; set; }
-        public IList<UserGame> UserGame { get;set; }
-
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string statusMessage)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -40,6 +43,8 @@ namespace GameStore.Pages.Games.Library
                 .Include(u => u.User)
                 .Where(u => u.UserId == user.Id)
                 .ToListAsync();
+
+            StatusMessage = !string.IsNullOrEmpty(statusMessage) ? statusMessage : "";
 
             return Page();
         }

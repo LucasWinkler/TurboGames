@@ -6,7 +6,7 @@
 }
 
 <h1>@Model.User.Identity.Name's @ViewData["Title"]</h1>
-
+<partial name="_StatusMessage" for="StatusMessage" />
 <table class="table">
     <thead>
         <tr>
@@ -19,6 +19,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.UserGame[0].PurchaseDate)
             </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -39,7 +40,7 @@
                     <a asp-page-handler="Download" asp-route-id="@item.GameId" class="btn btn-primary">Download</a>
                 </td>
                 <td>
-                    <a asp-page-handler="Rate" asp-page="./Review" asp-route-id="@item.GameId" asp-route-title="@item.Game.Title" class="btn btn-primary">Review</a>
+                    <a asp-page="./Review" asp-route-id="@item.GameId" class="btn btn-primary">Review</a>
                 </td>
             </tr>
         }

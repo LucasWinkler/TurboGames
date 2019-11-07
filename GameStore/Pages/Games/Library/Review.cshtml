@@ -11,32 +11,23 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Input.GameId" readonly />
             <div class="form-group">
-                <label asp-for="Review.ReviewerId" class="control-label"></label>
-                <select asp-for="Review.ReviewerId" class ="form-control" asp-items="ViewBag.ReviewerId"></select>
+                <label asp-for="@ViewData["GameTitle"]" class="control-label"></label>
+                <input asp-for="@ViewData["GameTitle"]" class="form-control" readonly />
             </div>
             <div class="form-group">
-                <label asp-for="Review.GameId" class="control-label"></label>
-                <input asp-for="Review.GameId" class="form-control" />
-                <span asp-validation-for="Review.GameId" class="text-danger"></span>
+                <label asp-for="Input.Content" class="control-label"></label>
+                <textarea asp-for="Input.Content" class="form-control"></textarea>
+                <span asp-validation-for="Input.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Review.Content" class="control-label"></label>
-                <textarea asp-for="Review.Content" class="form-control"></textarea>
-                <span asp-validation-for="Review.Content" class="text-danger"></span>
+                <label asp-for="Input.Rating" class="control-label"></label>
+                <input type="number" asp-for="Input.Rating" class="form-control" />
+                <span asp-validation-for="Input.Rating" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Review.Rating" class="control-label"></label>
-                <input asp-for="Review.Rating" class="form-control" />
-                <span asp-validation-for="Review.Rating" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Review.CreatedDate" class="control-label"></label>
-                <input asp-for="Review.CreatedDate" value="@DateTime.Today" class="form-control" />
-                <span asp-validation-for="Review.CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Add Review" class="btn btn-default" />
             </div>
         </form>
     </div>
