@@ -33,6 +33,9 @@ namespace GameStore.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public class InputModel
         {
             [Required]
@@ -43,7 +46,7 @@ namespace GameStore.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Remember me?")]
+            [Display(Name = "Remember me")]
             public bool RememberMe { get; set; }
         }
 
@@ -81,7 +84,7 @@ namespace GameStore.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    StatusMessage = "Error: Invalid login attempt.";
                     return Page();
                 }
             }
