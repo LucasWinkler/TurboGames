@@ -30,7 +30,7 @@ namespace GameStore.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
+            [RegularExpression(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$", ErrorMessage = "You must enter a valid email address.")]
             public string Email { get; set; }
         }
 
@@ -42,7 +42,7 @@ namespace GameStore.Pages.Account
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return RedirectToPage("./ForgotPassword/Confirmation");
                 }
 
                 // For more information on how to enable account confirmation and password reset please 
@@ -59,7 +59,7 @@ namespace GameStore.Pages.Account
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                return RedirectToPage("./ForgotPassword/Confirmation");
             }
 
             return Page();

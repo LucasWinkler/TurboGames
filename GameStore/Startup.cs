@@ -60,8 +60,9 @@ namespace GameStore
                 options.Password.RequiredUniqueChars = 1;
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
             }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-
+            
             services.AddTransient<IEmailSender, EmailSender>(i =>
                 new EmailSender(
                     Configuration["EmailSender:Host"],

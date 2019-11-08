@@ -10,9 +10,12 @@ namespace GameStore.Pages.Account
     [AllowAnonymous]
     public class LockoutModel : PageModel
     {
-        public void OnGet()
-        {
+        public string ReturnUrl { get; set; }
 
+        public void OnGet(string returnUrl = null)
+        {
+            ReturnUrl = returnUrl;
         }
+
     }
 }

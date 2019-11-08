@@ -1,10 +1,32 @@
-﻿@page
+﻿@page "/Lockout"
 @model LockoutModel
 @{
-    ViewData["Title"] = "Locked out";
+    ViewData["Title"] = "Account locked";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">This account has been locked due to too many failed login attemps, please try again later.</p>
-</header>
+<div class="text-center align-items-center">
+    <form class="form-signin" id="login" method="post">
+        <h1 class="h3 mb-3 font-weight-normal text-danger">@ViewData["Title"]</h1>
+        <div class="col">
+            <div class="row mb-3">
+                <span class="text-danger">This account has been locked due to too many failed login attempts.<br />Please try again later.</span>
+            </div>
+        </div>
+        <label class="sr-only">Username</label>
+        <input type="text" class="form-control" placeholder="Username" autofocus disabled>
+        <label class="sr-only">Password</label>
+        <input type="password" class="form-control" placeholder="Password" disabled>
+        <div class="custom-control custom-checkbox mb-3 mt-3">
+            <input type="checkbox" class="custom-control-input" disabled>
+            <label class="custom-control-label">Remember me</label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" disabled>Sign in</button>
+        <div class="form-group mt-4">
+            <p>
+                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                <hr class="my-3" />
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+            </p>
+        </div>
+    </form>
+</div>
