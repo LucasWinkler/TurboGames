@@ -1,0 +1,72 @@
+﻿
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Manage</span>
+                </h6>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @DashboardNavPages.GamesNavClass(ViewContext)" asp-page="/Admin/Dashboard/Games/Index">
+                    <i class="fas fa-gamepad"></i>
+                    Games
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @DashboardNavPages.EventsNavClass(ViewContext)"  asp-page="/Admin/Dashboard/Events/Index">
+                    <i class="fas fa-calendar-alt mr-1"></i>
+                    Events
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @DashboardNavPages.ReviewsNavClass(ViewContext)"  asp-page="/Admin/Dashboard/Reviews/Index">
+                    <i class="fas fa-star-half-alt"></i>
+                    Reviews
+                </a>
+            </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Reports</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-gamepad"></i>
+                    Games
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-gamepad"></i>
+                    Game details
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-user"></i>
+                    Members
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-user"></i>
+                    Member details
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-list-alt"></i>
+                    Wishlists
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-dollar-sign mr-1"></i>
+                    Sales
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

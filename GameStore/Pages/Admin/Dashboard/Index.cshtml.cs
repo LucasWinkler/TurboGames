@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GameStore.Pages.Admin
+namespace GameStore.Pages.Admin.Dashboard
 {
     public class IndexModel : PageModel
     {
