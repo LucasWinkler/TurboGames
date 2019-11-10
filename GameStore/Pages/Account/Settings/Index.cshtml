@@ -11,25 +11,26 @@
     <div class="col-md-6">
         <form id="account-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.UserName"></label>
-                <input asp-for="Input.UserName" class="form-control" placeholder="Username" />
+            <label asp-for="Input.UserName"></label>
+            <div class="form-group input-group">
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input asp-for="Input.UserName" class="form-control" placeholder="Username" type="text" autofocus>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                @if (Model.IsEmailConfirmed)
-                {
-            <div class="input-group">
-                <input asp-for="Input.Email" class="form-control" placeholder="youremail@email.com" />
-                <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
+            <label asp-for="Input.Email"></label>
+            <div class="form-group input-group mb-0">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                <input asp-for="Input.Email" class="form-control" placeholder="Email address" type="email">
+
             </div>
-                }
-                else
-                {
-                    <input asp-for="Input.Email" class="form-control" />
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                }
-            </div>
+            @if (!Model.IsEmailConfirmed)
+            {
+                <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+            }
             <div class="custom-control custom-checkbox mb-3">
                 <input asp-for="Input.ShouldReceiveEmails" type="checkbox" class="custom-control-input" id="defaultUnchecked">
                 <label asp-for="Input.ShouldReceiveEmails" class="custom-control-label" for="defaultUnchecked"></label>

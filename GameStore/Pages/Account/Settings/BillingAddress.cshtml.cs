@@ -40,9 +40,9 @@ namespace GameStore.Pages.Account.Settings
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            if (user.AddressId != null)
+            if (user.BillingAddressId != null)
             {
-                var address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.AddressId);
+                var address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.BillingAddressId);
 
                 Address = new Address
                 {
@@ -60,23 +60,23 @@ namespace GameStore.Pages.Account.Settings
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Unable to save.");
-                return Page();
-            }
-
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Unable to save.");
+                return Page();
+            }
+
             try
             {
                 _context.Address.Add(Address);
 
-                user.AddressId = Address.Id;
+                user.BillingAddressId = Address.Id;
 
                 await _context.SaveChangesAsync();
 

@@ -33,9 +33,13 @@ namespace GameStore.Data
         [Display(Name = "Date of Birth")]
         public DateTime DOB { get; set; }
 
-        public Guid? AddressId { get; set; }
+        public Guid? BillingAddressId { get; set; }
 
-        public Address Address { get; set; }
+        public Address BillingAddress { get; set; } 
+        
+        public Guid? ShippingAddressId { get; set; }
+
+        public Address ShippingAddress { get; set; }
 
         public Guid? PaymentId { get; set; }
 

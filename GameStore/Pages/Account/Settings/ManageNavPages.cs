@@ -9,7 +9,9 @@ namespace GameStore.Pages.Account.Settings
 
         public static string Profile => "Profile";
 
-        public static string Address => "Address";
+        public static string BillingAddress => "BillingAddress";
+
+        public static string ShippingAddress => "ShippingAddress";
 
         public static string Payment => "Payment";
 
@@ -21,7 +23,9 @@ namespace GameStore.Pages.Account.Settings
         
         public static string ProfileNavClass(ViewContext viewContext) => PageNavClass(viewContext, Profile);
 
-        public static string AddressNavClass(ViewContext viewContext) => PageNavClass(viewContext, Address);
+        public static string BillingAddressNavClass(ViewContext viewContext) => PageNavClass(viewContext, BillingAddress);
+
+        public static string ShippingAddressNavClass(ViewContext viewContext) => PageNavClass(viewContext, ShippingAddress);
         
         public static string PaymentNavClass(ViewContext viewContext) => PageNavClass(viewContext, Payment);
 

@@ -88,7 +88,7 @@ namespace GameStore.Pages.Cart
                 return RedirectToPage();
             }
 
-            var address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.AddressId);
+            var address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.BillingAddressId);
             var payment = await _context.Payment.FirstOrDefaultAsync(x => x.Id == user.PaymentId);
             if (address == null || payment == null)
             {

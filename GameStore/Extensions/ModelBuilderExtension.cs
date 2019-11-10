@@ -136,7 +136,8 @@ namespace GameStore.Extensions
                     Gender = Gender.Other,
                     DOB = DateTime.UtcNow,
                     IsAdmin = true,
-                    AddressId = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
+                    BillingAddressId = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
+                    ShippingAddressId = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
                     PaymentId = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7")
                 },
                 new ApplicationUser
@@ -156,7 +157,8 @@ namespace GameStore.Extensions
                     Gender = Gender.Other,
                     DOB = DateTime.UtcNow,
                     IsAdmin = false,
-                    AddressId = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
+                    BillingAddressId = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
+                    ShippingAddressId = Guid.Parse("0c3e6619-7425-40de-944b-e07fc1f90ae7"),
                     PaymentId = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7")
                 }
             );
