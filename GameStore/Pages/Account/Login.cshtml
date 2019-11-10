@@ -12,14 +12,16 @@
             <div class="row">
                 <span asp-validation-for="Input.UserName" class="text-danger"></span>
             </div>
-            <div class="row">
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
         </div>
         <label asp-for="Input.UserName" class="sr-only">Username</label>
         <input asp-for="Input.UserName" type="text" class="form-control" placeholder="Username" required autofocus>
         <label asp-for="Input.Password" class="sr-only">Password</label>
-        <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password" required>
+        <input asp-for="Input.Password" type="password" class="form-control mb-0" placeholder="Password" required>
+        <div class="col">
+            <div class="row">
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+        </div>
         <div class="custom-control custom-checkbox mb-3 mt-3">
             <input asp-for="Input.RememberMe" type="checkbox" class="custom-control-input">
             <label asp-for="Input.RememberMe" class="custom-control-label"></label>

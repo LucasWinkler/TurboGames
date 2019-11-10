@@ -75,7 +75,7 @@ namespace GameStore.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "The password does not match.")]
             public string ConfirmPassword { get; set; }
 
             [Required]

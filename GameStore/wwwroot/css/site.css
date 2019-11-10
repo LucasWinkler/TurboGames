@@ -119,3 +119,14 @@ span.tags {
     list-style: none;
     margin-left: -40px
 }
+
+.input-validation-error {
+    border-color: red;
+   
+}
+
+    .input-validation-error:focus {
+        border-color: red;
+        box-shadow: none;
+        background: pink;
+    }
