@@ -43,29 +43,22 @@ namespace GameStore.Pages.Account.Settings
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            if (user.ShippingAddressId != user.BillingAddressId)
+            try
             {
-                try
+                if (user.ShippingAddressId != user.BillingAddressId)
                 {
                     Address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.ShippingAddressId);
                     IsSameAsBilling = false;
                 }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.InnerException);
-                }
-            }
-            else
-            {
-                try
+                else
                 {
                     Address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.BillingAddressId);
                     IsSameAsBilling = true;
                 }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.InnerException);
-                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
             }
 
             return Page();
@@ -122,6 +115,51 @@ namespace GameStore.Pages.Account.Settings
                 {
                     Debug.WriteLine(e.InnerException);
                 }
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostRemoveAddressAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (user.ShippingAddressId == null)
+            {
+                ModelState.AddModelError("", "Unable to remove address.");
+                return Page();
+            }
+
+            try
+            {
+                if (user.ShippingAddressId == user.BillingAddressId)
+                {
+                    user.ShippingAddressId = null;
+                }
+                else
+                {
+                    var address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.ShippingAddressId);
+                    // todo stuff
+
+                    _context.Address.Remove(address);
+                }
+
+                await _userManager.UpdateAsync(user);
+                await _context.SaveChangesAsync();
+                await _signInManager.RefreshSignInAsync(user);
+
+                IsSameAsBilling = false;
+
+                StatusMessage = "Your billing address has been removed";
+                return RedirectToPage();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
             }
 
             return Page();

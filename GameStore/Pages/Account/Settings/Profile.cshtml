@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Settings/Profile"
 @model ProfileModel
 @{
     ViewData["Title"] = "Edit Profile";
@@ -25,7 +25,7 @@
                     <span class="input-group-text"> <i class="fa fa-venus-mars fa-sm"></i> </span>
                 </div>
                 <select asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control">
-                    <option selected="selected" value=""> Select gender</option>
+                    <option selected="selected" value="">Select gender</option>
                 </select>
             </div>
             <label asp-for="Input.DOB"></label>

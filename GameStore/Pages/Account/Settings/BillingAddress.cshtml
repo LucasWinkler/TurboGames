@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Settings/BillingAddress"
 @model AddressModel
 @{
     ViewData["Title"] = "Billing address";
@@ -13,12 +13,12 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Address.PrimaryAddress"></label>
-                <input asp-for="Address.PrimaryAddress" class="form-control" placeholder="Primary address"  />
+                <input asp-for="Address.PrimaryAddress" class="form-control" placeholder="Primary address" />
                 <span asp-validation-for="Address.PrimaryAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address.SecondaryAddress"></label>
-                <input asp-for="Address.SecondaryAddress" class="form-control" placeholder="Secondary address"  />
+                <input asp-for="Address.SecondaryAddress" class="form-control" placeholder="Secondary address" />
                 <span asp-validation-for="Address.SecondaryAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,23 +28,26 @@
             </div>
             <div class="form-group">
                 <label asp-for="Address.Province"></label>
-                <input asp-for="Address.Province" class="form-control" placeholder="Province"  />
+                <input asp-for="Address.Province" class="form-control" placeholder="Province" />
                 <span asp-validation-for="Address.Province" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address.City"></label>
-                <input asp-for="Address.City" class="form-control" placeholder="City"  />
+                <input asp-for="Address.City" class="form-control" placeholder="City" />
                 <span asp-validation-for="Address.City" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address.PostalCode"></label>
-                <input asp-for="Address.PostalCode" class="form-control"  placeholder="Postal or zip code" />
+                <input asp-for="Address.PostalCode" class="form-control" placeholder="Postal or zip code" />
                 <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
             </div>
 
             <div class="form-row">
                 <div class="col">
-                    <button id="update-address-button" type="submit" class="btn btn-primary btn-block">Save</button>
+                    <button id="update-billing-address-button" type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+                <div class="col">
+                    <button id="remove-billing-address-button" type="submit" class="btn btn-danger btn-block" asp-page-handler="RemoveAddress">Remove</button>
                 </div>
             </div>
         </form>

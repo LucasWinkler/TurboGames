@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Settings/ShippingAddress"
 @model ShippingAddressModel
 @{
     ViewData["Title"] = "Shipping address";
@@ -48,6 +48,9 @@
             <div class="form-row">
                 <div class="col">
                     <button id="update-shipping-address-button" type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+                <div class="col">
+                    <button id="remove-shipping-address-button" type="submit" class="btn btn-danger btn-block" asp-page-handler="RemoveAddress">Remove</button>
                 </div>
             </div>
         </form>

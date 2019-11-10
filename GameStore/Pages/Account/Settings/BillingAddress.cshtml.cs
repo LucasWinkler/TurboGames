@@ -93,5 +93,55 @@ namespace GameStore.Pages.Account.Settings
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostRemoveAddressAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (user.BillingAddressId == null)
+            {
+                ModelState.AddModelError("", "Unable to remove address.");
+                return Page();
+            }
+
+            try
+            {
+                var address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.BillingAddressId);
+
+                if (user.BillingAddressId == user.ShippingAddressId)
+                {
+                    user.ShippingAddressId = null;
+                }
+
+                user.BillingAddressId = null;
+                user.BillingAddress = null;
+
+                var result = await _userManager.UpdateAsync(user);
+                await _context.SaveChangesAsync();
+                if (result.Succeeded)
+                {
+                    _context.Address.Remove(address);
+
+                    await _context.SaveChangesAsync();
+                    await _signInManager.RefreshSignInAsync(user);
+
+                    StatusMessage = "Your billing address has been removed";
+                    return RedirectToPage();
+                }
+
+                ModelState.AddModelError("", "Unable to remove address.");
+                return Page();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
+            }
+
+            return Page();
+        }
     }
 }
