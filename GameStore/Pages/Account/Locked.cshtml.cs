@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace GameStore.Pages.Account
 {
     [AllowAnonymous]
-    public class LockoutModel : PageModel
+    public class LockedModel : PageModel
     {
         public string ReturnUrl { get; set; }
 
@@ -16,6 +16,5 @@ namespace GameStore.Pages.Account
         {
             ReturnUrl = returnUrl;
         }
-
     }
 }
