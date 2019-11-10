@@ -5,7 +5,7 @@ namespace GameStore.Pages.Admin.Dashboard
 {
     public static class DashboardNavPages
     {
-        public static string Games => "Index";
+        public static string Games => "Games";
 
         public static string Events => "Events";
 
