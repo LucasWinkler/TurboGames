@@ -143,88 +143,6 @@ git fetch --all
 git reset --hard origin/branch-name
 ```
 
-## Razor Pages
-
-Razor Pages is similar to MVC it just looks a little different but in the end it can be more organized
-
-MVC contains a folder for the Models, Views and Controllers.
-Razor Pages contains a folder for the Models, and a folder for the area of the website such as Account and within that folder will be it's Index.cshtml and any other pages related to Account.
-
-A Razor Page is made up by a .cshtml which is the page/view and a .cshtml.cs with is the page model/controller.
-
-You will need to see it because it's hard to explain without showing you.
-
-## Models and DbContext
-
-In order to create a new table in the database you must create a Model which "models" that table and a DbSet for that model in DbContext.
-
-### Creating a Model
-
-Create a new class in the Models folder and give it a name. This will be the name of the table.
-
-Inside the class you define each of the fields including any primary keys or foreign keys.
-
-Here is an example (unfinished):
-
-```cs
- public class Address
-    {
-        [Key]
-        [Required]
-        public Guid Id { get; set; }
-
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "Address")]
-        public string PrimaryAddress { get; set; }
-
-        [Required]
-        [DataType(DataType.Text)]
-        [Display(Name = "Country")]
-        public string Country { get; set; }
-    }
-```
-
-To let each User have an address you would need to go into the Data/ApplicationUser class and add an AddressId as well as the Address model.
-
-Example with the users address being optional (because of the `?` next to `Guid`):
-
-```cs
-    public class ApplicationUser : IdentityUser
-    {
-        public Guid? AddressId { get; set; }
-
-        public Address Address { get; set; }
-    }
-```
-
-### Adding the Model to the DbContext
-
-In order to get a list of all addresses you must include them in the DbContext. Ours is called ApplicationDbContext and it is in the Data folder.
-
-To include the list of addresses you will create a DbSet of the Model. You can also rename the table to singular names as shown in this example:
-
-```cs
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-{
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-	}
-	
-    // DbSets for each model
-    public DbSet<Address> Addresses { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-
-        // Rename the new address table to make it singular (personal preference)
-        builder.Entity<Address>().ToTable("Address");
-    }
-}
-```
-
 ## Mirations
 
 Migrations are what converts your Models and DbSets into code that has the ability to create the database.
@@ -254,13 +172,14 @@ The migrations will then create the database and the tables. It will also update
 
 ### Removing migrations.
 
-If you want to remove the migrations to rename them or just revert any changes you must delete the database from the SQL object window and then type:
+If you want to remove the last migration then type:
 
 ```
 remove-migration
 ```
 
-If you're unable to remove it with that command you can manually delete the migration.
+If you're unable to remove it with that command delete the database and trying agian.
+If it still doesn't work you can try to manually remove the migration.
 
 # Extra Help
 
