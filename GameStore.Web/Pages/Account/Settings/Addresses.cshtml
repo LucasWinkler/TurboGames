@@ -1,5 +1,5 @@
-﻿@page "/Settings/Address"
-@model IndexModel
+﻿@page "/Settings/Addresses"
+@model AddressesModel
 @{
     ViewData["Title"] = "Your addresses";
     ViewData["ActivePage"] = ManageNavPages.Address;
@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="row mb-3">
-        <a href="#" class="card-link p-0 col-4 mr-3">
+        <a asp-page="Add" class="card-link p-0 col-4 mr-3">
             <div class="card p-0" style="height: 14rem; border-style: dashed; border-width: 2px">
                 <div class="card-body d-flex flex-column text-center justify-content-center align-items-center">
                     <i class="fa fa-plus fa-2x" style="color: darkgray"></i>

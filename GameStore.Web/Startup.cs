@@ -39,10 +39,7 @@ namespace GameStore
 
             // Adds the database context using a connection string from appsettings.json
             services.AddDbContext<TurboGamesContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("LocalConnection")));
-
-            #region Configure Identity
+                options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -68,8 +65,6 @@ namespace GameStore
                     Configuration["EmailSender:Password"])
                );
 
-            #endregion
-
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/Login";
@@ -85,7 +80,7 @@ namespace GameStore
                 options.Cookie.IsEssential = true;
             });
 
-            // Adds the MVC service, configures the page routes and sets the mvc version
+            // Adds the MVC service and configures the default page route
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AddPageRoute("/Home/Index", "");

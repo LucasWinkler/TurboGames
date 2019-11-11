@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameStore.Web.Pages.Account.Settings.Address
+namespace GameStore.Web.Pages.Account.Settings
 {
-    public class IndexModel : PageModel
+    public class AddressesModel : PageModel
     {
         private readonly UserManager<User> _userManager;
         private readonly TurboGamesContext _context;
 
-        public IndexModel(
+        public AddressesModel(
             UserManager<User> userManager,
             TurboGamesContext context)
         {

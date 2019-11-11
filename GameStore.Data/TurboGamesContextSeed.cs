@@ -23,7 +23,7 @@ namespace GameStore.Data
                 new Category
                 {
                     Id = Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"),
-                    Name = "Action"
+                    Name = "FPS"
                 },
                 new Category
                 {
@@ -39,6 +39,36 @@ namespace GameStore.Data
                 {
                     Id = Guid.Parse("3f8fad5b-d9cb-469f-a165-70867728950e"),
                     Name = "Sports"
+                },
+                new Category
+                {
+                    Id = Guid.Parse("4f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Name = "MMO"
+                },
+                new Category
+                {
+                    Id = Guid.Parse("5f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Name = "Adventure"
+                },
+                new Category
+                {
+                    Id = Guid.Parse("6f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Name = "Puzzle"
+                },
+                new Category
+                {
+                    Id = Guid.Parse("7f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Name = "Combat"
+                },
+                new Category
+                {
+                    Id = Guid.Parse("8f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Name = "RPG"
+                },
+                new Category
+                {
+                    Id = Guid.Parse("9f8fad5b-d9cb-469f-a165-70867728950e"),
+                    Name = "Educational"
                 }
             );
 
@@ -57,6 +87,21 @@ namespace GameStore.Data
                 {
                     Id = Guid.Parse("332a91dd-d200-4c19-a767-f936cfbd8314"),
                     Name = "Blizzard"
+                },
+                new Platform
+                {
+                    Id = Guid.Parse("432a91dd-d200-4c19-a767-f936cfbd8314"),
+                    Name = "Playstation"
+                },
+                new Platform
+                {
+                    Id = Guid.Parse("532a91dd-d200-4c19-a767-f936cfbd8314"),
+                    Name = "Xbox"
+                },
+                new Platform
+                {
+                    Id = Guid.Parse("632a91dd-d200-4c19-a767-f936cfbd8314"),
+                    Name = "Nintendo"
                 }
             );
 

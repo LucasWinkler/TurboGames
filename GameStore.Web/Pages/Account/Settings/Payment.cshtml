@@ -20,12 +20,12 @@
             </div>
             <div class="form-row">
                 <div class="col-7">
-                    <label asp-for="Payment.CardExpirationDate"></label>
+                    <label asp-for="Payment.CardExpirationDate">Expiration date (MM/YY)</label>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span> 
                         </div>
-                        <input asp-for="Payment.CardExpirationDate" placeholder="MM/YY" class="form-control">
+                        <input asp-for="Payment.CardExpirationDate" placeholder="MM/YY" class="form-control" maxlength="5">
                     </div>
                 </div>
                 <div class="col">
@@ -34,7 +34,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fas fa-lock"></i> </span>
                         </div>
-                        <input asp-for="Payment.CardCVC" class="form-control" placeholder="Security code" type="text" maxlength="4">
+                        <input asp-for="Payment.CardCVC" class="form-control" placeholder="- - -" type="text" maxlength="4">
                     </div>
                 </div>
             </div>
