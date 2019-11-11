@@ -17,7 +17,8 @@ namespace GameStore.Data.Models
         [Required]
         [DataType(DataType.CreditCard)]
         [Display(Name = "Card number")]
-        [RegularExpression(@"^((4\d{3})|(5[1-5]\d{2})|(6011))-?\d{4}-?\d{4}-?\d{4}|3[4,7]\d{13}$", ErrorMessage = "Card number is invalid.")]
+        [RegularExpression(@"^(?:4[0-9]{12}(?:[0-9]{3})?|(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11})$", ErrorMessage = "Card number is invalid or unsupported.")]
+        [MaxLength(16, ErrorMessage = "Card number is invalid or unsupported.")]
         public string CardNumber { get; set; }
 
         [Required]
