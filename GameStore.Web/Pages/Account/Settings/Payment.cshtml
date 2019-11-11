@@ -5,6 +5,12 @@
     ViewData["ActivePage"] = ManageNavPages.Payment;
 }
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-page="./Index">Settings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Payment</li>
+    </ol>
+</nav>
 <h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
@@ -16,14 +22,14 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i id="cardType" class="fas fa-credit-card fa-2x"></i> </span>
                 </div>
-                <input asp-for="Payment.CardNumber" class="form-control" style="height: 3em" placeholder="Card number" type="text"  maxlength="16" autofocus>
+                <input asp-for="Payment.CardNumber" class="form-control" style="height: 3em" placeholder="Card number" type="text" maxlength="16" autofocus>
             </div>
             <div class="form-row">
                 <div class="col-7">
                     <label asp-for="Payment.CardExpirationDate">Expiration date (MM/YY)</label>
                     <div class="form-group input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span> 
+                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
                         </div>
                         <input asp-for="Payment.CardExpirationDate" placeholder="MM/YY" class="form-control" maxlength="5">
                     </div>

@@ -5,8 +5,13 @@
     ViewData["ActivePage"] = ManageNavPages.Address;
 }
 
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-page="../Index">Settings</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Addresses</li>
+        </ol>
+    </nav>
 <h4 class="mb-4">@ViewData["Title"]</h4>
-
 <div class="container">
     <div class="row mb-3">
         <a asp-page="./Create" class="card-link p-0 col-4 mr-3">
