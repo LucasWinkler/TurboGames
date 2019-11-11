@@ -1,9 +1,5 @@
 ﻿@inject UserManager<User> UserManager
 @inject SignInManager<User> SignInManager
-@{
-    var userAccount = await UserManager.GetUserAsync(User);
-    var cartItemCount = ViewData["CartItemCount"];
-}
 
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
     <div class="container">
