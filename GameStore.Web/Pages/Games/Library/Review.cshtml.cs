@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Games.Library
 {
+    [Authorize]
     public class ReviewModel : PageModel
     {
         private readonly TurboGamesContext _context;

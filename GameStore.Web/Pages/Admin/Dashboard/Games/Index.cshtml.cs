@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Admin.Dashboard.Games
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly TurboGamesContext _context;
@@ -30,11 +32,6 @@ namespace GameStore.Web.Pages.Admin.Dashboard.Games
             if (user == null)
             {
                 return RedirectToPage("/Account/Login");
-            }
-
-            if (!user.IsAdmin)
-            {
-                return RedirectToPage("/Home/Index");
             }
 
             Game = await _context.Game

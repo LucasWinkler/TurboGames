@@ -4,12 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using GameStore.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 namespace GameStore.Web.Pages.Account.Settings
 {
+    [Authorize]
     public class ChangePasswordModel : PageModel
     {
         private readonly UserManager<User> _userManager;
@@ -56,7 +58,7 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
@@ -78,7 +80,7 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);

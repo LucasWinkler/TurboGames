@@ -8,15 +8,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GameStore.Web.Pages.Admin.Events
+namespace GameStore.Web.Pages.Account.Settings.Addresses
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class CreateModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
+
+        [BindProperty]
+        public Address Address { get; set; }
 
         public CreateModel(TurboGamesContext context, UserManager<User> userManager)
         {
@@ -35,26 +39,32 @@ namespace GameStore.Web.Pages.Admin.Events
             return Page();
         }
 
-        [BindProperty]
-        public Event Event { get; set; }
-
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToPage("/Account/Login");
             }
 
-            if (!ModelState.IsValid)
+            try
             {
-                return Page();
+                await _context.Address.AddAsync(Address);
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage("./Index");
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
             }
 
-            _context.Event.Add(Event);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            return Page();
         }
     }
 }

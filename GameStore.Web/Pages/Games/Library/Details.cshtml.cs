@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Games.Library
 {
+    [Authorize]
     public class DetailsModel : PageModel
     {
         private readonly TurboGamesContext _context;
@@ -34,7 +36,7 @@ namespace GameStore.Web.Pages.Games.Library
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToPage("/Games/Library/Index");
             }
 
             UserGame = await _context.UserGame
@@ -44,7 +46,7 @@ namespace GameStore.Web.Pages.Games.Library
 
             if (UserGame == null)
             {
-                return NotFound();
+                return RedirectToPage("/Games/Library/Index");
             }
 
             return Page();

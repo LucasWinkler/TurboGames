@@ -8,15 +8,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
-namespace GameStore.Web.Pages.Account.Settings
+namespace GameStore.Web.Pages.Account.Settings.Addresses
 {
-    public class AddressesModel : PageModel
+    [Authorize]
+    public class IndexModel : PageModel
     {
         private readonly UserManager<User> _userManager;
         private readonly TurboGamesContext _context;
 
-        public AddressesModel(
+        public IndexModel(
             UserManager<User> userManager,
             TurboGamesContext context)
         {
@@ -29,7 +31,7 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             return Page();
@@ -40,7 +42,7 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             return Page();

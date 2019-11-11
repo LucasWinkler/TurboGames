@@ -28,7 +28,7 @@ namespace GameStore.Web.Pages.Account
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{userId}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             var result = await _userManager.ConfirmEmailAsync(user, code);

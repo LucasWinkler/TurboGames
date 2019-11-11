@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Account.Settings
 {
+    [Authorize]
     public class PaymentModel : PageModel
     {
         private readonly UserManager<User> _userManager;
@@ -39,7 +41,7 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             if (user.PaymentId != null)
@@ -63,7 +65,7 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             if (!ModelState.IsValid)

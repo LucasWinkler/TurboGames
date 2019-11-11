@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Admin.Events
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly TurboGamesContext _context;
@@ -35,15 +37,16 @@ namespace GameStore.Web.Pages.Admin.Events
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToPage("/Admin/Events/Index");
             }
 
             Event = await _context.Event.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Event == null)
             {
-                return NotFound();
+                return RedirectToPage("/Admin/Events/Index");
             }
+
             return Page();
         }
 
@@ -70,7 +73,7 @@ namespace GameStore.Web.Pages.Admin.Events
             {
                 if (!EventExists(Event.Id))
                 {
-                    return NotFound();
+                    return RedirectToPage("/Admin/Events/Index");
                 }
                 else
                 {

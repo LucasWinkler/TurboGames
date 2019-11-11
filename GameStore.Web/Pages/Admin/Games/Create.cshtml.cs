@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Admin.Games
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly TurboGamesContext _context;
@@ -58,11 +60,6 @@ namespace GameStore.Web.Pages.Admin.Games
             if (user == null)
             {
                 return RedirectToPage("/Account/Login");
-            }
-
-            if (!user.IsAdmin)
-            {
-                return RedirectToPage("/Home/Index");
             }
 
             SetDropdownLists();

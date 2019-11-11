@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using GameStore.Web.Services;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace GameStore
 {
@@ -92,8 +94,11 @@ namespace GameStore
         /// </summary>
         /// <param name="app">Provides mechanisms to configure the pipeline.</param>
         /// <param name="env">Provides environment information</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             // Changes the way exceptions are handled depending on the environment
             if (env.IsDevelopment())
             {

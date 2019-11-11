@@ -10,9 +10,11 @@ using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Admin.Games
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly TurboGamesContext _context;
@@ -62,14 +64,9 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            if (!user.IsAdmin)
-            {
-                return RedirectToPage("/Home/Index");
-            }
-
             if (id == null)
             {
-                return NotFound();
+                return RedirectToPage("/Admin/Games/Index");
             }
 
             var game = await _context.Game
@@ -78,7 +75,7 @@ namespace GameStore.Web.Pages.Admin.Games
 
             if (game == null)
             {
-                return NotFound();
+                return RedirectToPage("/Admin/Games/Index");
             }
 
             Input = new InputModel
@@ -133,7 +130,7 @@ namespace GameStore.Web.Pages.Admin.Games
             {
                 if (!GameExists(game.Id))
                 {
-                    return NotFound();
+                    return RedirectToPage("/Admin/Games/Index");
                 }
                 else
                 {

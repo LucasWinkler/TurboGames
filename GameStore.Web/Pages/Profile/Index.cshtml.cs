@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace GameStore.Web.Pages.Profile
 {
+    [AllowAnonymous]
     public class IndexModel : PageModel
     {
         private readonly UserManager<User> _userManager;

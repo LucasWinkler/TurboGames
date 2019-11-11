@@ -43,6 +43,10 @@ namespace GameStore.Data
                    .ToTable("User")
                    .HasKey(x => x.Id);
 
+            builder.Entity<User>()
+                .Ignore(x => x.PhoneNumber)
+                .Ignore(x => x.PhoneNumberConfirmed);
+
             builder.Entity<IdentityRole>()
                    .ToTable("Role");
 

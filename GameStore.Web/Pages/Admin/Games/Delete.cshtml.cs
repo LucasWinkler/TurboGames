@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Admin.Games
 {
+    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         private readonly TurboGamesContext _context;
@@ -33,14 +35,9 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            if (!user.IsAdmin)
-            {
-                return RedirectToPage("/Home/Index");
-            }
-
             if (id == null)
             {
-                return NotFound();
+                return RedirectToPage("/Admin/Games/Index");
             }
 
             Game = await _context.Game
@@ -49,7 +46,7 @@ namespace GameStore.Web.Pages.Admin.Games
 
             if (Game == null)
             {
-                return NotFound();
+                return RedirectToPage("/Admin/Games/Index");
             }
 
             return Page();
@@ -65,7 +62,7 @@ namespace GameStore.Web.Pages.Admin.Games
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToPage("/Admin/Games/Index");
             }
 
             Game = await _context.Game.FindAsync(id);

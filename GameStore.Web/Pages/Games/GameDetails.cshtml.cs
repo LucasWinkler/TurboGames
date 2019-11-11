@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GameStore.Data;
 using GameStore.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Web.Pages.Games
 {
+    [Authorize]
     public class GameDetailsModel : PageModel
     {
         private readonly TurboGamesContext _context;

@@ -9,9 +9,11 @@ using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Events
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly TurboGamesContext _context;

@@ -10,9 +10,11 @@ using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Text;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameStore.Web.Pages.Games.Library
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly TurboGamesContext _context;
@@ -62,7 +64,7 @@ namespace GameStore.Web.Pages.Games.Library
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToPage("/Games/Library/Index");
             }
 
             Game = await _context.Game
@@ -71,7 +73,7 @@ namespace GameStore.Web.Pages.Games.Library
 
             if (Game == null)
             {
-                return NotFound();
+                return RedirectToPage("/Games/Library/Index");
             }
 
             var gameData = new Dictionary<string, string>();

@@ -2,7 +2,10 @@ using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Threading.Tasks;
 
 namespace GameStore.Data
 {
@@ -11,6 +14,51 @@ namespace GameStore.Data
     /// </summary>
     public static class TurboGamesContextSeed
     {
+        /// <summary>
+        /// Creates the applications user roles and admin user.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
+        /// <returns></returns>
+        public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration configuration)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
+            string[] roleNames = { "Admin", "Member" };
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            var admin = new User
+            {
+                FirstName = "Turbo",
+                LastName = "Admin",
+                UserName = configuration.GetSection("AdminSettings")["Username"],
+                Email = configuration.GetSection("AdminSettings")["Email"],
+                EmailConfirmed = true,
+                Gender = Gender.Other,
+                DOB = DateTime.UtcNow,
+                PaymentId = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7")
+            };
+
+            string password = configuration.GetSection("AdminSettings")["Password"];
+
+            var _user = await UserManager.FindByEmailAsync(configuration.GetSection("AdminSettings")["Email"]);
+            if (_user == null)
+            {
+                var createAdmin = await UserManager.CreateAsync(admin, password);
+                if (createAdmin.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(admin, "Admin");
+                }
+            }
+        }
+
         /// <summary>
         /// Data seeding extension method for the EF ModelBuilder.
         /// </summary>
@@ -146,47 +194,6 @@ namespace GameStore.Data
                     CardCVC = "313",
                     CardExpirationDate = "11/21",
                     CardName = "Lucas Winkler"
-                }
-            );
-
-            builder.Entity<User>().HasData(
-                new User
-                {
-                    Id = "1a1a111-111-11aa-111a-a11aa1a11aa1",
-                    IsAdmin = true,
-                    FirstName = "Turbo",
-                    LastName = "Admin",
-                    UserName = "Admin",
-                    Email = "admin@turbogames.com",
-                    EmailConfirmed = true,
-                    NormalizedEmail = "admin@turbogames.com".ToUpper(),
-                    NormalizedUserName = "Admin".ToUpper(),
-                    PhoneNumber = null,
-                    PhoneNumberConfirmed = true,
-                    PasswordHash = hasher.HashPassword(null, "Admin123!"),
-                    SecurityStamp = "1b1b111-111-11bb-111b-b11bb1b11bb1",
-                    Gender = Gender.Other,
-                    DOB = DateTime.UtcNow,
-                    PaymentId = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7")
-                },
-                new User
-                {
-                    Id = "2a2a222-222-22aa-222a-a22aa2a22aa2",
-                    IsAdmin = false,
-                    FirstName = "Turbo",
-                    LastName = "User",
-                    UserName = "User",
-                    Email = "user@turbogames.com",
-                    EmailConfirmed = true,
-                    NormalizedEmail = "user@turbogames.com".ToUpper(),
-                    NormalizedUserName = "User".ToUpper(),
-                    PhoneNumber = null,
-                    PhoneNumberConfirmed = true,
-                    PasswordHash = hasher.HashPassword(null, "User123!"),
-                    SecurityStamp = "2b2b222-222-22bb-222b-b22bb2b22bb2",
-                    Gender = Gender.Male,
-                    DOB = new DateTime(1999, 06, 04),
-                    PaymentId = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7")
                 }
             );
         }

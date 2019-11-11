@@ -19,9 +19,6 @@ namespace GameStore.Data
     public class User : IdentityUser
     {
         [Required]
-        public bool IsAdmin { get; set; }
-
-        [Required]
         public string FirstName { get; set; }
 
         [Required]

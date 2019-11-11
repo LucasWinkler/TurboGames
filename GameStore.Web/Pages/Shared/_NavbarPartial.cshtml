@@ -30,7 +30,7 @@
                     @await Component.InvokeAsync("CartCount")
                 </div>
                 
-                @if (userAccount.IsAdmin)
+                @if (User.IsInRole("Admin"))
                 {
                     <div class="dropdown mr-1">
                         <button class="btn btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

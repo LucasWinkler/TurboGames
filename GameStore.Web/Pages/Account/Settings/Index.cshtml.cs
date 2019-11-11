@@ -2,6 +2,7 @@
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using GameStore.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace GameStore.Web.Pages.Account.Settings
 {
+    [Authorize]
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<User> _userManager;
@@ -54,7 +56,7 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -82,7 +84,7 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -135,9 +137,8 @@ namespace GameStore.Web.Pages.Account.Settings
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return RedirectToPage("/Account/Login");
             }
-
 
             var userId = await _userManager.GetUserIdAsync(user);
             var email = await _userManager.GetEmailAsync(user);
