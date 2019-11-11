@@ -27,7 +27,7 @@ namespace GameStore.Web.Pages.Account.Settings
             _context = context;
         }
 
-      
+
         [BindProperty]
         public Payment Payment { get; set; }
 
@@ -41,7 +41,7 @@ namespace GameStore.Web.Pages.Account.Settings
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-            
+
             if (user.PaymentId != null)
             {
                 var payment = await _context.Payment.SingleOrDefaultAsync(x => x.Id == user.PaymentId);
@@ -54,22 +54,22 @@ namespace GameStore.Web.Pages.Account.Settings
                     CardCVC = payment.CardCVC
                 };
             }
-            
+
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Unable to save.");
-                return Page();
-            }
-
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Unable to save.");
+                return Page();
             }
 
             try

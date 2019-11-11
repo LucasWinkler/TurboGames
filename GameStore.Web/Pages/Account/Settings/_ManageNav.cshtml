@@ -1,10 +1,10 @@
 ﻿@inject SignInManager<User> SignInManager
 <div class="list-group">
     <p class="list-group-item list-group-item-secondary">Personal settings</p>
-    <a class="list-group-item list-group-item-action @ManageNavPages.IndexNavClass(ViewContext)" id="index" asp-page="./Index">Account</a>
-    <a class="list-group-item list-group-item-action @ManageNavPages.ProfileNavClass(ViewContext)" id="profile" asp-page="./Profile">Edit Profile</a>
-    <a class="list-group-item list-group-item-action @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a>
-    <a class="list-group-item list-group-item-action @ManageNavPages.AddressNavClass(ViewContext)" id="address" asp-page="./Address">Addresses</a>
-    <a class="list-group-item list-group-item-action @ManageNavPages.PaymentNavClass(ViewContext)" id="payment" asp-page="./Payment">Payment</a>
-    <a class="list-group-item list-group-item-action @ManageNavPages.PreferencesNavClass(ViewContext)" id="preferences" asp-page="./Preferences">Preferences</a>
+    <a class="list-group-item list-group-item-action @ManageNavPages.IndexNavClass(ViewContext)" id="index" asp-page="/Account/Settings/Index">Account</a>
+    <a class="list-group-item list-group-item-action @ManageNavPages.ProfileNavClass(ViewContext)" id="profile" asp-page="/Account/Settings/Profile">Edit Profile</a>
+    <a class="list-group-item list-group-item-action @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="/Account/Settings/ChangePassword">Password</a>
+    <a class="list-group-item list-group-item-action @ManageNavPages.AddressNavClass(ViewContext)" id="address" asp-page="/Account/Settings/Address/Index">Addresses</a>
+    <a class="list-group-item list-group-item-action @ManageNavPages.PaymentNavClass(ViewContext)" id="payment" asp-page="/Account/Settings/Payment">Payment</a>
+    <a class="list-group-item list-group-item-action @ManageNavPages.PreferencesNavClass(ViewContext)" id="preferences" asp-page="/Account/Settings/Preferences">Preferences</a>
 </div>
