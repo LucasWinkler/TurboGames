@@ -10,7 +10,7 @@ namespace GameStore.Data.Models
         public Guid Id { get; set; }
 
         [Required]
-        [Display(Name = "Country/Region")]
+        [Display(Name = "Country/region")]
         public string Country { get; set; }
 
         [Required]
@@ -30,7 +30,7 @@ namespace GameStore.Data.Models
 
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "State/Province/Region")]
+        [Display(Name = "State/province/region")]
         public string StateProvinceRegion { get; set; }
 
         [Required]

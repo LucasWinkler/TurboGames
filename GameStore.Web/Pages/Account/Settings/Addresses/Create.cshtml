@@ -15,54 +15,65 @@
 </nav>
 <h4>@ViewData["Title"]</h4>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Address.Country" class="control-label"></label>
-                <select asp-for="Address.Country" class="form-control" autofocus>
-                    <option value="">Select country</option>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <label asp-for="Address.Country"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-globe"></i> </span>
+                </div>
+                <select asp-for="Address.Country" asp-items="Model.Countries" class="form-control">
+                    <option selected="selected" value="">Select country</option>
                 </select>
-                <span asp-validation-for="Address.Country" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Address.FullName" class="control-label"></label>
-                <input asp-for="Address.FullName" class="form-control" />
-                <span asp-validation-for="Address.FullName" class="text-danger"></span>
+            <label asp-for="Address.FullName"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-user"></i> </span>
+                </div>
+                <input asp-for="Address.FullName" class="form-control" placeholder="Full name" type="text">
             </div>
-            <div class="form-group">
-                <label asp-for="Address.StreetAddress" class="control-label"></label>
-                <input asp-for="Address.StreetAddress" class="form-control" />
-                <span asp-validation-for="Address.StreetAddress" class="text-danger"></span>
+            <label asp-for="Address.StreetAddress"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                </div>
+                <input asp-for="Address.StreetAddress" class="form-control" placeholder="Street address" type="text">
             </div>
-            <div class="form-group">
-                <label asp-for="Address.City" class="control-label"></label>
-                <input asp-for="Address.City" class="form-control" />
-                <span asp-validation-for="Address.City" class="text-danger"></span>
+            <label asp-for="Address.City"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                </div>
+                <input asp-for="Address.City" class="form-control" placeholder="City" type="text">
             </div>
-            <div class="form-group">
-                <label asp-for="Address.StateProvinceRegion" class="control-label"></label>
-                <input asp-for="Address.StateProvinceRegion" class="form-control" />
-                <span asp-validation-for="Address.StateProvinceRegion" class="text-danger"></span>
+            <div id="provinceGroup" class="hidden">
+                <label asp-for="Address.StateProvinceRegion">Province</label>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                    </div>
+                    <select asp-for="Address.StateProvinceRegion" asp-items="Model.Provinces" class="form-control">
+                        <option selected="selected" value="">Select province</option>
+                    </select>
+                </div>
             </div>
-            @*
-              TODO:
-
-              Show provinces and states in a dropdown.
-              If a province is selected then country is Canada.
-              If a state is selected then country is the United States.
-              Also have a Not Applicable option.
-
-              OR
-
-              Show countries in a dropdown.
-              If country is Canada show list of provinces in dropdown.
-              Else show a textbox for state/region input.
-            *@
-            <div class="form-group">
-                <label asp-for="Address.PostalCode" class="control-label"></label>
-                <input asp-for="Address.PostalCode" class="form-control" />
-                <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
+            <div id="stateRegionGroup">
+                <label asp-for="Address.StateProvinceRegion">State/region</label>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                    </div>
+                    <input asp-for="Address.StateProvinceRegion" class="form-control" placeholder="State or region" type="text">
+                </div>
+            </div>
+            <label asp-for="Address.PostalCode"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                </div>
+                <input asp-for="Address.PostalCode" class="form-control" placeholder="Postal or zip code" type="text">
             </div>
             <div class="form-group">
                 <input type="submit" value="Add Address" class="btn btn-primary btn-block" />
@@ -71,10 +82,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to your addresses</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/js/createAddress.js"></script>
 }

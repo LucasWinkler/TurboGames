@@ -10,6 +10,7 @@ using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using GameStore.Web.Helpers;
 
 namespace GameStore.Web.Pages.Account.Settings.Addresses
 {
@@ -21,6 +22,9 @@ namespace GameStore.Web.Pages.Account.Settings.Addresses
 
         [BindProperty]
         public Address Address { get; set; }
+
+        public List<SelectListItem> Countries { get; set; }
+        public List<SelectListItem> Provinces { get; set; }
 
         public CreateModel(TurboGamesContext context, UserManager<User> userManager)
         {
@@ -35,6 +39,23 @@ namespace GameStore.Web.Pages.Account.Settings.Addresses
             {
                 return RedirectToPage("/Account/Login");
             }
+
+            Countries = new List<SelectListItem>();
+            Countries.AddRange(AddressHelper.GetCountries().Select(keyValue => new SelectListItem()
+            {
+                Value = keyValue.Key,
+                Text = keyValue.Value
+            }).OrderBy(x => x.Text));
+
+            Provinces = new List<SelectListItem>();
+            Provinces.AddRange(AddressHelper.GetProvinces().Select(keyValue => new SelectListItem()
+            {
+                Value = keyValue.Key,
+                Text = keyValue.Value
+
+            }).OrderBy(x => x.Text));
+
+            Address = new Address();
 
             return Page();
         }
@@ -59,7 +80,7 @@ namespace GameStore.Web.Pages.Account.Settings.Addresses
 
                 return RedirectToPage("./Index");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.InnerException);
             }
