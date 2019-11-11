@@ -39,7 +39,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Admin/Games/Index");
             }
 
-            Game = await _context.Game
+            Game = await _context.Games
                 .Include(g => g.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
 

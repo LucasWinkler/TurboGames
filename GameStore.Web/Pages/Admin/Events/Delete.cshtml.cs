@@ -40,7 +40,7 @@ namespace GameStore.Web.Pages.Admin.Events
                 return RedirectToPage("/Admin/Events/Index");
             }
 
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.Id == id);
+            Event = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Event == null)
             {
@@ -63,17 +63,17 @@ namespace GameStore.Web.Pages.Admin.Events
                 return RedirectToPage("/Admin/Events/Index");
             }
 
-            Event = await _context.Event.FindAsync(id);
+            Event = await _context.Events.FindAsync(id);
 
             if (Event != null)
             {
-                var userEvents = _context.UserEvent.Where(x => x.EventId == id);
+                var userEvents = _context.UserEvents.Where(x => x.EventId == id);
                 if (userEvents != null)
                 {
-                    _context.UserEvent.RemoveRange(userEvents);
+                    _context.UserEvents.RemoveRange(userEvents);
                 }
 
-                _context.Event.Remove(Event);
+                _context.Events.Remove(Event);
                 await _context.SaveChangesAsync();
             }
 

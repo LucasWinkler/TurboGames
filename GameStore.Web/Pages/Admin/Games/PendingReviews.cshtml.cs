@@ -32,7 +32,7 @@ namespace GameStore.Web.Pages.Admin.Games
 
         public async Task OnGetAsync()
         {
-            Review = await _context.Review
+            Review = await _context.Reviews
                 .Include(r => r.Game)
                 .Include(r => r.Reviewer)
                 .Where(x => !x.IsAccepted).ToListAsync();
@@ -46,7 +46,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            var review = await _context.Review.FirstOrDefaultAsync(x => x.Id == reviewId);
+            var review = await _context.Reviews.FirstOrDefaultAsync(x => x.Id == reviewId);
             if (review == null)
             {
                 StatusMessage = $"Error: Unable to find review.";
@@ -55,7 +55,7 @@ namespace GameStore.Web.Pages.Admin.Games
 
             if (review.IsAccepted)
             {
-                StatusMessage = $"Error: You have already accepted the '{_context.Review.Include(x => x.Game).FirstOrDefault(x => x.Id == reviewId).Game.Title}' review.";
+                StatusMessage = $"Error: You have already accepted the '{_context.Reviews.Include(x => x.Game).FirstOrDefault(x => x.Id == reviewId).Game.Title}' review.";
                 return RedirectToPage();
             }
 
@@ -66,7 +66,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 _context.Update(review);
                 await _context.SaveChangesAsync();
 
-                StatusMessage = $"You have accepted the '{_context.Review.Include(x => x.Game).FirstOrDefault(x => x.Id == reviewId).Game.Title}' review.";
+                StatusMessage = $"You have accepted the '{_context.Reviews.Include(x => x.Game).FirstOrDefault(x => x.Id == reviewId).Game.Title}' review.";
                 return RedirectToPage();
             }
             catch (Exception e)

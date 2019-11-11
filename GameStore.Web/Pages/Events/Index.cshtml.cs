@@ -41,9 +41,9 @@ namespace GameStore.Web.Pages.Events
                 return RedirectToPage("/Account/Login");
             }
 
-            Events = await _context.Event.ToListAsync();
+            Events = await _context.Events.ToListAsync();
 
-            IsRegistered = await _context.UserEvent.AnyAsync(x => x.UserId == user.Id);
+            IsRegistered = await _context.UserEvents.AnyAsync(x => x.UserId == user.Id);
 
             return Page();
         }
@@ -56,16 +56,16 @@ namespace GameStore.Web.Pages.Events
                 return RedirectToPage("/Account/Login");
             }
 
-            var userEvent = await _context.UserEvent.FirstOrDefaultAsync(x => x.EventId == eventId);
+            var userEvent = await _context.UserEvents.FirstOrDefaultAsync(x => x.EventId == eventId);
             if (userEvent != null)
             {
-                StatusMessage = $"Error: You have already registered for the '{_context.Event.FirstOrDefault(x => x.Id == userEvent.EventId).Title}' event.";
+                StatusMessage = $"Error: You have already registered for the '{_context.Events.FirstOrDefault(x => x.Id == userEvent.EventId).Title}' event.";
                 return RedirectToPage();
             }
 
             try
             {
-                _context.UserEvent.Add(
+                _context.UserEvents.Add(
                     new UserEvent
                     {
                         EventId = eventId,
@@ -75,7 +75,7 @@ namespace GameStore.Web.Pages.Events
 
                 await _context.SaveChangesAsync();
 
-                StatusMessage = $"You have registered for the '{_context.Event.FirstOrDefault(x => x.Id == eventId).Title}' event.";
+                StatusMessage = $"You have registered for the '{_context.Events.FirstOrDefault(x => x.Id == eventId).Title}' event.";
                 return RedirectToPage("Index");
             }
             catch (Exception e)
@@ -94,20 +94,20 @@ namespace GameStore.Web.Pages.Events
                 return RedirectToPage("/Account/Login");
             }
 
-            var userEvent = await _context.UserEvent.FirstOrDefaultAsync(x => x.EventId == eventId);
+            var userEvent = await _context.UserEvents.FirstOrDefaultAsync(x => x.EventId == eventId);
             if (userEvent == null)
             {
-                StatusMessage = $"Error: You are not registered for the '{_context.Event.FirstOrDefault(x => x.Id == userEvent.EventId).Title}' event.";
+                StatusMessage = $"Error: You are not registered for the '{_context.Events.FirstOrDefault(x => x.Id == userEvent.EventId).Title}' event.";
                 return RedirectToPage();
             }
 
             try
             {
-                _context.UserEvent.Remove(userEvent);
+                _context.UserEvents.Remove(userEvent);
 
                 await _context.SaveChangesAsync();
 
-                StatusMessage = $"You have unregistered for the '{_context.Event.FirstOrDefault(x => x.Id == eventId).Title}' event.";
+                StatusMessage = $"You have unregistered for the '{_context.Events.FirstOrDefault(x => x.Id == eventId).Title}' event.";
                 return RedirectToPage("Index");
             }
             catch (Exception e)

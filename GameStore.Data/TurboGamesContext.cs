@@ -16,19 +16,19 @@ namespace GameStore.Data
         }
 
         // DbSets for each model
-        public DbSet<Address> Address { get; set; }
-        public DbSet<UserAddress> UserAddress { get; set; }
-        public DbSet<Payment> Payment { get; set; }
-        public DbSet<Review> Review { get; set; }
-        public DbSet<Platform> Platform { get; set; }
-        public DbSet<Category> Category { get; set; }
-        public DbSet<Friendship> Friendship { get; set; }
-        public DbSet<Game> Game { get; set; }
-        public DbSet<UserGame> UserGame { get; set; }
-        public DbSet<Event> Event { get; set; }
-        public DbSet<UserEvent> UserEvent { get; set; }
-        public DbSet<ShoppingCart> Cart { get; set; }
-        public DbSet<ShoppingCartGame> CartGame { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<UserAddress> UserAddresses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Friendship> Friendships { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<UserGame> UserGames { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<UserEvent> UserEvents { get; set; }
+        public DbSet<ShoppingCart> Carts { get; set; }
+        public DbSet<ShoppingCartGame> CartGames { get; set; }
 
         /// <summary>
         /// Configures a given entity type in the model.

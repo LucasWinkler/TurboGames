@@ -39,7 +39,7 @@ namespace GameStore.Web.Pages.Admin.Events
                 return RedirectToPage("/Admin/Events/Index");
             }
 
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.Id == id);
+            Event = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Event == null)
             {

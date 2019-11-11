@@ -69,7 +69,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Admin/Games/Index");
             }
 
-            var game = await _context.Game
+            var game = await _context.Games
                 .Include(g => g.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -143,13 +143,13 @@ namespace GameStore.Web.Pages.Admin.Games
 
         private bool GameExists(Guid id)
         {
-            return _context.Game.Any(e => e.Id == id);
+            return _context.Games.Any(e => e.Id == id);
         }
 
         private void SetDropdownLists()
         {
-            Categories = new SelectList(_context.Category, "Id", "Name");
-            Platforms = new SelectList(_context.Platform, "Id", "Name");
+            Categories = new SelectList(_context.Categories, "Id", "Name");
+            Platforms = new SelectList(_context.Platforms, "Id", "Name");
         }
     }
 }

@@ -108,14 +108,14 @@ namespace GameStore.Web.Pages.Account.Settings
 
         private void CreateSelectLists(User user)
         {
-            Platforms = _context.Platform.Select(p => new SelectListItem
+            Platforms = _context.Platforms.Select(p => new SelectListItem
             {
                 Value = p.Id.ToString(),
                 Text = p.Name,
                 Selected = p.Id == user.FavouritePlatformId
             }).ToList();
 
-            Categories = _context.Category.Select(p => new SelectListItem
+            Categories = _context.Categories.Select(p => new SelectListItem
             {
                 Value = p.Id.ToString(),
                 Text = p.Name,

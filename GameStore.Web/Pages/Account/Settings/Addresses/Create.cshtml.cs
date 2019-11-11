@@ -54,7 +54,7 @@ namespace GameStore.Web.Pages.Account.Settings.Addresses
 
             try
             {
-                await _context.Address.AddAsync(Address);
+                await _context.Addresses.AddAsync(Address);
                 await _context.SaveChangesAsync();
 
                 return RedirectToPage("./Index");

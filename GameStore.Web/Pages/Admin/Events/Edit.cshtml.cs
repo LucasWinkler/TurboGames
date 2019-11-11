@@ -40,7 +40,7 @@ namespace GameStore.Web.Pages.Admin.Events
                 return RedirectToPage("/Admin/Events/Index");
             }
 
-            Event = await _context.Event.FirstOrDefaultAsync(m => m.Id == id);
+            Event = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
 
             if (Event == null)
             {
@@ -86,7 +86,7 @@ namespace GameStore.Web.Pages.Admin.Events
 
         private bool EventExists(Guid id)
         {
-            return _context.Event.Any(e => e.Id == id);
+            return _context.Events.Any(e => e.Id == id);
         }
     }
 }

@@ -83,7 +83,7 @@ namespace GameStore.Web.Pages.Admin.Games
 
             try
             {
-                await _context.Game.AddAsync(new Game
+                await _context.Games.AddAsync(new Game
                 {
                     Title = Input.Title,
                     Developer = Input.Developer,
@@ -108,8 +108,8 @@ namespace GameStore.Web.Pages.Admin.Games
 
         private void SetDropdownLists()
         {
-            Categories = new SelectList(_context.Category, "Id", "Name");
-            Platforms = new SelectList(_context.Platform, "Id", "Name");
+            Categories = new SelectList(_context.Categories, "Id", "Name");
+            Platforms = new SelectList(_context.Platforms, "Id", "Name");
         }
     }
 }

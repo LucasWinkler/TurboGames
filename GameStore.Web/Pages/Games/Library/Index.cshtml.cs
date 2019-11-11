@@ -43,7 +43,7 @@ namespace GameStore.Web.Pages.Games.Library
                 return RedirectToPage("/Account/Login");
             }
 
-            UserGame = await _context.UserGame
+            UserGame = await _context.UserGames
                 .Include(u => u.Game)
                 .Include(u => u.User)
                 .Where(u => u.UserId == user.Id)
@@ -67,7 +67,7 @@ namespace GameStore.Web.Pages.Games.Library
                 return RedirectToPage("/Games/Library/Index");
             }
 
-            Game = await _context.Game
+            Game = await _context.Games
                 .Include(g => g.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
 

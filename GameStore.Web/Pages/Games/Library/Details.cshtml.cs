@@ -39,7 +39,7 @@ namespace GameStore.Web.Pages.Games.Library
                 return RedirectToPage("/Games/Library/Index");
             }
 
-            UserGame = await _context.UserGame
+            UserGame = await _context.UserGames
                 .Include(u => u.Game)
                 .Include(u => u.User)
                 .FirstOrDefaultAsync(m => m.UserId == id);

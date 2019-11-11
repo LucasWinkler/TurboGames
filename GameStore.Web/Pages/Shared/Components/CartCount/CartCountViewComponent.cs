@@ -28,10 +28,10 @@ namespace GameStore.Web.Shared.Components.CartCount
                 return View(0);
             }
 
-            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
+            var cart = await _context.Carts.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
             if (cart != null)
             {
-                var count = _context.CartGame.Count(x => x.CartId == cart.Id);
+                var count = _context.CartGames.Count(x => x.CartId == cart.Id);
 
                 return View(count);
             }

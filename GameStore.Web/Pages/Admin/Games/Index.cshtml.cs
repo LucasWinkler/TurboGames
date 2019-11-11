@@ -34,7 +34,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            Game = await _context.Game
+            Game = await _context.Games
                 .Include(g => g.Category)
                 .ToListAsync();
 

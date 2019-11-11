@@ -55,7 +55,7 @@ namespace GameStore.Web.Pages.Games.Library
                 return RedirectToPage("/Account/Login");
             }
 
-            var review = await _context.Review.FirstOrDefaultAsync(x => x.GameId == id && x.ReviewerId == user.Id);
+            var review = await _context.Reviews.FirstOrDefaultAsync(x => x.GameId == id && x.ReviewerId == user.Id);
             Input = review != null
                 ? new InputModel
                 {
@@ -68,7 +68,7 @@ namespace GameStore.Web.Pages.Games.Library
                     GameId = id
                 };
 
-            ViewData["GameTitle"] = _context.Game.FirstOrDefault(x => x.Id == id).Title;
+            ViewData["GameTitle"] = _context.Games.FirstOrDefault(x => x.Id == id).Title;
 
             return Page();
         }
@@ -86,7 +86,7 @@ namespace GameStore.Web.Pages.Games.Library
                 return Page();
             }
 
-            var review = await _context.Review.FirstOrDefaultAsync(x => x.GameId == Input.GameId && x.ReviewerId == user.Id);
+            var review = await _context.Reviews.FirstOrDefaultAsync(x => x.GameId == Input.GameId && x.ReviewerId == user.Id);
             if (review != null)
             {
                 review.Content = Input.Content;
@@ -98,7 +98,7 @@ namespace GameStore.Web.Pages.Games.Library
                 {
                     await _context.SaveChangesAsync();
 
-                    return RedirectToPage("./Index", new { statusMessage = $"You have edited your review for '{_context.Game.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
+                    return RedirectToPage("./Index", new { statusMessage = $"You have edited your review for '{_context.Games.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
                 }
                 catch (Exception e)
                 {
@@ -116,10 +116,10 @@ namespace GameStore.Web.Pages.Games.Library
 
             try
             {
-                await _context.Review.AddAsync(review);
+                await _context.Reviews.AddAsync(review);
                 await _context.SaveChangesAsync();
 
-                return RedirectToPage("./Index", new { statusMessage = $"You have reviewed '{_context.Game.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
+                return RedirectToPage("./Index", new { statusMessage = $"You have reviewed '{_context.Games.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
             }
             catch (Exception e)
             {

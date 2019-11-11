@@ -9,8 +9,8 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a asp-page="/Account/Settings/Index">Settings</a></li>
-        <li class="breadcrumb-item"><a asp-page="./Index">Addresses</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add</li>
+        <li class="breadcrumb-item"><a asp-page="./Index">Your Addresses</a></li>
+        <li class="breadcrumb-item active" aria-current="page">New Address</li>
     </ol>
 </nav>
 <h4>@ViewData["Title"]</h4>
@@ -18,6 +18,13 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Address.Country" class="control-label"></label>
+                <select asp-for="Address.Country" class="form-control" autofocus>
+                    <option value="">Select country</option>
+                </select>
+                <span asp-validation-for="Address.Country" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Address.FullName" class="control-label"></label>
                 <input asp-for="Address.FullName" class="form-control" />
@@ -39,16 +46,18 @@
                 <span asp-validation-for="Address.StateProvinceRegion" class="text-danger"></span>
             </div>
             @*
-                TODO: Show provinces and states in a dropdown.
-                      If a province is selected then country is Canada.
-                      If a state is selected then country is the United States.
-                      Also have a Not Applicable option.
+              TODO:
 
-                      OR
+              Show provinces and states in a dropdown.
+              If a province is selected then country is Canada.
+              If a state is selected then country is the United States.
+              Also have a Not Applicable option.
 
-                      Show countries in a dropdown.
-                      If country is Canada show list of provinces in dropdown.
-                      Else show a textbox for state/region input.
+              OR
+
+              Show countries in a dropdown.
+              If country is Canada show list of provinces in dropdown.
+              Else show a textbox for state/region input.
             *@
             <div class="form-group">
                 <label asp-for="Address.PostalCode" class="control-label"></label>
@@ -56,7 +65,7 @@
                 <span asp-validation-for="Address.PostalCode" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                <input type="submit" value="Add Address" class="btn btn-primary btn-block" />
             </div>
         </form>
     </div>

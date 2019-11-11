@@ -83,11 +83,11 @@ namespace GameStore.Web.Pages.Profile
                 LastName = user.LastName,
                 Gender = user.Gender,
                 DOB = user.DOB,
-                FavouritePlatform = _context.Platform.FirstOrDefault(x => x.Id == user.FavouritePlatformId),
-                FavouriteCategory = _context.Category.FirstOrDefault(x => x.Id == user.FavouriteCategoryId),
-                GameCount = _context.UserGame.Where(x => x.UserId == user.Id).Count(),
-                FriendCount = _context.Friendship.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && !x.IsFamily && x.RequestStatus == FriendStatusCode.Accepted).Count(),
-                FamilyCount = _context.Friendship.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && x.IsFamily && x.RequestStatus == FriendStatusCode.Accepted).Count()
+                FavouritePlatform = _context.Platforms.FirstOrDefault(x => x.Id == user.FavouritePlatformId),
+                FavouriteCategory = _context.Categories.FirstOrDefault(x => x.Id == user.FavouriteCategoryId),
+                GameCount = _context.UserGames.Where(x => x.UserId == user.Id).Count(),
+                FriendCount = _context.Friendships.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && !x.IsFamily && x.RequestStatus == FriendStatusCode.Accepted).Count(),
+                FamilyCount = _context.Friendships.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && x.IsFamily && x.RequestStatus == FriendStatusCode.Accepted).Count()
             };
 
             var currentUser = await _userManager.GetUserAsync(User);
@@ -97,7 +97,7 @@ namespace GameStore.Web.Pages.Profile
                 return Page();
             }
 
-            var friendships = _context.Friendship
+            var friendships = _context.Friendships
                 .Include(x => x.Receiver)
                 .Include(x => x.Sender)
                 .Where(x => x.ReceiverId == currentUser.Id || x.SenderId == currentUser.Id);
@@ -115,7 +115,7 @@ namespace GameStore.Web.Pages.Profile
                 return RedirectToPage("/Account/Login");
             }
 
-            var friendships = _context.Friendship
+            var friendships = _context.Friendships
                 .Include(x => x.Receiver)
                 .Include(x => x.Sender)
                 .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id);

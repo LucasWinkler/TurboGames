@@ -39,13 +39,13 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            Game = await _context.Game
+            Game = await _context.Games
                 .Include(x => x.Category)
                 .Include(x => x.Reviews)
                 .Include(x => x.Platform)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            Reviews = _context.Review
+            Reviews = _context.Reviews
                 .Include(x => x.Game)
                 .Include(x => x.Reviewer)
                 .Where(x => x.IsAccepted && x.GameId == id).ToList();

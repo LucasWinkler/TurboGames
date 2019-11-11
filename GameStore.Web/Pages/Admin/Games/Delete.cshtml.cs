@@ -40,7 +40,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Admin/Games/Index");
             }
 
-            Game = await _context.Game
+            Game = await _context.Games
                 .Include(g => g.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -65,17 +65,17 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Admin/Games/Index");
             }
 
-            Game = await _context.Game.FindAsync(id);
+            Game = await _context.Games.FindAsync(id);
 
             if (Game != null)
             {
-                var userGames = _context.UserGame.Where(x => x.GameId == id);
+                var userGames = _context.UserGames.Where(x => x.GameId == id);
                 if (userGames != null)
                 {
-                    _context.UserGame.RemoveRange(userGames);
+                    _context.UserGames.RemoveRange(userGames);
                 }
 
-                _context.Game.Remove(Game);
+                _context.Games.Remove(Game);
                 await _context.SaveChangesAsync();
             }
 

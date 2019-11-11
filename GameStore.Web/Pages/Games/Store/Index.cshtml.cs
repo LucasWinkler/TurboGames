@@ -41,7 +41,7 @@ namespace GameStore.Web.Pages.Games.Store
                 return RedirectToPage("/Account/Login");
             }
 
-            Game = await _context.Game
+            Game = await _context.Games
                 .Include(x => x.Platform)
                 .Include(x => x.Category)
                 .AsNoTracking().ToListAsync();
@@ -57,7 +57,7 @@ namespace GameStore.Web.Pages.Games.Store
                 return RedirectToPage("/Account/Login");
             }
 
-            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
+            var cart = await _context.Carts.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
             if (cart == null)
             {
                 try
@@ -76,15 +76,15 @@ namespace GameStore.Web.Pages.Games.Store
                 }
             }
 
-            var gameToAdd = await _context.Game.FirstOrDefaultAsync(x => x.Id == id);
-            var isGameAdded = await _context.CartGame.AnyAsync(x => x.CartId == cart.Id && x.GameId == gameToAdd.Id);
+            var gameToAdd = await _context.Games.FirstOrDefaultAsync(x => x.Id == id);
+            var isGameAdded = await _context.CartGames.AnyAsync(x => x.CartId == cart.Id && x.GameId == gameToAdd.Id);
             if (isGameAdded)
             {
                 StatusMessage = $"Error: This game is already in your cart.";
                 return RedirectToPage();
             }
 
-            var isGameOwned = await _context.UserGame.AnyAsync(x => x.GameId == gameToAdd.Id && x.UserId == user.Id);
+            var isGameOwned = await _context.UserGames.AnyAsync(x => x.GameId == gameToAdd.Id && x.UserId == user.Id);
             if (isGameOwned)
             {
                 StatusMessage = $"Error: You already own this game.";

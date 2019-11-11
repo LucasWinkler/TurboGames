@@ -34,7 +34,7 @@ namespace GameStore.Web.Pages.Admin.Dashboard.Events
                 return RedirectToPage("/Account/Login");
             }
 
-            Event = await _context.Event.ToListAsync();
+            Event = await _context.Events.ToListAsync();
 
             return Page();
         }

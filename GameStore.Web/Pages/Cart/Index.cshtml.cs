@@ -44,14 +44,14 @@ namespace GameStore.Web.Pages.Cart
                 return RedirectToPage("/Account/Login");
             }
 
-            var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
+            var cart = await _context.Carts.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
             if (cart == null)
             {
                 StatusMessage = $"Error: You must have items in your cart.";
                 return RedirectToPage("/Games/Store/Index");
             }
 
-            var cartGames = _context.CartGame.Include(x => x.Game).Where(x => x.CartId == cart.Id);
+            var cartGames = _context.CartGames.Include(x => x.Game).Where(x => x.CartId == cart.Id);
             if (cartGames == null)
             {
                 StatusMessage = $"Error: You must have items in your cart.";
@@ -80,21 +80,21 @@ namespace GameStore.Web.Pages.Cart
         //        return RedirectToPage("/Account/Login");
         //    }
 
-        //    var cart = await _context.Cart.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
+        //    var cart = await _context.Carts.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
         //    if (cart == null)
         //    {
         //        StatusMessage = $"Error: You must have items in your cart.";
         //        return RedirectToPage();
         //    }
 
-        //    var cartGames = _context.CartGame.Include(x => x.Game).Where(x => x.CartId == cart.Id);
+        //    var cartGames = _context.CartGames.Include(x => x.Game).Where(x => x.CartId == cart.Id);
         //    if (cartGames == null)
         //    {
         //        StatusMessage = $"Error: You must have items in your cart.";
         //        return RedirectToPage();
         //    }
 
-        //    var address = await _context.Address.FirstOrDefaultAsync(x => x.Id == user.BillingAddressId);
+        //    var address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == user.BillingAddressId);
         //    var payment = await _context.Payment.FirstOrDefaultAsync(x => x.Id == user.PaymentId);
         //    if (address == null || payment == null)
         //    {
@@ -105,7 +105,7 @@ namespace GameStore.Web.Pages.Cart
         //    foreach (var item in cartGames)
         //    {
         //        var game = item.Game;
-        //        var userGames = await _context.UserGame.Where(x => x.GameId == game.Id && x.UserId == user.Id).ToListAsync();
+        //        var userGames = await _context.UserGames.Where(x => x.GameId == game.Id && x.UserId == user.Id).ToListAsync();
 
         //        if (userGames.Count != 0)
         //        {

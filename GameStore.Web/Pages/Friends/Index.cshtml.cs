@@ -38,7 +38,7 @@ namespace GameStore.Web.Pages.Friends
                 return RedirectToPage("/Account/Login");
             }
 
-            Friendships = await _context.Friendship
+            Friendships = await _context.Friendships
                 .Include(f => f.Receiver)
                 .Include(f => f.Sender)
                 .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id).ToListAsync();
@@ -54,7 +54,7 @@ namespace GameStore.Web.Pages.Friends
                 return RedirectToPage("/Account/Login");
             }
 
-            Friendships = await _context.Friendship
+            Friendships = await _context.Friendships
                 .Include(f => f.Receiver)
                 .Include(f => f.Sender)
                 .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id).ToListAsync();
@@ -65,7 +65,7 @@ namespace GameStore.Web.Pages.Friends
 
             try
             {
-                _context.Friendship.Update(friendship);
+                _context.Friendships.Update(friendship);
                 await _context.SaveChangesAsync();
 
                 StatusMessage = $"You have accepted their friend request.";
@@ -88,7 +88,7 @@ namespace GameStore.Web.Pages.Friends
                 return RedirectToPage("/Account/Login");
             }
 
-            Friendships = await _context.Friendship
+            Friendships = await _context.Friendships
                 .Include(f => f.Receiver)
                 .Include(f => f.Sender)
                 .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id).ToListAsync();
@@ -99,7 +99,7 @@ namespace GameStore.Web.Pages.Friends
 
             try
             {
-                _context.Friendship.Update(friendship);
+                _context.Friendships.Update(friendship);
                 await _context.SaveChangesAsync();
 
                 StatusMessage = $"You have rejected their friend request.";
@@ -122,7 +122,7 @@ namespace GameStore.Web.Pages.Friends
                 return RedirectToPage("/Account/Login");
             }
 
-            Friendships = await _context.Friendship
+            Friendships = await _context.Friendships
                 .Include(f => f.Receiver)
                 .Include(f => f.Sender)
                 .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id).ToListAsync();
@@ -131,7 +131,7 @@ namespace GameStore.Web.Pages.Friends
 
             try
             {
-                _context.Friendship.Remove(friendship);
+                _context.Friendships.Remove(friendship);
                 await _context.SaveChangesAsync();
 
                 StatusMessage = $"You have deleted them as a friend.";
