@@ -17,7 +17,7 @@ namespace GameStore.Data
 
         // DbSets for each model
         public DbSet<Address> Address { get; set; }
-        public DbSet<ShoppingCartGame> UserAddress { get; set; }
+        public DbSet<UserAddress> UserAddress { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<Review> Review { get; set; }
         public DbSet<Platform> Platform { get; set; }
