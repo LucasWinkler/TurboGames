@@ -143,7 +143,7 @@ git fetch --all
 git reset --hard origin/branch-name
 ```
 
-## Mirations
+## Migrations
 
 Migrations are what converts your Models and DbSets into code that has the ability to create the database.
 When you create a migration it will look for any Models and DbSets inlcuding any changes to them.
