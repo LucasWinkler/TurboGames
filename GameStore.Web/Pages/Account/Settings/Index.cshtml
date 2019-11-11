@@ -18,17 +18,22 @@
                 </div>
                 <input asp-for="Input.UserName" class="form-control" placeholder="Username" type="text" autofocus>
             </div>
-            <label asp-for="Input.Email"></label>
+            <label asp-for="Input.Email" class="mr-1"></label>
+            @if (!Model.IsEmailConfirmed)
+            {
+                <button type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link p-0 m-0 mb-1">Send email verification</button>
+            }
+            else
+            {
+                <i class="far fa-check-circle text-success"></i>
+            }
             <div class="form-group input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                 </div>
                 <input asp-for="Input.Email" class="form-control" placeholder="Email address" type="email">
             </div>
-            @if (!Model.IsEmailConfirmed)
-            {
-                <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-            }
+
             <div class="custom-control custom-checkbox mb-3">
                 <input asp-for="Input.ShouldReceiveEmails" type="checkbox" class="custom-control-input" id="defaultUnchecked">
                 <label asp-for="Input.ShouldReceiveEmails" class="custom-control-label" for="defaultUnchecked"></label>

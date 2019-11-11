@@ -94,7 +94,7 @@ namespace GameStore
         /// </summary>
         /// <param name="app">Provides mechanisms to configure the pipeline.</param>
         /// <param name="env">Provides environment information</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

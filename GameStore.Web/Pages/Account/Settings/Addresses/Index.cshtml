@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="row mb-3">
-        <a asp-page="Add" class="card-link p-0 col-4 mr-3">
+        <a asp-page="./Create" class="card-link p-0 col-4 mr-3">
             <div class="card p-0" style="height: 14rem; border-style: dashed; border-width: 2px">
                 <div class="card-body d-flex flex-column text-center justify-content-center align-items-center">
                     <i class="fa fa-plus fa-2x" style="color: darkgray"></i>
@@ -26,9 +26,32 @@
                 <p class="card-text">Canada</p>
 
                 <div class="mt-auto">
-                    <a href="#" class="card-link">Edit</a>
+                    <a asp-page="./Edit" class="card-link">Edit</a>
                     <span class="ml-2 mr-2">|</span>
-                    <a href="#" class="card-link">Delete</a>
+                    <a href="#deleteAddressModal" data-toggle="modal" data-target="#deleteAddressModal" class="card-link">Delete</a>
+
+                    <div class="modal fade" id="deleteAddressModal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to remove this address?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h5 class="card-title mb-1">Lucas Winkler</h5>
+                                    <p class="card-text mb-0">57 Kingsboro Road</p>
+                                    <p class="card-text mb-0">Cambridge, Ontario N1P1H1</p>
+                                    <p class="card-text">Canada</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger" asp-page="./Delete">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
