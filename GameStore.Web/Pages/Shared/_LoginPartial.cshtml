@@ -1,0 +1,56 @@
+﻿@using GameStore.Data;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Welcome back, <span class="font-weight-bold">@User.Identity.Name</span>!
+        </button>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" asp-page="/Profile/Index">
+                <i class="fas fa-user ml-1 mr-1"></i>
+                Your profile
+            </a>
+            <a class="dropdown-item" asp-page="/Games/Library/Index">
+                <i class="fas fa-gamepad mr-1"></i>
+                Your games
+            </a>
+            <a class="dropdown-item" asp-page="/Friends/Index">
+                <i class="fas fa-user-friends mr-1"></i>
+                Your friends
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" asp-page="/Account/Settings/Index">
+                <i class="fas fa-cog mr-2"></i>
+                Settings
+            </a>
+            <form class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="/">
+                <button type="submit" class="btn btn-link dropdown-item">
+                    <i class="fas fa-sign-out-alt mr-2"></i>
+                    Logout
+                </button>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-page="/Account/Register">
+                <i class="fas fa-user-plus mr-2"></i>
+                Register
+            </a>
+        </li>
+        <li class="nav-item">
+
+            <a class="nav-link text-dark" asp-page="/Account/Login">
+                <i class="fas fa-sign-in-alt mr-2"></i>
+                Login
+            </a>
+        </li>
+    </ul>
+}

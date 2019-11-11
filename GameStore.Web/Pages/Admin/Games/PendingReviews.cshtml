@@ -1,0 +1,56 @@
+﻿@page
+@model GameStore.Web.Pages.Admin.Games.PendingReviewsModel
+
+@{
+    ViewData["Title"] = "PendingReviews";
+}
+
+<h2>Pending Game Reviews</h2>
+<partial name="_StatusMessage" for="StatusMessage" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].Reviewer.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].Game.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Review[0].CreatedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Review)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reviewer.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-page-handler="Accept" asp-route-reviewId="@item.Id" class="btn btn-primary">Accept</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

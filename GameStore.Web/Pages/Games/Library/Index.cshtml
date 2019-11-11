@@ -1,0 +1,48 @@
+﻿@page
+@model GameStore.Web.Pages.Games.Library.IndexModel
+
+@{
+    ViewData["Title"] = "Game Library";
+}
+
+<h1>@Model.User.Identity.Name's @ViewData["Title"]</h1>
+<partial name="_StatusMessage" for="StatusMessage" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserGame[0].Game.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserGame[0].Game.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserGame[0].PurchaseDate)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserGame)
+        {
+            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.GameId })'" class="row-hover">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseDate)
+                </td>
+                <td>
+                    <a asp-page-handler="Download" asp-route-id="@item.GameId" class="btn btn-primary">Download</a>
+                </td>
+                <td>
+                    <a asp-page="./Review" asp-route-id="@item.GameId" class="btn btn-primary">Review</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
