@@ -46,12 +46,33 @@ namespace GameStore.Web.Pages.Account.Settings.Addresses
             return Page();
         }
 
-        public async Task<IActionResult> OnPostRemoveAddressAsync()
+        public async Task<IActionResult> OnPostRemoveAddressAsync(Guid addressId)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToPage("/Account/Login");
+            }
+
+            try
+            {
+                var address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == addressId);
+                var userAddress = await _context.UserAddresses
+                    .FirstOrDefaultAsync(x => x.AddressId == addressId && x.UserId == user.Id);
+
+                _context.UserAddresses.Remove(userAddress);
+
+                await _context.SaveChangesAsync();
+
+                _context.Addresses.Remove(address);
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage("./Index");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
             }
 
             return Page();

@@ -12,8 +12,6 @@
     </ol>
 </nav>
 
-
-
 <h4 class="mb-4">@ViewData["Title"]</h4>
 <div class="container">
 
@@ -69,7 +67,10 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger" asp-page="./Delete">Delete</button>
+                                   
+                                    <form method="post">
+                                        <input type="submit" asp-page-handler="RemoveAddress" asp-route-addressId="@address.Id" value="Delete" class="btn btn-danger" />
+                                    </form>
                                 </div>
                             </div>
                         </div>
