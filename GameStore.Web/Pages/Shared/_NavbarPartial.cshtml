@@ -20,36 +20,16 @@
                     <a class="nav-link text-dark" asp-page="/Events/Index">Events</a>
                 </li>
             </ul>
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <div>
-                    @await Component.InvokeAsync("CartCount")
-                </div>
-                
-                @if (User.IsInRole("Admin"))
+
+            <ul class="navbar-nav">
+                @if (SignInManager.IsSignedIn(User))
                 {
-                    <div class="dropdown mr-1">
-                        <button class="btn btn-outline-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Admin Panel
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" asp-page="/Admin/Games/Index">
-                                <i class="fas fa-gamepad"></i>
-                                Manage Games
-                            </a>
-                            <a class="dropdown-item" asp-page="/Admin/Events/Index">
-                                <i class="fas fa-calendar-alt mr-2"></i>
-                                Manage Events
-                            </a>
-                            <a class="dropdown-item" asp-page="/Admin/Games/PendingReviews">
-                                <i class="fas fa-star-half-alt mr-1"></i>
-                                Manage Reviews
-                            </a>
-                        </div>
-                    </div>
+                    <li class="nav-item">
+                        @await Component.InvokeAsync("CartCount")
+                    </li>
                 }
-            }
-            <partial name="_LoginPartial" />
+                <partial name="_LoginPartial" />
+            </ul>
         </div>
     </div>
 </nav>

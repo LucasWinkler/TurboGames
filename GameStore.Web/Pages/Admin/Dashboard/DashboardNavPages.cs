@@ -5,11 +5,15 @@ namespace GameStore.Web.Pages.Admin.Dashboard
 {
     public static class DashboardNavPages
     {
+        public static string Index => "Index";
+
         public static string Games => "Games";
 
         public static string Events => "Events";
 
         public static string Reviews => "Reviews";
+
+        public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string GamesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Games);
 

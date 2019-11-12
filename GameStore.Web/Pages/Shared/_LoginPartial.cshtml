@@ -4,7 +4,7 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="dropdown">
+    <li class="nav-item dropdown">
         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Welcome back, <span class="font-weight-bold">@User.Identity.Name</span>!
         </button>
@@ -22,6 +22,14 @@
                 <i class="fas fa-user-friends mr-1"></i>
                 Your friends
             </a>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" asp-page="/Admin/Dashboard/Index">
+                    <i class="fas fa-user-shield mr-1"></i>
+                    Admin panel
+                </a>
+            }
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" asp-page="/Account/Settings/Index">
                 <i class="fas fa-cog mr-2"></i>
@@ -34,7 +42,7 @@
                 </button>
             </form>
         </div>
-    </div>
+    </li>
 }
 else
 {

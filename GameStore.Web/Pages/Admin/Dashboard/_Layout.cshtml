@@ -8,8 +8,40 @@
 }
 
 <main role="main">
-    @RenderBody()
+    <div class="d-flex" id="wrapper">
+        <partial name="_DashboardNav" />
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom">
+                <!-- Sidebar nav toggle -->
+                <button class="btn btn-primary" id="menu-toggle">
+                    <i id="menu-toggle-icon" class="fas"></i>
+                </button>
+                <!-- Top nav toggle -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto text-right">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Home/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-page="/Games/Store/Index">Store</a>
+                        </li>
+                        <li class="nav-item mr-2">
+                            <a class="nav-link text-dark" asp-page="/Events/Index">Events</a>
+                        </li>
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
 </main>
+
 
 @section Libraries {
     <partial name="_LibraryScriptsPartial" />

@@ -1,26 +1,80 @@
-﻿<aside class="col-12 col-md-2 p-0 bg-dark">
-    <nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
-        <div class="collapse navbar-collapse">
-            <ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
-                <li class="nav-item">
-                    <a class="nav-link pl-0 text-nowrap" href="#"><i class="fa fa-bullseye fa-fw"></i> <span class="font-weight-bold">Brand</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"><i class="fa fa-heart-o fa-fw"></i> <span class="d-none d-md-inline">Link</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"><i class="fa fa-book fa-fw"></i> <span class="d-none d-md-inline">Link</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"><i class="fa fa-heart codeply fa-fw"></i> <span class="d-none d-md-inline">Codeply</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"><i class="fa fa-star codeply fa-fw"></i> <span class="d-none d-md-inline">Link</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link pl-0" href="#"><i class="fa fa-star fa-fw"></i> <span class="d-none d-md-inline">Link</span></a>
-                </li>
-            </ul>
+﻿<div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading border-bottom">
+        <h6 class="text-center">CVGS Admin Panel</h6>
+    </div>
+    <div class="list-group list-group-flush mt-2">
+        <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 mt-3 bg-light text-muted">
+            <a class="nav-link @DashboardNavPages.IndexNavClass(ViewContext)" asp-page="/Admin/Dashboard/Index">
+                Dashboard
+            </a>
         </div>
-    </nav>
-</aside>
+    </div>
+    <div class="list-group list-group-flush mt-2">
+        <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 bg-light text-muted">
+            <h6 class="sidebar-heading px-3 mt-1 m-0">
+                Manage
+            </h6>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link @DashboardNavPages.GamesNavClass(ViewContext)" asp-page="/Admin/Dashboard/Games/Index">
+                <i class="fas fa-gamepad"></i>
+                Games
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link @DashboardNavPages.EventsNavClass(ViewContext)" asp-page="/Admin/Dashboard/Events/Index">
+                <i class="fas fa-calendar-alt mr-1"></i>
+                Events
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link @DashboardNavPages.ReviewsNavClass(ViewContext)" asp-page="/Admin/Dashboard/Reviews/Index">
+                <i class="fas fa-star-half-alt"></i>
+                Reviews
+            </a>
+        </div>
+    </div>
+    <div class="list-group list-group-flush mt-2">
+        <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 bg-light text-muted">
+            <h6 class="sidebar-heading px-3 mt-1 m-0">
+                Reports
+            </h6>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-gamepad mr-1"></i>
+                Games
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-gamepad mr-1"></i>
+                Game details
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 bg-light text-muted">
+            <a class="nav-link" href="#">
+                <i class="fas fa-user mr-1"></i>
+                Members
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-user mr-1"></i>
+                Member details
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-list-alt mr-1"></i>
+                Wishlist
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-dollar-sign ml-1 mr-2"></i>
+                Sales
+            </a>
+        </div>
+    </div>
+</div>
