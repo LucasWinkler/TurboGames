@@ -31,7 +31,10 @@ namespace GameStore.Web.Pages.Games.Store
         }
 
         [BindProperty]
-        public IList<Game> Game { get; set; }
+        public IList<Game> Games { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string Search { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -41,10 +44,16 @@ namespace GameStore.Web.Pages.Games.Store
                 return RedirectToPage("/Account/Login");
             }
 
-            Game = await _context.Games
+            var games = (IQueryable<Game>)_context.Games
                 .Include(x => x.Platform)
-                .Include(x => x.Category)
-                .AsNoTracking().ToListAsync();
+                .Include(x => x.Category);
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                games = games.Where(x => x.Title.Contains(Search));
+            }
+
+            Games = await games.ToListAsync();
 
             return Page();
         }
@@ -107,7 +116,7 @@ namespace GameStore.Web.Pages.Games.Store
                 StatusMessage = $"'{gameToAdd.Title}' added to cart.";
                 return RedirectToPage();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.InnerException);
             }

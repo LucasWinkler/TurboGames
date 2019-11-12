@@ -5,30 +5,35 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<form class="form-group mb-3">
+            <h6>Search by title:</h6>
+            <input type="text" asp-for="Search" />
+            <input type="submit" value="Search" />
+</form>
 <partial name="_StatusMessage" for="StatusMessage" />
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].Price)
+                @Html.DisplayNameFor(model => model.Games[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].Title)
+                @Html.DisplayNameFor(model => model.Games[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].Developer)
+                @Html.DisplayNameFor(model => model.Games[0].Developer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].Category)
+                @Html.DisplayNameFor(model => model.Games[0].Category)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Game[0].Platform)
+                @Html.DisplayNameFor(model => model.Games[0].Platform)
             </th>
             <th> </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Game)
+        @foreach (var item in Model.Games)
         {
             <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.Id })'" class="row-hover">
                 <td>
