@@ -102,7 +102,7 @@ namespace GameStore.Web.Pages.Profile
                 .Include(x => x.Sender)
                 .Where(x => x.ReceiverId == currentUser.Id || x.SenderId == currentUser.Id);
 
-            IsFriend = await friendships.AnyAsync(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && (x.RequestStatus == FriendStatusCode.Accepted || x.RequestStatus == FriendStatusCode.None));
+            IsFriend = await friendships.AnyAsync(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && (x.RequestStatus == FriendStatusCode.Accepted || x.RequestStatus == FriendStatusCode.Pending));
 
             return Page();
         }
@@ -120,7 +120,7 @@ namespace GameStore.Web.Pages.Profile
                 .Include(x => x.Sender)
                 .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id);
 
-            if (friendships.Any(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.None))
+            if (friendships.Any(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.Pending))
             {
                 StatusMessage = $"Error: There is already a pending friend request for that user.";
 
@@ -138,7 +138,7 @@ namespace GameStore.Web.Pages.Profile
             if (friendships.Any(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.Rejected))
             {
                 var friendship = await friendships.FirstOrDefaultAsync(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.Rejected);
-                friendship.RequestStatus = FriendStatusCode.None;
+                friendship.RequestStatus = FriendStatusCode.Pending;
 
                 try
                 {

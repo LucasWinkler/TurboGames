@@ -7,7 +7,7 @@ namespace GameStore.Data.Models
     /// <summary>
     /// The status code for the friendship request between two registered users.
     /// </summary>
-    public enum FriendStatusCode { None = 0, Accepted = 1, Rejected = 2 }
+    public enum FriendStatusCode { Pending = 0, Accepted = 1, Rejected = 2 }
 
     /// <summary>
     /// A friendship between two registered users.
@@ -38,6 +38,6 @@ namespace GameStore.Data.Models
         public bool IsFamily { get; set; }
 
         [Required]
-        public FriendStatusCode RequestStatus { get; set; } = FriendStatusCode.None;
+        public FriendStatusCode RequestStatus { get; set; } = FriendStatusCode.Pending;
     }
 }
