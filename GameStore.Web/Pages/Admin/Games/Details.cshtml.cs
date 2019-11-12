@@ -39,9 +39,16 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Admin/Games/Index");
             }
 
+         
             Game = await _context.Games
                 .Include(g => g.Category)
+                .Include(g => g.Platform)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            foreach (var review in _context.Reviews.Where(x => x.GameId == Game.Id))
+            {
+                Game.TotalRating += review.Rating;
+            }
 
             if (Game == null)
             {

@@ -2,11 +2,11 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Please sign in";
 }
 <div class="text-center align-items-center">
     <form class="form-custom" id="login" method="post">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">@ViewData["Title"]</h1>
         <partial name="_StatusMessage" for="StatusMessage" />
         <div class="col">
             <div class="row">

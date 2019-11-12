@@ -8,7 +8,6 @@
 
 <h2>@ViewData["Title"]</h2>
 <div>
-    <h4>Game</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -24,16 +23,34 @@
             @Html.DisplayFor(model => model.Game.Developer)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Game.Platform)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Game.Platform.Name)
+        </dd> 
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Game.Category)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Game.Category.Name)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Game.TotalRating)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Game.TotalRating)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Game.Category)
+            @Html.DisplayNameFor(model => model.Game.Price)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Game.Category.Name)
+            @Html.DisplayFor(model => model.Game.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Game.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Game.Description)
         </dd>
     </dl>
 </div>
