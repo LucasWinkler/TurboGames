@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GameStore.Web.Pages.Admin.Dashboard
+namespace GameStore.Web.Pages.Admin
 {
     [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel

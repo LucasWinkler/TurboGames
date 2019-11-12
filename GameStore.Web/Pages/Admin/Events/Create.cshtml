@@ -2,12 +2,11 @@
 @model GameStore.Web.Pages.Admin.Events.CreateModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add new event";
+    ViewData["ActivePage"] = DashboardNavPages.Events;
 }
 
-<h1>Create</h1>
-
-<h4>Event</h4>
+<h2>@ViewData["Title"]</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">

@@ -4,7 +4,8 @@
     </div>
     <div class="list-group list-group-flush mt-2">
         <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 mt-3 bg-light text-muted">
-            <a class="nav-link @DashboardNavPages.IndexNavClass(ViewContext)" asp-page="/Admin/Dashboard/Index">
+            <a class="nav-link @DashboardNavPages.IndexNavClass(ViewContext)" asp-page="/Admin/Index">
+                <i class="fas fa-home"></i>
                 Dashboard
             </a>
         </div>
@@ -16,19 +17,19 @@
             </h6>
         </div>
         <div class="list-group-item pt-0 pb-0 border-0 bg-light">
-            <a class="nav-link @DashboardNavPages.GamesNavClass(ViewContext)" asp-page="/Admin/Dashboard/Games/Index">
+            <a class="nav-link @DashboardNavPages.GamesNavClass(ViewContext)" asp-page="/Admin/Games/Index">
                 <i class="fas fa-gamepad"></i>
                 Games
             </a>
         </div>
         <div class="list-group-item pt-0 pb-0 border-0 bg-light">
-            <a class="nav-link @DashboardNavPages.EventsNavClass(ViewContext)" asp-page="/Admin/Dashboard/Events/Index">
+            <a class="nav-link @DashboardNavPages.EventsNavClass(ViewContext)" asp-page="/Admin/Events/Index">
                 <i class="fas fa-calendar-alt mr-1"></i>
                 Events
             </a>
         </div>
         <div class="list-group-item pt-0 pb-0 border-0 bg-light">
-            <a class="nav-link @DashboardNavPages.ReviewsNavClass(ViewContext)" asp-page="/Admin/Dashboard/Reviews/Index">
+            <a class="nav-link @DashboardNavPages.ReviewsNavClass(ViewContext)" asp-page="/Admin/Reviews/Index">
                 <i class="fas fa-star-half-alt"></i>
                 Reviews
             </a>

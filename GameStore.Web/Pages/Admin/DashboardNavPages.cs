@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace GameStore.Web.Pages.Admin.Dashboard
+namespace GameStore.Web.Pages.Admin
 {
     public static class DashboardNavPages
     {

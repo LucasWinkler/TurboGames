@@ -2,11 +2,11 @@
 @model GameStore.Web.Pages.Admin.Games.DetailsModel
 
 @{
-    ViewData["Title"] = $"{Model.Game.Title}";
+    ViewData["Title"] = $"{Model.Game.Title} Details";
+    ViewData["ActivePage"] = DashboardNavPages.Games;
 }
 
-<h1>ViewData["Title"]</h1>
-
+<h2>@ViewData["Title"]</h2>
 <div>
     <h4>Game</h4>
     <hr />

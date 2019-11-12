@@ -2,12 +2,11 @@
 @model GameStore.Web.Pages.Admin.Events.DeleteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = $"Delete {Model.Event.Title}?";
+    ViewData["ActivePage"] = DashboardNavPages.Events;
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h2>@ViewData["Title"]</h2>
 <div>
     <h4>Event</h4>
     <hr />

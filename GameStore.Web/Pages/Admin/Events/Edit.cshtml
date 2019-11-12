@@ -2,12 +2,11 @@
 @model GameStore.Web.Pages.Admin.Events.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = $"Edit {Model.Event.Title}";
+    ViewData["ActivePage"] = DashboardNavPages.Events;
 }
 
-<h1>Edit</h1>
-
-<h4>Event</h4>
+<h2>@ViewData["Title"]</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">

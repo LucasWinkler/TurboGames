@@ -3,10 +3,10 @@
 
 @{
     ViewData["Title"] = $"Delete '{Model.Game.Title}'";
+    ViewData["ActivePage"] = DashboardNavPages.Games;
 }
 
-<h1>ViewData["Title"]</h1>
-
+<h2>@ViewData["Title"]</h2>
 <div>
     <h4>Game</h4>
     <hr />
