@@ -49,6 +49,11 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Admin/Games/Index");
             }
 
+            foreach (var review in _context.Reviews.Where(x => x.GameId == Game.Id))
+            {
+                Game.TotalRating += review.Rating;
+            }
+
             return Page();
         }
 

@@ -20,14 +20,17 @@ namespace GameStore.Web.Pages.Games.Library
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
 
-        public Game Game { get; set; }
-        public IList<UserGame> UserGame { get; set; }
+        [BindProperty]
+        public IList<Game> Games { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
 
         [TempData]
         public bool IsReviewed { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string Search { get; set; }
 
         public IndexModel(TurboGamesContext context, UserManager<User> userManager)
         {
@@ -43,11 +46,29 @@ namespace GameStore.Web.Pages.Games.Library
                 return RedirectToPage("/Account/Login");
             }
 
-            UserGame = await _context.UserGames
-                .Include(u => u.Game)
-                .Include(u => u.User)
-                .Where(u => u.UserId == user.Id)
-                .ToListAsync();
+            var games = from ug in _context.UserGames
+                        where ug.UserId == user.Id
+                        select ug.Game;
+
+            if (games == null)
+            {
+                return Page();
+            }
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                games = games.Where(x => x.Title.Contains(Search));
+            }
+
+            Games = await games.ToListAsync();
+
+            foreach (var game in Games)
+            {
+                foreach (var review in _context.Reviews.Where(x => x.GameId == game.Id))
+                {
+                    game.TotalRating += review.Rating;
+                }
+            }
 
             StatusMessage = !string.IsNullOrEmpty(statusMessage) ? statusMessage : "";
 
@@ -67,11 +88,12 @@ namespace GameStore.Web.Pages.Games.Library
                 return RedirectToPage("/Games/Library/Index");
             }
 
-            Game = await _context.Games
+            var game = await _context.Games
                 .Include(g => g.Category)
+                .Include(g => g.Platform)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Game == null)
+            if (game == null)
             {
                 return RedirectToPage("/Games/Library/Index");
             }
@@ -82,10 +104,10 @@ namespace GameStore.Web.Pages.Games.Library
 
             foreach (var p in gameDataProps)
             {
-                gameData.Add(p.Name, p.GetValue(Game)?.ToString() ?? "null");
+                gameData.Add(p.Name, p.GetValue(game)?.ToString() ?? "null");
             }
 
-            Response.Headers.Add("Content-Disposition", $"attachment; filename={Game.Title}.json");
+            Response.Headers.Add("Content-Disposition", $"attachment; filename={game.Title}.json");
             return new FileContentResult(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(gameData)), "text/json");
         }
     }

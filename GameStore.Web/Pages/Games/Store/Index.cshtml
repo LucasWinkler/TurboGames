@@ -5,10 +5,11 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+
 <form class="form-group mb-3">
-            <h6>Search by title:</h6>
-            <input type="text" asp-for="Search" />
-            <input type="submit" value="Search" />
+    <h6>Search by title:</h6>
+    <input type="text" asp-for="Search" />
+    <input type="submit" value="Search" />
 </form>
 <partial name="_StatusMessage" for="StatusMessage" />
 <table class="table">
