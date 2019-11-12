@@ -31,7 +31,8 @@
         var address = Model.Addresses[i].Address;
         var deleteModalId = $"deleteModal{i + 1}";
         var deleteModalHref = $"#{deleteModalId}";
-        var country = AddressHelper.GetCountries().GetValueOrDefault(address.Country);
+        var countryName = AddressHelper.GetCountries().GetValueOrDefault(address.Country);
+        var provinceName = AddressHelper.GetProvinces().GetValueOrDefault(address.StateProvinceRegion);
 
         if (i > 0 && (i % 3) == 2)
         {
@@ -42,11 +43,11 @@
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title mb-1">@address.FullName</h5>
                 <p class="card-text mb-0">@address.StreetAddress</p>
-                <p class="card-text mb-0">@address.City, @address.StateProvinceRegion @address.PostalCode</p>
-                <p class="card-text">@country</p>
+                <p class="card-text mb-0">@address.City, @provinceName @address.PostalCode</p>
+                <p class="card-text">@countryName</p>
 
                 <div class="mt-auto">
-                    <a asp-page="./Edit" class="card-link">Edit</a>
+                    <a asp-page="./Edit" asp-route-addressId="@address.Id" class="card-link">Edit</a>
                     <span class="ml-2 mr-2">|</span>
                     <a href="@deleteModalHref" data-toggle="modal" data-target="@deleteModalHref" class="card-link">Delete</a>
 
@@ -62,8 +63,8 @@
                                 <div class="modal-body">
                                     <h5 class="card-title mb-1">@address.FullName</h5>
                                     <p class="card-text mb-0">@address.StreetAddress</p>
-                                    <p class="card-text mb-0">@address.City, @address.StateProvinceRegion @address.PostalCode</p>
-                                    <p class="card-text">@country</p>
+                                    <p class="card-text mb-0">@address.City, @provinceName @address.PostalCode</p>
+                                    <p class="card-text">@countryName</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
