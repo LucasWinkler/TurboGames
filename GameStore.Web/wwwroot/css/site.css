@@ -133,3 +133,9 @@ span.tags {
     .hidden {
         display: none;
     }
+
+.col-address-card {
+    width: 30%;
+    min-width: 30%;
+    max-width: 30%;
+}

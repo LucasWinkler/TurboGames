@@ -78,6 +78,13 @@ namespace GameStore.Web.Pages.Account.Settings.Addresses
                 await _context.Addresses.AddAsync(Address);
                 await _context.SaveChangesAsync();
 
+                await _context.UserAddresses.AddAsync(new UserAddress
+                {
+                    UserId = user.Id,
+                    AddressId = Address.Id
+                });
+                await _context.SaveChangesAsync();
+
                 return RedirectToPage("./Index");
             }
             catch (Exception e)

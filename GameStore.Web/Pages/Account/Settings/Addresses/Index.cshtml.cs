@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace GameStore.Web.Pages.Account.Settings.Addresses
 {
@@ -17,6 +19,8 @@ namespace GameStore.Web.Pages.Account.Settings.Addresses
     {
         private readonly UserManager<User> _userManager;
         private readonly TurboGamesContext _context;
+
+        public IList<UserAddress> Addresses { get; set; }
 
         public IndexModel(
             UserManager<User> userManager,
@@ -33,6 +37,11 @@ namespace GameStore.Web.Pages.Account.Settings.Addresses
             {
                 return RedirectToPage("/Account/Login");
             }
+
+            Addresses = await _context.UserAddresses
+                .Include(x => x.User)
+                .Include(x => x.Address)
+                .Where(x => x.UserId == user.Id).ToListAsync();
 
             return Page();
         }

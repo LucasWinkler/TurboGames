@@ -5,37 +5,54 @@
     ViewData["ActivePage"] = ManageNavPages.Address;
 }
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-page="../Index">Settings</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Your Addresses</li>
-        </ol>
-    </nav>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-page="../Index">Settings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Your Addresses</li>
+    </ol>
+</nav>
+
+
+
 <h4 class="mb-4">@ViewData["Title"]</h4>
 <div class="container">
-    <div class="row mb-3">
-        <a asp-page="./Create" class="card-link p-0 col-4 mr-3">
-            <div class="card p-0" style="height: 14rem; border-style: dashed; border-width: 2px">
-                <div class="card-body d-flex flex-column text-center justify-content-center align-items-center">
-                    <i class="fa fa-plus fa-2x" style="color: darkgray"></i>
-                    <span class="text-dark font-weight-bold">Add Address</span>
-                </div>
-            </div>
-        </a>
 
-        <div class="card col-4 mr-3" style="height: 14rem;">
+    @Html.Raw("<div class='row mb-3'>")
+
+    <a asp-page="./Create" class="card-link p-0 col-address-card mr-3">
+        <div class="card p-0" style="height: 14rem; border-style: dashed; border-width: 2px">
+            <div class="card-body d-flex flex-column text-center justify-content-center align-items-center">
+                <i class="fa fa-plus fa-2x" style="color: darkgray"></i>
+                <span class="text-dark font-weight-bold">Add Address</span>
+            </div>
+        </div>
+    </a>
+
+    @for (int i = 0; i < Model.Addresses.Count; i++)
+    {
+        var address = Model.Addresses[i].Address;
+        var deleteModalId = $"deleteModal{i + 1}";
+        var deleteModalHref = $"#{deleteModalId}";
+        var country = AddressHelper.GetCountries().GetValueOrDefault(address.Country);
+
+        if (i > 0 && (i % 3) == 2)
+        {
+            @Html.Raw("<div class='row mb-3'>")
+        }
+
+        <div class="card col-address-card mr-3" style="height: 14rem;">
             <div class="card-body d-flex flex-column">
-                <h5 class="card-title mb-1">Lucas Winkler</h5>
-                <p class="card-text mb-0">57 Kingsboro Road</p>
-                <p class="card-text mb-0">Cambridge, Ontario N1P1H1</p>
-                <p class="card-text">Canada</p>
+                <h5 class="card-title mb-1">@address.FullName</h5>
+                <p class="card-text mb-0">@address.StreetAddress</p>
+                <p class="card-text mb-0">@address.City, @address.StateProvinceRegion @address.PostalCode</p>
+                <p class="card-text">@country</p>
 
                 <div class="mt-auto">
                     <a asp-page="./Edit" class="card-link">Edit</a>
                     <span class="ml-2 mr-2">|</span>
-                    <a href="#deleteAddressModal" data-toggle="modal" data-target="#deleteAddressModal" class="card-link">Delete</a>
+                    <a href="@deleteModalHref" data-toggle="modal" data-target="@deleteModalHref" class="card-link">Delete</a>
 
-                    <div class="modal fade" id="deleteAddressModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="@deleteModalId" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -45,10 +62,10 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <h5 class="card-title mb-1">Lucas Winkler</h5>
-                                    <p class="card-text mb-0">57 Kingsboro Road</p>
-                                    <p class="card-text mb-0">Cambridge, Ontario N1P1H1</p>
-                                    <p class="card-text">Canada</p>
+                                    <h5 class="card-title mb-1">@address.FullName</h5>
+                                    <p class="card-text mb-0">@address.StreetAddress</p>
+                                    <p class="card-text mb-0">@address.City, @address.StateProvinceRegion @address.PostalCode</p>
+                                    <p class="card-text">@country</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -60,8 +77,24 @@
                 </div>
             </div>
         </div>
-    </div>
+
+        if (i < 3 && i % 2 == 1)
+        {
+            @Html.Raw("</div>")
+        }
+
+        if (i > 0 && i % 2 == 0)
+        {
+            @Html.Raw("</div>")
+        }
+    }
+
+    @if (Model.Addresses.Count == 0)
+    {
+        @Html.Raw("</div>")
+    }
 </div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
