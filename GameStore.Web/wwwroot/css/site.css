@@ -78,6 +78,11 @@ span.tags {
         background-color: lightgray;
     }
 
+
+select {
+    padding-left: 6px !important;
+}
+
 .form-custom {
     width: 100%;
     max-width: 330px;
