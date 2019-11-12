@@ -57,7 +57,7 @@ namespace GameStore.Web.Pages.Games.Library
 
             if (!string.IsNullOrEmpty(Search))
             {
-                games = games.Where(x => x.Title.Contains(Search));
+                games = games.Where(x => x.Title.Contains(Search.Trim()));
             }
 
             Games = await games.ToListAsync();

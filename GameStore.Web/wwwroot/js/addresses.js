@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿(function () {
     $('#Address_Country').on('change', function () {
         var countryInput = $('#Address_Country');
         var provinceInput = $('#provinceGroup #Address_StateProvinceRegion');
@@ -18,4 +18,4 @@
             stateRegionInput.prop('disabled', false);
         }
     });
-});
+})();

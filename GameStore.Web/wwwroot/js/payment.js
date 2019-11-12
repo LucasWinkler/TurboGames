@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿(function () {
     function AmexCardnumber(cardNumber) {
         var regex = /^3[47][0-9]{13}$/;
         return regex.test(cardNumber);
@@ -62,4 +62,4 @@
     });
 
     ChangeCardTypeIcon();
-});
+})();
