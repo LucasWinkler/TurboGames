@@ -1,31 +1,27 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+﻿@{
+    Layout = "/Pages/Shared/_BaseLayout.cshtml";
+}
 
-    <partial name="_StylesheetsPartial" />
-</head>
-<body>
-    <header>
-        <partial name="_NavbarPartial" />
-    </header>
+@RenderSection("Styles", required: false)
+
+<header>
+    <partial name="_NavbarPartial" />
+</header>
+<div class="container">
+    <partial name="_CookieConsentPartial" />
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+<footer class="border-top footer text-muted">
     <div class="container">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        &copy; 2019 - Conestoga Virtual Game Store (TurboGames) - <a asp-page="/Home/Privacy">Privacy</a>
     </div>
+</footer>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - Conestoga Virtual Game Store (TurboGames) - <a asp-page="/Home/Privacy">Privacy</a>
-        </div>
-    </footer>
-
-    <partial name="_ScriptsPartial" />
-
+@section Libraries {
+    <partial name="_LibraryScriptsPartial" />
     @RenderSection("Scripts", required: false)
-</body>
-</html>
+}
+
+
