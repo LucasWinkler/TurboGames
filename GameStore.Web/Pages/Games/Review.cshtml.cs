@@ -13,7 +13,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GameStore.Web.Pages.Games.Library
+namespace GameStore.Web.Pages.Games
 {
     [Authorize]
     public class ReviewModel : PageModel

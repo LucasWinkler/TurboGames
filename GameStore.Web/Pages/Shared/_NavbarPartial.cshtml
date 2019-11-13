@@ -14,13 +14,12 @@
                     <a class="nav-link text-dark" asp-page="/Home/Index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" asp-page="/Games/Store/Index">Store</a>
+                    <a class="nav-link text-dark" asp-page="/Games/Store">Store</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-page="/Events/Index">Events</a>
                 </li>
             </ul>
-
             <ul class="navbar-nav">
                 @if (SignInManager.IsSignedIn(User))
                 {

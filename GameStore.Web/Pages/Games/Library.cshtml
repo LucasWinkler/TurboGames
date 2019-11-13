@@ -1,5 +1,5 @@
-﻿@page
-@model GameStore.Web.Pages.Games.Library.IndexModel
+﻿@page "/Library"
+@model LibraryModel
 
 @{
     ViewData["Title"] = "Game Library";
@@ -32,7 +32,7 @@
     <tbody>
         @foreach (var item in Model.Games)
         {
-            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.Id })'" class="row-hover">
+            <tr onclick="location.href = '@Url.Page("/Games/Details", "OnGetAsync", new { id = item.Id })'" class="row-hover">
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>

@@ -126,7 +126,6 @@ select {
 
 .input-validation-error {
     border-color: red;
-   
 }
 
     .input-validation-error:focus {
@@ -135,15 +134,16 @@ select {
         background: pink;
     }
 
-    .hidden {
-        display: none;
-    }
+.hidden {
+    display: none;
+}
 
 .col-address-card {
     width: 30%;
     min-width: 30%;
     max-width: 30%;
 }
+
 .block-with-text {
     overflow: hidden;
     display: -webkit-box;

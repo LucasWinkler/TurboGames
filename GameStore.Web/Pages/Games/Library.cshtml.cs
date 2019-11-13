@@ -12,10 +12,10 @@ using System.Text;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GameStore.Web.Pages.Games.Library
+namespace GameStore.Web.Pages.Games
 {
     [Authorize]
-    public class IndexModel : PageModel
+    public class LibraryModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
@@ -32,7 +32,7 @@ namespace GameStore.Web.Pages.Games.Library
         [BindProperty(SupportsGet = true)]
         public string Search { get; set; }
 
-        public IndexModel(TurboGamesContext context, UserManager<User> userManager)
+        public LibraryModel(TurboGamesContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;

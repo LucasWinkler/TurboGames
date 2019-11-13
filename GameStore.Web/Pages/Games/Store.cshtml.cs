@@ -9,12 +9,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameStore.Web.Pages.Games.Store
+namespace GameStore.Web.Pages.Games
 {
     [Authorize]
-    public class IndexModel : PageModel
+    public class StoreModel : PageModel
     {
         private readonly UserManager<User> _userManager;
         private readonly TurboGamesContext _context;
@@ -22,7 +23,7 @@ namespace GameStore.Web.Pages.Games.Store
         [TempData]
         public string StatusMessage { get; set; }
 
-        public IndexModel(
+        public StoreModel(
             UserManager<User> userManager,
             TurboGamesContext context)
         {
@@ -30,11 +31,14 @@ namespace GameStore.Web.Pages.Games.Store
             _context = context;
         }
 
-        [BindProperty]
         public IList<Game> Games { get; set; }
+        public IList<SelectListItem> Categories { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string Search { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -44,19 +48,28 @@ namespace GameStore.Web.Pages.Games.Store
                 return RedirectToPage("/Account/Login");
             }
 
-            var games = (IQueryable<Game>)_context.Games
+            IQueryable<Game> games = _context.Games
                 .Include(x => x.Platform)
                 .Include(x => x.Category)
                 .Include(x => x.Reviews);
+
+            IQueryable<Category> categories = _context.Categories;
+
+            Categories = categories
+                .Select(x => new SelectListItem() { Text = x.Name, Value = x.Name })
+                .ToList();
 
             if (!string.IsNullOrEmpty(Search))
             {
                 games = games.Where(x => x.Title.Contains(Search.Trim()));
             }
 
-            Games = await games.ToListAsync();
+            if (!string.IsNullOrEmpty(Category))
+            {
+                games = games.Where(x => x.Category.Name.Contains(Category.Trim()));
+            }
 
-            foreach (var game in Games)
+            foreach (var game in games)
             {
                 foreach (var review in _context.Reviews.Include(x => x.Game)
                     .Where(x => x.GameId == game.Id))
@@ -64,6 +77,8 @@ namespace GameStore.Web.Pages.Games.Store
                     game.TotalRating += review.Rating;
                 }
             }
+
+            Games = await games.ToListAsync();
 
             return Page();
         }

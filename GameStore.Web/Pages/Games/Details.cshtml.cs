@@ -13,12 +13,12 @@ using Microsoft.EntityFrameworkCore;
 namespace GameStore.Web.Pages.Games
 {
     [Authorize]
-    public class GameDetailsModel : PageModel
+    public class GameModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
 
-        public GameDetailsModel(
+        public GameModel(
             UserManager<User> userManager,
             TurboGamesContext context)
         {
