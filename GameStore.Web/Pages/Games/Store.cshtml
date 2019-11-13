@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Store";
 }
-
+<partial name="_StatusMessage" for="StatusMessage" />
 <div class="text-center py-5">
     <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
@@ -12,7 +12,7 @@
         <form class="mb-3">
             <div class="input-group md-form form-sm form-1 pl-0">
                 <div class="input-group-prepend">
-                    <select asp-for="Category" asp-items="Model.Categories" class="custom-select">
+                    <select asp-for="Category" asp-items="Model.Categories" class="custom-select" onchange="this.form.submit()">
                         <option value="" selected="selected">Any category</option>
                         <option disabled>---------------</option>
                     </select>
@@ -25,7 +25,7 @@
             @if (Model.Games.Count == 0)
             {
                 <div class="col text-center mt-5">
-                    <h5>Unable to find any available games.<br />Try adjusting your search or come back again later.</h5>
+                    <h5><span class="text-warning">Unable to find any games.</span><br />Your search did not match any games or there are no games available at this time.</h5>
                 </div>
             }
             @foreach (var game in Model.Games)
@@ -43,24 +43,26 @@
                             <p class="card-text block-with-text">@game.Description</p>
                         </div>
                         <div class="card-footer bg-white">
-                            <small class="text-warning">
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    if (i <= Math.Floor(ratingAverage))
+                            <form method="post" class="form-inline">
+                                <small class="text-warning">
+                                    @for (int i = 1; i <= 5; i++)
                                     {
-                                        <i class="fas fa-star"></i>
+                                        if (i <= Math.Floor(ratingAverage))
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                        else if (i > Math.Ceiling(ratingAverage))
+                                        {
+                                            <i class="far fa-star"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-star-half-alt"></i>
+                                        }
                                     }
-                                    else if (i > Math.Ceiling(ratingAverage))
-                                    {
-                                        <i class="far fa-star"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="fas fa-star-half-alt"></i>
-                                    }
-                                }
-                                <span class="ml-1 text-dark">@ratingAverage stars</span>
-                            </small>
+                                </small>
+                                <button type="submit" asp-page-handler="AddItemToCart" asp-route-id="@game.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
