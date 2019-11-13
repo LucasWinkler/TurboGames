@@ -46,7 +46,8 @@ namespace GameStore.Web.Pages.Games.Store
 
             var games = (IQueryable<Game>)_context.Games
                 .Include(x => x.Platform)
-                .Include(x => x.Category);
+                .Include(x => x.Category)
+                .Include(x => x.Reviews);
 
             if (!string.IsNullOrEmpty(Search))
             {
@@ -54,6 +55,15 @@ namespace GameStore.Web.Pages.Games.Store
             }
 
             Games = await games.ToListAsync();
+
+            foreach (var game in Games)
+            {
+                foreach (var review in _context.Reviews.Include(x => x.Game)
+                    .Where(x => x.GameId == game.Id))
+                {
+                    game.TotalRating += review.Rating;
+                }
+            }
 
             return Page();
         }

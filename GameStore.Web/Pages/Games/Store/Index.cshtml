@@ -1,63 +1,75 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Game Store";
+    ViewData["Title"] = "Store";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-lg-3">
+        <h1 class="my-4 text-center">@ViewData["Title"]</h1>
 
-<form class="form-group mb-3">
-    <h6>Search by title:</h6>
-    <input type="text" asp-for="Search" />
-    <input type="submit" value="Search" />
-</form>
-<partial name="_StatusMessage" for="StatusMessage" />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Games[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games[0].Developer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games[0].Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games[0].Platform)
-            </th>
-            <th> </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Games)
-        {
-            <tr onclick="location.href = '@Url.Page("/Games/GameDetails", "OnGetAsync", new { id = item.Id })'" class="row-hover">
-                <td>
-                    $@Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Developer)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Platform.Name)
-                </td>
-                <td>
-                    <form method="post">
-                        <input type="submit" asp-page-handler="AddItemToCart" asp-route-id="@item.Id" value="Add to cart" class="btn btn-success" />
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <!-- Filter games by category. Maybe a dropdown? -->
+        <div class="list-group">
+            <a href="#" class="list-group-item">None</a>
+            <a href="#" class="list-group-item">Category 1</a>
+            <a href="#" class="list-group-item">Category 2</a>
+            <a href="#" class="list-group-item">Category 3</a>
+        </div>
+    </div>
+
+    <div class="col-lg-9">
+
+        <!-- Search games by title -->
+        <form class="mb-3">
+            <div class="input-group md-form form-sm form-1 pl-0">
+                <div class="input-group-prepend">
+                    <span class="input-group-text lighten-3" id="basic-text1">
+                        <i class="fas fa-search text-primary"
+                           aria-hidden="true"></i>
+                    </span>
+                </div>
+                <input class="form-control my-0 py-1" type="text" placeholder="Search" asp-for="Search"><input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
+
+        <!-- List of games -->
+        <div class="row">
+            @foreach (var game in Model.Games)
+            {
+                var ratingCount = game.Reviews.Count;
+                double ratingAverage = (game.TotalRating == 0) || (ratingCount == 0) ? 0 : game.TotalRating / ratingCount;
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a asp-page="../GameDetails" asp-route-id="@game.Id">@game.Title</a>
+                            </h4>
+                            <h5>$@game.Price</h5>
+                            <p class="card-text block-with-text">@game.Description</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= Math.Floor(ratingAverage))
+                                    {
+                                        <i class="fas fa-star"></i>
+                                    }
+                                    else if (i > Math.Ceiling(ratingAverage))
+                                    {
+                                        <i class="far fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-star-half-alt"></i>
+                                    }
+                                }
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -144,3 +144,9 @@ select {
     min-width: 30%;
     max-width: 30%;
 }
+.block-with-text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}

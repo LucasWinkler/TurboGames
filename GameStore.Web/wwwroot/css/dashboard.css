@@ -2,8 +2,6 @@
     overflow-x: hidden;
 }
 
-
-
 #sidebar-wrapper {
     min-height: 100vh;
     margin-left: -15rem;
@@ -28,6 +26,9 @@
         font-weight: 500;
         color: #333;
         font-size: 0.925rem;
+    }
+    #sidebar-wrapper .list-group-item a:hover {
+        background-color: rgba(225, 225, 225, 0.48);
     }
 
         #sidebar-wrapper .list-group-item .active {

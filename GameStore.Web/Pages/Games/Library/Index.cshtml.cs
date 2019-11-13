@@ -64,7 +64,8 @@ namespace GameStore.Web.Pages.Games.Library
 
             foreach (var game in Games)
             {
-                foreach (var review in _context.Reviews.Where(x => x.GameId == game.Id))
+                foreach (var review in _context.Reviews.Include(x => x.Game)
+                    .Where(x => x.GameId == game.Id))
                 {
                     game.TotalRating += review.Rating;
                 }
