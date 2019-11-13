@@ -31,10 +31,10 @@ namespace GameStore.Data.Models
         public int Rating { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public bool IsAccepted { get; set; } = false;
 
         [Required]
-        public bool IsAccepted { get; set; } = false;
+        [DataType(DataType.DateTime)]
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     }
 }

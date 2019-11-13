@@ -41,7 +41,9 @@ namespace GameStore
 
             // Adds the database context using a connection string from appsettings.json
             services.AddDbContext<TurboGamesContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("LocalConnection"),
+                    contextOptions => contextOptions.MigrationsAssembly("GameStore.Data")));
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -67,6 +69,8 @@ namespace GameStore
                     Configuration["EmailSender:Password"])
                );
 
+
+            // Configure authentication pages
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Login";

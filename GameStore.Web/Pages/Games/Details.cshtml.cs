@@ -13,12 +13,12 @@ using Microsoft.EntityFrameworkCore;
 namespace GameStore.Web.Pages.Games
 {
     [Authorize]
-    public class GameModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
 
-        public GameModel(
+        public DetailsModel(
             UserManager<User> userManager,
             TurboGamesContext context)
         {
@@ -28,6 +28,8 @@ namespace GameStore.Web.Pages.Games
 
         [BindProperty]
         public Game Game { get; set; }
+
+        public bool IsOwned { get; set; }
 
         public IList<Review> Reviews { get; set; }
 
@@ -49,6 +51,8 @@ namespace GameStore.Web.Pages.Games
                 .Include(x => x.Game)
                 .Include(x => x.Reviewer)
                 .Where(x => x.IsAccepted && x.GameId == id).ToList();
+
+            IsOwned = await _context.UserGames.AnyAsync(x => x.GameId == id);
 
             return Page();
         }

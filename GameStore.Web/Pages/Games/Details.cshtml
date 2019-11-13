@@ -1,67 +1,80 @@
 ﻿@page "/Game"
-@model GameModel
+@model DetailsModel
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Game Details";
+    var ratingCount = Model.Game.Reviews.Count;
+    double ratingAverage = (Model.Game.TotalRating == 0) || (ratingCount == 0) ? 0 : Model.Game.TotalRating / ratingCount;
 }
 
-<h3>@Model.Game.Title @ViewData["Title"]</h3>
-<br />
-<table class="table" border="0">
-    <tbody>
-        <tr>
-            <td>
-                <p><strong>Developer:</strong> @Model.Game.Developer</p>
-                <p><strong>Category:</strong> @Model.Game.Category.Name</p>
-                <p><strong>Platform:</strong> @Model.Game.Platform.Name</p>
-                <p><strong>Description:</strong></p>
-                <p>@Model.Game.Description</p>
-                <p><strong>Rating:</strong> @Model.Game.TotalRating</p>
-                <p><strong>Price:</strong> $@Model.Game.Price</p>
-            </td>
-        </tr>
-    </tbody>
-</table>
-@if (Model.Game.Reviews.Count != 0 && Model.Game.Reviews.Any(x => x.Game == Model.Game && x.IsAccepted))
-{
-    <hr class="my-2"/>
-    <h2>Reviews</h2>
-    <br />
-    <table class="table" border="0">
-        <thead>
-            <tr>
-                <th>
-                    User
-                </th>
-                <th>
-                    Review
-                </th>
-                <th>
-                    Rating
-                </th>
-                <th>
-                    Date
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Reviews)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Reviewer.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Content)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Rating)
-                    </td>
-                    <td>
-                        @item.CreatedDate.ToShortDateString()
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<div class="text-center py-5">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3 class="card-title">@Model.Game.Title  </h3>
+                <h5>Price: <span class="text-success">$@Model.Game.Price</span></h5> 
+                <h5>Platform: <span class="text-secondary">@Model.Game.Platform.Name</span></h5>
+                <h5>Category: <span class="text-secondary">@Model.Game.Category.Name</span></h5>
+                <h5>Developer(s): <span class="text-secondary">@Model.Game.Developer</span></h5>
+                <p class="card-text">@Model.Game.Description</p>
+                <span class="text-warning">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= Math.Floor(ratingAverage))
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                        else if (i > Math.Ceiling(ratingAverage))
+                        {
+                            <i class="far fa-star"></i>
+                        }
+                        else
+                        {
+                            <i class="fas fa-star-half-alt"></i>
+                        }
+                    }
+                </span>
+
+                @ratingAverage stars
+            </div>
+        </div>
+        @if (Model.Game.Reviews.Count != 0 && Model.Game.Reviews.Any(x => x.Game == Model.Game && x.IsAccepted))
+        {
+            <div class="card card-outline-secondary my-4">
+                <div class="card-header">
+                    Game Reviews
+                </div>
+                <div class="card-body">
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <p>@review.Content</p>
+                        <small class="text-muted">Posted by N/A at @review.CreatedDate.ToShortDateString()</small>
+                        <span class="ml-auto">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= Math.Floor((double)review.Rating))
+                                {
+                                    <i class="fas fa-star"></i>
+                                }
+                                else if (i > Math.Ceiling((double)review.Rating))
+                                {
+                                    <i class="far fa-star"></i>
+                                }
+                            }
+                        </span>
+                        <hr>
+                    }
+
+                    @if (Model.IsOwned)
+                    {
+                        <a asp-page="./Review" asp-route-id="@Model.Game.Id" class="btn btn-success">Leave a Review</a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
