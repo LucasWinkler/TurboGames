@@ -22,6 +22,12 @@
             </div>
         </form>
         <div class="row">
+            @if (Model.Games.Count == 0)
+            {
+                <div class="col text-center mt-5">
+                    <h5>Unable to find any available games.<br />Try adjusting your search or come back again later.</h5>
+                </div>
+            }
             @foreach (var game in Model.Games)
             {
                 var ratingCount = game.Reviews.Count;
