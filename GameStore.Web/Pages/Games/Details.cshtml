@@ -2,10 +2,8 @@
 @model DetailsModel
 @{
     ViewData["Title"] = "Game Details";
-    var ratingCount = Model.Game.Reviews.Count;
-    double ratingAverage = (Model.Game.TotalRating == 0) || (ratingCount == 0) ? 0 : Model.Game.TotalRating / ratingCount;
 }
-
+    <partial name="_StatusMessage" for="StatusMessage" />
 <div class="text-center py-5">
     <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
@@ -13,34 +11,40 @@
     <div class="col-lg-9">
         <div class="card mt-4">
             <div class="card-body">
-                <h3 class="card-title">@Model.Game.Title  </h3>
-                <h5>Price: <span class="text-success">$@Model.Game.Price</span></h5> 
+                <h3 class="card-title">@Model.Game.Title </h3>
+                <h5>Price: <span class="text-success">$@Model.Game.Price</span></h5>
                 <h5>Platform: <span class="text-secondary">@Model.Game.Platform.Name</span></h5>
                 <h5>Category: <span class="text-secondary">@Model.Game.Category.Name</span></h5>
                 <h5>Developer(s): <span class="text-secondary">@Model.Game.Developer</span></h5>
                 <p class="card-text">@Model.Game.Description</p>
-                <span class="text-warning">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        if (i <= Math.Floor(ratingAverage))
-                        {
-                            <i class="fas fa-star"></i>
+                <form method="post" class="form-inline">
+                    <span class="text-warning">
+                        @{
+                            var ratingCount = Model.Reviews.Count;
+                            double ratingAverage = (Model.Game.TotalRating == 0) || (ratingCount == 0) ? 0 : Model.Game.TotalRating / ratingCount;
                         }
-                        else if (i > Math.Ceiling(ratingAverage))
+                        @for (int i = 1; i <= 5; i++)
                         {
-                            <i class="far fa-star"></i>
+                            if (i <= Math.Floor(ratingAverage))
+                            {
+                                <i class="fas fa-star"></i>
+                            }
+                            else if (i > Math.Ceiling(ratingAverage))
+                            {
+                                <i class="far fa-star"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-star-half-alt"></i>
+                            }
                         }
-                        else
-                        {
-                            <i class="fas fa-star-half-alt"></i>
-                        }
-                    }
-                </span>
-
-                @ratingAverage stars
+                    </span>
+                    @ratingAverage stars
+                    <button type="submit" asp-page-handler="AddItemToCart" asp-route-id="@Model.Game.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
+                </form>
             </div>
         </div>
-        @if (Model.Game.Reviews.Count != 0 && Model.Game.Reviews.Any(x => x.Game == Model.Game && x.IsAccepted))
+        @if (Model.Reviews.Count != 0 && Model.Reviews.Any(x => x.Game == Model.Game && x.IsAccepted))
         {
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
