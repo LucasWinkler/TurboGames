@@ -72,7 +72,7 @@ namespace GameStore.Data.Queries
         public static async Task<ShoppingCart> GetCartAsync(this TurboGamesContext context,
             User user)
         {
-            var cart = await context.Carts.Include(c => c.User).FirstOrDefaultAsync(c => c.User == user);
+            var cart = await context.Carts.Include(c => c.User).FirstOrDefaultAsync(c => c.User == user && !c.IsCheckedOut);
             if (cart == null)
             {
                 cart = new ShoppingCart { Id = Guid.NewGuid(), UserId = user.Id };
