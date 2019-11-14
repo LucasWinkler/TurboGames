@@ -88,32 +88,32 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            var game = _context.GetGameAsync(id).Result;
+            var game = await _context.GetGameAsync(id);
             if (game == null)
             {
                 return NotFound();
             }
 
-            if (_context.DoesUserOwnGameAsync(user, game).Result)
+            if (await _context.DoesUserOwnGameAsync(user, game))
             {
                 StatusMessage = $"Error: You already own this game.";
                 return RedirectToPage();
             }
 
-            var cart = _context.GetCartAsync(user).Result;
+            var cart = await _context.GetCartAsync(user);
             if (cart == null)
             {
                 StatusMessage = $"Error: An error occurred while getting your cart.";
                 return RedirectToPage();
             }
 
-            if (_context.DoesGameExistInCartAsync(cart, game).Result)
+            if (await _context.DoesGameExistInCartAsync(cart, game))
             {
                 StatusMessage = $"Error: This game is already in your cart.";
                 return RedirectToPage();
             }
 
-            if (_context.AddToCartAsync(cart, game).Result)
+            if (await _context.AddToCartAsync(cart, game))
             {
                 StatusMessage = $"'{game.Title}' has been added to your cart.";
                 return RedirectToPage();

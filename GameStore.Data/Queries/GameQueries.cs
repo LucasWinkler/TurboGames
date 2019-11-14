@@ -1,6 +1,7 @@
 ﻿using GameStore.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,6 +54,40 @@ namespace GameStore.Data.Queries
             game.Rating = context.Reviews.Where(x => x.Game == game).DefaultIfEmpty().Average(x => x.Rating);
 
             return await Task.FromResult(game.Rating);
+        }
+
+        /// <summary>
+        /// Gets a list of reviews for a specific game.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="game"></param>
+        /// <param name="isAccepted"></param>
+        /// <returns></returns>
+        public static async Task<List<Review>> GetGameReviewsAsync(this TurboGamesContext context,
+            Game game, bool isAccepted)
+        {
+            return await context.Reviews
+                .Include(r => r.Game)
+                .Include(r => r.Reviewer)
+                .Where(r => r.Game == game && r.IsAccepted == isAccepted)
+                .ToListAsync();
+        }
+        
+        /// <summary>
+        /// Gets a list of reviews for a specific game.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="gameId"></param>
+        /// <param name="isAccepted"></param>
+        /// <returns></returns>
+        public static async Task<List<Review>> GetGameReviewsAsync(this TurboGamesContext context,
+            Guid gameId, bool isAccepted)
+        {
+            return await context.Reviews
+                .Include(r => r.Game)
+                .Include(r => r.Reviewer)
+                .Where(r => r.GameId == gameId && r.IsAccepted == isAccepted)
+                .ToListAsync();
         }
 
         /// <summary>

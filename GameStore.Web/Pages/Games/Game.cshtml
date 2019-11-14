@@ -19,8 +19,7 @@
                 <h5>Developer(s): <span class="text-secondary">@Model.Game.Developer</span></h5>
                 <p class="card-text">@Model.Game.Description</p>
                 <form method="post" class="form-inline">
-                    <span class="text-warning">
-                        <span class="mr-1">
+                        <span class="text-warning">
                             @for (int i = 1; i <= 5; i++)
                             {
                                 if (i <= Math.Floor(Model.Game.Rating))
@@ -37,13 +36,11 @@
                                 }
                             }
                         </span>
-                    </span>
-                    @Model.Game.Rating stars
                     <button type="submit" asp-route-id="@Model.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
                 </form>
             </div>
         </div>
-        @if (Model.Game.Reviews.Count != 0 && Model.Game.Reviews.Any(x => x.Game == Model.Game && x.IsAccepted))
+        @if (Model.Reviews.Count != 0)
         {
             <div class="card card-outline-secondary my-4">
                 <div class="card-header">
@@ -53,20 +50,20 @@
                     @foreach (var review in Model.Game.Reviews)
                     {
                         <p>@review.Content</p>
-                        <small class="text-muted">Posted by N/A at @review.CreatedDate.ToShortDateString()</small>
-                        <span class="ml-auto">
+                        <span class="text-warning">
                             @for (int i = 1; i <= 5; i++)
                             {
-                                if (i <= Math.Floor((double)review.Rating))
+                                if (i <= Math.Floor(review.Rating))
                                 {
                                     <i class="fas fa-star"></i>
                                 }
-                                else if (i > Math.Ceiling((double)review.Rating))
+                                else if (i > Math.Ceiling(review.Rating))
                                 {
                                     <i class="far fa-star"></i>
                                 }
                             }
                         </span>
+                        <small class="text-muted float-right">Posted by @review.Reviewer.UserName at @review.CreatedDate.ToShortDateString()</small>
                         <hr>
                     }
 

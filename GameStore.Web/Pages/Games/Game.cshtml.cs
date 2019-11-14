@@ -27,8 +27,9 @@ namespace GameStore.Web.Pages.Games
         public Guid Id { get; set; }
 
         public Game Game { get; set; }
-
         public bool CanReviewGame { get; set; }
+
+        public List<Review> Reviews { get; set; }
 
         public GameModel(
             UserManager<User> userManager,
@@ -46,15 +47,16 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            var game = _context.GetGameAsync(Id).Result;
-            if (game == null)
+            Game = await _context.GetGameAsync(Id);
+            if (Game == null)
             {
                 return NotFound();
             }
 
-            Game = game;
-            
-            CanReviewGame = await _context.DoesUserOwnGameAsync(user, game);
+            Game.Rating = await _context.GetTotalGameRatingAsync(Game);
+            CanReviewGame = await _context.DoesUserOwnGameAsync(user, Game);
+
+            Reviews = await _context.GetGameReviewsAsync(Game, true);
 
             return Page();
         }
@@ -67,34 +69,34 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            var game = _context.GetGameAsync(Id).Result;
-            if (game == null)
+            Game = await _context.GetGameAsync(Id);
+            if (Game == null)
             {
                 return NotFound();
             }
 
-            if (_context.DoesUserOwnGameAsync(user, game).Result)
+            if (await _context.DoesUserOwnGameAsync(user, Game))
             {
                 StatusMessage = $"Error: You already own this game.";
                 return RedirectToPage();
             }
 
-            var cart = _context.GetCartAsync(user).Result;
+            var cart = await _context.GetCartAsync(user);
             if (cart == null)
             {
                 StatusMessage = $"Error: An error occurred while getting your cart.";
                 return RedirectToPage();
             }
 
-            if (_context.DoesGameExistInCartAsync(cart, game).Result)
+            if (await _context.DoesGameExistInCartAsync(cart, Game))
             {
                 StatusMessage = $"Error: This game is already in your cart.";
                 return RedirectToPage();
             }
 
-            if (_context.AddToCartAsync(cart, game).Result)
+            if (await _context.AddToCartAsync(cart, Game))
             {
-                StatusMessage = $"'{game.Title}' has been added to your cart.";
+                StatusMessage = $"'{Game.Title}' has been added to your cart.";
                 return RedirectToPage();
             }
             else
