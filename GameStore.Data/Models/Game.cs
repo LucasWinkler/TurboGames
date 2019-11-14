@@ -31,7 +31,7 @@ namespace GameStore.Data.Models
         [Required]
         public Platform Platform { get; set; }
 
-        public int TotalRating { get; set; }
+        public double Rating { get; set; }
 
         [Required]
         public double Price { get; set; }

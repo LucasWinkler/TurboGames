@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GameStore.Data;
 using GameStore.Data.Models;
+using GameStore.Data.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -71,11 +72,7 @@ namespace GameStore.Web.Pages.Games
 
             foreach (var game in games)
             {
-                foreach (var review in _context.Reviews.Include(x => x.Game)
-                    .Where(x => x.GameId == game.Id))
-                {
-                    game.TotalRating += review.Rating;
-                }
+                game.Rating = await _context.GetAverageGameRating(game);
             }
 
             Games = await games.ToListAsync();
@@ -91,63 +88,41 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            var cart = await _context.Carts.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
-            if (cart == null)
+            var game = _context.GetGameAsync(id).Result;
+            if (game == null)
             {
-                try
-                {
-                    cart = new ShoppingCart
-                    {
-                        UserId = user.Id
-                    };
-
-                    await _context.AddAsync(cart);
-                    await _context.SaveChangesAsync();
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.InnerException);
-                }
+                return NotFound();
             }
 
-            var gameToAdd = await _context.Games.FirstOrDefaultAsync(x => x.Id == id);
-            var isGameAdded = await _context.CartGames.AnyAsync(x => x.CartId == cart.Id && x.GameId == gameToAdd.Id);
-            if (isGameAdded)
-            {
-                StatusMessage = $"Error: This game is already in your cart.";
-                return RedirectToPage();
-            }
-
-            var isGameOwned = await _context.UserGames.AnyAsync(x => x.GameId == gameToAdd.Id && x.UserId == user.Id);
-            if (isGameOwned)
+            if (_context.DoesUserOwnGameAsync(user, game).Result)
             {
                 StatusMessage = $"Error: You already own this game.";
                 return RedirectToPage();
             }
 
-            var cartGameToAdd = new ShoppingCartGame
+            var cart = _context.GetCartAsync(user).Result;
+            if (cart == null)
             {
-                CartId = cart.Id,
-                GameId = gameToAdd.Id,
-                Price = gameToAdd.Price
-            };
-
-            try
-            {
-                await _context.AddAsync(cartGameToAdd);
-                await _context.SaveChangesAsync();
-
-
-                StatusMessage = $"'{gameToAdd.Title}' added to cart.";
+                StatusMessage = $"Error: An error occurred while getting your cart.";
                 return RedirectToPage();
             }
-            catch (Exception e)
+
+            if (_context.DoesGameExistInCartAsync(cart, game).Result)
             {
-                Debug.WriteLine(e.InnerException);
+                StatusMessage = $"Error: This game is already in your cart.";
+                return RedirectToPage();
             }
 
-            StatusMessage = $"Error: An unknown error has occurred.";
-            return Page();
+            if (_context.AddToCartAsync(cart, game).Result)
+            {
+                StatusMessage = $"'{game.Title}' has been added to your cart.";
+                return RedirectToPage();
+            }
+            else
+            {
+                StatusMessage = $"Error: We were unable to add that game to your cart.";
+                return RedirectToPage();
+            }
         }
     }
 }
