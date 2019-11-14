@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Games[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Games[0].TotalRating)
+                @Html.DisplayNameFor(model => model.Games[0].Rating)
             </th>
             <th></th>
             <th></th>
@@ -40,7 +40,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalRating)
+                    @Html.DisplayFor(modelItem => item.Rating)
                 </td>
                 <td>
                     <a asp-page-handler="Download" asp-route-id="@item.Id" class="btn btn-primary">Download</a>

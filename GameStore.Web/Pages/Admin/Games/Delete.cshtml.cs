@@ -9,6 +9,7 @@ using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using GameStore.Data.Queries;
 
 namespace GameStore.Web.Pages.Admin.Games
 {
@@ -49,10 +50,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Admin/Games/Index");
             }
 
-            foreach (var review in _context.Reviews.Where(x => x.GameId == Game.Id))
-            {
-                Game.TotalRating += review.Rating;
-            }
+            Game.Rating = await _context.GetTotalGameRating(Game);
 
             return Page();
         }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using GameStore.Data;
+using GameStore.Data.Seeds;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +23,7 @@ namespace GameStore
                     var serviceProvider = services.GetRequiredService<IServiceProvider>();
                     var configuration = services.GetRequiredService<IConfiguration>();
 
-                    TurboGamesContextSeed.CreateRoles(serviceProvider, configuration).Wait();
+                    UserSeed.CreateRoles(serviceProvider, configuration).Wait();
                 }
                 catch (Exception exception)
                 {

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Text;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using GameStore.Data.Queries;
 
 namespace GameStore.Web.Pages.Games
 {
@@ -64,11 +65,7 @@ namespace GameStore.Web.Pages.Games
 
             foreach (var game in Games)
             {
-                foreach (var review in _context.Reviews.Include(x => x.Game)
-                    .Where(x => x.GameId == game.Id))
-                {
-                    game.TotalRating += review.Rating;
-                }
+                game.Rating = await _context.GetTotalGameRating(game);
             }
 
             StatusMessage = !string.IsNullOrEmpty(statusMessage) ? statusMessage : "";

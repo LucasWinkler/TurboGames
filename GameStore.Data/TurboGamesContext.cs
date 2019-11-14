@@ -1,4 +1,5 @@
 ﻿using GameStore.Data.Models;
+using GameStore.Data.Seeds;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -171,7 +172,16 @@ namespace GameStore.Data
                    .HasForeignKey(x => x.AddressId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Seed();
+            SeedData(builder);
+        }
+
+        private void SeedData(ModelBuilder builder)
+        {
+            builder.SeedCategories();
+            builder.SeedPlatforms();
+            builder.SeedPayments();
+            builder.SeedGames();
+            builder.SeedUsers();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace GameStore.Data.Queries
                 .FirstOrDefaultAsync(g => g.Id == gameId);
         }
 
-        public static Task<double> GetAverageGameRating(this TurboGamesContext context,
+        public static Task<double> GetTotalGameRating(this TurboGamesContext context,
             Guid gameId)
         {
             var game = context.GetGameAsync(gameId).Result;
@@ -46,7 +46,7 @@ namespace GameStore.Data.Queries
             return Task.FromResult(game.Rating);
         }
 
-        public static Task<double> GetAverageGameRating(this TurboGamesContext context,
+        public static Task<double> GetTotalGameRating(this TurboGamesContext context,
             Game game)
         {
             if (game == null)

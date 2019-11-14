@@ -31,7 +31,7 @@
             @foreach (var game in Model.Games)
             {
                 var ratingCount = game.Reviews.Count;
-                double ratingAverage = (game.TotalRating == 0) || (ratingCount == 0) ? 0 : game.TotalRating / ratingCount;
+                double ratingAverage = (game.Rating == 0) || (ratingCount == 0) ? 0 : game.Rating / ratingCount;
 
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
