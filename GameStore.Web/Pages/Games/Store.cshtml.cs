@@ -80,7 +80,7 @@ namespace GameStore.Web.Pages.Games
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddItemToCartAsync(Guid id)
+        public async Task<IActionResult> OnPostAsync(Guid id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)

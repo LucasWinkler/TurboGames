@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 namespace GameStore.Web.Pages.Games
 {
     [Authorize]
-    public class DetailsModel : PageModel
+    public class GameModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
@@ -28,7 +28,9 @@ namespace GameStore.Web.Pages.Games
 
         public Game Game { get; set; }
 
-        public DetailsModel(
+        public bool CanReviewGame { get; set; }
+
+        public GameModel(
             UserManager<User> userManager,
             TurboGamesContext context)
         {
@@ -51,6 +53,8 @@ namespace GameStore.Web.Pages.Games
             }
 
             Game = game;
+            
+            CanReviewGame = await _context.DoesUserOwnGameAsync(user, game);
 
             return Page();
         }

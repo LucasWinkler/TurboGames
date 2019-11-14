@@ -37,7 +37,7 @@
                     <div class="card h-100">
                         <div class="card-body">
                             <h4 class="card-title">
-                                <a asp-page="./Details" asp-route-id="@game.Id">@game.Title</a>
+                                <a asp-page="./Game" asp-route-id="@game.Id">@game.Title</a>
                             </h4>
                             <h5 class="text-success">$@game.Price</h5>
                             <p class="card-text block-with-text">@game.Description</p>
@@ -61,7 +61,7 @@
                                         }
                                     }
                                 </small>
-                                <button type="submit" asp-page-handler="AddItemToCart" asp-route-id="@game.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
+                                <button type="submit" asp-route-id="@game.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
                             </form>
                         </div>
                     </div>
