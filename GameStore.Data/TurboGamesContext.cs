@@ -33,6 +33,19 @@ namespace GameStore.Data
         public DbSet<ShoppingCart> Carts { get; set; }
         public DbSet<ShoppingCartGame> CartGames { get; set; }
 
+        private void SeedData(ModelBuilder builder)
+        {
+            builder.SeedUsers();
+            builder.SeedPayments();
+
+            builder.SeedCategories();
+            builder.SeedPlatforms();
+            builder.SeedGames();
+            
+            builder.SeedUserGames();
+            builder.SeedReviews();
+        }
+
         /// <summary>
         /// Configures a given entity type in the model.
         /// Such as renaming the default table names for each model.
@@ -173,15 +186,6 @@ namespace GameStore.Data
                    .OnDelete(DeleteBehavior.Restrict);
 
             SeedData(builder);
-        }
-
-        private void SeedData(ModelBuilder builder)
-        {
-            builder.SeedCategories();
-            builder.SeedPlatforms();
-            builder.SeedPayments();
-            builder.SeedGames();
-            builder.SeedUsers();
         }
     }
 }

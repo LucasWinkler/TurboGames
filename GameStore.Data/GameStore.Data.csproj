@@ -9,6 +9,8 @@
     <Compile Remove="Migrations\20191111083053_UpdateUserModelAndAdminSeeding.Designer.cs" />
     <Compile Remove="Migrations\20191111083431_UpdateUserModelAndAdminSeeding.cs" />
     <Compile Remove="Migrations\20191111083431_UpdateUserModelAndAdminSeeding.Designer.cs" />
+    <Compile Remove="Migrations\20191114133428_UserGameSeedData.cs" />
+    <Compile Remove="Migrations\20191114133428_UserGameSeedData.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -65,7 +65,7 @@ namespace GameStore.Web.Pages.Games
 
             foreach (var game in Games)
             {
-                game.Rating = await _context.GetTotalGameRating(game);
+                game.Rating = await _context.GetTotalGameRatingAsync(game);
             }
 
             StatusMessage = !string.IsNullOrEmpty(statusMessage) ? statusMessage : "";

@@ -72,7 +72,7 @@ namespace GameStore.Web.Pages.Games
 
             foreach (var game in games)
             {
-                game.Rating = await _context.GetTotalGameRating(game);
+                game.Rating = await _context.GetTotalGameRatingAsync(game);
             }
 
             Games = await games.ToListAsync();

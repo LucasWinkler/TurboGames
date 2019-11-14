@@ -4,14 +4,16 @@ using GameStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GameStore.Data.Migrations
 {
     [DbContext(typeof(TurboGamesContext))]
-    partial class TurboGamesContextModelSnapshot : ModelSnapshot
+    [Migration("20191114135304_UserGameSeedData")]
+    partial class UserGameSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,7 +214,7 @@ namespace GameStore.Data.Migrations
 
                     b.Property<bool>("IsAccepted");
 
-                    b.Property<double>("Rating");
+                    b.Property<int>("Rating");
 
                     b.Property<string>("ReviewerId")
                         .IsRequired();
@@ -301,7 +303,7 @@ namespace GameStore.Data.Migrations
                     b.ToTable("UserGame");
 
                     b.HasData(
-                        new { UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2", GameId = new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 14, 14, 9, 35, 620, DateTimeKind.Utc) }
+                        new { UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2", GameId = new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 14, 13, 53, 3, 716, DateTimeKind.Utc) }
                     );
                 });
 
@@ -376,7 +378,7 @@ namespace GameStore.Data.Migrations
                     b.ToTable("User");
 
                     b.HasData(
-                        new { Id = "2a2a222-222-22aa-222a-a22aa2a22aa2", AccessFailedCount = 0, ConcurrencyStamp = "7dd2f383-749d-4316-bfe3-74889fb5681b", DOB = new DateTime(2019, 11, 14, 14, 9, 35, 617, DateTimeKind.Utc), Email = "user@turbogames.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, LastName = "User", LockoutEnabled = false, NormalizedEmail = "USER@TURBOGAMES.COM", NormalizedUserName = "USER", PasswordHash = "AQAAAAEAACcQAAAAEEqhlFAYQBF+pvsWn/A76U1zM1ZJdVTbP66ABa9uTp5jGuDjfOwT66ZZJzU/tsL/Iw==", PaymentId = new Guid("1c3e6619-7425-40de-944b-e07fc1f90ae7"), SecurityStamp = "24c91950-2db0-41b4-8b67-891b2428d36f", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "User" }
+                        new { Id = "2a2a222-222-22aa-222a-a22aa2a22aa2", AccessFailedCount = 0, ConcurrencyStamp = "52c18fda-a95d-4c8d-828c-d66a4e57e2e3", DOB = new DateTime(2019, 11, 14, 13, 53, 3, 713, DateTimeKind.Utc), Email = "user@turbogames.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, LastName = "User", LockoutEnabled = false, NormalizedEmail = "USER@TURBOGAMES.COM", NormalizedUserName = "USER", PasswordHash = "AQAAAAEAACcQAAAAEPalMKdp/GK8TtqRw1L0ktnyoGTz4weo9hpE8ZxP56JuB40qH50XcUzAFI1MJ+B3kA==", PaymentId = new Guid("1c3e6619-7425-40de-944b-e07fc1f90ae7"), SecurityStamp = "5b8ea500-72b3-4ecd-904b-a94a28143303", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "User" }
                     );
                 });
 

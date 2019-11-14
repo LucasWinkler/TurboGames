@@ -28,7 +28,7 @@ namespace GameStore.Data.Models
 
         [Required]
         [Range(0, 5)]
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
         [Required]
         public bool IsAccepted { get; set; } = false;

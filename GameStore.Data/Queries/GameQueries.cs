@@ -28,39 +28,31 @@ namespace GameStore.Data.Queries
                 .FirstOrDefaultAsync(g => g.Id == gameId);
         }
 
-        public static Task<double> GetTotalGameRating(this TurboGamesContext context,
+        public static async Task<double> GetTotalGameRatingAsync(this TurboGamesContext context,
             Guid gameId)
         {
-            var game = context.GetGameAsync(gameId).Result;
+            var game = await context.GetGameAsync(gameId);
             if (game == null)
             {
-                return Task.FromResult(0d);
+                return await Task.FromResult(0d);
             }
 
-            foreach (var review in context.Reviews.Include(x => x.Game)
-                .Where(x => x.GameId == game.Id))
-            {
-                game.Rating += review.Rating;
-            }
+            game.Rating = context.Reviews.Where(x => x.GameId == gameId).DefaultIfEmpty().Average(x => x.Rating);
 
-            return Task.FromResult(game.Rating);
+            return await Task.FromResult(game.Rating);
         }
 
-        public static Task<double> GetTotalGameRating(this TurboGamesContext context,
+        public static async Task<double> GetTotalGameRatingAsync(this TurboGamesContext context,
             Game game)
         {
             if (game == null)
             {
-                return Task.FromResult(0d);
+                return await Task.FromResult(0d);
             }
 
-            foreach (var review in context.Reviews.Include(x => x.Game)
-                .Where(x => x.GameId == game.Id))
-            {
-                game.Rating += review.Rating;
-            }
+            game.Rating = context.Reviews.Where(x => x.Game == game).DefaultIfEmpty().Average(x => x.Rating);
 
-            return Task.FromResult(game.Rating);
+            return await Task.FromResult(game.Rating);
         }
 
         /// <summary>

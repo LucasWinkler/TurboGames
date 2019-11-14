@@ -38,7 +38,7 @@ namespace GameStore.Web.Pages.Games
 
             [Required]
             [Range(0, 5)]
-            public int Rating { get; set; }
+            public double Rating { get; set; }
         }
 
         public ReviewModel(TurboGamesContext context, UserManager<User> userManager)
@@ -98,7 +98,7 @@ namespace GameStore.Web.Pages.Games
                 {
                     await _context.SaveChangesAsync();
 
-                    return RedirectToPage("./Index", new { statusMessage = $"You have edited your review for '{_context.Games.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
+                    return RedirectToPage("./Library", new { statusMessage = $"You have edited your review for '{_context.Games.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
                 }
                 catch (Exception e)
                 {
@@ -119,7 +119,7 @@ namespace GameStore.Web.Pages.Games
                 await _context.Reviews.AddAsync(review);
                 await _context.SaveChangesAsync();
 
-                return RedirectToPage("./Index", new { statusMessage = $"You have reviewed '{_context.Games.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
+                return RedirectToPage("./Library", new { statusMessage = $"You have reviewed '{_context.Games.FirstOrDefault(x => x.Id == review.GameId).Title}'." });
             }
             catch (Exception e)
             {

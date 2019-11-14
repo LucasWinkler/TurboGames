@@ -45,7 +45,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 .Include(g => g.Platform)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            Game.Rating = await _context.GetTotalGameRating(Game);
+            Game.Rating = await _context.GetTotalGameRatingAsync(Game);
 
             if (Game == null)
             {

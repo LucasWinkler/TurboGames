@@ -50,7 +50,7 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Admin/Games/Index");
             }
 
-            Game.Rating = await _context.GetTotalGameRating(Game);
+            Game.Rating = await _context.GetTotalGameRatingAsync(Game);
 
             return Page();
         }
