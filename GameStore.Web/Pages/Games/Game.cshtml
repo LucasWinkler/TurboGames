@@ -93,9 +93,7 @@
                                 </div>
                                 <form method="post">
                                     <div class="modal-body">
-                                        <!-- TODO: Add review description and rate by stars -->
-                                        <div asp-validation-summary="All" class="text-danger"></div>
-                                        <label asp-for="Review.Content"></label>
+                                        <!-- TODO: Add rate by stars -->
                                         <div class="form-group input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"> <i class="fas fa-comment-alt"></i> </span>
@@ -107,7 +105,7 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"> <i class="fas fa-star"></i> </span>
                                             </div>
-                                            <input asp-for="Review.Rating" class="form-control" placeholder="0-5" type="number">
+                                            <input asp-for="Review.Rating" class="form-control" placeholder="1-5" type="number" min="1" max="5">
                                         </div>
                                     </div>
                                     <div class="modal-footer">

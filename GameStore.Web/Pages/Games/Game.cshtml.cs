@@ -25,6 +25,7 @@ namespace GameStore.Web.Pages.Games
 
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
+
         public Game Game { get; set; }
 
         public bool CanReview { get; set; }
@@ -32,6 +33,7 @@ namespace GameStore.Web.Pages.Games
 
         [BindProperty]
         public Review Review { get; set; }
+
         public List<Review> Reviews { get; set; }
 
         public GameModel(

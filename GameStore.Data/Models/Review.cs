@@ -30,8 +30,8 @@ namespace GameStore.Data.Models
         public string Content { get; set; }
 
         [Required]
-        [Range(0, 5)]
-        public double Rating { get; set; }
+        [Range(1, 5)]
+        public double Rating { get; set; } = 1d;
 
         [Required]
         public ReviewStatus ReviewStatus { get; set; } = ReviewStatus.Pending;
