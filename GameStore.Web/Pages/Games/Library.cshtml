@@ -32,7 +32,7 @@
     <tbody>
         @foreach (var item in Model.Games)
         {
-            <tr onclick="location.href = '@Url.Page("/Games/Details", "OnGetAsync", new { id = item.Id })'" class="row-hover">
+            <tr onclick="location.href = '@Url.Page("/Games", "OnGetAsync", new { id = item.Id })'" class="row-hover">
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
@@ -44,9 +44,6 @@
                 </td>
                 <td>
                     <a asp-page-handler="Download" asp-route-id="@item.Id" class="btn btn-primary">Download</a>
-                </td>
-                <td>
-                    <a asp-page="./Review" asp-route-id="@item.Id" class="btn btn-primary">Review</a>
                 </td>
             </tr>
         }
