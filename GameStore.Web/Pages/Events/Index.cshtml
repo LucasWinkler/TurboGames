@@ -1,0 +1,68 @@
+﻿@page
+
+@model GameStore.Web.Pages.Events.IndexModel
+
+@{
+    ViewData["Title"] = "Events";
+}
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="text-center py-5">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<div class="row justify-content-center">
+    @if (Model.Events.Count == 0)
+    {
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <ul class="event-list">
+                <li>
+                    <time datetime="@DateTime.UtcNow">
+                        <span class="day">@DateTime.UtcNow.Day</span>
+                        <span class="month">@DateTime.UtcNow.ToString("MMM")</span>
+                        <span class="year">@DateTime.UtcNow.Year</span>
+                        <span class="time">@DateTime.UtcNow.TimeOfDay</span>
+                    </time>
+                    <div class="info">
+                        <h2 class="title">No Events</h2>
+                        <p class="desc">There are currently no events at this time. Please check back again later.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+    @foreach (var item in Model.Events)
+    {
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <ul class="event-list">
+                <li>
+                    <time datetime="@item.Date">
+                        <span class="day">@item.Date.Day</span>
+                        <span class="month">@item.Date.ToString("MMM")</span>
+                        <span class="year">@item.Date.Year</span>
+                        <span class="time">@item.Date.TimeOfDay</span>
+                    </time>
+                    <div class="info">
+                        <h2 class="title">@item.Title (@item.Classification)</h2>
+                        <p class="desc">@item.Details</p>
+                        <ul>
+                            <li>
+                                <form method="post">
+                                    <input type="hidden" name="eventId" value="@item.Id" />
+                                    @if (Model.IsRegistered)
+                                    {
+
+                                        <a asp-page-handler="Unregister">Unregister</a>
+                                    }
+                                    else
+                                    {
+
+                                        <a asp-page-handler="Register">Register</a>
+                                    }
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    }
+</div>

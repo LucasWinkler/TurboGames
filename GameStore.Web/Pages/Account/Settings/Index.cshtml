@@ -1,0 +1,54 @@
+﻿@page "/Settings"
+@model IndexModel
+@{
+    ViewData["Title"] = "Account";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Settings</li>
+    </ol>
+</nav>
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="account-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <label asp-for="Input.UserName"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input asp-for="Input.UserName" class="form-control" placeholder="Username" type="text">
+            </div>
+            <label asp-for="Input.Email" class="mr-1"></label>
+            @if (!Model.IsEmailConfirmed)
+            {
+                <button type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link p-0 m-0 mb-1">Send email verification</button>
+            }
+            else
+            {
+                <i class="far fa-check-circle text-success"></i>
+            }
+            <div class="form-group input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                <input asp-for="Input.Email" class="form-control" placeholder="Email address" type="email">
+            </div>
+
+            <div class="custom-control custom-checkbox mb-3">
+                <input asp-for="Input.ShouldReceiveEmails" type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                <label asp-for="Input.ShouldReceiveEmails" class="custom-control-label" for="defaultUnchecked"></label>
+                <span asp-validation-for="Input.ShouldReceiveEmails" class="text-danger"></span>
+            </div>
+            <button id="update-account-button" type="submit" class="btn btn-primary btn-block">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

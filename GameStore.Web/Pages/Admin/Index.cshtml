@@ -1,0 +1,15 @@
+﻿@page
+@model GameStore.Web.Pages.Admin.IndexModel
+@inject UserManager<User> UserManager
+@{
+    ViewData["ActivePage"] = DashboardNavPages.Index;
+}
+
+<h1 class="mt-4">Dashboard</h1>
+<p>
+    This admin panel is designed to let you manage the store.<br />
+    You are able to manage the stores available games as well as any ongoing events.<br />
+    You will also be able to accept any pending reviews for games.<br />
+    <br /><br />
+    If you want to check out any statistics you can do so by choosing a report from the menu.
+</p>

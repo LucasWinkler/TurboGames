@@ -1,0 +1,86 @@
+﻿@page "/Register"
+@model RegisterModel
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<div class="card border-0">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">@ViewData["Title"]</h4>
+        <p class="text-center">Get started with your free account</p>
+        <div asp-validation-summary="All" class="text-danger text-center"></div>
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" id="register-form">
+            <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input asp-for="Input.UserName" class="form-control" placeholder="Username" type="text" autofocus>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input asp-for="Input.FirstName" class="form-control" placeholder="First name" type="text">
+                <input asp-for="Input.LastName" class="form-control " placeholder="Last name" type="text">
+            </div>
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                </div>
+                <input asp-for="Input.Email" class="form-control" placeholder="Email address" type="email">
+            </div>
+            <span asp-validation-for="Input.Gender" class="text-danger"></span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-venus-mars fa-sm"></i> </span>
+                </div>
+                <select asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control">
+                    <option selected="selected" value="">Select gender</option>
+                </select>
+            </div>
+            <span asp-validation-for="Input.DOB" class="text-danger"></span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-birthday-cake"></i> </span>
+                </div>
+                <input asp-for="Input.DOB" class="form-control" placeholder="Date of birth" type="date">
+            </div>
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                <input asp-for="Input.Password" class="form-control" placeholder="Create password" type="password">
+            </div>
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                </div>
+                <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm password" type="password">
+            </div>
+            <div class="form-group custom-control custom-checkbox text-center">
+                <input asp-for="Input.ShouldReceiveEmails" type="checkbox" class="form-control custom-control-input">
+                <label asp-for="Input.ShouldReceiveEmails" class="custom-control-label"></label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block" id="btnSubmit"> Create Account  </button>
+            </div>
+            <p class="text-center">Have an account? <a asp-page="/Account/Login">Log In</a> </p>
+        </form>
+    </article>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

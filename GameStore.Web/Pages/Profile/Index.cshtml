@@ -1,0 +1,85 @@
+﻿@page "/Profile"
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@model GameStore.Web.Pages.Profile.IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    var user = UserManager.GetUserAsync(HttpContext.User);
+}
+
+<div class="container">
+    @if (!Model.DoesExist)
+    {
+        <partial name="_DoesNotExist" />
+    }
+    else
+    {
+        <partial name="_StatusMessage" for="StatusMessage" />
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                <div class="well profile">
+                    <div class="col-sm-12">
+                        <div class="col-lg-12 col-md-12">
+                            <h1>
+                                @Model.Info.Username
+                            </h1>
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                if (Model.Info.Username != Model.User.Identity.Name)
+                                {
+                                    @if (!Model.IsFriend)
+                                    {
+                                        <form method="post">
+                                            <input type="submit" value="Add friend" class="btn btn-primary" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username" />
+                                            <input type="submit" value="Add family" class="btn btn-success" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username" asp-route-isFamily="true" />
+                                        </form>
+                                    }
+                                }
+                            }
+                            <hr class="my-4" />
+                            <p><strong>Name: </strong>@Model.Info.FullName</p>
+                            <p><strong>Gender: </strong>@Model.Info.Gender</p>
+                            <p><strong>Date of birth: </strong>@Model.Info.DOB.ToLongDateString()</p>
+                            <p>
+                                <strong>Favourite Platform: </strong>
+                                @if (Model.Info.FavouritePlatform != null)
+                                {
+                                    @Model.Info.FavouritePlatform.Name
+                                }
+                                else
+                                {
+                                    @Html.Raw("None");
+                                }
+                            </p>
+                            <p>
+                                <strong>Favourite Category: </strong>
+                                @if (Model.Info.FavouriteCategory != null)
+                                {
+                                    @Model.Info.FavouriteCategory.Name
+                                }
+                                else
+                                {
+                                    @Html.Raw("None");
+                                }
+                            </p>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Games
+                                <span class="badge badge-primary badge-pill">@Model.Info.GameCount</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Friends
+                                <span class="badge badge-primary badge-pill">@Model.Info.FriendCount</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Family
+                                <span class="badge badge-primary badge-pill">@Model.Info.FamilyCount</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

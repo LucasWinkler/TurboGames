@@ -1,0 +1,51 @@
+﻿@page "/Settings/Profile"
+@model ProfileModel
+@{
+    ViewData["Title"] = "Edit Profile";
+    ViewData["ActivePage"] = ManageNavPages.Profile;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-page="./Index">Settings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+    </ol>
+</nav>
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <label>First and last name</label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                </div>
+                <input asp-for="Input.FirstName" class="form-control" placeholder="First name" type="text">
+                <input asp-for="Input.LastName" class="form-control " placeholder="Last name" type="text">
+            </div>
+            <label asp-for="Input.Gender"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-venus-mars fa-sm"></i> </span>
+                </div>
+                <select asp-for="Input.Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control">
+                    <option selected="selected" value="">Select gender</option>
+                </select>
+            </div>
+            <label asp-for="Input.DOB"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-birthday-cake"></i> </span>
+                </div>
+                <input asp-for="Input.DOB" class="form-control" placeholder="Date of birth" type="date">
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-primary btn-block">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
