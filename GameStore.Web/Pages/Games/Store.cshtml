@@ -1,0 +1,69 @@
+﻿@page "/Store"
+@model StoreModel
+@{
+    ViewData["Title"] = "Store";
+}
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="text-center py-5">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-lg-9">
+        <form class="mb-3">
+            <div class="input-group md-form form-sm form-1 pl-0">
+                <div class="input-group-prepend">
+                    <select asp-for="Category" asp-items="Model.Categories" class="custom-select" onchange="this.form.submit()">
+                        <option value="" selected="selected">Any category</option>
+                        <option disabled>---------------</option>
+                    </select>
+                </div>
+                <input class="form-control my-0 py-1" type="search" placeholder="Search by title" asp-for="Search">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
+        <div class="row">
+            @if (Model.Games.Count == 0)
+            {
+                <div class="col text-center mt-5">
+                    <h5><span class="text-warning">Unable to find any games.</span><br />Your search did not match any games or there are no games available at this time.</h5>
+                </div>
+            }
+            @foreach (var game in Model.Games)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a asp-page="./Game" asp-route-id="@game.Id">@game.Title</a>
+                            </h4>
+                            <h5 class="text-success">$@game.Price</h5>
+                            <p class="card-text block-with-text">@game.Description</p>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <form method="post" class="form-inline">
+                                <small class="text-warning">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= Math.Floor(game.Rating))
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                        else if (i > Math.Ceiling(game.Rating))
+                                        {
+                                            <i class="far fa-star"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-star-half-alt"></i>
+                                        }
+                                    }
+                                </small>
+                                <button type="submit" asp-route-id="@game.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

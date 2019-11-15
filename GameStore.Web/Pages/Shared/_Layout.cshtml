@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "/Pages/Shared/_BaseLayout.cshtml";
+}
+
+@RenderSection("Styles", required: false)
+
+<header>
+    <partial name="_NavbarPartial" />
+</header>
+<div class="container">
+    <partial name="_CookieConsentPartial" />
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2019 - Conestoga Virtual Game Store (TurboGames) - <a asp-page="/Home/Privacy">Privacy</a>
+    </div>
+</footer>
+
+@section Libraries {
+    <partial name="_LibraryScriptsPartial" />
+    @RenderSection("Scripts", required: false)
+}
+
+

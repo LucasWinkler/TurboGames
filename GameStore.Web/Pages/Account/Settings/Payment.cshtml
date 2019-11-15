@@ -1,0 +1,67 @@
+﻿@page "/Settings/Payment"
+@model PaymentModel
+@{
+    ViewData["Title"] = "Payment information";
+    ViewData["ActivePage"] = ManageNavPages.Payment;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-page="./Index">Settings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Manage Payment Card</li>
+    </ol>
+</nav>
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="billing-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <label asp-for="Payment.CardNumber"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i id="cardType" class="fas fa-credit-card fa-2x"></i> </span>
+                </div>
+                <input asp-for="Payment.CardNumber" class="form-control" style="height: 3em" placeholder="Card number" type="text" maxlength="16">
+            </div>
+            <div class="form-row">
+                <div class="col-7">
+                    <label asp-for="Payment.CardExpirationDate">Expiration date (MM/YY)</label>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                        </div>
+                        <input asp-for="Payment.CardExpirationDate" placeholder="MM/YY" class="form-control" maxlength="5">
+                    </div>
+                </div>
+                <div class="col">
+                    <label asp-for="Payment.CardCVC"></label>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-lock"></i> </span>
+                        </div>
+                        <input asp-for="Payment.CardCVC" class="form-control" placeholder="- - -" type="text" maxlength="4">
+                    </div>
+                </div>
+            </div>
+            <label asp-for="Payment.CardName"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-user"></i> </span>
+                </div>
+                <input asp-for="Payment.CardName" class="form-control" placeholder="Card name" type="text">
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <button id="update-payment-button" type="submit" class="btn btn-primary btn-block">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/js/payment.js"></script>
+}

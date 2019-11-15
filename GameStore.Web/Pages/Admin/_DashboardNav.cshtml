@@ -1,0 +1,81 @@
+﻿<div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading border-bottom">
+        <h6 class="text-center">CVGS Admin Panel</h6>
+    </div>
+    <div class="list-group list-group-flush mt-2">
+        <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 mt-3 bg-light text-muted">
+            <a class="nav-link @DashboardNavPages.IndexNavClass(ViewContext)" asp-page="/Admin/Index">
+                <i class="fas fa-home"></i>
+                Dashboard
+            </a>
+        </div>
+    </div>
+    <div class="list-group list-group-flush mt-2">
+        <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 bg-light text-muted">
+            <h6 class="sidebar-heading px-3 mt-1 m-0">
+                Manage
+            </h6>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link @DashboardNavPages.GamesNavClass(ViewContext)" asp-page="/Admin/Games/Index">
+                <i class="fas fa-gamepad"></i>
+                Games
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link @DashboardNavPages.EventsNavClass(ViewContext)" asp-page="/Admin/Events/Index">
+                <i class="fas fa-calendar-alt mr-1"></i>
+                Events
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link @DashboardNavPages.ReviewsNavClass(ViewContext)" asp-page="/Admin/Reviews/Index">
+                <i class="fas fa-star-half-alt"></i>
+                Reviews
+            </a>
+        </div>
+    </div>
+    <div class="list-group list-group-flush mt-2">
+        <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 bg-light text-muted">
+            <h6 class="sidebar-heading px-3 mt-1 m-0">
+                Reports
+            </h6>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-gamepad mr-1"></i>
+                Games
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-gamepad mr-1"></i>
+                Game details
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-bottom-0 border-top-0 mb-0 bg-light text-muted">
+            <a class="nav-link" href="#">
+                <i class="fas fa-user mr-1"></i>
+                Members
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-user mr-1"></i>
+                Member details
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-list-alt mr-1"></i>
+                Wishlist
+            </a>
+        </div>
+        <div class="list-group-item pt-0 pb-0 border-0 bg-light">
+            <a class="nav-link" href="#">
+                <i class="fas fa-dollar-sign ml-1 mr-2"></i>
+                Sales
+            </a>
+        </div>
+    </div>
+</div>

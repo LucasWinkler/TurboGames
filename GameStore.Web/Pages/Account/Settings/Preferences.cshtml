@@ -1,0 +1,48 @@
+﻿@page "/Settings/Preferences"
+@model PreferencesModel
+@{
+    ViewData["Title"] = "Preferences";
+    ViewData["ActivePage"] = ManageNavPages.Preferences;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-page="./Index">Settings</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Preferences</li>
+    </ol>
+</nav>
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="preferences-form" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <label asp-for="Input.PlatformId"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-star fa-sm"></i> </span>
+                </div>
+                <select asp-for="Input.PlatformId" asp-items="Model.Platforms" class="form-control">
+                    <option selected="selected" value="">Select platform</option>
+                </select>
+            </div>
+
+            <label asp-for="Input.CategoryId"></label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-star fa-sm"></i> </span>
+                </div>
+                <select asp-for="Input.CategoryId" asp-items="Model.Categories" class="form-control">
+                    <option selected="selected" value="">Select category</option>
+                </select>
+            </div>
+
+            <button id="update-preferences-button" type="submit" class="btn btn-primary btn-block">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
