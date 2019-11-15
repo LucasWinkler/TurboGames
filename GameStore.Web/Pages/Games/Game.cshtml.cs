@@ -25,10 +25,13 @@ namespace GameStore.Web.Pages.Games
 
         [BindProperty(SupportsGet = true)]
         public Guid Id { get; set; }
-
         public Game Game { get; set; }
-        public bool CanReviewGame { get; set; }
 
+        public bool CanReview { get; set; }
+        public bool HasReview { get; set; }
+
+        [BindProperty]
+        public Review Review { get; set; }
         public List<Review> Reviews { get; set; }
 
         public GameModel(
@@ -54,9 +57,10 @@ namespace GameStore.Web.Pages.Games
             }
 
             Game.Rating = await _context.GetTotalGameRatingAsync(Game);
-            CanReviewGame = await _context.DoesUserOwnGameAsync(user, Game);
-
-            Reviews = await _context.GetGameReviewsAsync(Game, true);
+            CanReview = await _context.DoesUserOwnGameAsync(user, Game);
+            Reviews = await _context.GetGameReviewsAsync(Game);
+            Review = Reviews.FirstOrDefault(r => r.Reviewer == user);
+            HasReview = Review == null ? false : true;
 
             return Page();
         }
@@ -104,6 +108,74 @@ namespace GameStore.Web.Pages.Games
                 StatusMessage = $"Error: We were unable to add that game to your cart.";
                 return RedirectToPage();
             }
+        }
+
+        public async Task<IActionResult> OnPostReviewGameAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            Game = await _context.GetGameAsync(Id);
+            if (Game == null)
+            {
+                return NotFound();
+            }
+
+            CanReview = await _context.DoesUserOwnGameAsync(user, Game);
+            Reviews = await _context.GetGameReviewsAsync(Game);
+
+            if (!CanReview)
+            {
+                StatusMessage = $"Error: You are not able to review this game.";
+                return RedirectToPage();
+            }
+
+            var review = Reviews.FirstOrDefault(r => r.Reviewer == user);
+            HasReview = review == null ? false : true;
+
+            try
+            {
+                if (HasReview)
+                {
+                    review.ReviewStatus = ReviewStatus.Pending;
+                    review.Content = Review.Content;
+                    review.Rating = Review.Rating;
+
+                    _context.Attach(review).State = EntityState.Modified;
+
+                    StatusMessage = $"Review saved and is currently pending. Please wait for an administrator to accept it.";
+                }
+                else
+                {
+                    await _context.Reviews.AddAsync(new Review { ReviewerId = user.Id, GameId = Game.Id, Content = Review.Content, Rating = Review.Rating });
+
+                    StatusMessage = $"Review posted and is currently pending. Please wait for an administrator to accept it.";
+                }
+
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ReviewExists(Review.Id))
+                {
+                    StatusMessage = $"Error: An unknown error has occurred while trying to post your review.";
+                    return RedirectToPage();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+
+        private bool ReviewExists(Guid id)
+        {
+            return Reviews.Any(r => r.Id == id);
         }
     }
 }

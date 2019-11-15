@@ -35,7 +35,7 @@ namespace GameStore.Web.Pages.Admin.Games
             Review = await _context.Reviews
                 .Include(r => r.Game)
                 .Include(r => r.Reviewer)
-                .Where(x => !x.IsAccepted).ToListAsync();
+                .Where(r => r.ReviewStatus == ReviewStatus.Pending).ToListAsync();
         }
 
         public async Task<IActionResult> OnGetAcceptAsync(Guid reviewId)
@@ -53,17 +53,17 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage();
             }
 
-            if (review.IsAccepted)
+            if (review.ReviewStatus == ReviewStatus.Accepted)
             {
                 StatusMessage = $"Error: You have already accepted the '{_context.Reviews.Include(x => x.Game).FirstOrDefault(x => x.Id == reviewId).Game.Title}' review.";
                 return RedirectToPage();
             }
 
-            review.IsAccepted = true;
-
             try
             {
+                review.ReviewStatus = ReviewStatus.Accepted;
                 _context.Update(review);
+
                 await _context.SaveChangesAsync();
 
                 StatusMessage = $"You have accepted the '{_context.Reviews.Include(x => x.Game).FirstOrDefault(x => x.Id == reviewId).Game.Title}' review.";

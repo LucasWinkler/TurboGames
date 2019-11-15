@@ -38,7 +38,7 @@ namespace GameStore.Data.Queries
                 return await Task.FromResult(0d);
             }
 
-            game.Rating = context.Reviews.Where(x => x.GameId == gameId).DefaultIfEmpty().Average(x => x.Rating);
+            game.Rating = context.Reviews.Where(g => g.GameId == gameId && g.ReviewStatus == ReviewStatus.Accepted).DefaultIfEmpty().Average(g => g.Rating);
 
             return await Task.FromResult(game.Rating);
         }
@@ -51,9 +51,42 @@ namespace GameStore.Data.Queries
                 return await Task.FromResult(0d);
             }
 
-            game.Rating = context.Reviews.Where(x => x.Game == game).DefaultIfEmpty().Average(x => x.Rating);
+            game.Rating = context.Reviews.Where(g => g.Game == game && g.ReviewStatus == ReviewStatus.Accepted).DefaultIfEmpty().Average(g => g.Rating);
 
             return await Task.FromResult(game.Rating);
+        }
+
+
+        /// <summary>
+        /// Gets a list of reviews for a specific game.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="game"></param>
+        /// <returns></returns>
+        public static async Task<List<Review>> GetGameReviewsAsync(this TurboGamesContext context,
+            Game game)
+        {
+            return await context.Reviews
+                .Include(r => r.Game)
+                .Include(r => r.Reviewer)
+                .Where(r => r.Game == game)
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Gets a list of reviews for a specific game.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="gameId"></param>
+        /// <returns></returns>
+        public static async Task<List<Review>> GetGameReviewsAsync(this TurboGamesContext context,
+            Guid gameId)
+        {
+            return await context.Reviews
+                .Include(r => r.Game)
+                .Include(r => r.Reviewer)
+                .Where(r => r.GameId == gameId)
+                .ToListAsync();
         }
 
         /// <summary>
@@ -64,15 +97,15 @@ namespace GameStore.Data.Queries
         /// <param name="isAccepted"></param>
         /// <returns></returns>
         public static async Task<List<Review>> GetGameReviewsAsync(this TurboGamesContext context,
-            Game game, bool isAccepted)
+            Game game, ReviewStatus reviewStatus)
         {
             return await context.Reviews
                 .Include(r => r.Game)
                 .Include(r => r.Reviewer)
-                .Where(r => r.Game == game && r.IsAccepted == isAccepted)
+                .Where(r => r.Game == game && r.ReviewStatus == reviewStatus)
                 .ToListAsync();
         }
-        
+
         /// <summary>
         /// Gets a list of reviews for a specific game.
         /// </summary>
@@ -81,12 +114,12 @@ namespace GameStore.Data.Queries
         /// <param name="isAccepted"></param>
         /// <returns></returns>
         public static async Task<List<Review>> GetGameReviewsAsync(this TurboGamesContext context,
-            Guid gameId, bool isAccepted)
+            Guid gameId, ReviewStatus reviewStatus)
         {
             return await context.Reviews
                 .Include(r => r.Game)
                 .Include(r => r.Reviewer)
-                .Where(r => r.GameId == gameId && r.IsAccepted == isAccepted)
+                .Where(r => r.GameId == gameId && r.ReviewStatus == reviewStatus)
                 .ToListAsync();
         }
 

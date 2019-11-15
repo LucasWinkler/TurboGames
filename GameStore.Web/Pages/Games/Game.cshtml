@@ -46,9 +46,9 @@
                 Game Reviews
             </div>
             <div class="card-body">
-                @if (Model.Reviews.Count != 0)
+                @if (Model.Reviews.Any(r => r.ReviewStatus == ReviewStatus.Accepted))
                 {
-                    @foreach (var review in Model.Game.Reviews)
+                    @foreach (var review in Model.Reviews.Where(r => r.ReviewStatus == ReviewStatus.Accepted))
                     {
                         <p>@review.Content</p>
                         <span class="text-warning">
@@ -69,19 +69,24 @@
                 }
                 else
                 {
-                    <p>There are no reviews for this game.</p>
+                    <p>There are no accepted reviews for this game.</p>
                 }
-                <hr>
 
-                @if (Model.CanReviewGame)
+                @if (Model.CanReview)
                 {
-                    <a href="#addReviewModal" data-toggle="modal" data-target="#addReviewModal" class="btn btn-success">Leave a Review</a>
+                    string reviewButtonText = Model.HasReview ? "Edit your review" : "Leave a review";
+                    string modalTitle = Model.HasReview ? $"Edit your review for {@Model.Game.Title}" : $"Write a review for {@Model.Game.Title}";
+                    string modalSubmitText = Model.HasReview ? "Save review" : "Post review";
 
-                    <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <hr />
+
+                    <a href="#reviewModal" data-toggle="modal" data-target="#reviewModal" class="btn btn-success">@reviewButtonText</a>
+
+                    <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
+                                    <h5 class="modal-title" id="reviewModalTitle">@modalTitle</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -89,10 +94,25 @@
                                 <form method="post">
                                     <div class="modal-body">
                                         <!-- TODO: Add review description and rate by stars -->
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        <label asp-for="Review.Content"></label>
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fas fa-comment-alt"></i> </span>
+                                            </div>
+                                            <textarea asp-for="Review.Content" class="form-control" placeholder="Please describe what you like or dislike about the game."></textarea>
+                                        </div>
+                                        <label asp-for="Review.Rating"></label>
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fas fa-star"></i> </span>
+                                            </div>
+                                            <input asp-for="Review.Rating" class="form-control" placeholder="0-5" type="number">
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <input type="submit" asp-page-handler="AddReview" asp-route-id="@Model.Game.Id" value="Submit Review" class="btn btn-success" />
+                                        <input type="submit" asp-page-handler="ReviewGame" asp-route-id="@Model.Game.Id" value="@modalSubmitText" class="btn btn-success" />
                                     </div>
                                 </form>
                             </div>

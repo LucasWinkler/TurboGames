@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameStore.Data.Models
 {
+    public enum ReviewStatus { Pending = 0, Accepted = 1 }
+
     public class Review
     {
         [Key]
@@ -24,6 +26,7 @@ namespace GameStore.Data.Models
 
         [Required]
         [DataType(DataType.MultilineText)]
+        [MaxLength(8000)]
         public string Content { get; set; }
 
         [Required]
@@ -31,7 +34,7 @@ namespace GameStore.Data.Models
         public double Rating { get; set; }
 
         [Required]
-        public bool IsAccepted { get; set; } = false;
+        public ReviewStatus ReviewStatus { get; set; } = ReviewStatus.Pending;
 
         [Required]
         [DataType(DataType.DateTime)]
