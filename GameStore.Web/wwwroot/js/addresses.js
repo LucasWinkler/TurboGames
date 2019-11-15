@@ -11,11 +11,13 @@
             stateRegionGroup.addClass('hidden');
             provinceInput.prop('disabled', false);
             stateRegionInput.prop('disabled', true);
+            stateRegionInput.val("");
         } else {
             provinceGroup.addClass('hidden');
             stateRegionGroup.removeClass('hidden');
             provinceInput.prop('disabled', true);
             stateRegionInput.prop('disabled', false);
+            provinceInput.val("");
         }
     });
 })();

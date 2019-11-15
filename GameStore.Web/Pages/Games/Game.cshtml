@@ -19,34 +19,35 @@
                 <h5>Developer(s): <span class="text-secondary">@Model.Game.Developer</span></h5>
                 <p class="card-text">@Model.Game.Description</p>
                 <form method="post" class="form-inline">
-                        <span class="text-warning">
-                            @for (int i = 1; i <= 5; i++)
+                    <span class="text-warning">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= Math.Floor(Model.Game.Rating))
                             {
-                                if (i <= Math.Floor(Model.Game.Rating))
-                                {
-                                    <i class="fas fa-star"></i>
-                                }
-                                else if (i > Math.Ceiling(Model.Game.Rating))
-                                {
-                                    <i class="far fa-star"></i>
-                                }
-                                else
-                                {
-                                    <i class="fas fa-star-half-alt"></i>
-                                }
+                                <i class="fas fa-star"></i>
                             }
-                        </span>
+                            else if (i > Math.Ceiling(Model.Game.Rating))
+                            {
+                                <i class="far fa-star"></i>
+                            }
+                            else
+                            {
+                                <i class="fas fa-star-half-alt"></i>
+                            }
+                        }
+                    </span>
                     <button type="submit" asp-route-id="@Model.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
                 </form>
             </div>
         </div>
-        @if (Model.Reviews.Count != 0)
-        {
-            <div class="card card-outline-secondary my-4">
-                <div class="card-header">
-                    Game Reviews
-                </div>
-                <div class="card-body">
+
+        <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+                Game Reviews
+            </div>
+            <div class="card-body">
+                @if (Model.Reviews.Count != 0)
+                {
                     @foreach (var review in Model.Game.Reviews)
                     {
                         <p>@review.Content</p>
@@ -64,15 +65,41 @@
                             }
                         </span>
                         <small class="text-muted float-right">Posted by @review.Reviewer.UserName at @review.CreatedDate.ToShortDateString()</small>
-                        <hr>
                     }
+                }
+                else
+                {
+                    <p>There are no reviews for this game.</p>
+                }
+                <hr>
 
-                    @if (Model.CanReviewGame)
-                    {
-                        <a asp-page="./Review" asp-route-id="@Model.Game.Id" class="btn btn-success">Leave a Review</a>
-                    }
-                </div>
+                @if (Model.CanReviewGame)
+                {
+                    <a href="#addReviewModal" data-toggle="modal" data-target="#addReviewModal" class="btn btn-success">Leave a Review</a>
+
+                    <div class="modal fade" id="addReviewModal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="post">
+                                    <div class="modal-body">
+                                        <!-- TODO: Add review description and rate by stars -->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <input type="submit" asp-page-handler="AddReview" asp-route-id="@Model.Game.Id" value="Submit Review" class="btn btn-success" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
-        }
+        </div>
     </div>
 </div>
