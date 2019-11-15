@@ -85,11 +85,8 @@ namespace GameStore
                 options.Cookie.IsEssential = true;
             });
 
-            // Adds the MVC service and configures the default page route
-            services.AddMvc().AddRazorPagesOptions(options =>
-            {
-                options.Conventions.AddPageRoute("/Home/Index", "");
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // Adds the MVC service
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         /// <summary>

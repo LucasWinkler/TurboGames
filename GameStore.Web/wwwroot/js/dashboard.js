@@ -1,9 +1,15 @@
 ﻿(function () {
     function toggleMatchMedia(mediaQuery) {
         if (mediaQuery.matches) {
-            $('#menu-toggle-icon').toggleClass("fa-bars fa-times");
+            if (!$('#menu-toggle-icon').hasClass('fa-bars fa-times')) {
+                $('#menu-toggle-icon').addClass("fa-bars"); 
+            }
+            $('#menu-toggle-icon').toggleClass("fa-bars fa-times");   
         } else {
-            $('#menu-toggle-icon').toggleClass("fa-times fa-bars");
+            if (!$('#menu-toggle-icon').hasClass('fa-bars fa-times')) {
+                $('#menu-toggle-icon').addClass("fa-times");
+            }
+            $('#menu-toggle-icon').toggleClass("fa-bars fa-times");
         }
     }
 
