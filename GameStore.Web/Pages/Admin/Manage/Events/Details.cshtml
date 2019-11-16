@@ -1,9 +1,9 @@
-﻿@page
-@model GameStore.Web.Pages.Admin.Events.DetailsModel
+﻿@page "/Admin/Manage/Events/Details"
+@model GameStore.Web.Pages.Admin.Manage.Events.DetailsModel
 
 @{
     ViewData["Title"] = $"{Model.Event.Title} Details";
-    ViewData["ActivePage"] = DashboardNavPages.Events;
+    ViewData["ActivePage"] = DashboardNavPages.ManageEvents;
 }
 
 <h2>@ViewData["Title"]</h2>

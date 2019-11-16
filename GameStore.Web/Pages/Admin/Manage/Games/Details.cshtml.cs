@@ -11,21 +11,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using GameStore.Data.Queries;
 
-namespace GameStore.Web.Pages.Admin.Games
+namespace GameStore.Web.Pages.Admin.Manage.Games
 {
     [Authorize(Roles = "Admin")]
-    public class DeleteModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
 
-        public DeleteModel(TurboGamesContext context, UserManager<User> userManager)
+        public DetailsModel(TurboGamesContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        [BindProperty]
         public Game Game { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
@@ -40,49 +39,20 @@ namespace GameStore.Web.Pages.Admin.Games
             {
                 return RedirectToPage("/Admin/Games/Index");
             }
-
+         
             Game = await _context.Games
                 .Include(g => g.Category)
+                .Include(g => g.Platform)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            Game.Rating = await _context.GetTotalGameRatingAsync(Game);
 
             if (Game == null)
             {
                 return RedirectToPage("/Admin/Games/Index");
             }
 
-            Game.Rating = await _context.GetTotalGameRatingAsync(Game);
-
             return Page();
-        }
-
-        public async Task<IActionResult> OnPostAsync(Guid? id)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return RedirectToPage("/Account/Login");
-            }
-
-            if (id == null)
-            {
-                return RedirectToPage("/Admin/Games/Index");
-            }
-
-            Game = await _context.Games.FindAsync(id);
-
-            if (Game != null)
-            {
-                var userGames = _context.UserGames.Where(x => x.GameId == id);
-                if (userGames != null)
-                {
-                    _context.UserGames.RemoveRange(userGames);
-                }
-
-                _context.Games.Remove(Game);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
         }
     }
 }

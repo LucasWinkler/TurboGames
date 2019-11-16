@@ -10,7 +10,7 @@ using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GameStore.Web.Pages.Admin.Events
+namespace GameStore.Web.Pages.Admin.Manage.Events
 {
     [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel

@@ -1,9 +1,9 @@
-﻿@page
-@model GameStore.Web.Pages.Admin.Games.EditModel
+﻿@page "/Admin/Manage/Games/Edit"
+@model GameStore.Web.Pages.Admin.Manage.Games.EditModel
 
 @{
     ViewData["Title"] = $"Edit {@Model.Input.Title}";
-    ViewData["ActivePage"] = DashboardNavPages.Games;
+    ViewData["ActivePage"] = DashboardNavPages.ManageGames;
 }
 
 <h2>@ViewData["Title"]</h2>

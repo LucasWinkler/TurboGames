@@ -1,9 +1,9 @@
-﻿@page
-@model GameStore.Web.Pages.Admin.Games.DetailsModel
+﻿@page "/Admin/Manage/Games/Details"
+@model GameStore.Web.Pages.Admin.Manage.Games.DetailsModel
 
 @{
     ViewData["Title"] = $"{Model.Game.Title} Details";
-    ViewData["ActivePage"] = DashboardNavPages.Games;
+    ViewData["ActivePage"] = DashboardNavPages.ManageGames;
 }
 
 <h2>@ViewData["Title"]</h2>

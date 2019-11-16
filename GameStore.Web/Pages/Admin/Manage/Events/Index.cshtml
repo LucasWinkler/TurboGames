@@ -1,0 +1,41 @@
+﻿@page "/Admin/Manage/Events"
+@model GameStore.Web.Pages.Admin.Manage.Events.IndexModel
+
+@{
+    ViewData["Title"] = "Manage Events";
+    ViewData["ActivePage"] = DashboardNavPages.ManageEvents;
+}
+
+<div class="m-5">
+    <div class="text-center py-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <a asp-page="./Create" class="btn btn-primary mt-3"><strong>+</strong> Add new event</a>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Event[0].Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Event[0].Date)</th>
+                <th>@Html.DisplayNameFor(model => model.Event[0].Details)</th>
+                <th>@Html.DisplayNameFor(model => model.Event[0].Classification)</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Event)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Date</td>
+                    <td>@item.Details</td>
+                    <td>@item.Classification</td>
+                    <td class="text-center">
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class='btn btn-link text-warning'><i class="fas fa-pencil-alt"></i></a>
+                        <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-link"><i class="fas fa-info"></i></a>
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-link text-danger"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

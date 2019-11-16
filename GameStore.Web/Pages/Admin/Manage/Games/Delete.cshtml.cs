@@ -9,8 +9,9 @@ using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using GameStore.Data.Queries;
 
-namespace GameStore.Web.Pages.Admin.Events
+namespace GameStore.Web.Pages.Admin.Manage.Games
 {
     [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
@@ -25,7 +26,7 @@ namespace GameStore.Web.Pages.Admin.Events
         }
 
         [BindProperty]
-        public Event Event { get; set; }
+        public Game Game { get; set; }
 
         public async Task<IActionResult> OnGetAsync(Guid? id)
         {
@@ -37,15 +38,19 @@ namespace GameStore.Web.Pages.Admin.Events
 
             if (id == null)
             {
-                return RedirectToPage("/Admin/Events/Index");
+                return RedirectToPage("/Admin/Games/Index");
             }
 
-            Event = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
+            Game = await _context.Games
+                .Include(g => g.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (Event == null)
+            if (Game == null)
             {
-                return RedirectToPage("/Admin/Events/Index");
+                return RedirectToPage("/Admin/Games/Index");
             }
+
+            Game.Rating = await _context.GetTotalGameRatingAsync(Game);
 
             return Page();
         }
@@ -60,20 +65,20 @@ namespace GameStore.Web.Pages.Admin.Events
 
             if (id == null)
             {
-                return RedirectToPage("/Admin/Events/Index");
+                return RedirectToPage("/Admin/Games/Index");
             }
 
-            Event = await _context.Events.FindAsync(id);
+            Game = await _context.Games.FindAsync(id);
 
-            if (Event != null)
+            if (Game != null)
             {
-                var userEvents = _context.UserEvents.Where(x => x.EventId == id);
-                if (userEvents != null)
+                var userGames = _context.UserGames.Where(x => x.GameId == id);
+                if (userGames != null)
                 {
-                    _context.UserEvents.RemoveRange(userEvents);
+                    _context.UserGames.RemoveRange(userGames);
                 }
 
-                _context.Events.Remove(Event);
+                _context.Games.Remove(Game);
                 await _context.SaveChangesAsync();
             }
 

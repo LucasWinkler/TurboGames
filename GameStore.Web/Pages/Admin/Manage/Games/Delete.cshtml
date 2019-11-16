@@ -1,9 +1,9 @@
-﻿@page
-@model GameStore.Web.Pages.Admin.Games.DeleteModel
+﻿@page "/Admin/Manage/Games/Delete"
+@model GameStore.Web.Pages.Admin.Manage.Games.DeleteModel
 
 @{
     ViewData["Title"] = $"Delete '{Model.Game.Title}'";
-    ViewData["ActivePage"] = DashboardNavPages.Games;
+    ViewData["ActivePage"] = DashboardNavPages.ManageGames;
 }
 
 <h2>@ViewData["Title"]</h2>

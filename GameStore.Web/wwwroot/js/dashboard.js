@@ -2,14 +2,18 @@
     function toggleMatchMedia(mediaQuery) {
         if (mediaQuery.matches) {
             if (!$('#menu-toggle-icon').hasClass('fa-bars fa-times')) {
-                $('#menu-toggle-icon').addClass("fa-bars"); 
+                $('#menu-toggle-icon').addClass("fa-bars");
+                $('#menu-toggle').addClass("btn-primary");
             }
-            $('#menu-toggle-icon').toggleClass("fa-bars fa-times");   
+            $('#menu-toggle-icon').toggleClass("fa-bars fa-times");
+            $('#menu-toggle').toggleClass("btn-primary btn-danger");
         } else {
             if (!$('#menu-toggle-icon').hasClass('fa-bars fa-times')) {
                 $('#menu-toggle-icon').addClass("fa-times");
+                $('#menu-toggle').addClass("btn-danger");
             }
             $('#menu-toggle-icon').toggleClass("fa-bars fa-times");
+            $('#menu-toggle').toggleClass("btn-primary btn-danger");
         }
     }
 
@@ -22,5 +26,6 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
         $('#menu-toggle-icon').toggleClass("fa-bars fa-times");
+        $('#menu-toggle').toggleClass("btn-primary btn-danger");
     });
 })();

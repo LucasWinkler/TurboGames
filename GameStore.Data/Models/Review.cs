@@ -26,7 +26,7 @@ namespace GameStore.Data.Models
 
         [Required]
         [DataType(DataType.MultilineText)]
-        [MaxLength(8000)]
+        [MaxLength(1250)]
         public string Content { get; set; }
 
         [Required]

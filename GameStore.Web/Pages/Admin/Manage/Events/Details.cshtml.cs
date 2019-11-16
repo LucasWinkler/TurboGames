@@ -10,23 +10,23 @@ using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GameStore.Web.Pages.Admin.Games
+namespace GameStore.Web.Pages.Admin.Manage.Events
 {
     [Authorize(Roles = "Admin")]
-    public class IndexModel : PageModel
+    public class DetailsModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
 
-        public IndexModel(TurboGamesContext context, UserManager<User> userManager)
+        public DetailsModel(TurboGamesContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        public IList<Game> Game { get; set; }
+        public Event Event { get; set; }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -34,9 +34,17 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            Game = await _context.Games
-                .Include(g => g.Category)
-                .ToListAsync();
+            if (id == null)
+            {
+                return RedirectToPage("/Admin/Events/Index");
+            }
+
+            Event = await _context.Events.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (Event == null)
+            {
+                return RedirectToPage("/Admin/Events/Index");
+            }
 
             return Page();
         }

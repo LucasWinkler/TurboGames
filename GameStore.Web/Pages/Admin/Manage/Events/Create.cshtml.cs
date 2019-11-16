@@ -4,30 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using GameStore.Data.Queries;
 
-namespace GameStore.Web.Pages.Admin.Games
+namespace GameStore.Web.Pages.Admin.Manage.Events
 {
     [Authorize(Roles = "Admin")]
-    public class DetailsModel : PageModel
+    public class CreateModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
 
-        public DetailsModel(TurboGamesContext context, UserManager<User> userManager)
+        public CreateModel(TurboGamesContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        public Game Game { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(Guid? id)
+        public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -35,24 +32,29 @@ namespace GameStore.Web.Pages.Admin.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            if (id == null)
-            {
-                return RedirectToPage("/Admin/Games/Index");
-            }
-         
-            Game = await _context.Games
-                .Include(g => g.Category)
-                .Include(g => g.Platform)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            Game.Rating = await _context.GetTotalGameRatingAsync(Game);
-
-            if (Game == null)
-            {
-                return RedirectToPage("/Admin/Games/Index");
-            }
-
             return Page();
+        }
+
+        [BindProperty]
+        public Event Event { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.Events.Add(Event);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index");
         }
     }
 }

@@ -5,21 +5,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GameStore.Web.Pages.Admin.Games
+namespace GameStore.Web.Pages.Admin.Manage.Games
 {
     [Authorize(Roles = "Admin")]
-    public class CreateModel : PageModel
+    public class EditModel : PageModel
     {
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
+
+        public EditModel(TurboGamesContext context, UserManager<User> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
 
         public SelectList Categories { get; set; }
         public SelectList Platforms { get; set; }
@@ -29,6 +34,9 @@ namespace GameStore.Web.Pages.Admin.Games
 
         public class InputModel
         {
+            [Required]
+            public Guid Id { get; set; }
+
             [Required]
             public string Title { get; set; }
 
@@ -48,19 +56,38 @@ namespace GameStore.Web.Pages.Admin.Games
             public string Description { get; set; }
         }
 
-        public CreateModel(TurboGamesContext context, UserManager<User> userManager)
-        {
-            _context = context;
-            _userManager = userManager;
-        }
-
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(Guid? id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return RedirectToPage("/Account/Login");
             }
+
+            if (id == null)
+            {
+                return RedirectToPage("/Admin/Games/Index");
+            }
+
+            var game = await _context.Games
+                .Include(g => g.Category)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (game == null)
+            {
+                return RedirectToPage("/Admin/Games/Index");
+            }
+
+            Input = new InputModel
+            {
+                Id = game.Id,
+                Title = game.Title,
+                Developer = game.Developer,
+                Description = game.Description,
+                Price = game.Price,
+                CategoryId = game.CategoryId,
+                PlatformId = game.PlatformId
+            };
 
             SetDropdownLists();
 
@@ -78,32 +105,45 @@ namespace GameStore.Web.Pages.Admin.Games
             if (!ModelState.IsValid)
             {
                 SetDropdownLists();
+
                 return Page();
             }
 
+            var game = new Game
+            {
+                Id = Input.Id,
+                Title = Input.Title,
+                Developer = Input.Developer,
+                Description = Input.Description,
+                PlatformId = Input.PlatformId,
+                CategoryId = Input.CategoryId,
+                Price = Input.Price
+            };
+
+            _context.Attach(game).State = EntityState.Modified;
+
             try
             {
-                await _context.Games.AddAsync(new Game
-                {
-                    Title = Input.Title,
-                    Developer = Input.Developer,
-                    Description = Input.Description,
-                    PlatformId = Input.PlatformId,
-                    CategoryId = Input.CategoryId,
-                    Price = Input.Price
-                });
                 await _context.SaveChangesAsync();
-
-                return RedirectToPage("./Index");
             }
-            catch (Exception e)
+            catch (DbUpdateConcurrencyException)
             {
-                Debug.WriteLine("Error: " + e.InnerException);
+                if (!GameExists(game.Id))
+                {
+                    return RedirectToPage("/Admin/Games/Index");
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            SetDropdownLists();
+            return RedirectToPage("./Index");
+        }
 
-            return Page();
+        private bool GameExists(Guid id)
+        {
+            return _context.Games.Any(e => e.Id == id);
         }
 
         private void SetDropdownLists()

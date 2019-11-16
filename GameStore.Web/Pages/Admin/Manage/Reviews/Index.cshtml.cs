@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 
-namespace GameStore.Web.Pages.Admin.Games
+namespace GameStore.Web.Pages.Admin.Manage.Reviews
 {
     [Authorize(Roles = "Admin")]
     public class PendingReviewsModel : PageModel
