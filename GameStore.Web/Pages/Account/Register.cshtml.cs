@@ -53,7 +53,7 @@ namespace GameStore.Web.Pages.Account
             public string UserName { get; set; }
 
             [Required]
-            [RegularExpression(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$", ErrorMessage = "You must enter a valid email address.")]
+            [RegularExpression(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*@((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$", ErrorMessage = "Please enter a valid email address.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -83,9 +83,17 @@ namespace GameStore.Web.Pages.Account
             public bool ShouldReceiveEmails { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                return RedirectToPage("/Home/Index");
+            }
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
