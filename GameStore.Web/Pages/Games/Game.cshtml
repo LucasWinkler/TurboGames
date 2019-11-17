@@ -81,7 +81,6 @@
                     <hr />
 
                     <a href="#reviewModal" data-toggle="modal" data-target="#reviewModal" class="btn btn-success">@reviewButtonText</a>
-
                     <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -93,19 +92,16 @@
                                 </div>
                                 <form method="post">
                                     <div class="modal-body">
-                                        <!-- TODO: Add rate by stars -->
-                                        <div class="form-group input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"> <i class="fas fa-comment-alt"></i> </span>
-                                            </div>
-                                            <textarea asp-for="Review.Content" class="form-control" placeholder="Please describe what you like or dislike about the game."></textarea>
-                                        </div>
                                         <label asp-for="Review.Rating"></label>
                                         <div class="form-group input-group">
                                             <div class="input-group-prepend">
-                                                <span class="input-group-text"> <i class="fas fa-star"></i> </span>
+                                                <span class="input-group-text"> <i class="fas fa-star text-warning"></i> </span>
                                             </div>
                                             <input asp-for="Review.Rating" class="form-control" placeholder="1-5" type="number" min="1" max="5">
+                                        </div>
+                                        <label asp-for="Review.Content">Description</label>
+                                        <div class="form-group input-group">
+                                            <textarea asp-for="Review.Content" class="form-control" placeholder="Please describe what you like or dislike about the game." maxlength="1250"></textarea>
                                         </div>
                                     </div>
                                     <div class="modal-footer">

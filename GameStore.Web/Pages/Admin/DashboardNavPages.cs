@@ -7,19 +7,19 @@ namespace GameStore.Web.Pages.Admin
     {
         public static string Index => "Index";
 
-        public static string Games => "Games";
+        public static string ManageGames => "Games";
 
-        public static string Events => "Events";
+        public static string ManageEvents => "Events";
 
-        public static string Reviews => "Reviews";
+        public static string ManageReviews => "Reviews";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
-        public static string GamesNavClass(ViewContext viewContext) => PageNavClass(viewContext, Games);
+        public static string GamesNavClass(ViewContext viewContext) => PageNavClass(viewContext, ManageGames);
 
-        public static string EventsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Events);
+        public static string EventsNavClass(ViewContext viewContext) => PageNavClass(viewContext, ManageEvents);
 
-        public static string ReviewsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Reviews);
+        public static string ReviewsNavClass(ViewContext viewContext) => PageNavClass(viewContext, ManageReviews);
 
         private static string PageNavClass(ViewContext viewContext, string page)
         {

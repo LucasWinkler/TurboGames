@@ -1,0 +1,40 @@
+﻿@page "/Admin/Manage/Reviews"
+@model GameStore.Web.Pages.Admin.Manage.Reviews.PendingReviewsModel
+
+@{
+    ViewData["Title"] = "Manage Reviews";
+    ViewData["ActivePage"] = DashboardNavPages.ManageReviews;
+}
+
+<div class="m-5">
+    <div class="text-center py-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Game</th>
+                <th>Date</th>
+                <th>Rating</th>
+                <th>Description</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Review)
+            {
+            <tr>
+                <td>@item.Reviewer.UserName</td>
+                <td>@item.Game.Title</td>
+                <td>@item.CreatedDate</td>
+                <td>@item.Rating</td>
+                <td>@item.Content</td>
+                <td class="text-center">
+                    <a asp-page-handler="Accept" asp-route-reviewId="@item.Id" class="btn btn-success">Accept</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

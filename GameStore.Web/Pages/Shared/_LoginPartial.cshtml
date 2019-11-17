@@ -5,12 +5,12 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item dropdown">
-        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="userMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Welcome back, <span class="font-weight-bold">@User.Identity.Name</span>!
         </button>
 
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" asp-page="/Profile/Index" asp-route-username="@User.Identity.Name">
+        <div class="dropdown-menu" aria-labelledby="userMenuLink">
+            <a class="dropdown-item" asp-page="/Profile/Index/@User.Identity.Name" asp-route-username="@User.Identity.Name">
                 <i class="fas fa-user ml-1 mr-1"></i>
                 Your profile
             </a>
