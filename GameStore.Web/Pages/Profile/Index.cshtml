@@ -1,4 +1,4 @@
-﻿@page "/Profile"
+﻿@page "/Profile/{username?}"
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @model GameStore.Web.Pages.Profile.IndexModel
@@ -29,9 +29,9 @@
                                 {
                                     @if (!Model.IsFriend)
                                     {
-                                        <form method="post">
-                                            <input type="submit" value="Add friend" class="btn btn-primary" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username" />
-                                            <input type="submit" value="Add family" class="btn btn-success" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username" asp-route-isFamily="true" />
+                                        <form method="post" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username">
+                                            <input type="submit" value="Add friend" class="btn btn-primary" />
+                                            <input type="submit" value="Add family" class="btn btn-success" asp-route-isFamily="true" />
                                         </form>
                                     }
                                 }

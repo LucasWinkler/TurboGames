@@ -29,7 +29,13 @@ namespace GameStore.AutomatedUITests.Tests
         public void Register_WrongEmailData_ReturnsErrorMessage()
         {
             _page.PopulateUserName("TurboUser");
-            _page.PopulateEmail("turboemail");
+            _page.PopulateFirstName("Turbo");
+            _page.PopulateLastName("User");
+            _page.PopulateEmail("turbouser.com");
+            _page.PopulateGender("Other");
+            _page.PopulateDOB("06/04/1999");
+            _page.PopulatePassword("Turbo123!");
+            _page.PopulateConfirmPassword("Turbo123!");
             _page.ClickCreate();
 
             Assert.Equal("Please enter a valid email address.", _page.EmailErrorMessage);

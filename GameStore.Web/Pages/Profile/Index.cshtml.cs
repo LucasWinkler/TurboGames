@@ -90,7 +90,7 @@ namespace GameStore.Web.Pages.Profile
                 FamilyCount = _context.Friendships.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && x.IsFamily && x.RequestStatus == FriendStatusCode.Accepted).Count()
             };
 
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = User.Identity.Name != user.UserName ? await _userManager.GetUserAsync(User) : null;
             if (currentUser == null)
             {
                 IsFriend = false;
@@ -102,7 +102,7 @@ namespace GameStore.Web.Pages.Profile
                 .Include(x => x.Sender)
                 .Where(x => x.ReceiverId == currentUser.Id || x.SenderId == currentUser.Id);
 
-            IsFriend = await friendships.AnyAsync(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && (x.RequestStatus == FriendStatusCode.Accepted || x.RequestStatus == FriendStatusCode.Pending));
+            IsFriend = await friendships.AnyAsync(x => (x.Sender.UserName == user.UserName || x.Receiver.UserName == user.UserName) && (x.RequestStatus == FriendStatusCode.Accepted || x.RequestStatus == FriendStatusCode.Pending));
 
             return Page();
         }

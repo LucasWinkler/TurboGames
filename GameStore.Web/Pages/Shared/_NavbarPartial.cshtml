@@ -23,9 +23,7 @@
             <ul class="navbar-nav">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <li class="nav-item">
-                        @await Component.InvokeAsync("CartCount")
-                    </li>
+                    @await Component.InvokeAsync("CartCount")
                 }
                 <partial name="_LoginPartial" />
             </ul>
