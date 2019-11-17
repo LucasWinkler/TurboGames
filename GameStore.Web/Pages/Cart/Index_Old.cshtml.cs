@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace GameStore.Web.Pages.Cart
 {
     [Authorize]
-    public class IndexModel : PageModel
+    public class IndexOldModel : PageModel
     {
         private readonly UserManager<User> _userManager;
         private readonly TurboGamesContext _context;
@@ -24,7 +24,7 @@ namespace GameStore.Web.Pages.Cart
 
         public double Total { get; set; }
 
-        public IndexModel(UserManager<User> userManager, TurboGamesContext context)
+        public IndexOldModel(UserManager<User> userManager, TurboGamesContext context)
         {
             _userManager = userManager;
             _context = context;
