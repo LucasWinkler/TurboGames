@@ -38,6 +38,9 @@ namespace GameStore.Web.Pages.Account
 
         public string ReturnUrl { get; set; }
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public class InputModel
         {
             [Required]
