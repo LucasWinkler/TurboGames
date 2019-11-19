@@ -7,7 +7,9 @@ namespace GameStore.AutomatedUITests.PageObjects
     /// </summary>
     public class Page
     {
-        private readonly string _url;
+        private readonly string _baseUrl;
+        private readonly string _port;
+        private readonly string _pageRoute;
 
         /// <summary>
         /// Initializes a new Page with a web driver and a page route from the website.
@@ -17,8 +19,15 @@ namespace GameStore.AutomatedUITests.PageObjects
         public Page(IWebDriver driver, string pageRoute)
         {
             Driver = driver;
-            _url = "https://localhost:44378/" + pageRoute;
+
+            // Configure the url that the test will navigate to
+            _baseUrl = "https://localhost";
+            _port = "44378";
+            _pageRoute = pageRoute;
         }
+
+        /// <summary> Gets url for the page that is being tested. </summary>
+        private string Url => $"{_baseUrl}:{_port}/{_pageRoute}";
 
         /// <summary> Gets the title of the current page. </summary>
         public string Title => Driver.Title;
@@ -30,6 +39,6 @@ namespace GameStore.AutomatedUITests.PageObjects
         protected IWebDriver Driver { get; }
 
         /// <summary> Uses the web drivers Navigate() method to go to the pages url.  </summary>
-        public void Navigate() => Driver.Navigate().GoToUrl(_url);
+        public void Navigate() => Driver.Navigate().GoToUrl(Url);
     }
 }

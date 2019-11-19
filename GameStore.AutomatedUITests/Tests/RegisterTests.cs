@@ -57,14 +57,17 @@ namespace GameStore.AutomatedUITests.Tests
             // Tells the chrome driver to wait for x amount of seconds 
             // when it can not find a specific element.
             // This is to give the server time to validate the form and load the next page.
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             // Look for the element that a registered user would see (waits to ensure page has loaded)
             _page.FindRegisteredUserMenu();
 
-            // Confirm that the next page has loaded and that the test was successful.
+            // Confirms that the home page has loaded after clicking create which means it was successful
             Assert.Equal("Home", _page.Title);
-            Assert.Contains("Welcome back, <span class=\"font-weight-bold\">TurboUser</span>!", _page.Source);
+
+            // Confirms that the page contains the welcome back message and the new users username from the registered user dropdown
+            Assert.Contains("Welcome back,", _page.Source);
+            Assert.Contains("TurboUser", _page.Source);
         }
 
         public void Dispose()
