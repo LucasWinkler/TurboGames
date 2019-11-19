@@ -14,7 +14,7 @@ namespace GameStore.AutomatedUITests.Tests
         public RegisterTests()
         {
             _driver = new ChromeDriver(Environment.CurrentDirectory);
-            _page = new RegisterPage(_driver);
+            _page = new RegisterPage(_driver, "Register");
             _page.Navigate();
         }
 
