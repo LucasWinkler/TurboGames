@@ -1,8 +1,10 @@
-﻿New Design:
-./Cart
-./Cart/Checkout
-./Cart/Checkout/Success
+﻿Routes:
 
+Index		->	/Cart
+Checkout	->	/Cart/Checkout
+Success		->	/Cart/Checkout/Success
+
+Pages:
 	- Index
 		- Display all items in cart and provide the ability to remove an item.
 		- Show the order total.
@@ -23,7 +25,7 @@
 				2. Enter new address (default if no existing addresses)
 			- Checkbox to use billing as shipping.
 
-		- Payment
+		- Payment (Payment model needs to be reworked similar to addresses before this can be completed)
 			- 2 radio buttons
 				1. Choose existing card (default if exists)
 				2. Enter new card (default if no existing card)
