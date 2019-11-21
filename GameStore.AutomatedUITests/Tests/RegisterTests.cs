@@ -26,13 +26,6 @@ namespace GameStore.AutomatedUITests.Tests
         }
 
         [Fact]
-        public void Register_WhenExecuted_ReturnsRegistrationPage()
-        {
-            Assert.Equal("Create Account", _page.Title);
-            Assert.Contains("Get started with your free account", _page.Source);
-        }
-
-        [Fact]
         public void Register_WrongEmailData_ReturnsErrorMessage()
         {
             _page.PopulateUserName("TurboUser");
