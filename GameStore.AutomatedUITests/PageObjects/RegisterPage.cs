@@ -26,7 +26,7 @@ namespace GameStore.AutomatedUITests.PageObjects
         public void PopulateLastName(string value) => LastNameElement.SendKeys(value);
         public void PopulateEmail(string value) => EmailElement.SendKeys(value);
         public void PopulateGender(string value) => GenderElement.SendKeys(value);
-        public void PopulateDOB(string value) => DOBElement.SendKeys(value);
+        public void PopulateDOB(string value) =>DOBElement.SendKeys(value);
         public void PopulatePassword(string value) => PasswordElement.SendKeys(value);
         public void PopulateConfirmPassword(string value) => ConfirmPasswordElement.SendKeys(value);
         public void ClickCreate() => CreateElement.Click();

@@ -1,6 +1,7 @@
 using GameStore.AutomatedUITests.PageObjects;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using System;
 using Xunit;
 
@@ -13,7 +14,13 @@ namespace GameStore.AutomatedUITests.Tests
 
         public RegisterTests()
         {
-            _driver = new ChromeDriver(Environment.CurrentDirectory);
+            var geckoService = FirefoxDriverService.CreateDefaultService(Environment.CurrentDirectory);
+            geckoService.Host = "::1";
+            var firefoxOptions = new FirefoxOptions
+            {
+                AcceptInsecureCertificates = true
+            };
+            _driver = new FirefoxDriver(geckoService, firefoxOptions);
             _page = new RegisterPage(_driver, "Register");
             _page.Navigate();
         }
@@ -33,7 +40,7 @@ namespace GameStore.AutomatedUITests.Tests
             _page.PopulateLastName("User");
             _page.PopulateEmail("turbouser.com");
             _page.PopulateGender("Other");
-            _page.PopulateDOB("06/04/1999");
+            _page.PopulateDOB("1999-06-04");
             _page.PopulatePassword("Turbo123!");
             _page.PopulateConfirmPassword("Turbo123!");
             _page.ClickCreate();
@@ -49,7 +56,7 @@ namespace GameStore.AutomatedUITests.Tests
             _page.PopulateLastName("User");
             _page.PopulateEmail("turbouser@myemail.com");
             _page.PopulateGender("Other");
-            _page.PopulateDOB("06/04/1999");
+            _page.PopulateDOB("1999-06-04");
             _page.PopulatePassword("Turbo123!");
             _page.PopulateConfirmPassword("Turbo123!");
             _page.ClickCreate();
