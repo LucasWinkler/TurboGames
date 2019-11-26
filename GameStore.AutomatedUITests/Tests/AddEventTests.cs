@@ -9,13 +9,12 @@ using Xunit;
 
 namespace GameStore.AutomatedUITests.Tests
 {
-    public sealed class PreferencesTests : IDisposable
+    public sealed class AddEventTests : IDisposable
     {
         private readonly IWebDriver _driver;
-        private readonly PreferencesPage _page;
+        private readonly AddEventPage _page;
         private readonly LoginHelper _loginHelper;
-
-        public PreferencesTests()
+        public AddEventTests()
         {
             var geckoService = FirefoxDriverService.CreateDefaultService(Environment.CurrentDirectory);
             geckoService.Host = "::1";
@@ -25,36 +24,35 @@ namespace GameStore.AutomatedUITests.Tests
             };
 
             _driver = new FirefoxDriver(geckoService, firefoxOptions);
-            _page = new PreferencesPage(_driver, "Settings/Preferences");
+            _page = new AddEventPage(_driver, "Admin/Manage/Events/Create");
             _loginHelper = new LoginHelper(_driver);
 
             _page.Navigate();
         }
 
         [Fact]
-        public void Preferences_WhenSuccessfullyExecuted_ReturnsSuccessMessage()
+        public void Events_WhenSuccessfullyExecuted_ReturnsEventOnManageEventsPage()
         {
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             _loginHelper.LoginAdmin();
 
-            // Make sure we find the preferences save button
-            _page.FindSaveButton();
+            _page.FindEventTitleElement();
 
-            // Accept cookies so the status message will appear
-            _page.ClickAcceptCookies();
+            string title = "Test title";
+            string details = "Test details";
 
-            // Populate the elements and submit form
-            _page.PopulateSelectPlatform("Steam");
-            _page.PopulateSelectCategory("FPS");
-            _page.ClickSave();
+            _page.PopulateEventTitle(title);
+            _page.PopulateEventDate(DateTime.UtcNow.ToString());
+            _page.PopulateEventDetails(details);
+            _page.PopulateEventClassification("Web");
+            _page.ClickSubmit();
 
-            // Checks to see if the status message exists
-            _page.FindStatusMessage();
+            _page.FindAddEventButton();
 
-            // Make sure we're on the preferences page and check the source for the StatusMessage text
-            Assert.Equal("Preferences", _page.Title);
-            Assert.Contains("Your preferences has been updated", _page.Source);
+            Assert.Equal("Manage Events", _page.Title);
+            Assert.Contains(title, _page.Source);
+            Assert.Contains(details, _page.Source);
         }
 
         public void Dispose()
