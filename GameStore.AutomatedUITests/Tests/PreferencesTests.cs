@@ -32,7 +32,7 @@ namespace GameStore.AutomatedUITests.Tests
         }
 
         [Fact]
-        public void Preferences_WhenSuccessfullyExecuted_ReturnsSuccessMessage()
+        public void Preferences_WhenEnterNoDavourites_ReturnsSuccessMessage()
         {
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
@@ -45,8 +45,8 @@ namespace GameStore.AutomatedUITests.Tests
             _page.ClickAcceptCookies();
 
             // Populate the elements and submit form
-            _page.PopulateSelectPlatform("Steam");
-            _page.PopulateSelectCategory("FPS");
+            _page.PopulateSelectPlatform("Select platform");
+            _page.PopulateSelectCategory("Select category");
             _page.ClickSave();
 
             // Checks to see if the status message exists
@@ -57,6 +57,67 @@ namespace GameStore.AutomatedUITests.Tests
             Assert.Contains("Your preferences has been updated", _page.Source);
         }
 
+        [Fact]
+        public void Preferences_WhenSuccessfullyExecuted_ReturnsSuccessMessage()
+        {
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
+            _loginHelper.LoginAdmin();
+
+            _page.FindSaveButton();
+
+            _page.ClickAcceptCookies();
+
+            _page.PopulateSelectPlatform("Steam");
+            _page.PopulateSelectCategory("FPS");
+            _page.ClickSave();
+
+            _page.FindStatusMessage();
+
+            Assert.Equal("Preferences", _page.Title);
+            Assert.Contains("Your preferences has been updated", _page.Source);
+        }
+        [Fact]
+        public void Preferences_EnterOnlyPlatform_ReturnsSuccessMessage()
+        {
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
+            _loginHelper.LoginAdmin();
+
+            _page.FindSaveButton();
+
+            _page.ClickAcceptCookies();
+
+            _page.PopulateSelectPlatform("Origin");
+            _page.PopulateSelectCategory("Select category");
+            _page.ClickSave();
+
+            _page.FindStatusMessage();
+
+            Assert.Equal("Preferences", _page.Title);
+            Assert.Contains("Your preferences has been updated", _page.Source);
+        }
+
+        [Fact]
+        public void Preferences_EnterOnlyCategory_ReturnsSuccessMessage()
+        {
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
+            _loginHelper.LoginAdmin();
+
+            _page.FindSaveButton();
+
+            _page.ClickAcceptCookies();
+
+            _page.PopulateSelectPlatform("Select platform");
+            _page.PopulateSelectCategory("MMO");
+            _page.ClickSave();
+
+            _page.FindStatusMessage();
+
+            Assert.Equal("Preferences", _page.Title);
+            Assert.Contains("Your preferences has been updated", _page.Source);
+        }
         public void Dispose()
         {
             _driver.Quit();
