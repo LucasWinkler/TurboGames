@@ -32,7 +32,7 @@ namespace GameStore.AutomatedUITests.Tests
         }
 
         [Fact]
-        public void Preferences_WhenEnterNoDavourites_ReturnsSuccessMessage()
+        public void Preferences_WhenEnterNoFavourites_ReturnsSuccessMessage()
         {
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
