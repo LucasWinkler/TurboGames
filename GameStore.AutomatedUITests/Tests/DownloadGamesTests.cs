@@ -4,6 +4,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Diagnostics;
 using System.Text;
 using Xunit;
 
@@ -53,5 +55,32 @@ namespace GameStore.AutomatedUITests.Tests
 
             Assert.Equal("Game Library", _page.Title);
         }
+        [Fact]
+        public void Library_AfterDownload_CheckIfFileExist()
+        {
+            Assert.True(CheckFile("Fernando", "Apex.json"));
+
+        }
+        public bool CheckFile(string username, string filename)
+        {
+            string directory = $@"C:\Users\{username}\Downloads\";
+            string file = $@"C:\Users\{username}\Downloads\{filename}";
+
+            if (Directory.Exists(directory))
+            {
+                if (File.Exists(file))
+                {
+                    return true;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
     }
 }
