@@ -38,7 +38,7 @@ namespace GameStore.AutomatedUITests.Tests
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
 
-            Assert.Equal("Home", _loginpage.Title);
+            Assert.Equal("Home", _driver.Title);
             // Confirms that the page contains the welcome back message and the new users username from the registered user dropdown
             Assert.Contains("Welcome back,", _loginpage.Source);
             Assert.Contains("TurboUser", _loginpage.Source);
