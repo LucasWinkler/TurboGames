@@ -23,9 +23,9 @@ Pages:
 			- 2 radio buttons
 				1. Choose existing address (default if exists)
 				2. Enter new address (default if no existing addresses)
-			- Checkbox to use billing as shipping.
+			- Checkbox to use billing as shipping (hides the radio buttons and inputs if checked).
 
-		- Payment (Payment model needs to be reworked similar to addresses before this can be completed)
+		- Payment
 			- 2 radio buttons
 				1. Choose existing card (default if exists)
 				2. Enter new card (default if no existing card)
