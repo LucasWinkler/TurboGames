@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using GameStore.Data;
@@ -65,6 +66,47 @@ namespace GameStore.Web.Pages.Cart
             }
 
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostRemoveAsync(Guid gameId)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            if (!await _context.HasCartAsync(user))
+            {
+                IsCartEmpty = true;
+                return Page();
+            }
+
+            var cart = await _context.GetCartAsync(user);
+            if (await _context.GetCartItemCount(cart) == 0)
+            {
+                IsCartEmpty = true;
+                return Page();
+            }
+
+            var cartItems = _context.CartGames
+                .Include(cg => cg.Game)
+                .ThenInclude(g => g.Category)
+                .Where(cg => cg.CartId == cart.Id);
+
+            try
+            {
+                var cartGame = await cartItems.FirstOrDefaultAsync(ci => ci.GameId == gameId && ci.Cart == cart);
+                _context.CartGames.Remove(cartGame);
+
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
+            }
+
+            return RedirectToPage();
         }
     }
 }
