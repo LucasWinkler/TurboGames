@@ -12,14 +12,14 @@ namespace GameStore.AutomatedUITests.PageObjects
 
         private IWebElement CookieElement => Driver.FindElement(By.ClassName("accept-policy"));
 
-        private IWebElement DownloadElement => Driver.FindElement(By.Id("Download"));
+        private IWebElement DownloadElement => Driver.FindElement(By.Id("btnDownload"));
         public GameLibraryPage(IWebDriver driver, string pageRoute) : base(driver, pageRoute)
         {
 
         }
         public void PopulateUsername(string value) => InputUserElement.SendKeys(value);
         public void PopulatePassword(string value) => InputPasswordElement.SendKeys(value);
-        public void FindDownloadButton() => Driver.FindElement(By.Id("Download"));
+        public void FindDownloadButton() => Driver.FindElement(By.Id("btnDownload"));
         public void ClickAcceptCookies()
         {
             if (CookieElement != null)

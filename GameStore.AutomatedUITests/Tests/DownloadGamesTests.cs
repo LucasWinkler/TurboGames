@@ -15,6 +15,10 @@ namespace GameStore.AutomatedUITests.Tests
         private readonly GameLibraryPage _page;
         private readonly LoginHelper _loginHelper;
 
+        string currentFile = string.Empty;
+        static string name = string.Empty;
+        bool result = false;
+
         public DownloadGamesTests()
         {
             var geckoService = FirefoxDriverService.CreateDefaultService(Environment.CurrentDirectory);
