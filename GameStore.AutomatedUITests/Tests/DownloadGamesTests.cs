@@ -58,13 +58,16 @@ namespace GameStore.AutomatedUITests.Tests
         [Fact]
         public void Library_AfterDownload_CheckIfFileExist()
         {
-            Assert.True(CheckFile("Fernando", "Apex.json"));
+            Assert.True(CheckFile("Apex.json"));
 
         }
-        public bool CheckFile(string username, string filename)
+
+        // checks to see if the directory exist first, if the download directory
+        // exists then check if the directory contains the file that your downloaded
+        public bool CheckFile(string filename)
         {
-            string directory = $@"C:\Users\{username}\Downloads\";
-            string file = $@"C:\Users\{username}\Downloads\{filename}";
+            string directory = $@"C:\Users\{Environment.UserName}\Downloads\";
+            string file = $@"C:\Users\{Environment.UserName}\Downloads\{filename}";
 
             if (Directory.Exists(directory))
             {
