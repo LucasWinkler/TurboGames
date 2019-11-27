@@ -13,33 +13,22 @@
             <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">Your cart</span>
-                    <span class="badge badge-secondary badge-pill">3</span>
+                    <span class="badge badge-secondary badge-pill">@Model.CartCount</span>
                 </h4>
                 <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Game name</h6>
-                            <small class="text-muted">Category: FPS</small>
-                        </div>
-                        <span class="text-muted">$11.99</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Game name 2</h6>
-                            <small class="text-muted">Category: FPS</small>
-                        </div>
-                        <span class="text-muted">$19.99</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">
-                        <div>
-                            <h6 class="my-0">Game name 3</h6>
-                            <small class="text-muted">Category: FPS</small>
-                        </div>
-                        <span class="text-muted">$0.00</span>
-                    </li>
+                    @foreach (var game in Model.Games)
+                    {
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">@game.Title</h6>
+                                <small class="text-muted">Category: @game.Category.Name</small>
+                            </div>
+                            <span class="text-muted">$@game.Price</span>
+                        </li>
+                    }
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
-                        <strong>$31.98</strong>
+                        <strong>$@Model.Total</strong>
                     </li>
                 </ul>
                 <div class="payment-methods">

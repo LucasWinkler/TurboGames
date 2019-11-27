@@ -68,6 +68,46 @@ namespace GameStore.Web.Pages.Cart
             return Page();
         }
 
+        public async Task<IActionResult> OnPostProceedAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            if (!await _context.HasCartAsync(user))
+            {
+                IsCartEmpty = true;
+                return Page();
+            }
+
+            var cart = await _context.GetCartAsync(user);
+            if (await _context.GetCartItemCount(cart) == 0)
+            {
+                IsCartEmpty = true;
+                return Page();
+            }
+
+            var cartItems = _context.CartGames
+               .Include(cg => cg.Game)
+               .ThenInclude(g => g.Category)
+               .Where(cg => cg.CartId == cart.Id);
+
+            foreach (var cartItem in cartItems)
+            {
+                var game = cartItem.Game;
+                Total += game.Price;
+            }
+
+            if (Total == 0)
+            {
+                return RedirectToPage("./Confirmation");
+            }
+
+            return RedirectToPage("./Checkout");
+        }
+
         public async Task<IActionResult> OnPostRemoveAsync(Guid gameId)
         {
             var user = await _userManager.GetUserAsync(User);
