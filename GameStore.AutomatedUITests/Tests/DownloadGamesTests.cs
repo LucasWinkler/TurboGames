@@ -58,6 +58,7 @@ namespace GameStore.AutomatedUITests.Tests
         [Fact]
         public void Library_AfterDownload_CheckIfFileExist()
         {
+            // Checks if the file exists
             Assert.True(CheckFile("Apex.json"));
 
         }
