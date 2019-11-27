@@ -43,7 +43,7 @@
                     @Html.DisplayFor(modelItem => item.Rating)
                 </td>
                 <td>
-                    <a asp-page-handler="Download" asp-route-id="@item.Id" class="btn btn-primary">Download</a>
+                    <a id="Download" asp-route-id="@item.Id" class="btn btn-primary">Download</a>
                 </td>
             </tr>
         }
