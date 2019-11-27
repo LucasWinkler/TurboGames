@@ -39,6 +39,7 @@ namespace GameStore.AutomatedUITests.Tests
         {
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
+            // Login as a regular user
             _loginHelper.LoginUser();
 
             // Find's the download button
