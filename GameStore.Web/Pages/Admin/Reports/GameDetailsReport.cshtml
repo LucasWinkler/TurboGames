@@ -16,15 +16,15 @@
     <table class="table table-striped custab">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model.Game[0].Title)</th>
-                @*<th>@Html.DisplayNameFor(model => model.Game[0])</th>*@
-                <th>@Html.DisplayNameFor(model => model.Game[0].Category)</th>
-                <th>@Html.DisplayNameFor(model => model.Game[0].Rating)</th>
-                <th>@Html.DisplayNameFor(model => model.Game[0].Developer)</th>
+                <th>@Html.DisplayNameFor(model => model.Games[0].Title)</th>
+                @*<th>@Html.DisplayNameFor(model => model.Games[0])</th>*@
+                <th>@Html.DisplayNameFor(model => model.Games[0].Category)</th>
+                <th>@Html.DisplayNameFor(model => model.Games[0].Rating)</th>
+                <th>@Html.DisplayNameFor(model => model.Games[0].Developer)</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Game)
+            @foreach (var item in Model.Games)
             {
             <tr>
                 <td>@item.Title</td>
