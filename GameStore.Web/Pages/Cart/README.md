@@ -1,8 +1,8 @@
 ﻿Routes:
 
-Index		->	/Cart
-Checkout	->	/Cart/Checkout
-Success		->	/Cart/Checkout/Success
+Index			->	/Cart
+Checkout		->	/Cart/Checkout
+Confirmation	->	/Cart/Checkout/Confirmation
 
 Pages:
 	- Index
@@ -29,7 +29,7 @@ Pages:
 			- 2 radio buttons
 				1. Choose existing card (default if exists)
 				2. Enter new card (default if no existing card)
-			- 'Purchase' button -> ./Success
+			- 'Purchase' button -> /Confirmation
 		
 	- Success
 		- Says that the order was successful

@@ -123,6 +123,12 @@ namespace GameStore.Data.Queries
                 .ToListAsync();
         }
 
+        public static async Task<bool> HasCartAsync(this TurboGamesContext context, 
+            User user)
+        {
+            return await context.Carts.Include(c => c.User).AnyAsync(c => c.User == user && !c.IsCheckedOut);
+        }
+
         /// <summary>
         /// Returns a cart by user. If no cart exists then a new one will be created.
         /// </summary>
@@ -175,6 +181,18 @@ namespace GameStore.Data.Queries
 
                 return false;
             }
+        }
+
+        public static async Task<int> GetCartItemCount(this TurboGamesContext context, 
+            ShoppingCart cart)
+        {
+            if (cart != null)
+            {
+                var count = await context.CartGames.CountAsync(x => x.CartId == cart.Id);
+
+                return count;
+            }
+            return 0;
         }
 
         /// <summary>
