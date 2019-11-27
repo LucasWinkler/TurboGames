@@ -23,9 +23,5 @@
   <ItemGroup>
     <ProjectReference Include="..\GameStore.Data\GameStore.Data.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Admin\Reports\" />
-  </ItemGroup>
   
 </Project>
