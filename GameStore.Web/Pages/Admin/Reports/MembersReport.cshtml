@@ -1,0 +1,33 @@
+﻿@page
+@model GameStore.Web.Pages.Admin.Reports.MembersModel
+@{
+    ViewData["Title"] = "Games Report";
+    ViewData["ActivePage"] = DashboardNavPages.ManageGames;
+}
+
+<div class="m-5">
+    <div class="text-center py-5" display="inline:block">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <div style="display:inline">
+        <h4 style="float:left;">Turbo Games</h4>
+        <h4 style="float:right;">@DateTime.Now</h4>
+    </div>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>Member Name</th>
+                <th>@Html.DisplayNameFor(model => model.curUser[0].UserName)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.curUser)
+            {
+            <tr>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.UserName</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

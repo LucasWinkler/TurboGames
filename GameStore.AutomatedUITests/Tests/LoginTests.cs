@@ -32,14 +32,10 @@ namespace GameStore.AutomatedUITests.Tests
             _loginpage.PopulatePassword("Turbo123!");
             _loginpage.ClickLogin();
 
-            // Tells the chrome driver to wait for x amount of seconds 
-            // when it can not find a specific element.
-            // This is to give the server time to validate the form and load the next page.
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-
+            _loginpage.FindRegisteredUserMenu();
 
             Assert.Equal("Home", _driver.Title);
-            // Confirms that the page contains the welcome back message and the new users username from the registered user dropdown
             Assert.Contains("Welcome back,", _loginpage.Source);
             Assert.Contains("TurboUser", _loginpage.Source);
         }
@@ -51,15 +47,11 @@ namespace GameStore.AutomatedUITests.Tests
             _loginpage.PopulatePassword("Turbo123");
             _loginpage.ClickLogin();
 
-            // Tells the chrome driver to wait for x amount of seconds 
-            // when it can not find a specific element.
-            // This is to give the server time to validate the form and load the next page.
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            _loginpage.FindRegisteredUserMenu();
 
-
-            // Confirms that the home page has loaded after clicking create which means it was successful
             Assert.Equal("Please sign in", _loginpage.Title);
-
+            // Could also assert.contains for the error message in the source
         }
 
         public void Dispose()
