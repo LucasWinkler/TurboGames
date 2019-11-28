@@ -1,8 +1,8 @@
 # About
 
-A team project for the PROG3050 Microsoft Enterprise course at Conestoga College. 
-This project is a virtual game store created in ASP.NET Core 2.1.
-It uses Razor Pages, MS SQL Server and a code-first design.
+This is a team project for a class in college. 
+We were put into groups for this class and we were supposed to design and create a virtual game store using ASP.NET.
+It uses ASP.NET Core 2.1, Razor Pages, MS SQL Server and a code-first design.
 
 <table>
   <thead>
