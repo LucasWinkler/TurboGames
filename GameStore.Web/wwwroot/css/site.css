@@ -75,7 +75,7 @@ span.tags {
 }
 
     .row-hover:hover {
-        background-color: lightgray;
+        background-color: lightgray !important;
     }
 
 
