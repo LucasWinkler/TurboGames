@@ -10,7 +10,7 @@
     <div class="text-center py-5">
         <h1 class="display-4">@ViewData["Title"]</h1>
     </div>
-    <a asp-page="./Create" class="btn btn-primary mt-3"><strong>+</strong> Add new event</a>
+    <a asp-page="./Create" class="btn btn-primary mt-3" id="add-event-button"><strong>+</strong> Add new event</a>
     <table class="table table-striped custab">
         <thead>
             <tr>
@@ -24,15 +24,15 @@
         <tbody>
             @foreach (var item in Model.Event)
             {
-                <tr>
+                <tr id="@item.Id">
                     <td>@item.Title</td>
                     <td>@item.Date</td>
                     <td>@item.Details</td>
                     <td>@item.Classification</td>
                     <td class="text-center">
-                        <a asp-page="./Edit" asp-route-id="@item.Id" class='btn btn-link text-warning'><i class="fas fa-pencil-alt"></i></a>
-                        <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-link"><i class="fas fa-info"></i></a>
-                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-link text-danger"><i class="fas fa-trash"></i></a>
+                        <a asp-page="./Edit" id="editEventBtn" asp-route-id="@item.Id" class='btn btn-link text-warning'><i class="fas fa-pencil-alt"></i></a>
+                        <a asp-page="./Details" id="detailEventBtn" asp-route-id="@item.Id" class="btn btn-link"><i class="fas fa-info"></i></a>
+                        <a asp-page="./Delete" id="deleteEventBtn-@(item.Title)"  asp-route-id="@item.Id" class="btn btn-link text-danger"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
             }
