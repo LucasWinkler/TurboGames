@@ -15,6 +15,8 @@
     <Compile Remove="Migrations\20191128104446_RemovedUserSeed.Designer.cs" />
     <Compile Remove="Migrations\20191128104612_RemovedUserGameSeed.cs" />
     <Compile Remove="Migrations\20191128104612_RemovedUserGameSeed.Designer.cs" />
+    <Compile Remove="Migrations\20191128193945_AddUserGameSeed.cs" />
+    <Compile Remove="Migrations\20191128193945_AddUserGameSeed.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

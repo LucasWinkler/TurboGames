@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using GameStore.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,26 +12,7 @@ namespace GameStore.Data.Seeds
     {
         public static void SeedUsers(this ModelBuilder builder)
         {
-            //var hasher = new PasswordHasher<User>();
-
-            //builder.Entity<User>().HasData(
-            //    new User
-            //    {
-            //        Id = "2a2a222-222-22aa-222a-a22aa2a22aa2",
-            //        UserName = "User",
-            //        Email = "user@turbogames.com",
-            //        EmailConfirmed = true,
-            //        NormalizedEmail = "user@turbogames.com".ToUpper(),
-            //        NormalizedUserName = "User".ToUpper(),
-            //        PasswordHash = hasher.HashPassword(null, "User123!"),
-            //        SecurityStamp = Guid.NewGuid().ToString(),
-            //        FirstName = "Turbo",
-            //        LastName = "User",
-            //        Gender = Gender.Other,
-            //        DOB = DateTime.UtcNow,
-            //        PaymentId = Guid.Parse("1c3e6619-7425-40de-944b-e07fc1f90ae7")
-            //    }
-            //);
+            
         }
 
         /// <summary>
@@ -38,7 +20,7 @@ namespace GameStore.Data.Seeds
         /// </summary>
         /// <param name="serviceProvider"></param>
         /// <returns></returns>
-        public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration configuration)
+        public static async Task CreateRoles(IServiceProvider serviceProvider, IConfiguration configuration, TurboGamesContext context)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
@@ -96,7 +78,18 @@ namespace GameStore.Data.Seeds
                 var createUser = await UserManager.CreateAsync(user, userPassword);
                 if (createUser.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(user, "Member");
+                    var addRoleToUser = await UserManager.AddToRoleAsync(user, "Member");
+                    if (addRoleToUser.Succeeded)
+                    {
+                        context.UserGames.Add(
+                            new UserGame
+                            {
+                                UserId = user.Id,
+                                GameId = Guid.Parse("2c9e6679-7425-40de-944b-e07fc1f90ae7"),
+                                PurchaseDate = DateTime.UtcNow
+                            });
+                        await context.SaveChangesAsync();
+                    }
                 }
             }
         }

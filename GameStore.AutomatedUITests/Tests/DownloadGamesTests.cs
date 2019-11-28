@@ -11,7 +11,7 @@ using Xunit;
 
 namespace GameStore.AutomatedUITests.Tests
 {
-    public sealed class DownloadGamesTests
+    public sealed class DownloadGamesTests :IDisposable
     {
         private readonly IWebDriver _driver;
         private readonly GameLibraryPage _page;
@@ -49,7 +49,7 @@ namespace GameStore.AutomatedUITests.Tests
             // Clicks the download button
             _page.ClickDownload();
 
-            Assert.Equal("Game Library", _page.Title);
+            Assert.Equal("Your games", _page.Title);
         }
         [Fact]
         public void Library_AfterDownload_CheckIfFileExist()
@@ -78,9 +78,12 @@ namespace GameStore.AutomatedUITests.Tests
             {
                 return false;
             }
-
         }
 
-
+        public void Dispose()
+        {
+            _driver.Quit();
+            _driver.Dispose();
+        }
     }
 }

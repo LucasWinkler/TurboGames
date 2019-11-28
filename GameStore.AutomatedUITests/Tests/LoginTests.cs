@@ -28,8 +28,8 @@ namespace GameStore.AutomatedUITests.Tests
         [Fact]
         public void Login_CorrectUser_ReturnsHomePageWithRegisteredUserMenu()
         {
-            _loginpage.PopulateUserName("TurboUser");
-            _loginpage.PopulatePassword("Turbo123!");
+            _loginpage.PopulateUserName("User");
+            _loginpage.PopulatePassword("User123!");
             _loginpage.ClickLogin();
 
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
@@ -37,21 +37,20 @@ namespace GameStore.AutomatedUITests.Tests
 
             Assert.Equal("Home", _driver.Title);
             Assert.Contains("Welcome back,", _loginpage.Source);
-            Assert.Contains("TurboUser", _loginpage.Source);
+            Assert.Contains("User", _loginpage.Source);
         }
 
         [Fact]
         public void Login_WhenWrongPassword_ReturnsLoginPage()
         {
-            _loginpage.PopulateUserName("TurboUser");
-            _loginpage.PopulatePassword("Turbo123");
+            _loginpage.PopulateUserName("User");
+            _loginpage.PopulatePassword("UsersPassword123!");
             _loginpage.ClickLogin();
 
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            _loginpage.FindRegisteredUserMenu();
 
             Assert.Equal("Please sign in", _loginpage.Title);
-            // Could also assert.contains for the error message in the source
+            Assert.Contains("Error: Invalid login attempt.", _loginpage.Source);
         }
 
         public void Dispose()

@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace GameStore.AutomatedUITests.PageObjects
 {
@@ -18,11 +19,11 @@ namespace GameStore.AutomatedUITests.PageObjects
         {
         }
 
-        public void PopulateAddressCountry(string value) => AddressCountryElement.SendKeys(value);
+        public void PopulateAddressCountry(string value) => new SelectElement(AddressCountryElement).SelectByText(value);
         public void PopulateAddressFullName(string value) => AddressFullNameElement.SendKeys(value);
         public void PopulateAddressStreetAddress(string value) => AddressStreetAddressElement.SendKeys(value);
         public void PopulateAddressCity(string value) => AddressCityElement.SendKeys(value);
-        public void PopulateAddressStateProvinceRegion(string value) => AddressStateProvinceRegionElement.SendKeys(value);
+        public void PopulateAddressStateProvinceRegion(string value) => new SelectElement(AddressStateProvinceRegionElement).SelectByText(value);
         public void PopulateAddressPostalCode(string value) => AddressPostalCodeElement.SendKeys(value);
         public void ClickCreate() => CreateElement.Click();
     }

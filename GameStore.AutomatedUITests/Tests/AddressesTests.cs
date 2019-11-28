@@ -39,16 +39,21 @@ namespace GameStore.AutomatedUITests.Tests
             _loginHelper.LoginAdmin();
 
             // Populate the elements and submit form
-            _page.PopulateAddressCountry("United States");
-            _page.PopulateAddressFullName("United States");
-            _page.PopulateAddressStreetAddress("372 Otterbein Road");
-            _page.PopulateAddressCity("New York City");      
-            _page.PopulateAddressStateProvinceRegion("New York");
-            _page.PopulateAddressPostalCode("10001");
+            _page.PopulateAddressCountry("Canada");
+            _page.PopulateAddressFullName("John Doe");
+            _page.PopulateAddressStreetAddress("372 Random Road");
+            _page.PopulateAddressCity("Waterloo");      
+            _page.PopulateAddressStateProvinceRegion("Ontario");
+            _page.PopulateAddressPostalCode("N1P1H1");
             _page.ClickCreate();
 
-            Assert.Equal("Addresses", _page.Title);
-            Assert.Contains("Your Addresses", _page.Source);
+            Assert.Equal("Your addresses", _page.Title);
+            Assert.Contains("Canada", _page.Source);
+            Assert.Contains("John Doe", _page.Source);
+            Assert.Contains("372 Random Road", _page.Source);
+            Assert.Contains("Waterloo", _page.Source);
+            Assert.Contains("Ontario", _page.Source);
+            Assert.Contains("N1P1H1", _page.Source);
         }
 
         [Fact]

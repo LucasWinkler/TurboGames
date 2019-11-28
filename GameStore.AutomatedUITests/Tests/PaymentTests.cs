@@ -9,7 +9,7 @@ using Xunit;
 
 namespace GameStore.AutomatedUITests.Tests
 {
-    public sealed class PaymentTests
+    public sealed class PaymentTests :IDisposable
     {
         private readonly IWebDriver _driver;
         private readonly PaymentPage _page;
@@ -62,6 +62,12 @@ namespace GameStore.AutomatedUITests.Tests
             // Make sure we're on the preferences page and check the source for the StatusMessage text
             Assert.Equal("Payment information", _page.Title);
             Assert.Contains("Your payment information has been updated", _page.Source);
+        }
+
+        public void Dispose()
+        {
+            _driver.Quit();
+            _driver.Dispose();
         }
     }
 }
