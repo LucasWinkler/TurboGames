@@ -177,6 +177,24 @@ namespace GameStore.Data.Queries
             }
         }
 
+        public static async Task<bool> AddToWishlistAsync(this TurboGamesContext context, 
+            Wishlist wishlist, Game game)
+        {
+            try
+            {
+                await context.WishlistGames.AddAsync(new WishlistGame { WishlistId = wishlist.Id, GameId = game.Id });
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
+
+                return false;
+            }
+        }
+
         /// <summary>
         /// Checks if the game exists in the users cart.
         /// </summary>

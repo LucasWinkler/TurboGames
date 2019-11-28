@@ -33,6 +33,9 @@ namespace GameStore.Data
         public DbSet<ShoppingCart> Carts { get; set; }
         public DbSet<ShoppingCartGame> CartGames { get; set; }
 
+        public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<WishlistGame> WishlistGames { get; set; }
+
         private void SeedData(ModelBuilder builder)
         {
             builder.SeedUsers();

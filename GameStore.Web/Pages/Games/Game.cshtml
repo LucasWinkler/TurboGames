@@ -18,6 +18,7 @@
                 <h5>Category: <span class="text-secondary">@Model.Game.Category.Name</span></h5>
                 <h5>Developer(s): <span class="text-secondary">@Model.Game.Developer</span></h5>
                 <p class="card-text">@Model.Game.Description</p>
+
                 <form method="post" class="form-inline">
                     <span class="text-warning">
                         @for (int i = 1; i <= 5; i++)
@@ -37,6 +38,10 @@
                         }
                     </span>
                     <button type="submit" asp-route-id="@Model.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
+                </form>
+                //*Will move later, is ugly here*//
+                <form method="post" class="form-inline">
+                    <button type="submit" asp-route-id="@Model.Id" class="btn btn-success ml-auto"><i class="fas fa-gift"></i></button>
                 </form>
             </div>
         </div>

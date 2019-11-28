@@ -110,6 +110,17 @@ namespace GameStore.Web.Pages.Games
                 StatusMessage = $"Error: We were unable to add that game to your cart.";
                 return RedirectToPage();
             }
+
+            if (await _context.AddToWishlistAsync(wishlist, Game))
+            {
+                StatusMessage = $"'{Game.Title}' has been added to your cart.";
+                return RedirectToPage();
+            }
+            else
+            {
+                StatusMessage = $"Error: We were unable to add that game to your wishlist.";
+                return RedirectToPage();
+            }
         }
 
         public async Task<IActionResult> OnPostReviewGameAsync()
