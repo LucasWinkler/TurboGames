@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using GameStore.Data;
 using GameStore.Data.Models;
 using GameStore.Data.Queries;
+using GameStore.Web.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -24,11 +25,20 @@ namespace GameStore.Web.Pages.Cart
 
         [BindProperty]
         public Address Address { get; set; }
+
+        [BindProperty]
+        public Guid AddressId { get; set; }
+
         [BindProperty]
         public Payment Payment { get; set; }
 
+        [BindProperty]
+        public Guid PaymentId { get; set; }
+
         public List<SelectListItem> Countries { get; set; }
         public List<SelectListItem> Provinces { get; set; }
+        public IList<UserAddress> Addresses { get; set; }
+        public IList<Payment> Payments { get; set; }
 
         public CheckoutModel(UserManager<User> userManager, TurboGamesContext context)
         {
@@ -71,6 +81,32 @@ namespace GameStore.Web.Pages.Cart
                 Total += game.Price;
                 Games.Add(game);
             }
+
+            Countries = new List<SelectListItem>();
+            Countries.AddRange(AddressHelper.GetCountries().Select(keyValue => new SelectListItem()
+            {
+                Value = keyValue.Key,
+                Text = keyValue.Value
+            }).OrderBy(x => x.Text));
+
+            Provinces = new List<SelectListItem>();
+            Provinces.AddRange(AddressHelper.GetProvinces().Select(keyValue => new SelectListItem()
+            {
+                Value = keyValue.Key,
+                Text = keyValue.Value
+
+            }).OrderBy(x => x.Text));
+
+            Address = new Address();
+
+            Addresses = await _context.UserAddresses
+               .Include(x => x.User)
+               .Include(x => x.Address)
+               .Where(x => x.UserId == user.Id).ToListAsync();
+
+            Payments = await _context.Payments
+                .Where(x => x.Id == user.PaymentId)
+                .ToListAsync();
 
             return Page();
         }

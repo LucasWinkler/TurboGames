@@ -20,4 +20,24 @@
             provinceInput.val("");
         }
     });
+
+    const newBillingCheckbox = $("#newBillingAddress");
+    newBillingCheckbox.on('change', function () {
+        if ($(this).is(":checked")) {
+            $('#newBillingGroup').removeClass('hidden');
+            $('#existingBillingGroup').addClass('hidden');
+            //$('#newBillingGroup').prop('disabled', false);
+            //$('#existingBillingGroup').prop('disabled', true);
+        }
+    });
+
+    const existingBillingCheckbox = $("#existingBillingAddress");
+    existingBillingCheckbox.on('change', function () {
+        if ($(this).is(":checked")) {
+            $('#existingBillingGroup').removeClass('hidden');
+            $('#newBillingGroup').addClass('hidden');
+            //$('#newBillingGroup').prop('disabled', true);
+            //$('#existingBillingGroup').prop('disabled', false);
+        }
+    });
 })();
