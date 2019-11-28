@@ -159,18 +159,22 @@ namespace GameStore.Data.Queries
         /// <param name="cart"></param>
         /// <param name="game"></param>
         /// <returns></returns>
-        public static async Task AddToCartAsync(this TurboGamesContext context,
+        public static async Task<bool> AddToCartAsync(this TurboGamesContext context,
             ShoppingCart cart, Game game)
         {
             try
             {
                 await context.CartGames.AddAsync(new ShoppingCartGame { CartId = cart.Id, GameId = game.Id });
                 await context.SaveChangesAsync();
-             
+
+                return true;
+                
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.InnerException);
+
+                return false;
             }
         }
 

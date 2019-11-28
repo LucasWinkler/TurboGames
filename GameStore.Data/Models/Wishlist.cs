@@ -17,6 +17,12 @@ namespace GameStore.Data.Models
         public User User { get; set; }
 
         [Required]
+        public Guid GameId { get; set; }
+
+        [Required]
+        public Game Game { get; set; }
+
+        [Required]
         public bool AlreadyExists { get; set; } = false;
     }
 }

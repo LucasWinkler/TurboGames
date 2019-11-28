@@ -100,9 +100,8 @@ namespace GameStore.Web.Pages.Games
                 StatusMessage = $"Error: This game is already in your cart.";
                 return RedirectToPage();
             }
-
-            var isAddedToCart = _context.AddToCartAsync(cart, Game).IsCompletedSuccessfully;
-            if (isAddedToCart)
+ 
+            if (await _context.AddToCartAsync(cart, Game))
             {
                 StatusMessage = $"'{Game.Title}' has been added to your cart.";
                 return RedirectToPage();

@@ -44,11 +44,11 @@ namespace GameStore.Web.Pages.Wishlist
                 return RedirectToPage("/Account/Login");
             }
 
-            var games = from ug in _context.UserGames
-                        where ug.UserId == user.Id
-                        select ug.Game;
+            var wishlist = from uw in _context.Wishlists
+                           where uw.UserId == user.Id
+                           select uw.Game;
 
-            if (games == null)
+            if (wishlist == null)
             {
                 return Page();
             }
