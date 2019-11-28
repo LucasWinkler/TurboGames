@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStore.Data.Migrations
 {
     [DbContext(typeof(TurboGamesContext))]
-    [Migration("20191128055309_AddedWishlistModel")]
-    partial class AddedWishlistModel
+    [Migration("20191128204137_FixedMigrationIssue")]
+    partial class FixedMigrationIssue
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -302,10 +302,6 @@ namespace GameStore.Data.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("UserGame");
-
-                    b.HasData(
-                        new { UserId = "2a2a222-222-22aa-222a-a22aa2a22aa2", GameId = new Guid("2c9e6679-7425-40de-944b-e07fc1f90ae7"), PurchaseDate = new DateTime(2019, 11, 28, 5, 53, 8, 688, DateTimeKind.Utc) }
-                    );
                 });
 
             modelBuilder.Entity("GameStore.Data.Models.Wishlist", b =>
@@ -315,14 +311,10 @@ namespace GameStore.Data.Migrations
 
                     b.Property<bool>("AlreadyExists");
 
-                    b.Property<Guid>("GameId");
-
                     b.Property<string>("UserId")
                         .IsRequired();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameId");
 
                     b.HasIndex("UserId");
 
@@ -413,10 +405,6 @@ namespace GameStore.Data.Migrations
                     b.HasIndex("PaymentId");
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new { Id = "2a2a222-222-22aa-222a-a22aa2a22aa2", AccessFailedCount = 0, ConcurrencyStamp = "8185a30b-f033-431e-90b1-4b484ecab66a", DOB = new DateTime(2019, 11, 28, 5, 53, 8, 685, DateTimeKind.Utc), Email = "user@turbogames.com", EmailConfirmed = true, FirstName = "Turbo", Gender = 2, LastName = "User", LockoutEnabled = false, NormalizedEmail = "USER@TURBOGAMES.COM", NormalizedUserName = "USER", PasswordHash = "AQAAAAEAACcQAAAAEKlwdp2+VFZSSEEKnUbH1EX3Wlt0ExwL2lstjCgFzW1SG6JynBE1a2W6o7hr0O4BUQ==", PaymentId = new Guid("1c3e6619-7425-40de-944b-e07fc1f90ae7"), SecurityStamp = "226699e5-318e-4121-b1d9-d64fdcd513a5", ShouldReceiveEmails = false, TwoFactorEnabled = false, UserName = "User" }
-                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -630,11 +618,6 @@ namespace GameStore.Data.Migrations
 
             modelBuilder.Entity("GameStore.Data.Models.Wishlist", b =>
                 {
-                    b.HasOne("GameStore.Data.Models.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("GameStore.Data.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
