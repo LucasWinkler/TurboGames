@@ -87,6 +87,7 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage();
             }
 
+            //Cart
             var cart = await _context.GetCartAsync(user);
             if (cart == null)
             {
@@ -100,20 +101,35 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage();
             }
 
-            if (await _context.AddToCartAsync(cart, Game))
+            var isAddedToCart = _context.AddToCartAsync(cart, Game).IsCompletedSuccessfully;
+            if (isAddedToCart)
             {
                 StatusMessage = $"'{Game.Title}' has been added to your cart.";
                 return RedirectToPage();
             }
-            else
+            else if (!isAddedToCart)
             {
                 StatusMessage = $"Error: We were unable to add that game to your cart.";
                 return RedirectToPage();
             }
 
+            //Wishlist
+            var wishlist = await _context.GetWishlistAsync(user);
+            if (wishlist == null)
+            {
+                StatusMessage = $"Error: An error occurred while getting your wishlist.";
+                return RedirectToPage();
+            }
+
+            if (await _context.DoesGameExistInWishlistAsync(wishlist, Game))
+            {
+                StatusMessage = $"Error: This game is already on your wishlist.";
+                return RedirectToPage();
+            }
+
             if (await _context.AddToWishlistAsync(wishlist, Game))
             {
-                StatusMessage = $"'{Game.Title}' has been added to your cart.";
+                StatusMessage = $"'{Game.Title}' has been added to your wishlist.";
                 return RedirectToPage();
             }
             else
@@ -121,6 +137,7 @@ namespace GameStore.Web.Pages.Games
                 StatusMessage = $"Error: We were unable to add that game to your wishlist.";
                 return RedirectToPage();
             }
+
         }
 
         public async Task<IActionResult> OnPostReviewGameAsync()

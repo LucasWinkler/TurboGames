@@ -172,6 +172,25 @@ namespace GameStore.Data
                    .HasForeignKey(x => x.GameId)
                    .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Wishlist>()
+                    .ToTable("Wishlist");
+
+            builder.Entity<WishlistGame>()
+                   .ToTable("WishlistGame")
+                   .HasKey(x => new { x.WishlistId, x.GameId });
+
+            builder.Entity<WishlistGame>()
+                .HasOne(x => x.Wishlist)
+                .WithMany()
+                .HasForeignKey(x => x.WishlistId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<WishlistGame>()
+                    .HasOne(x => x.Game)
+                    .WithMany()
+                    .HasForeignKey(x => x.GameId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<UserAddress>()
                    .ToTable("UserAddress")
                    .HasKey(x => new { x.UserId, x.AddressId });

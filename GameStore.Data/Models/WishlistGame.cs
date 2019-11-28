@@ -11,7 +11,7 @@ namespace GameStore.Data.Models
         public Guid WishlistId { get; set; }
 
         [Required]
-        public Wishlist wishlist { get; set; }
+        public Wishlist Wishlist { get; set; }
 
         [Required]
         public Guid GameId { get; set; }

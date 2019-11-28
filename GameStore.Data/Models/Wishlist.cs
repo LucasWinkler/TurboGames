@@ -15,5 +15,8 @@ namespace GameStore.Data.Models
 
         [Required]
         public User User { get; set; }
+
+        [Required]
+        public bool AlreadyExists { get; set; } = false;
     }
 }

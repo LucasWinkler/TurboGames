@@ -159,41 +159,21 @@ namespace GameStore.Data.Queries
         /// <param name="cart"></param>
         /// <param name="game"></param>
         /// <returns></returns>
-        public static async Task<bool> AddToCartAsync(this TurboGamesContext context,
+        public static async Task AddToCartAsync(this TurboGamesContext context,
             ShoppingCart cart, Game game)
         {
             try
             {
                 await context.CartGames.AddAsync(new ShoppingCartGame { CartId = cart.Id, GameId = game.Id });
                 await context.SaveChangesAsync();
-
-                return true;
+             
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e.InnerException);
-
-                return false;
             }
         }
 
-        public static async Task<bool> AddToWishlistAsync(this TurboGamesContext context, 
-            Wishlist wishlist, Game game)
-        {
-            try
-            {
-                await context.WishlistGames.AddAsync(new WishlistGame { WishlistId = wishlist.Id, GameId = game.Id });
-                await context.SaveChangesAsync();
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.InnerException);
-
-                return false;
-            }
-        }
 
         /// <summary>
         /// Checks if the game exists in the users cart.
