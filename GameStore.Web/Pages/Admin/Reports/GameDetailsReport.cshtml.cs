@@ -9,6 +9,7 @@ using GameStore.Data;
 using GameStore.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using GameStore.Data.Queries;
 
 namespace GameStore.Web.Pages.Admin.Reports
 {
@@ -24,7 +25,7 @@ namespace GameStore.Web.Pages.Admin.Reports
             _userManager = userManager;
         }
 
-        public IList<Game> Game { get; set; }
+        public IList<Game> Games { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -34,10 +35,15 @@ namespace GameStore.Web.Pages.Admin.Reports
                 return RedirectToPage("/Account/Login");
             }
 
-            Game = await _context.Games
+            Games = await _context.Games
                 .Include(g => g.Platform)
                 .Include(g => g.Category)
                 .ToListAsync();
+
+            foreach(var game in Games)
+            {
+                game.Rating = await _context.GetTotalGameRatingAsync(game.Id);
+            }
 
             return Page();
         }
