@@ -7,6 +7,7 @@ using GameStore.Data;
 using GameStore.Data.Models;
 using GameStore.Data.Queries;
 using GameStore.Web.Helpers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -15,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Web.Pages.Cart
 {
+    [Authorize]
     public class CheckoutModel : PageModel
     {
         private readonly UserManager<User> _userManager;
@@ -27,23 +29,15 @@ namespace GameStore.Web.Pages.Cart
         [BindProperty]
         public Address BillingAddress { get; set; }
 
-        //[BindProperty]
-        //public Guid BillingAddressId { get; set; }
-
         [BindProperty]
         public Address ShippingAddress { get; set; }
 
-        //[BindProperty]
-        //public Guid ShippingAddressId { get; set; }
 
         [BindProperty]
         public Payment Payment { get; set; }
 
         [BindProperty]
         public bool IsSameAddress { get; set; }
-
-        //[BindProperty]
-        //public Guid PaymentId { get; set; }
 
         public List<SelectListItem> Countries { get; set; }
         public List<SelectListItem> Provinces { get; set; }
