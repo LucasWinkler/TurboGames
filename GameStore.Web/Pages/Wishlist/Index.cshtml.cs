@@ -44,11 +44,11 @@ namespace GameStore.Web.Pages.Wishlist
                 return RedirectToPage("/Account/Login");
             }
 
-            var wishlist = from uw in _context.Wishlists
-                           where uw.UserId == user.Id
-                           select uw.Game;
+            var games = from uwu in _context.Wishlists
+                        where uwu.UserId == user.Id
+                        select uwu.Game;
 
-            if (wishlist == null)
+            if (games == null)
             {
                 return Page();
             }
@@ -80,7 +80,7 @@ namespace GameStore.Web.Pages.Wishlist
 
             if (id == null)
             {
-                return RedirectToPage("/Games/Library/Index");
+                return RedirectToPage("/Games/Wishlist/Index");
             }
 
             var game = await _context.Games

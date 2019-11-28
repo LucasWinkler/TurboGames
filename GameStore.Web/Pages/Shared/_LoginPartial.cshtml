@@ -12,15 +12,19 @@
         <div class="dropdown-menu" aria-labelledby="userMenuLink">
             <a class="dropdown-item" asp-page="/Profile/Index" asp-route-username="@User.Identity.Name">
                 <i class="fas fa-user ml-1 mr-1"></i>
-                Your profile
+                Your Profile
             </a>
             <a class="dropdown-item" asp-page="/Games/Library">
                 <i class="fas fa-gamepad mr-1"></i>
-                Your games
+                Your Games
             </a>
             <a class="dropdown-item" asp-page="/Friends/Index">
                 <i class="fas fa-user-friends mr-1"></i>
-                Your friends
+                Your Friends
+            </a>
+            <a class="dropdown-item" asp-page="/Wishlist/Index">
+                <i class="fas fa-gift"></i>
+                Your Wishlist
             </a>
             @if (User.IsInRole("Admin"))
             {
