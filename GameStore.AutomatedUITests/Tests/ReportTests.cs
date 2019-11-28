@@ -38,6 +38,8 @@ namespace GameStore.AutomatedUITests.Tests
 
             _loginHelper.LoginAdmin();
 
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+
             _page.ClickGames();
 
             Assert.Equal("Game Report", _page.Title);
