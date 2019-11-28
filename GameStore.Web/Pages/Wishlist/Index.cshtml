@@ -10,10 +10,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Games[0].Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Games[0].Price)
+                Price
             </th>
         </tr>
     </thead>
@@ -22,17 +22,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @Html.DisplayFor(modelItem => item.Game.Title)
                 </td>
                 <td>
-                    $@Html.DisplayFor(modelItem => item.Price)
+                    $@Html.DisplayFor(modelItem => item.Game.Price)
                 </td>
                 <td></td>
             </tr>
         }
     </tbody>
 </table>
-//Probably put delete/remove from wishlsit here
 @*<form method="post" class="float-right">
     <input type="submit" value="Checkout" class="btn btn-success" />
 </form>*@

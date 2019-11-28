@@ -22,7 +22,7 @@ namespace GameStore.Web.Pages.Wishlist
         private readonly UserManager<User> _userManager;
 
         [BindProperty]
-        public IList<Game> Games { get; set; }
+        public IList<WishlistGame> Games { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -46,10 +46,6 @@ namespace GameStore.Web.Pages.Wishlist
                 return RedirectToPage("/Account/Login");
             }
 
-            //var games = from uwu in _context.WishlistGames
-            //            where uwu. == user.Id
-            //            select uwu.Game;
-
             var wishlist = await _context.Wishlists.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.AlreadyExists);
             var games = _context.WishlistGames.Include(x => x.Game).Where(x => x.WishlistId == wishlist.Id);
 
@@ -59,17 +55,8 @@ namespace GameStore.Web.Pages.Wishlist
                 return Page();
             }
 
-            //if (!string.IsNullOrEmpty(Search))
-            //{
-            //    games = games.Where(x => x.Title.Contains(Search.Trim()));
-            //}
+            Games = await games.ToListAsync();
 
-            //Games = await games.ToListAsync();
-
-            //foreach (var game in Games)
-            //{
-            //    game.Rating = await _context.GetTotalGameRatingAsync(game);
-            //}
 
             StatusMessage = !string.IsNullOrEmpty(statusMessage) ? statusMessage : "";
 
