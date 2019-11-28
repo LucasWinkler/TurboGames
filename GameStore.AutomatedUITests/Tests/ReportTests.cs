@@ -25,7 +25,8 @@ namespace GameStore.AutomatedUITests.Tests
             };
 
             _driver = new FirefoxDriver(geckoService, firefoxOptions);
-            _page = new ReportPage(_driver, "Admin/Reports");
+            //_page = new ReportPage(_driver, "Admin/Reports");
+            _page = new ReportPage(_driver, "/Admin/Reports/GameListReport");
             _loginHelper = new LoginHelper(_driver);
 
             _page.Navigate();
@@ -42,7 +43,7 @@ namespace GameStore.AutomatedUITests.Tests
 
             _page.ClickGames();
 
-            Assert.Equal("Game Report", _page.Title);
+            Assert.Equal("Games Report", _page.Title);
 
         }
 
