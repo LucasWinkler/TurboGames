@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Account\Settings\Payments\" />
     <Folder Include="Pages\Admin\Reports\" />
   </ItemGroup>
   

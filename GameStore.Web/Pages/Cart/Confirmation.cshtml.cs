@@ -9,9 +9,14 @@ namespace GameStore.Web.Pages.Cart
 {
     public class ConfirmationModel : PageModel
     {
-        public void OnGet()
+        public void OnGet(Guid cartId)
         {
-
+            /* TODO:
+             * Make sure user is signed in.
+             * Find the cart by id. If no cart then redirect to cart or home.
+             * If cart doesnt belong to the current user then show access-denied page.
+             * Display details
+             */
         }
     }
 }

@@ -8,6 +8,7 @@ using GameStore.Data.Queries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Web.Pages.Cart
@@ -20,6 +21,14 @@ namespace GameStore.Web.Pages.Cart
         public double Total { get; set; }
         public int CartCount { get; set; }
         public List<Game> Games { get; set; }
+
+        [BindProperty]
+        public Address Address { get; set; }
+        [BindProperty]
+        public Payment Payment { get; set; }
+
+        public List<SelectListItem> Countries { get; set; }
+        public List<SelectListItem> Provinces { get; set; }
 
         public CheckoutModel(UserManager<User> userManager, TurboGamesContext context)
         {
