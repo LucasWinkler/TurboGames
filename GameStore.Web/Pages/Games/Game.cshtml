@@ -37,11 +37,8 @@
                             }
                         }
                     </span>
-                    <button type="submit" asp-route-id="@Model.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
-                </form>
-                //*Will move later, is ugly here*//
-                <form method="post" class="form-inline">
-                    <button type="submit" asp-route-id="@Model.Id" class="btn btn-success ml-auto"><i class="fas fa-gift"></i></button>
+                    <button type="submit" asp-page-handler="Cart" asp-route-id="@Model.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
+                    <button type="submit" asp-page-handler="Wishlist" asp-route-id="@Model.Id" class="btn btn-success ml-auto"><i class="fas fa-gift"></i></button>
                 </form>
             </div>
         </div>

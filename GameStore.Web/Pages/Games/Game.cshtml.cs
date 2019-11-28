@@ -67,7 +67,7 @@ namespace GameStore.Web.Pages.Games
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostCartAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -107,11 +107,35 @@ namespace GameStore.Web.Pages.Games
                 StatusMessage = $"'{Game.Title}' has been added to your cart.";
                 return RedirectToPage();
             }
-            else if (!isAddedToCart)
+            else
             {
                 StatusMessage = $"Error: We were unable to add that game to your cart.";
                 return RedirectToPage();
             }
+
+        }
+
+        public async Task<IActionResult> OnPostWishlistAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            Game = await _context.GetGameAsync(Id);
+            if (Game == null)
+            {
+                return NotFound();
+            }
+
+            if (await _context.DoesUserOwnGameAsync(user, Game))
+            {
+                StatusMessage = $"Error: You already own this game.";
+                return RedirectToPage();
+            }
+
+      
 
             //Wishlist
             var wishlist = await _context.GetWishlistAsync(user);

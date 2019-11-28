@@ -81,7 +81,7 @@ namespace GameStore.Data.Queries
         /// <param name="user"></param>
         /// <param name="game"></param>
         /// <returns></returns>
-        public static async Task<bool> AlreadyExistsOnWishlistAsync(this TurboGamesContext context,
+        public static async Task<bool> UserOwnsGameWishlistAsync(this TurboGamesContext context,
             User user, Game game)
         {
             return await context.UserGames
