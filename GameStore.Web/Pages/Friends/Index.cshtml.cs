@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameStore.Web.Pages.Friends
@@ -19,10 +20,16 @@ namespace GameStore.Web.Pages.Friends
         private readonly UserManager<User> _userManager;
         private readonly TurboGamesContext _context;
 
-        public IList<Friendship> Friendships { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
+
+
+        public IList<Friendship> Friendships { get; set; }
+        public List<SelectListItem> FriendshipTypes { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string Search { get; set; }
 
         public IndexModel(UserManager<User> userManager, TurboGamesContext context)
         {
@@ -38,10 +45,17 @@ namespace GameStore.Web.Pages.Friends
                 return RedirectToPage("/Account/Login");
             }
 
-            Friendships = await _context.Friendships
+            IQueryable<Friendship> friendships = _context.Friendships
                 .Include(f => f.Receiver)
                 .Include(f => f.Sender)
-                .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id).ToListAsync();
+                .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id && x.RequestStatus != FriendStatusCode.Rejected);
+
+            if (!string.IsNullOrEmpty(Search))
+            {
+                friendships = friendships.Where(x => x.Receiver.UserName == user.UserName ? x.Sender.UserName.Contains(Search.Trim()) : x.Receiver.UserName.Contains(Search.Trim()));
+            }
+
+            Friendships = await friendships.ToListAsync();
 
             return Page();
         }
