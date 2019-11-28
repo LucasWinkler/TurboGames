@@ -1,6 +1,6 @@
 ﻿@page "/Users"
 @model IndexModel
-
+@inject UserManager<User> userManager
 @{
     ViewData["Title"] = "Registered users";
 }
@@ -18,6 +18,7 @@
     <table class="table table-striped custab">
         <thead>
             <tr>
+                <th>Role(s)</th>
                 <th>Username</th>
                 <th>First Name</th>
                 <th>Last Name</th>
@@ -27,6 +28,7 @@
             @foreach (var item in Model.Users)
             {
                 <tr>
+                    <td>@string.Join(", ", userManager.GetRolesAsync(item).GetAwaiter().GetResult().ToArray())</td>
                     <td><a asp-page="/Profile/Index" asp-route-username="@item.UserName">@item.UserName</a></td>
                     <td>@item.FirstName</td>
                     <td>@item.LastName</td>
