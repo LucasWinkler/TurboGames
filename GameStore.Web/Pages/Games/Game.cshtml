@@ -65,6 +65,7 @@
                             }
                         </span>
                         <small class="text-muted float-right">Posted by @review.Reviewer.UserName at @review.CreatedDate.ToShortDateString()</small>
+                        <hr />
                     }
                 }
                 else
@@ -77,8 +78,6 @@
                     string reviewButtonText = Model.HasReview ? "Edit your review" : "Leave a review";
                     string modalTitle = Model.HasReview ? $"Edit your review for {@Model.Game.Title}" : $"Write a review for {@Model.Game.Title}";
                     string modalSubmitText = Model.HasReview ? "Save review" : "Post review";
-
-                    <hr />
 
                     <a href="#reviewModal" data-toggle="modal" data-target="#reviewModal" class="btn btn-success">@reviewButtonText</a>
                     <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-hidden="true">

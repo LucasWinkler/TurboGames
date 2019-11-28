@@ -100,10 +100,7 @@ namespace GameStore.Web.Pages.Cart
                 Total += game.Price;
             }
 
-            if (Total == 0)
-            {
-                return RedirectToPage("./Confirmation");
-            }
+        
 
             return RedirectToPage("./Checkout");
         }

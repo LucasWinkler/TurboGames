@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,8 @@ namespace GameStore.Web.Pages.Cart
              * If cart doesnt belong to the current user then show access-denied page.
              * Display details
              */
+
+            Debug.WriteLine("---> Cart Id:" + cartId);
         }
     }
 }
