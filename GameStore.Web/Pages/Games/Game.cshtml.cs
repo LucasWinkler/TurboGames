@@ -67,7 +67,7 @@ namespace GameStore.Web.Pages.Games
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostCartAsync()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -87,6 +87,7 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage();
             }
 
+            //Cart
             var cart = await _context.GetCartAsync(user);
             if (cart == null)
             {
@@ -99,7 +100,7 @@ namespace GameStore.Web.Pages.Games
                 StatusMessage = $"Error: This game is already in your cart.";
                 return RedirectToPage();
             }
-
+ 
             if (await _context.AddToCartAsync(cart, Game))
             {
                 StatusMessage = $"'{Game.Title}' has been added to your cart.";
@@ -110,6 +111,56 @@ namespace GameStore.Web.Pages.Games
                 StatusMessage = $"Error: We were unable to add that game to your cart.";
                 return RedirectToPage();
             }
+
+        }
+
+        public async Task<IActionResult> OnPostWishlistAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            Game = await _context.GetGameAsync(Id);
+            if (Game == null)
+            {
+                return NotFound();
+            }
+
+            if (await _context.DoesUserOwnGameAsync(user, Game))
+            {
+                StatusMessage = $"Error: You already own this game.";
+                return RedirectToPage();
+            }
+
+      
+
+            //Wishlist
+            var wishlist = await _context.GetWishlistAsync(user);
+            if (wishlist == null)
+            {
+                StatusMessage = $"Error: An error occurred while getting your wishlist.";
+                return RedirectToPage();
+            }
+
+            if (await _context.DoesGameExistInWishlistAsync(wishlist, Game))
+            {
+                StatusMessage = $"Error: This game is already on your wishlist.";
+                return RedirectToPage();
+            }
+
+            if (await _context.AddToWishlistAsync(wishlist, Game))
+            {
+                StatusMessage = $"'{Game.Title}' has been added to your wishlist.";
+                return RedirectToPage();
+            }
+            else
+            {
+                StatusMessage = $"Error: We were unable to add that game to your wishlist.";
+                return RedirectToPage();
+            }
+
         }
 
         public async Task<IActionResult> OnPostReviewGameAsync()

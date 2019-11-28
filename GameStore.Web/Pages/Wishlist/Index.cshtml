@@ -1,8 +1,34 @@
-﻿@page
-@model GameStore.Web.Pages.Wishlist.IndexModel
+﻿@page "/Wishlist/Index"
+@model WishlistModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Wishlist";
 }
 
-<h2>Index</h2>
-
+<h1>@ViewData["Title"]</h1>
+<partial name="_StatusMessage" for="StatusMessage" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Games)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Game.Title)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Game.Price)
+                </td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>

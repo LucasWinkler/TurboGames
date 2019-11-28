@@ -302,6 +302,38 @@ namespace GameStore.Data.Migrations
                     b.ToTable("UserGame");
                 });
 
+            modelBuilder.Entity("GameStore.Data.Models.Wishlist", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("AlreadyExists");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Wishlist");
+                });
+
+            modelBuilder.Entity("GameStore.Data.Models.WishlistGame", b =>
+                {
+                    b.Property<Guid>("WishlistId");
+
+                    b.Property<Guid>("GameId");
+
+                    b.Property<double>("Price");
+
+                    b.HasKey("WishlistId", "GameId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("WishlistGame");
+                });
+
             modelBuilder.Entity("GameStore.Data.User", b =>
                 {
                     b.Property<string>("Id")
@@ -579,6 +611,27 @@ namespace GameStore.Data.Migrations
                     b.HasOne("GameStore.Data.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("GameStore.Data.Models.Wishlist", b =>
+                {
+                    b.HasOne("GameStore.Data.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GameStore.Data.Models.WishlistGame", b =>
+                {
+                    b.HasOne("GameStore.Data.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("GameStore.Data.Models.Wishlist", "Wishlist")
+                        .WithMany()
+                        .HasForeignKey("WishlistId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
