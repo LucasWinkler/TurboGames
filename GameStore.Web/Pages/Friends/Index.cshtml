@@ -1,80 +1,95 @@
 ﻿@page
 @model GameStore.Web.Pages.Friends.IndexModel
 @{
-    ViewData["Title"] = "Friends and family";
+    ViewData["Title"] = "Your friends";
 }
 
-<h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Family
-            </th>
-            <th>
-                Friend
-            </th>
-            <th>
-                Status
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Friendships.Where(x => x.RequestStatus != FriendStatusCode.Rejected))
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsFamily)
-            </td>
-            <td>
-                @if (item.Sender.UserName == HttpContext.User.Identity.Name)
-                {
-                    @Html.DisplayFor(modelItem => item.Receiver.UserName)
-                }
-                else
-                {
-                    @Html.DisplayFor(modelItem => item.Sender.UserName)
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestStatus)
-            </td>
-            <td>
-                <form method="post">
-                    @if (item.RequestStatus == FriendStatusCode.Accepted)
+<div class="m-5">
+    <div class="text-center py-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <form class="mb-3">
+        <div class="input-group md-form form-sm form-1 pl-0">
+            <input class="form-control my-0 py-1" type="search" placeholder="Search by username" asp-for="Search">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Username</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Friendships)
+            {
+            <tr>
+                <td>
+                    @if (item.IsFamily)
                     {
-                        @if (item.Sender.UserName == HttpContext.User.Identity.Name)
+                        <span class="btn btn-outline-success">Family</span>
+                    }
+                    else
+                    {
+                        <span class="btn btn-outline-primary">Friend</span>
+                    }
+                </td>
+                <td>
+                    @if (item.Sender.UserName == HttpContext.User.Identity.Name)
+                    {
+                        <a asp-page="/Profile/Index" asp-route-username="@item.Receiver.UserName">
+                            @Html.DisplayFor(modelItem => item.Receiver.UserName)
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-page="/Profile/Index" asp-route-username="@item.Sender.UserName">
+                            @Html.DisplayFor(modelItem => item.Sender.UserName)
+                        </a>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestStatus)
+                </td>
+                <td>
+                    <form method="post">
+                        @if (item.RequestStatus == FriendStatusCode.Accepted)
                         {
-                            <input type="submit" value="Delete" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@item.ReceiverId" />
-                        }
-                        else
-                        {
-                            <input type="submit" value="Delete" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@item.SenderId" />
-                        }
+                            @if (item.Sender.UserName == HttpContext.User.Identity.Name)
+                            {
+                                <input type="submit" value="Delete" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@item.ReceiverId" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Delete" class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@item.SenderId" />
+                            }
 
-                    }
-                    else if (item.RequestStatus == FriendStatusCode.Pending)
-                    {
-                        @if (item.Sender.UserName == HttpContext.User.Identity.Name)
-                        {
-                            <input type="submit" value="Cancel" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.ReceiverId" />
                         }
-                        else if (item.Sender.UserName != HttpContext.User.Identity.Name)
+                        else if (item.RequestStatus == FriendStatusCode.Pending)
                         {
-                            <input type="submit" value="Accept" class="btn btn-success" asp-page-handler="Accept" asp-route-id="@item.SenderId" />
-                            <input type="submit" value="Reject" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.SenderId" />
+                            @if (item.Sender.UserName == HttpContext.User.Identity.Name)
+                            {
+                                <input type="submit" value="Cancel" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.ReceiverId" />
+                            }
+                            else if (item.Sender.UserName != HttpContext.User.Identity.Name)
+                            {
+                                <input type="submit" value="Accept" class="btn btn-success" asp-page-handler="Accept" asp-route-id="@item.SenderId" />
+                                <input type="submit" value="Reject" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.SenderId" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Accept" class="btn btn-success" asp-page-handler="Accept" asp-route-id="@item.SenderId" />
+                                <input type="submit" value="Reject" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.SenderId" />
+                            }
                         }
-                        else
-                        {
-                            <input type="submit" value="Accept" class="btn btn-success" asp-page-handler="Accept" asp-route-id="@item.SenderId" />
-                            <input type="submit" value="Reject" class="btn btn-warning" asp-page-handler="Reject" asp-route-id="@item.SenderId" />
-                        }
-                    }
-                </form>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                    </form>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

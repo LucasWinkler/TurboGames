@@ -29,9 +29,9 @@
                                 {
                                     @if (!Model.IsFriend)
                                     {
-                                        <form method="post" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username">
-                                            <input type="submit" value="Add friend" class="btn btn-primary" />
-                                            <input type="submit" value="Add family" class="btn btn-success" asp-route-isFamily="true" />
+                                        <form method="post">
+                                            <input type="submit" asp-page-handler="AddFriend" asp-route-id="@Model.Info.Username" value="Add friend" class="btn btn-primary" />
+                                            <input type="submit" asp-page-handler="AddFamily" asp-route-id="@Model.Info.Username" value="Add family" class="btn btn-success" />
                                         </form>
                                     }
                                 }

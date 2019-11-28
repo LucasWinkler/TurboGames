@@ -47,7 +47,7 @@
             cardType = "jcb";
         }
 
-        return cardType !== null ? 'fab fa-cc-' + cardType + ' fa-2x text-primary' : 'fas fa-credit-card fa-2x';
+        return cardType !== null ? 'fab fa-cc-' + cardType + ' text-info' : 'fas fa-credit-card';
     }
 
     function ChangeCardTypeIcon() {
@@ -62,4 +62,24 @@
     });
 
     ChangeCardTypeIcon();
+
+    const newCardCheckbox = $("#newPayment");
+    newCardCheckbox.on('change', function () {
+        if ($(this).is(":checked")) {
+            $('#newPaymentGroup').removeClass('hidden');
+            $('#existingPaymentGroup').addClass('hidden');
+            //$('#newBillingGroup').prop('disabled', false);
+            //$('#existingBillingGroup').prop('disabled', true);
+        }
+    });
+
+    const existingCardCheckbox = $("#existingPayment");
+    existingCardCheckbox.on('change', function () {
+        if ($(this).is(":checked")) {
+            $('#existingPaymentGroup').removeClass('hidden');
+            $('#newPaymentGroup').addClass('hidden');
+            //$('#newBillingGroup').prop('disabled', true);
+            //$('#existingBillingGroup').prop('disabled', false);
+        }
+    });
 })();
