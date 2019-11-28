@@ -12,6 +12,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using GameStore.Data.Queries;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GameStore.Web.Pages.Games
 {
@@ -21,17 +22,17 @@ namespace GameStore.Web.Pages.Games
         private readonly TurboGamesContext _context;
         private readonly UserManager<User> _userManager;
 
-        [BindProperty]
         public IList<Game> Games { get; set; }
-
-        [TempData]
-        public string StatusMessage { get; set; }
-
-        [TempData]
-        public bool IsReviewed { get; set; }
+        public IList<SelectListItem> Categories { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string Search { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string Category { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public LibraryModel(TurboGamesContext context, UserManager<User> userManager)
         {
@@ -47,29 +48,36 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage("/Account/Login");
             }
 
-            var games = from ug in _context.UserGames
-                        where ug.UserId == user.Id
-                        select ug.Game;
+            IQueryable<Game> games = from ug in _context.UserGames
+                                     where ug.UserId == user.Id
+                                     select ug.Game;
 
-            if (games == null)
-            {
-                return Page();
-            }
+            games = games.Include(g => g.Category).Include(g => g.Platform);
+
+            IQueryable<Category> categories = _context.Categories;
+
+            Categories = categories
+                .Select(x => new SelectListItem() { Text = x.Name, Value = x.Name })
+                .ToList();
 
             if (!string.IsNullOrEmpty(Search))
             {
                 games = games.Where(x => x.Title.Contains(Search.Trim()));
             }
 
-            Games = await games.ToListAsync();
+            if (!string.IsNullOrEmpty(Category))
+            {
+                games = games.Where(x => x.Category.Name.Contains(Category.Trim()));
+            }
 
-            foreach (var game in Games)
+            foreach (var game in games)
             {
                 game.Rating = await _context.GetTotalGameRatingAsync(game);
             }
 
-            StatusMessage = !string.IsNullOrEmpty(statusMessage) ? statusMessage : "";
+            Games = await games.ToListAsync();
 
+            StatusMessage = !string.IsNullOrEmpty(statusMessage) ? statusMessage : "";
             return Page();
         }
 
@@ -83,7 +91,7 @@ namespace GameStore.Web.Pages.Games
 
             if (id == null)
             {
-                return RedirectToPage("/Games/Library/Index");
+                return RedirectToPage("/Games/Library");
             }
 
             var game = await _context.Games
@@ -93,7 +101,7 @@ namespace GameStore.Web.Pages.Games
 
             if (game == null)
             {
-                return RedirectToPage("/Games/Library/Index");
+                return RedirectToPage("/Games/Library");
             }
 
             var gameData = new Dictionary<string, string>();

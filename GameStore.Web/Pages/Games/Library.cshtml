@@ -2,50 +2,47 @@
 @model LibraryModel
 
 @{
-    ViewData["Title"] = "Game Library";
+    ViewData["Title"] = "Your games";
 }
 
-<h1>@Model.User.Identity.Name's @ViewData["Title"]</h1>
-
-<form class="form-group mb-3">
-    <h6>Search by title:</h6>
-    <input type="text" asp-for="Search" />
-    <input type="submit" value="Search" />
-</form>
-<partial name="_StatusMessage" for="StatusMessage" />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Games[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Games[0].Rating)
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Games)
-        {
-            <tr onclick="location.href = '@Url.Page("/Games", "OnGetAsync", new { id = item.Id })'" class="row-hover">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
-                </td>
-                <td>
-                    <a id = "btnDownload" asp-page-handler="Download" asp-route-id="@item.Id" class="btn btn-primary">Download</a>
-                </td>
+<div class="m-5">
+    <div class="text-center py-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <form class="mb-3">
+        <div class="input-group md-form form-sm form-1 pl-0">
+            <div class="input-group-prepend">
+                <select asp-for="Category" asp-items="Model.Categories" class="custom-select" onchange="this.form.submit()">
+                    <option value="" selected="selected">Any category</option>
+                    <option disabled>---------------</option>
+                </select>
+            </div>
+            <input class="form-control my-0 py-1" type="search" placeholder="Search by title" asp-for="Search">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Platform</th>
+                <th class="text-center">Action</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var game in Model.Games)
+            {
+                <tr onclick="location.href = '@Url.Page("./Game", "OnGetAsync", new { id = game.Id })'" class="row-hover">
+                    <td>@game.Title</td>
+                    <td>@game.Category.Name</td>
+                    <td>@game.Platform.Name</td>
+                    <td class="text-center">
+                        <a asp-page-handler="Download" asp-route-id="@game.Id" class="btn btn-primary">Download</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
