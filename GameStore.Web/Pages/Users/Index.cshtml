@@ -1,0 +1,39 @@
+﻿@page "/Users"
+@model IndexModel
+@inject UserManager<User> userManager
+@{
+    ViewData["Title"] = "Registered users";
+}
+
+<div class="m-5">
+    <div class="text-center py-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <form class="mb-3">
+        <div class="input-group md-form form-sm form-1 pl-0">
+            <input class="form-control my-0 py-1" type="search" placeholder="Search by username" asp-for="Search">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+    <table class="table table-striped custab">
+        <thead>
+            <tr>
+                <th>Role(s)</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Users)
+            {
+                <tr>
+                    <td>@string.Join(", ", userManager.GetRolesAsync(item).GetAwaiter().GetResult().ToArray())</td>
+                    <td><a asp-page="/Profile/Index" asp-route-username="@item.UserName">@item.UserName</a></td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

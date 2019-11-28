@@ -75,7 +75,7 @@ span.tags {
 }
 
     .row-hover:hover {
-        background-color: lightgray;
+        background-color: lightgray !important;
     }
 
 
@@ -236,7 +236,7 @@ select {
                     padding: 3px 0px;
                 }
 
-                    .event-list > li > .info > ul > li a {
+                    .event-list > li > .info > ul > li button {
                         display: block;
                         width: 100%;
                         color: rgb(30, 30, 30);
@@ -309,7 +309,7 @@ select {
                 padding: 0px;
             }
 
-                .event-list > li > .social > ul > li a {
+                .event-list > li > .social > ul > li button {
                     display: block;
                     width: 40px;
                     padding: 10px 0px 9px;

@@ -50,12 +50,12 @@
                                     @if (Model.IsRegistered)
                                     {
 
-                                        <a asp-page-handler="Unregister">Unregister</a>
+                                        <button class="btn btn-link" asp-page-handler="Unregister">Unregister</button>
                                     }
                                     else
                                     {
 
-                                        <a asp-page-handler="Register">Register</a>
+                                <button class="btn btn-link" asp-page-handler="Register">Register</button>
                                     }
                                 </form>
                             </li>

@@ -143,7 +143,7 @@ namespace GameStore.Web.Pages.Games
                 if (HasReview)
                 {
                     review.ReviewStatus = ReviewStatus.Pending;
-                    review.Content = Review.Content;
+                    review.Content = Review.Content ?? "No review.";
                     review.Rating = Review.Rating;
 
                     _context.Attach(review).State = EntityState.Modified;
@@ -152,7 +152,7 @@ namespace GameStore.Web.Pages.Games
                 }
                 else
                 {
-                    await _context.Reviews.AddAsync(new Review { ReviewerId = user.Id, GameId = Game.Id, Content = Review.Content, Rating = Review.Rating });
+                    await _context.Reviews.AddAsync(new Review { ReviewerId = user.Id, GameId = Game.Id, Content = Review.Content ?? "No review.", Rating = Review.Rating });
 
                     StatusMessage = $"Review posted and is currently pending. Please wait for an administrator to accept it.";
                 }
