@@ -31,7 +31,7 @@ namespace GameStore.Web.Pages.Events
         public string StatusMessage { get; set; }
 
         [TempData]
-        public bool IsRegistered { get; set; } = false;
+        public bool IsRegistered { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
         {
