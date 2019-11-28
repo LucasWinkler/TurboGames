@@ -11,6 +11,16 @@
     <Compile Remove="Migrations\20191111083431_UpdateUserModelAndAdminSeeding.Designer.cs" />
     <Compile Remove="Migrations\20191114133428_UserGameSeedData.cs" />
     <Compile Remove="Migrations\20191114133428_UserGameSeedData.Designer.cs" />
+    <Compile Remove="Migrations\20191128055309_AddedWishlistModel.cs" />
+    <Compile Remove="Migrations\20191128055309_AddedWishlistModel.Designer.cs" />
+    <Compile Remove="Migrations\20191128104446_RemovedUserSeed.cs" />
+    <Compile Remove="Migrations\20191128104446_RemovedUserSeed.Designer.cs" />
+    <Compile Remove="Migrations\20191128104612_RemovedUserGameSeed.cs" />
+    <Compile Remove="Migrations\20191128104612_RemovedUserGameSeed.Designer.cs" />
+    <Compile Remove="Migrations\20191128193945_AddUserGameSeed.cs" />
+    <Compile Remove="Migrations\20191128193945_AddUserGameSeed.Designer.cs" />
+    <Compile Remove="Migrations\20191128204046_FixedMigrationIssue.cs" />
+    <Compile Remove="Migrations\20191128204046_FixedMigrationIssue.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +31,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Selenium.Support" Version="3.141.0" />
   </ItemGroup>
 
 </Project>

@@ -33,6 +33,9 @@ namespace GameStore.Data
         public DbSet<ShoppingCart> Carts { get; set; }
         public DbSet<ShoppingCartGame> CartGames { get; set; }
 
+        public DbSet<Wishlist> Wishlists { get; set; }
+        public DbSet<WishlistGame> WishlistGames { get; set; }
+
         private void SeedData(ModelBuilder builder)
         {
             builder.SeedUsers();
@@ -168,6 +171,25 @@ namespace GameStore.Data
                    .WithMany()
                    .HasForeignKey(x => x.GameId)
                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Wishlist>()
+                    .ToTable("Wishlist");
+
+            builder.Entity<WishlistGame>()
+                   .ToTable("WishlistGame")
+                   .HasKey(x => new { x.WishlistId, x.GameId });
+
+            builder.Entity<WishlistGame>()
+                .HasOne(x => x.Wishlist)
+                .WithMany()
+                .HasForeignKey(x => x.WishlistId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<WishlistGame>()
+                    .HasOne(x => x.Game)
+                    .WithMany()
+                    .HasForeignKey(x => x.GameId)
+                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<UserAddress>()
                    .ToTable("UserAddress")

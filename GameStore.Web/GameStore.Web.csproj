@@ -17,14 +17,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
+    <PackageReference Include="Selenium.Support" Version="3.141.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GameStore.Data\GameStore.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Admin\Reports\" />
   </ItemGroup>
   
 </Project>

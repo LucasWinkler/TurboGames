@@ -1,4 +1,5 @@
 ﻿using System;
+using GameStore.Data;
 using GameStore.Data.Seeds;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -22,13 +23,14 @@ namespace GameStore
                 {
                     var serviceProvider = services.GetRequiredService<IServiceProvider>();
                     var configuration = services.GetRequiredService<IConfiguration>();
+                    var context = services.GetRequiredService<TurboGamesContext>();
 
-                    UserSeed.CreateRoles(serviceProvider, configuration).Wait();
+                    UserSeed.CreateRoles(serviceProvider, configuration, context).Wait();
                 }
                 catch (Exception exception)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(exception, "An error occurred while creating roles");
+                    logger.LogError(exception, "An error occurred while creating roles and users");
                 }
             }
             

@@ -90,7 +90,7 @@ namespace GameStore.Web.Pages.Profile
                 FamilyCount = _context.Friendships.Where(x => (x.ReceiverId == user.Id || x.SenderId == user.Id) && x.IsFamily && x.RequestStatus == FriendStatusCode.Accepted).Count()
             };
 
-            var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = User.Identity.Name != user.UserName ? await _userManager.GetUserAsync(User) : null;
             if (currentUser == null)
             {
                 IsFriend = false;
@@ -102,12 +102,12 @@ namespace GameStore.Web.Pages.Profile
                 .Include(x => x.Sender)
                 .Where(x => x.ReceiverId == currentUser.Id || x.SenderId == currentUser.Id);
 
-            IsFriend = await friendships.AnyAsync(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && (x.RequestStatus == FriendStatusCode.Accepted || x.RequestStatus == FriendStatusCode.Pending));
+            IsFriend = await friendships.AnyAsync(x => (x.Sender.UserName == user.UserName || x.Receiver.UserName == user.UserName) && (x.RequestStatus == FriendStatusCode.Accepted || x.RequestStatus == FriendStatusCode.Pending));
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAddFriendAsync(string username, bool isFamily = false)
+        public async Task<IActionResult> OnPostAddFriendAsync(string username)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -139,6 +139,7 @@ namespace GameStore.Web.Pages.Profile
             {
                 var friendship = await friendships.FirstOrDefaultAsync(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.Rejected);
                 friendship.RequestStatus = FriendStatusCode.Pending;
+                friendship.IsFamily = false;
 
                 try
                 {
@@ -158,7 +159,78 @@ namespace GameStore.Web.Pages.Profile
             {
                 SenderId = user.Id,
                 ReceiverId = receiver.Id,
-                IsFamily = isFamily
+                IsFamily = false
+            };
+
+            try
+            {
+                await _context.AddAsync(newFriendship);
+                await _context.SaveChangesAsync();
+
+                StatusMessage = $"You have sent them a friend request. You must wait for them to accept it.";
+                return RedirectToPage("./Index");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.InnerException);
+            }
+
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAddFamilyAsync(string username)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            var friendships = _context.Friendships
+                .Include(x => x.Receiver)
+                .Include(x => x.Sender)
+                .Where(x => x.ReceiverId == user.Id || x.SenderId == user.Id);
+
+            if (friendships.Any(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.Pending))
+            {
+                StatusMessage = $"Error: There is already a pending friend request for that user.";
+
+                return RedirectToPage("./Index");
+            }
+            else if (friendships.Any(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.Accepted))
+            {
+                StatusMessage = $"Error: You already have this user added as a friend.";
+
+                return RedirectToPage("./Index");
+            }
+
+            var receiver = await _userManager.FindByNameAsync(username);
+
+            if (friendships.Any(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.Rejected))
+            {
+                var friendship = await friendships.FirstOrDefaultAsync(x => (x.Sender.UserName == username || x.Receiver.UserName == username) && x.RequestStatus == FriendStatusCode.Rejected);
+                friendship.RequestStatus = FriendStatusCode.Pending;
+                friendship.IsFamily = true;
+
+                try
+                {
+                    _context.Update(friendship);
+                    await _context.SaveChangesAsync();
+
+                    StatusMessage = $"You have sent them a friend request. You must wait for them to accept it.";
+                    return RedirectToPage("./Index");
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.InnerException);
+                }
+            }
+
+            var newFriendship = new Friendship
+            {
+                SenderId = user.Id,
+                ReceiverId = receiver.Id,
+                IsFamily = true
             };
 
             try

@@ -1,0 +1,386 @@
+﻿@page "/Cart/Checkout"
+@model GameStore.Web.Pages.Cart.CheckoutModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="text-center py-5">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+<section id="checkout-container">
+    <div class="container">
+        <form method="post">
+            <div class="row py-5">
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Your cart</span>
+                        <span class="badge badge-secondary badge-pill">@Model.CartCount</span>
+                    </h4>
+                    <partial name="_StatusMessage" for="StatusMessage" />
+                    <ul class="list-group mb-3">
+                        @foreach (var game in Model.Games)
+                        {
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">@game.Title</h6>
+                                    <small class="text-muted">Category: @game.Category.Name</small>
+                                </div>
+                                <span class="text-muted">$@game.Price</span>
+                            </li>
+                        }
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total</span>
+                            <strong>$@Model.Total</strong>
+                        </li>
+                    </ul>
+                    <div class="payment-methods">
+                        <p class="pt-4 mb-2">Payment Options</p>
+                        <hr>
+                        <ul class="list-inline d-flex">
+                            <li class="mx-1 text-info">
+                                <i class="fa-2x fab fa-cc-visa"></i>
+                            </li>
+                            <li class="mx-1 text-info">
+                                <i class="fa-2x fab fa-cc-mastercard"></i>
+                            </li>
+                            <li class="mx-1 text-info">
+                                <i class="fa-2x fab fa-cc-jcb"></i>
+                            </li>
+                            <li class="mx-1 text-info">
+                                <i class="fa-2x fab fa-cc-discover"></i>
+                            </li>
+                            <li class="mx-1 text-info">
+                                <i class="fa-2x fab fa-cc-amex"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8 order-md-1">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="d-block my-3">
+                        <hr class="mb-4">
+                        <div class="custom-control custom-radio">
+                            <input id="newBillingAddress" name="billingAddressRadio" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="newBillingAddress">Use a new billing address</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="existingBillingAddress" name="billingAddressRadio" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="existingBillingAddress">Use an existing billing address</label>
+                        </div>
+
+                        <hr class="mb-4">
+                        <h4 class="mb-3">Billing address</h4>
+
+                        <div id="newBillingGroup">
+                            <label asp-for="BillingAddress.FullName"></label>
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fas fa-user"></i> </span>
+                                </div>
+                                <input asp-for="BillingAddress.FullName" class="form-control" placeholder="Full name" type="text">
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="BillingAddress.StreetAddress"></label>
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                    </div>
+                                    <input asp-for="BillingAddress.StreetAddress" class="form-control" placeholder="Street address" type="text">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="BillingAddress.City"></label>
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                    </div>
+                                    <input asp-for="BillingAddress.City" class="form-control" placeholder="City" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5 mb-3">
+                                    <label asp-for="BillingAddress.Country"></label>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fas fa-globe"></i> </span>
+                                        </div>
+                                        <select asp-for="BillingAddress.Country" asp-items="Model.Countries" class="form-control">
+                                            <option selected="selected" value="">Select country</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div id="billingProvinceGroup" class="hidden">
+                                        <label asp-for="BillingAddress.StateProvinceRegion">Province</label>
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                            </div>
+                                            <select asp-for="BillingAddress.StateProvinceRegion" asp-items="Model.Provinces" class="form-control" disabled>
+                                                <option selected="selected" value="">Select province</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="billingStateRegionGroup">
+                                        <label asp-for="BillingAddress.StateProvinceRegion">State/region</label>
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                            </div>
+                                            <input asp-for="BillingAddress.StateProvinceRegion" class="form-control" placeholder="State or region" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="BillingAddress.PostalCode"></label>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                        </div>
+                                        <input asp-for="BillingAddress.PostalCode" class="form-control" placeholder="A1A 1A1" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="existingBillingGroup" class="hidden">
+                            @if (Model.Addresses.Count == 0)
+                            {
+                                <p>You have no existing addresses.</p>
+                            }
+                            <fieldset>
+                                @for (int i = 0; i < Model.Addresses.Count; i++)
+                                {
+                                    var address = Model.Addresses[i].Address;
+                                    var countryName = AddressHelper.GetCountries().GetValueOrDefault(address.Country);
+                                    var provinceStateName = AddressHelper.GetProvinces().GetValueOrDefault(address.StateProvinceRegion) ?? address.StateProvinceRegion;
+
+                                    <div class="custom-control custom-radio">
+                                        @if (i == 0)
+                                        {
+                                            <input asp-for="BillingAddress.Id" value="@address.Id" id="@address.Id" type="radio" class="custom-control-input" checked>
+                                        }
+                                        else
+                                        {
+                                            <input asp-for="BillingAddress.Id" value="@address.Id" id="@address.Id" type="radio" class="custom-control-input">
+                                        }
+                                        <label class="custom-control-label" for="@address.Id">
+                                            <span class="font-weight-bold">@address.FullName</span> @address.StreetAddress, @address.City, @provinceStateName, @address.PostalCode, @countryName
+                                        </label>
+                                    </div>
+                                }
+                            </fieldset>
+                        </div>
+                        <hr class="mb-4">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" asp-for="IsSameAddress" checked>
+                            <label class="custom-control-label" asp-for="IsSameAddress">Shipping address is the same as my billing address</label>
+                        </div>
+                        <div id="shippingAddressGroup" class="hidden">
+                            <hr class="mb-4">
+                            <div class="custom-control custom-radio">
+                                <input id="newShippingAddress" name="shippingAddressRadio" type="radio" class="custom-control-input" checked required>
+                                <label class="custom-control-label" for="newShippingAddress">Use a new shipping address</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="existingShippingAddress" name="shippingAddressRadio" type="radio" class="custom-control-input" required>
+                                <label class="custom-control-label" for="existingShippingAddress">Use an existing shipping address</label>
+                            </div>
+                            <hr class="mb-4">
+                            <div id="newShippingGroup">
+                                <label asp-for="ShippingAddress.FullName"></label>
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fas fa-user"></i> </span>
+                                    </div>
+                                    <input asp-for="ShippingAddress.FullName" class="form-control" placeholder="Full name" type="text">
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="ShippingAddress.StreetAddress"></label>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                        </div>
+                                        <input asp-for="ShippingAddress.StreetAddress" class="form-control" placeholder="Street address" type="text">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="ShippingAddress.City"></label>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                        </div>
+                                        <input asp-for="ShippingAddress.City" class="form-control" placeholder="City" type="text">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 mb-3">
+                                        <label asp-for="ShippingAddress.Country"></label>
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fas fa-globe"></i> </span>
+                                            </div>
+                                            <select asp-for="ShippingAddress.Country" asp-items="Model.Countries" class="form-control">
+                                                <option selected="selected" value="">Select country</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div id="shippingProvinceGroup" class="hidden">
+                                            <label asp-for="ShippingAddress.StateProvinceRegion">Province</label>
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                                </div>
+                                                <select asp-for="ShippingAddress.StateProvinceRegion" asp-items="Model.Provinces" class="form-control" disabled>
+                                                    <option selected="selected" value="">Select province</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="shippingStateRegionGroup">
+                                            <label asp-for="ShippingAddress.StateProvinceRegion">State/region</label>
+                                            <div class="form-group input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                                </div>
+                                                <input asp-for="ShippingAddress.StateProvinceRegion" class="form-control" placeholder="State or region" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label asp-for="ShippingAddress.PostalCode"></label>
+                                        <div class="form-group input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> <i class="fas fa-map-marker"></i> </span>
+                                            </div>
+                                            <input asp-for="ShippingAddress.PostalCode" class="form-control" placeholder="A1A 1A1" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="existingShippingGroup" class="hidden">
+                                @if (Model.Addresses.Count == 0)
+                                {
+                                    <p>You have no existing addresses.</p>
+                                }
+                                <fieldset>
+                                    @for (int i = 0; i < Model.Addresses.Count; i++)
+                                    {
+                                        var address = Model.Addresses[i].Address;
+                                        var countryName = AddressHelper.GetCountries().GetValueOrDefault(address.Country);
+                                        var provinceStateName = AddressHelper.GetProvinces().GetValueOrDefault(address.StateProvinceRegion) ?? address.StateProvinceRegion;
+
+                                        <div class="custom-control custom-radio">
+                                            @if (i == 0)
+                                            {
+                                                <input asp-for="ShippingAddress.Id" value="@address.Id" id="shipping-@address.Id" type="radio" class="custom-control-input" checked>
+                                            }
+                                            else
+                                            {
+                                                <input asp-for="ShippingAddress.Id" value="@address.Id" id="shipping-@address.Id" type="radio" class="custom-control-input">
+                                            }
+                                            <label class="custom-control-label" for="shipping-@address.Id">
+                                                <span class="font-weight-bold">@address.FullName</span> @address.StreetAddress, @address.City, @provinceStateName, @address.PostalCode, @countryName
+                                            </label>
+                                        </div>
+                                    }
+                                </fieldset>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <div class="custom-control custom-radio">
+                            <input id="newPayment" name="paymentRadio" type="radio" class="custom-control-input" checked required>
+                            <label class="custom-control-label" for="newPayment">Use a new credit card</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="existingPayment" name="paymentRadio" type="radio" class="custom-control-input" required>
+                            <label class="custom-control-label" for="existingPayment">Use your existing credit card</label>
+                        </div>
+                        <hr class="mb-4">
+                        <h4 class="mb-3">Payment</h4>
+
+                        <div id="newPaymentGroup">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Payment.CardName"></label>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fas fa-user"></i> </span>
+                                        </div>
+                                        <input asp-for="Payment.CardName" class="form-control" placeholder="Card name" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Payment.CardNumber"></label>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i id="cardType" class="fas fa-credit-card"></i> </span>
+                                        </div>
+                                        <input asp-for="Payment.CardNumber" class="form-control" placeholder="Card number" type="text" maxlength="16">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="Payment.CardExpirationDate">Expiration</label>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                                        </div>
+                                        <input asp-for="Payment.CardExpirationDate" placeholder="MM/YY" class="form-control" maxlength="5">
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label asp-for="Payment.CardCVC"></label>
+                                    <div class="form-group input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"> <i class="fas fa-lock"></i> </span>
+                                        </div>
+                                        <input asp-for="Payment.CardCVC" class="form-control" placeholder="- - -" type="text" maxlength="4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="existingPaymentGroup" class="hidden">
+                            @if (Model.Payments.Count == 0)
+                            {
+                                <p>You do not have a saved credit card.</p>
+                            }
+                            <fieldset>
+                                @for (int i = 0; i < Model.Payments.Count; i++)
+                                {
+                                    var payment = Model.Payments[i];
+
+                                    <div class="custom-control custom-radio">
+                                        @if (i == 0)
+                                        {
+                                            <input asp-for="Payment.Id" value="@payment.Id" id="@payment.Id" type="radio" class="custom-control-input" checked>
+                                        }
+                                        else
+                                        {
+                                            <input asp-for="Payment.Id" value="@payment.Id" id="@payment.Id" type="radio" class="custom-control-input">
+                                        }
+                                        <label class="custom-control-label" for="@payment.Id">
+                                            <span class="font-weight-bold">@payment.CardName</span> xxxx-xxxx-xxxx-@payment.CardNumber.Substring(payment.CardNumber.Length - 4, 4)
+                                        </label>
+                                    </div>
+                                }
+                            </fieldset>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">
+                            <i class="fa fa-credit-card"></i> Continue to checkout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/js/addresses.js"></script>
+    <script src="~/js/payment.js"></script>
+}
