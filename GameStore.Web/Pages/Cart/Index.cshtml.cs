@@ -72,75 +72,76 @@ namespace GameStore.Web.Pages.Cart
             return Page();
         }
 
-        //public async Task<IActionResult> OnPostAsync()
-        //{
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user == null)
+        //    public async Task<IActionResult> OnPostAsync()
         //    {
-        //        return RedirectToPage("/Account/Login");
-        //    }
-
-        //    var cart = await _context.Carts.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
-        //    if (cart == null)
-        //    {
-        //        StatusMessage = $"Error: You must have items in your cart.";
-        //        return RedirectToPage();
-        //    }
-
-        //    var cartGames = _context.CartGames.Include(x => x.Game).Where(x => x.CartId == cart.Id);
-        //    if (cartGames == null)
-        //    {
-        //        StatusMessage = $"Error: You must have items in your cart.";
-        //        return RedirectToPage();
-        //    }
-
-        //    var address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == user.BillingAddressId);
-        //    var payment = await _context.Payment.FirstOrDefaultAsync(x => x.Id == user.PaymentId);
-        //    if (address == null || payment == null)
-        //    {
-        //        StatusMessage = $"Error: You must have both payment and address information. Please go to your account settings.";
-        //        return RedirectToPage();
-        //    }
-
-        //    foreach (var item in cartGames)
-        //    {
-        //        var game = item.Game;
-        //        var userGames = await _context.UserGames.Where(x => x.GameId == game.Id && x.UserId == user.Id).ToListAsync();
-
-        //        if (userGames.Count != 0)
+        //        var user = await _userManager.GetUserAsync(User);
+        //        if (user == null)
         //        {
-        //            StatusMessage = $"Error: You already own at least one of these games.";
+        //            return RedirectToPage("/Account/Login");
+        //        }
+
+        //        var cart = await _context.Carts.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.IsCheckedOut);
+        //        if (cart == null)
+        //        {
+        //            StatusMessage = $"Error: You must have items in your cart.";
         //            return RedirectToPage();
         //        }
-        //    }
 
-        //    try
-        //    {
-        //        cart.IsCheckedOut = true;
-        //        _context.Update(cart);
+        //        var cartGames = _context.CartGames.Include(x => x.Game).Where(x => x.CartId == cart.Id);
+        //        if (cartGames == null)
+        //        {
+        //            StatusMessage = $"Error: You must have items in your cart.";
+        //            return RedirectToPage();
+        //        }
 
-        //        await _context.SaveChangesAsync();
+        //        var address = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == user.BillingAddressId);
+        //        var payment = await _context.Payment.FirstOrDefaultAsync(x => x.Id == user.PaymentId);
+        //        if (address == null || payment == null)
+        //        {
+        //            StatusMessage = $"Error: You must have both payment and address information. Please go to your account settings.";
+        //            return RedirectToPage();
+        //        }
 
         //        foreach (var item in cartGames)
         //        {
-        //            await _context.AddAsync(new UserGame
+        //            var game = item.Game;
+        //            var userGames = await _context.UserGames.Where(x => x.GameId == game.Id && x.UserId == user.Id).ToListAsync();
+
+        //            if (userGames.Count != 0)
         //            {
-        //                GameId = item.Game.Id,
-        //                UserId = user.Id
-        //            });
+        //                StatusMessage = $"Error: You already own at least one of these games.";
+        //                return RedirectToPage();
+        //            }
         //        }
 
-        //        await _context.SaveChangesAsync();
+        //        try
+        //        {
+        //            cart.IsCheckedOut = true;
+        //            _context.Update(cart);
 
-        //        StatusMessage = $"Success: You have purchased {cartGames.Count()} game(s)!";
-        //        return RedirectToPage("/Games/Library/Index");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Debug.WriteLine(e.InnerException);
-        //    }
+        //            await _context.SaveChangesAsync();
 
-        //    return Page();
+        //            foreach (var item in cartGames)
+        //            {
+        //                await _context.AddAsync(new UserGame
+        //                {
+        //                    GameId = item.Game.Id,
+        //                    UserId = user.Id
+        //                });
+        //            }
+
+        //            await _context.SaveChangesAsync();
+
+        //            StatusMessage = $"Success: You have purchased {cartGames.Count()} game(s)!";
+        //            return RedirectToPage("/Games/Library/Index");
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            Debug.WriteLine(e.InnerException);
+        //        }
+
+        //        return Page();
+        //    }
         //}
     }
 }
