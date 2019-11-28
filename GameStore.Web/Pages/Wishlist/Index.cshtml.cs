@@ -40,13 +40,13 @@ namespace GameStore.Web.Pages.Wishlist
     {
       var user = await _userManager.GetUserAsync(User);
 
-
-      if (user == null)
+            if (user == null)
       {
         return RedirectToPage("/Account/Login");
       }
 
-      var wishlist = await _context.Wishlists.FirstOrDefaultAsync(x => x.UserId == user.Id && !x.AlreadyExists);
+            var wishlist = await _context.GetWishlistAsync(user);
+
       var games = _context.WishlistGames.Include(x => x.Game).Where(x => x.WishlistId == wishlist.Id);
 
 
