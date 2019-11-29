@@ -58,7 +58,8 @@
                                         }
                                     }
                                 </small>
-                                <button type="submit" asp-route-id="@game.Id" class="btn btn-success ml-auto"><i class="fas fa-cart-plus"></i></button>
+                                <button type="submit" asp-page-handler="Wishlist" asp-route-id="@game.Id" class="btn btn-secondary ml-auto"><i class="fas fa-gift"></i></button>
+                                <button type="submit" asp-page-handler="Cart" asp-route-id="@game.Id" class="btn btn-success ml-2"><i class="fas fa-cart-plus"></i></button>
                             </form>
                         </div>
                     </div>

@@ -1,34 +1,35 @@
 ﻿@page "/Wishlist/Index"
 @model WishlistModel
 @{
-    ViewData["Title"] = "Wishlist";
+    ViewData["Title"] = "Your wishlist";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" for="StatusMessage" />
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Title
-            </th>
-            <th>
-                Price
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Games)
-        {
+<div class="m-5">
+    <div class="text-center py-5">
+        <h1 class="display-4">@ViewData["Title"]</h1>
+    </div>
+    <form class="mb-3">
+        <div class="input-group md-form form-sm form-1 pl-0">
+            <input class="form-control my-0 py-1" type="search" placeholder="Search by title" asp-for="Search">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+    <table class="table table-striped custab">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Game.Title)
-                </td>
-                <td>
-                    $@Html.DisplayFor(modelItem => item.Game.Price)
-                </td>
-                <td></td>
+                <th>Title</th>
+                <th>Price</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var wishlistGame in Model.Games)
+            {
+                var game = wishlistGame.Game;
+                <tr onclick="location.href = '@Url.Page("/Games/Game", "OnGetAsync", new { id = game.Id })'" class="row-hover">
+                    <td>@game.Title</td>
+                    <td>$@game.Price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,8 +1,8 @@
-﻿@page
+﻿@page "/Admin/Reports/Games/Details"
 @model GameStore.Web.Pages.Admin.Reports.GameDetailsModel
 @{
     ViewData["Title"] = "Games Report";
-    ViewData["ActivePage"] = DashboardNavPages.ManageGames;
+    ViewData["ActivePage"] = DashboardNavPages.GameDetailsReport;
 }
 
 <div class="m-5">
@@ -26,13 +26,13 @@
         <tbody>
             @foreach (var item in Model.Games)
             {
-            <tr>
-                <td>@item.Title</td>
-                @*<td>@item.Developer</td>*@
-                <td>@item.Category.Name</td>
-                <td>@item.Rating</td>
-                <td>@item.Developer</td>
-            </tr>
+                <tr>
+                    <td>@item.Title</td>
+                    @*<td>@item.Developer</td>*@
+                    <td>@item.Category.Name</td>
+                    <td>@item.Rating</td>
+                    <td>@item.Developer</td>
+                </tr>
             }
         </tbody>
     </table>

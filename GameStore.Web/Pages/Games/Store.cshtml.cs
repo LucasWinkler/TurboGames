@@ -80,7 +80,7 @@ namespace GameStore.Web.Pages.Games
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(Guid id)
+        public async Task<IActionResult> OnPostCartAsync(Guid id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -121,6 +121,51 @@ namespace GameStore.Web.Pages.Games
             else
             {
                 StatusMessage = $"Error: We were unable to add that game to your cart.";
+                return RedirectToPage();
+            }
+        }
+
+        public async Task<IActionResult> OnPostWishlistAsync(Guid id)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToPage("/Account/Login");
+            }
+
+            var game = await _context.GetGameAsync(id);
+            if (game == null)
+            {
+                return NotFound();
+            }
+
+            if (await _context.DoesUserOwnGameAsync(user, game))
+            {
+                StatusMessage = $"Error: You already own this game.";
+                return RedirectToPage();
+            }
+
+            var wishlist = await _context.GetWishlistAsync(user);
+            if (wishlist == null)
+            {
+                StatusMessage = $"Error: An error occurred while getting your wishlist.";
+                return RedirectToPage();
+            }
+
+            if (await _context.DoesGameExistInWishlistAsync(wishlist, game))
+            {
+                StatusMessage = $"Error: This game is already on your wishlist.";
+                return RedirectToPage();
+            }
+
+            if (await _context.AddToWishlistAsync(wishlist, game))
+            {
+                StatusMessage = $"'{game.Title}' has been added to your wishlist.";
+                return RedirectToPage();
+            }
+            else
+            {
+                StatusMessage = $"Error: We were unable to add that game to your wishlist.";
                 return RedirectToPage();
             }
         }

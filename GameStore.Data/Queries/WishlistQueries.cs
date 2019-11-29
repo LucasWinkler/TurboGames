@@ -43,8 +43,7 @@ namespace GameStore.Data.Queries
             return wishlist;
         }
 
-        public static async Task<bool> AddToWishlistAsync(this TurboGamesContext context,
-     Wishlist wishlist, Game game)
+        public static async Task<bool> AddToWishlistAsync(this TurboGamesContext context, Wishlist wishlist, Game game)
         {
             try
             {

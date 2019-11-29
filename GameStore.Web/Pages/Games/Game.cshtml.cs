@@ -87,7 +87,6 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage();
             }
 
-            //Cart
             var cart = await _context.GetCartAsync(user);
             if (cart == null)
             {
@@ -134,9 +133,6 @@ namespace GameStore.Web.Pages.Games
                 return RedirectToPage();
             }
 
-      
-
-            //Wishlist
             var wishlist = await _context.GetWishlistAsync(user);
             if (wishlist == null)
             {
@@ -160,7 +156,6 @@ namespace GameStore.Web.Pages.Games
                 StatusMessage = $"Error: We were unable to add that game to your wishlist.";
                 return RedirectToPage();
             }
-
         }
 
         public async Task<IActionResult> OnPostReviewGameAsync()
