@@ -26,7 +26,7 @@ namespace GameStore.AutomatedUITests.Tests
 
             _driver = new FirefoxDriver(geckoService, firefoxOptions);
             //_page = new ReportPage(_driver, "Admin/Reports");
-            _page = new ReportPage(_driver, "/Admin/Reports/GameListReport");
+            _page = new ReportPage(_driver, "/Admin/Reports/Games");
             _loginHelper = new LoginHelper(_driver);
 
             _page.Navigate();

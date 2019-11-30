@@ -44,12 +44,17 @@ namespace GameStore.AutomatedUITests.Tests
             // Accept cookies so the status message will appear
             _page.ClickAcceptCookies();
 
-
             string creditCard = "4123450131003313";
             string exp = "12/23";
             string cvc = "343";
             string name = "Lucas Winkler";
+
             // Populate the elements and submit form
+            _page.ClearCreditCard();
+            _page.ClearCreditCardName();
+            _page.ClearCVC();
+            _page.ClearExpiryDate();
+
             _page.PopulateCreditCard(creditCard.Replace("4123450131003313", "4123450131003312"));
             _page.PopulateExpiryDate(exp.Replace("12/23","01/19"));
             _page.PopulateCVC(cvc.Replace("343","312"));
