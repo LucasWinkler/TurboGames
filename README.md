@@ -31,7 +31,7 @@ It uses ASP.NET Core 2.1, Razor Pages, MS SQL Server and a code-first design.
 	 <tr>
       <td>Frontend Developer</td>
       <td>Fernando Guardado</td>
-      <td>https://github.com/FernandoGuardado1998</td>
+      <td>https://github.com/GuardadoFernando</td>
     </tr>
   </tbody>
 </table>
