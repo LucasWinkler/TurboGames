@@ -4,6 +4,8 @@ This is a team project for a class in college.
 We were put into groups for this class and we were supposed to design and create a virtual game store using ASP.NET.
 It uses ASP.NET Core 2.1, Razor Pages, MS SQL Server and a code-first design.
 
+![turbogames ui](./turbogames.gif)
+
 <table>
   <thead>
     <tr>
