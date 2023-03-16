@@ -3,8 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-GameStore-FFCE9325-BF63-4E62-BCF4-4421AD970231</UserSecretsId>
-	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+
     <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
+    <StartupObject>GameStore.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using GameStore.Web.Services;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 
 namespace GameStore
 {
@@ -42,7 +43,7 @@ namespace GameStore
             // Adds the database context using a connection string from appsettings.json
             services.AddDbContext<TurboGamesContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("LocalConnection")));
+                    Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User, IdentityRole>(options =>
             {

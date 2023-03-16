@@ -21,8 +21,8 @@ namespace GameStore.AutomatedUITests.PageObjects
             Driver = driver;
 
             // Configure the url that the test will navigate to
-            _baseUrl = "http://localhost";
-            _port = "51990"; // 44378
+            _baseUrl = "https://localhost";
+            _port = "44323";
             _pageRoute = pageRoute;
         }
 
